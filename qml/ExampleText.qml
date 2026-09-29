@@ -19,7 +19,9 @@ ColumnLayout {
     property bool speakTranslation: true // 🔊 on English / German translations
     spacing: 2
 
-    readonly property bool persian: Translator.meaningLanguage === "fa"
+    property string target: ""    // translation language; "" = the learning box's meaning language
+    readonly property string lang: target !== "" ? target : Translator.meaningLanguage
+    readonly property bool persian: lang === "fa"
     readonly property bool wanted: example.trim() !== ""
     readonly property string packTranslation: persian ? (knownTranslation || WordPacks.exampleTranslation(example)) : ""
     readonly property string translation: !wanted ? "" : (packTranslation || fetched)
@@ -31,20 +33,23 @@ ColumnLayout {
         requestId = -1
         if (!wanted || packTranslation !== "")
             return
-        const saved = Translator.saved(example)
+        const saved = root.target === "" ? Translator.saved(example)
+                                         : Translator.savedBetween(example, Translator.sourceLanguage, root.lang)
         if (saved !== "")
             fetched = saved
         else if (Translator.useOnline && onlineLookup)
             debounce.restart() // don't translate every keystroke in the editor
     }
     onExampleChanged: lookup()
+    onLangChanged: lookup()
     onWantedChanged: lookup()
     Component.onCompleted: lookup()
 
     Timer {
         id: debounce
         interval: 700
-        onTriggered: if (root.wanted) root.requestId = Translator.translate(root.example)
+        onTriggered: if (root.wanted) root.requestId = root.target === "" ? Translator.translate(root.example)
+                    : Translator.translateBetween(root.example, Translator.sourceLanguage, root.lang)
     }
     Connections {
         target: Translator
@@ -83,7 +88,7 @@ ColumnLayout {
             Layout.alignment: Qt.AlignTop
             visible: !root.persian && root.speakTranslation && !/[\u0600-\u06FF]/.test(root.translation)
             speakText: root.translation
-            languageTag: Translator.meaningLanguage === "en" ? "en-US" : "de-DE"
+            languageTag: root.lang === "en" ? "en-US" : "de-DE"
             implicitHeight: 32
         }
     }

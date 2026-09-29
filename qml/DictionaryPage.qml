@@ -1,3 +1,4 @@
+import QtCore
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -5,7 +6,8 @@ import QtQuick.Controls.Material
 import LearningBox
 
 // Dictionary: look up a word or sentence in both directions between the learning language of the
-// selected learning box and its meaning language (e.g. Deutsch → فارسی and فارسی → Deutsch).
+// selected learning box and a second language: the box's meaning language by default, or any other
+// one picked at the top (e.g. Deutsch ↔ فارسی or Deutsch ↔ English; remembered per learning language).
 // Word pack (German → Persian, offline), saved translations, online translation (Full app),
 // example sentences, 🔊 for German / English, and "Add to learning box".
 Page {
@@ -13,7 +15,23 @@ Page {
     title: qsTr("Dictionary")
 
     readonly property string learn: CardStore.learningLanguage   // "de" / "en"
-    readonly property string meaning: Translator.meaningLanguage // "fa" / "en" / "de"
+    readonly property string boxMeaning: Translator.meaningLanguage // "fa" / "en" / "de"
+    // Second language of the dictionary: never the learning language
+    readonly property var otherLanguages: ["fa", "en", "de"].filter(c => c !== learn)
+    readonly property string chosen: learn === "en" ? prefs.otherForEnglish : prefs.otherForGerman
+    readonly property string meaning: otherLanguages.indexOf(chosen) >= 0 ? chosen : boxMeaning
+    function choose(c) {
+        if (learn === "en") prefs.otherForEnglish = c
+        else prefs.otherForGerman = c
+        if (reverse) { reverse = false; field.text = "" }   // the typed text was in the old language
+        lookup()
+    }
+    Settings {
+        id: prefs
+        category: "dictionary"
+        property string otherForGerman: ""
+        property string otherForEnglish: ""
+    }
     property bool reverse: false                                 // false: learn → meaning
     readonly property string from: reverse ? meaning : learn
     readonly property string to: reverse ? learn : meaning
@@ -170,6 +188,29 @@ Page {
                 }
             }
 
+            // Second language: Persian / English / German (not the learning language)
+            RowLayout {
+                objectName: "languageChooser"
+                Layout.alignment: Qt.AlignHCenter
+                spacing: 4
+                Label {
+                    text: qsTr("With:")
+                    opacity: 0.7
+                }
+                Repeater {
+                    model: page.otherLanguages
+                    delegate: Button {
+                        required property string modelData
+                        checkable: false
+                        flat: modelData !== page.meaning
+                        highlighted: modelData === page.meaning
+                        font.pixelSize: 14
+                        text: page.langName(modelData)
+                        onClicked: if (modelData !== page.meaning) page.choose(modelData)
+                    }
+                }
+            }
+
             RowLayout {
                 Layout.fillWidth: true
                 Layout.leftMargin: 16
@@ -309,9 +350,10 @@ Page {
                         highlighted: true
                         visible: page.result !== "" && page.learnWord !== ""
                         text: qsTr("+ Add to “%1”").arg(CardStore.currentCollectionName)
+                        // Meaning in another language than the box's: the editor fills in the box's meaning
                         onClicked: page.StackView.view.push(editPage, {
                             initialFront: page.learnWord,
-                            initialBack: page.meaningText,
+                            initialBack: page.meaning === page.boxMeaning ? page.meaningText : "",
                             initialExample: page.examples.length > 0 ? page.examples[0].text : ""
                         })
                     }
@@ -342,7 +384,8 @@ Page {
                     ExampleText {
                         Layout.fillWidth: true
                         example: modelData.text
-                        knownTranslation: page.meaning === "fa" ? (modelData.translation ?? "") : ""
+                        target: page.meaning
+                        knownTranslation: page.meaning === page.boxMeaning ? (modelData.translation ?? "") : ""
                         pixelSize: 15
                     }
                     SpeakButton {
