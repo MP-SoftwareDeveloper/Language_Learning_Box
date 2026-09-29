@@ -1,4 +1,5 @@
 #include "speaker.h"
+#include "cardstore.h"
 
 #include <QSettings>
 
@@ -29,6 +30,40 @@ Speaker::Speaker(QObject *parent)
     });
     if (m_tts->state() == QTextToSpeech::Ready)
         onEngineState(QTextToSpeech::Ready);
+    // Another learning box may learn another language: voiceAvailable / voiceName change.
+    connect(CardStore::instance(), &CardStore::changed, this, &Speaker::stateChanged);
+}
+
+QString Speaker::learningTag()
+{
+    return CardStore::instance()->learningLanguage() == QLatin1String("en") ? QStringLiteral("en-US")
+                                                                          : QStringLiteral("de-DE");
+}
+
+bool Speaker::hasLocale(const QLocale &wanted, bool anyVariant) const
+{
+    const auto locales = m_tts->availableLocales();
+    for (const QLocale &l : locales)
+        if (l == wanted || (anyVariant && l.language() == wanted.language()))
+            return true;
+    return false;
+}
+
+bool Speaker::voiceAvailable() const
+{
+    return hasVoice(learningTag());
+}
+
+bool Speaker::hasVoice(const QString &languageTag) const
+{
+    if (!m_initialised)
+        return false;
+    return hasLocale(QLocale(languageTag), !languageTag.startsWith(QLatin1String("en")));
+}
+
+QString Speaker::voiceName() const
+{
+    return learningTag() == QLatin1String("en-US") ? tr("American English") : tr("German");
 }
 
 void Speaker::onEngineState(QTextToSpeech::State s)
@@ -47,7 +82,7 @@ void Speaker::onEngineState(QTextToSpeech::State s)
     emit stateChanged();
 }
 
-bool Speaker::selectLocale(const QLocale &wanted)
+bool Speaker::selectLocale(const QLocale &wanted, bool anyVariant)
 {
     if (m_tts->locale() == wanted)
         return true;
@@ -60,7 +95,7 @@ bool Speaker::selectLocale(const QLocale &wanted)
         }
     }
     for (const QLocale &l : locales) {
-        if (l.language() == wanted.language()) {
+        if (anyVariant && l.language() == wanted.language()) {
             m_tts->setLocale(l);
             return true;
         }
@@ -102,7 +137,9 @@ int Speaker::speak(const QString &text, const QString &languageTag)
 
 bool Speaker::sayNow(const QString &text, const QString &languageTag)
 {
-    if (!selectLocale(QLocale(languageTag)))
+    const QString tag = languageTag.isEmpty() ? learningTag() : languageTag;
+    // American English only: no British / Australian voice instead.
+    if (!selectLocale(QLocale(tag), !tag.startsWith(QLatin1String("en"))))
         return false;
     m_tts->stop();
     m_tts->say(text);

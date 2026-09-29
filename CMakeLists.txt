@@ -105,11 +105,12 @@ else()
     message(WARNING "LearningBox: Tesseract not found in ${LB_OCR_PREFIX} - building without OCR")
 endif()
 
-# German OCR model (tessdata_fast, Apache-2.0), available as :/ocr/tessdata/deu.traineddata
+# OCR models (tessdata_fast, Apache-2.0): German and English, as :/ocr/tessdata/<lang>.traineddata
 set_source_files_properties(data/tessdata/deu.traineddata PROPERTIES QT_RESOURCE_ALIAS tessdata/deu.traineddata)
+set_source_files_properties(data/tessdata/eng.traineddata PROPERTIES QT_RESOURCE_ALIAS tessdata/eng.traineddata)
 qt_add_resources(appLearningBox "ocrdata"
     PREFIX "/ocr"
-    FILES data/tessdata/deu.traineddata
+    FILES data/tessdata/deu.traineddata data/tessdata/eng.traineddata
 )
 
 set_target_properties(appLearningBox PROPERTIES

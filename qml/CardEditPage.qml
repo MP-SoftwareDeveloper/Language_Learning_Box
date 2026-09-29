@@ -43,7 +43,8 @@ Page {
             pickedWord = false
             wordSuggestions = []
         } else {
-            wordSuggestions = typed.length >= 2 ? WordPacks.suggest(typed, 5) : []
+            // The word pack is German: no pack suggestions in English learning boxes
+            wordSuggestions = typed.length >= 2 && CardStore.learningLanguage === "de" ? WordPacks.suggest(typed, 5) : []
         }
         suggestTimer.restart()
     }
@@ -57,7 +58,7 @@ Page {
         pickedWord = true
         frontField.text = s.front
         wordSuggestions = []
-        if (backAuto && Translator.targetLanguage === "fa" && s.back)
+        if (backAuto && Translator.meaningLanguage === "fa" && s.back)
             setBack(s.back)
         if (exampleField.text.trim() === "" && s.example)
             exampleField.text = s.example
@@ -72,7 +73,7 @@ Page {
             setBack("")
             return
         }
-        if (Translator.targetLanguage === "fa") {
+        if (Translator.meaningLanguage === "fa" && CardStore.learningLanguage === "de") {
             const known = WordPacks.lookup(w)
             if (known.back) {
                 setBack(known.back)
@@ -92,9 +93,9 @@ Page {
         examplesRequest = -1
         if (!isNew || typed.length < 2 || exampleField.text.trim() !== "")
             return
-        const persian = Translator.targetLanguage === "fa"
-        exampleSuggestions = WordPacks.examplesContaining(typed, 3)
-            .map(e => ({ text: e.text, translation: persian ? e.translation : "" }))
+        const persian = Translator.meaningLanguage === "fa"
+        exampleSuggestions = CardStore.learningLanguage !== "de" ? []
+            : WordPacks.examplesContaining(typed, 3).map(e => ({ text: e.text, translation: persian ? e.translation : "" }))
         if (Translator.useOnline)
             examplesRequest = Translator.suggestExamples(typed)
     }
@@ -234,7 +235,8 @@ Page {
                 TextField {
                     id: frontField
                     Layout.fillWidth: true
-                    placeholderText: qsTr("German word or sentence")
+                    placeholderText: CardStore.learningLanguage === "en" ? qsTr("English word or sentence")
+                                                                         : qsTr("German word or sentence")
                     onAccepted: backField.forceActiveFocus()
                 }
                 SpeakButton { speakText: frontField.text }

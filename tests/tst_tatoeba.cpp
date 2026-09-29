@@ -20,6 +20,17 @@ private slots:
         QCOMPARE(tatoeba::languageCode(QStringLiteral("en")), QStringLiteral("eng"));
         QCOMPARE(tatoeba::searchWord(QStringLiteral("Guten Morgen!")), QStringLiteral("Guten Morgen"));
     }
+    void englishSource()
+    {
+        const QUrl u = tatoeba::searchUrl(QStringLiteral("to go"), QStringLiteral("fa"), 10, QStringLiteral("en"));
+        const QUrlQuery q(u);
+        QCOMPARE(q.queryItemValue(QStringLiteral("lang")), QStringLiteral("eng"));
+        QCOMPARE(q.queryItemValue(QStringLiteral("q"), QUrl::FullyDecoded), QStringLiteral("=go"));
+        QCOMPARE(q.queryItemValue(QStringLiteral("showtrans:lang")), QStringLiteral("pes"));
+        QCOMPARE(tatoeba::searchWord(QStringLiteral("the station"), QStringLiteral("en")), QStringLiteral("station"));
+        QCOMPARE(tatoeba::searchWord(QStringLiteral("die Stadt"), QStringLiteral("en")), QStringLiteral("die Stadt"));
+    }
+
     void parsesAndOrders()
     {
         const QByteArray json = R"({"data":[

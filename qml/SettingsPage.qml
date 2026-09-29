@@ -97,6 +97,13 @@ Page {
                 onClicked: Translator.targetLanguage = "en"
             }
 
+            HintLabel {
+                Layout.leftMargin: 16
+                Layout.rightMargin: 16
+                visible: CardStore.learningLanguage === "en"
+                text: qsTr("\u201C%1\u201D is an English learning box: its meanings are always in Persian. This choice is for German learning boxes and the help.")
+                      .arg(CardStore.currentCollectionName)
+            }
             SwitchDelegate {
                 Layout.fillWidth: true
                 visible: AppMode.full

@@ -165,7 +165,8 @@ QVariantMap DeckExchange::exportCards(const QUrl &target, const QString &format,
 
     const QByteArray bytes = format == QLatin1String("csv")
         ? deckformats::writeCsv(items)
-        : deckformats::writeLbox(items, images, store->currentCollectionName(), withProgress);
+        : deckformats::writeLbox(items, images, store->currentCollectionName(), withProgress,
+                                 store->learningLanguage());
     QFile out(localPath(target));
     if (!out.open(QIODevice::WriteOnly | QIODevice::Truncate) || out.write(bytes) != bytes.size())
         return {{QStringLiteral("ok"), false}, {QStringLiteral("error"), out.errorString()}};
@@ -242,6 +243,9 @@ void DeckExchange::setPackage(deckformats::Package package, const QString &fallb
         {QStringLiteral("newCount"), count - already},
         {QStringLiteral("existingCount"), already},
         {QStringLiteral("hasProgress"), m_package.hasProgress},
+        // Learning language of the file; CSV / Anki have none: the selected box's language.
+        {QStringLiteral("language"), m_package.language.isEmpty() ? CardStore::instance()->learningLanguage()
+                                                                  : m_package.language},
         {QStringLiteral("pictures"), int(m_package.images.size())},
         {QStringLiteral("sample"), sample},
         {QStringLiteral("error"), m_package.error},
@@ -263,7 +267,8 @@ QVariantMap DeckExchange::applyImport(const QString &duplicates, bool keepProgre
     if (m_package.items.isEmpty())
         return {{QStringLiteral("error"), tr("Nothing to import.")}};
     if (!newLearningBox.trimmed().isEmpty()) {
-        const int id = store->createCollection(newLearningBox);
+        const int id = store->createCollection(newLearningBox, m_package.language.isEmpty()
+                                                                   ? store->learningLanguage() : m_package.language);
         if (id < 0)
             return {{QStringLiteral("error"), store->lastError()}};
         store->selectCollection(id);

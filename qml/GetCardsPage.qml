@@ -179,6 +179,12 @@ Page {
                             Layout.leftMargin: 8
                             placeholderText: qsTr("Name, e.g. Netzwerk neu A2")
                         }
+                        HintLabel {
+                            visible: intoNew.checked
+                            leftPadding: 8
+                            text: page.preview.language === "en" ? qsTr("Learning language: \uD83C\uDDFA\uD83C\uDDF8 English")
+                                                                 : qsTr("Learning language: \uD83C\uDDE9\uD83C\uDDEA German")
+                        }
                         RadioButton {
                             id: intoCurrent
                             ButtonGroup.group: targetGroup

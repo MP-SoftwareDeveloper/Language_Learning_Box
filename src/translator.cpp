@@ -1,5 +1,6 @@
 #include "translator.h"
 #include "appmode.h"
+#include "cardstore.h"
 #include "translation/googletranslate.h"
 #include "translation/tatoeba.h"
 
@@ -21,11 +22,14 @@
 
 namespace {
 constexpr auto kConnection = "translations";
-constexpr auto kSource = "de";
 constexpr int kTimeoutMs = 8000;
 
 QSqlDatabase db() { return QSqlDatabase::database(QLatin1String(kConnection)); }
-QString key(const QString &text) { return text.simplified().toCaseFolded(); }
+QString key(const QString &source, const QString &text)
+{
+    const QString k = text.simplified().toCaseFolded();
+    return source == QLatin1String("en") ? QStringLiteral("en|") + k : k;
+}
 } // namespace
 
 Translator *Translator::instance()
@@ -46,6 +50,16 @@ Translator::Translator(QObject *parent)
     , m_nam(new QNetworkAccessManager(this))
 {
     connect(AppMode::instance(), &AppMode::changed, this, &Translator::networkChanged); // useOnline depends on it
+    // Switching to a learning box with another language changes source and meaning language.
+    m_lastSource = sourceLanguage();
+    connect(CardStore::instance(), &CardStore::changed, this, [this] {
+        const QString s = sourceLanguage();
+        if (s != m_lastSource) {
+            m_lastSource = s;
+            emit settingsChanged();
+            emit savedCountChanged();
+        }
+    });
     QSettings settings;
     m_target = settings.value(QStringLiteral("translation/target"), QStringLiteral("fa")).toString();
     if (m_target != QLatin1String("en"))
@@ -97,6 +111,16 @@ void Translator::setOnlineEnabled(bool on)
     emit networkChanged(); // useOnline depends on it
 }
 
+QString Translator::sourceLanguage() const
+{
+    return CardStore::instance()->learningLanguage();
+}
+
+QString Translator::meaningLanguage() const
+{
+    return sourceLanguage() == QLatin1String("en") ? QStringLiteral("fa") : m_target;
+}
+
 bool Translator::useOnline() const
 {
     return m_onlineEnabled && AppMode::instance()->full();
@@ -115,16 +139,18 @@ int Translator::translate(const QString &text)
         return id;
     }
 
-    QNetworkRequest req(GoogleTranslate::requestUrl(QLatin1String(kSource), m_target));
+    const QString source = sourceLanguage();
+    const QString target = meaningLanguage();
+    QNetworkRequest req(GoogleTranslate::requestUrl(source, target));
     req.setHeader(QNetworkRequest::ContentTypeHeader, QStringLiteral("application/x-www-form-urlencoded;charset=UTF-8"));
     req.setHeader(QNetworkRequest::UserAgentHeader, QStringLiteral("Mozilla/5.0 (LearningBox)"));
     QNetworkReply *reply = m_nam->post(req, GoogleTranslate::requestBody(t));
-    const QString target = m_target;
-    connect(reply, &QNetworkReply::finished, this, [=, this] { onReply(reply, id, t, target); });
+    connect(reply, &QNetworkReply::finished, this, [=, this] { onReply(reply, id, t, source, target); });
     return id;
 }
 
-void Translator::onReply(QNetworkReply *reply, int id, const QString &text, const QString &target)
+void Translator::onReply(QNetworkReply *reply, int id, const QString &text, const QString &source,
+                         const QString &target)
 {
     reply->deleteLater();
     QString error;
@@ -133,8 +159,8 @@ void Translator::onReply(QNetworkReply *reply, int id, const QString &text, cons
     } else {
         const auto r = GoogleTranslate::parse(reply->readAll());
         if (r.error.isEmpty()) {
-            store(target, text, r.text, r.alternatives);
-            if (target == m_target) {
+            store(source, target, text, r.text, r.alternatives);
+            if (target == meaningLanguage() && source == sourceLanguage()) {
                 emit translated(id, r.text, r.alternatives, QStringLiteral("online"), {});
                 return;
             }
@@ -148,29 +174,30 @@ void Translator::onReply(QNetworkReply *reply, int id, const QString &text, cons
 void Translator::remember(const QString &text, const QString &translation)
 {
     if (!text.trimmed().isEmpty() && !translation.trimmed().isEmpty())
-        store(m_target, text.simplified(), translation.trimmed(), {});
+        store(sourceLanguage(), meaningLanguage(), text.simplified(), translation.trimmed(), {});
 }
 
 void Translator::rememberIn(const QString &language, const QString &text, const QString &translation)
 {
     if (!language.isEmpty() && !text.trimmed().isEmpty() && !translation.trimmed().isEmpty())
-        store(language, text.simplified(), translation.trimmed(), {});
+        store(sourceLanguage(), language, text.simplified(), translation.trimmed(), {});
 }
 
 int Translator::suggestExamples(const QString &word)
 {
     const int id = m_nextId++;
-    const QString w = tatoeba::searchWord(word);
+    const QString source = sourceLanguage();
+    const QString w = tatoeba::searchWord(word, source);
     if (w.isEmpty() || !useOnline()) {
         QTimer::singleShot(0, this, [=, this] {
             emit examplesSuggested(id, {}, useOnline() ? QString() : QStringLiteral("offline"));
         });
         return id;
     }
-    QNetworkRequest req(tatoeba::searchUrl(w, m_target));
+    const QString target = meaningLanguage();
+    QNetworkRequest req(tatoeba::searchUrl(w, target, 10, source));
     req.setHeader(QNetworkRequest::UserAgentHeader, QStringLiteral("LearningBox (Qt)"));
     QNetworkReply *reply = m_nam->get(req);
-    const QString target = m_target;
     connect(reply, &QNetworkReply::finished, this, [=, this] {
         reply->deleteLater();
         QString error;
@@ -179,9 +206,9 @@ int Translator::suggestExamples(const QString &word)
         if (reply->error() != QNetworkReply::NoError && !body.trimmed().startsWith('{')) {
             error = reply->errorString();
         } else {
-            for (const tatoeba::Example &e : tatoeba::parse(body, w, target, 3, &error)) {
-                if (!e.translation.isEmpty() && target == m_target)
-                    store(target, e.text, e.translation, {}); // offline later, and ExampleText finds it
+            for (const tatoeba::Example &e : tatoeba::parse(body, w, target, 3, &error, source)) {
+                if (!e.translation.isEmpty())
+                    store(source, target, e.text, e.translation, {}); // offline later, and ExampleText finds it
                 out.append(QVariantMap{{QStringLiteral("text"), e.text},
                                        {QStringLiteral("translation"), e.translation}});
             }
@@ -197,7 +224,7 @@ void Translator::answerOffline(int id, const QString &text, const QString &error
 {
     QString translation;
     QStringList alternatives;
-    if (lookup(m_target, text, &translation, &alternatives))
+    if (lookup(sourceLanguage(), meaningLanguage(), text, &translation, &alternatives))
         emit translated(id, translation, alternatives, QStringLiteral("saved"), error);
     else
         emit translated(id, {}, {}, {}, error);
@@ -207,7 +234,7 @@ QString Translator::saved(const QString &text) const
 {
     QString t;
     QStringList alt;
-    return lookup(m_target, text, &t, &alt) ? t : QString();
+    return lookup(sourceLanguage(), meaningLanguage(), text, &t, &alt) ? t : QString();
 }
 
 // ---------- cache (AppDataLocation/translations.sqlite) ----------
@@ -234,8 +261,8 @@ bool Translator::openCache()
     return true;
 }
 
-void Translator::store(const QString &target, const QString &text, const QString &translation,
-                       const QStringList &alternatives)
+void Translator::store(const QString &source, const QString &target, const QString &text,
+                       const QString &translation, const QStringList &alternatives)
 {
     if (!m_cacheOk)
         return;
@@ -243,7 +270,7 @@ void Translator::store(const QString &target, const QString &text, const QString
     q.prepare(QStringLiteral("INSERT OR REPLACE INTO translations (lang, source, text, alternatives, saved_at)"
                              " VALUES (?, ?, ?, ?, strftime('%s','now'))"));
     q.addBindValue(target);
-    q.addBindValue(key(text));
+    q.addBindValue(key(source, text));
     q.addBindValue(translation);
     q.addBindValue(alternatives.join(QLatin1Char('\n')));
     if (q.exec())
@@ -252,15 +279,15 @@ void Translator::store(const QString &target, const QString &text, const QString
         qWarning() << "Translation cache:" << q.lastError().text();
 }
 
-bool Translator::lookup(const QString &target, const QString &text, QString *translation,
-                        QStringList *alternatives) const
+bool Translator::lookup(const QString &source, const QString &target, const QString &text,
+                        QString *translation, QStringList *alternatives) const
 {
     if (!m_cacheOk)
         return false;
     QSqlQuery q(db());
     q.prepare(QStringLiteral("SELECT text, alternatives FROM translations WHERE lang = ? AND source = ?"));
     q.addBindValue(target);
-    q.addBindValue(key(text));
+    q.addBindValue(key(source, text));
     if (!q.exec() || !q.next())
         return false;
     *translation = q.value(0).toString();
@@ -275,7 +302,7 @@ int Translator::savedCount() const
         return 0;
     QSqlQuery q(db());
     q.prepare(QStringLiteral("SELECT COUNT(*) FROM translations WHERE lang = ?"));
-    q.addBindValue(m_target);
+    q.addBindValue(meaningLanguage());
     return q.exec() && q.next() ? q.value(0).toInt() : 0;
 }
 

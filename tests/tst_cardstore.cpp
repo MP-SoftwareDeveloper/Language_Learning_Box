@@ -31,6 +31,7 @@ private slots:
     {
         QStandardPaths::setTestModeEnabled(true);
         QDir(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)).removeRecursively();
+        QSettings().remove(QStringLiteral("review")); // settings outlive the throw-away database
         QVERIFY2(CardStore::instance()->ready(), qPrintable(CardStore::instance()->lastError()));
     }
 
@@ -182,6 +183,30 @@ private slots:
         s->selectCollection(other);
         QCOMPARE(s->cardById(otherCard)->box, 4);
         s->deleteCollection(lb);
+    }
+
+    // Each learning box has its language; German by default.
+    void learningLanguagePerBox()
+    {
+        auto *s = CardStore::instance();
+        const int first = s->currentCollection();
+        QCOMPARE(s->learningLanguage(), QStringLiteral("de"));
+        const int en = s->createCollection(QStringLiteral("English A2"), QStringLiteral("en"));
+        const int de = s->createCollection(QStringLiteral("Deutsch B1"));
+        s->selectCollection(en);
+        QCOMPARE(s->learningLanguage(), QStringLiteral("en"));
+        bool found = false;
+        for (const QVariant &v : s->collections())
+            if (v.toMap().value(QStringLiteral("id")).toInt() == en) {
+                QCOMPARE(v.toMap().value(QStringLiteral("language")).toString(), QStringLiteral("en"));
+                found = true;
+            }
+        QVERIFY(found);
+        s->selectCollection(de);
+        QCOMPARE(s->learningLanguage(), QStringLiteral("de"));
+        s->selectCollection(first);
+        s->deleteCollection(en);
+        s->deleteCollection(de);
     }
 
     // The review direction is remembered per learning box.

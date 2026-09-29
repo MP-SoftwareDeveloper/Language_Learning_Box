@@ -3,6 +3,7 @@
 #include "ocr/textselect.h"
 #include "ocr/azureread.h"
 #include "cloudocr.h"
+#include "cardstore.h"
 
 #include <QBuffer>
 #include <QDebug>
@@ -21,7 +22,15 @@ namespace {
 // Longest edge for OCR. Phone photos are ~4000 px; ~2400 keeps book text legible
 // for Tesseract while bounding memory and time.
 constexpr int kOcrMaxEdge = 2400;
-constexpr auto kLang = "deu";
+// Tesseract models shipped with the app: German and English (tessdata_fast).
+const char *const kLanguages[] = {"deu", "eng"};
+
+// Model for the language of the selected learning box.
+QString tesseractLanguage()
+{
+    return CardStore::instance()->learningLanguage() == QLatin1String("en") ? QStringLiteral("eng")
+                                                                          : QStringLiteral("deu");
+}
 
 QString cacheDir()
 {
@@ -33,7 +42,7 @@ QString cacheDir()
 // Loads + orients + downscales the picture; writes the exact image that is OCR'd to
 // `displayPath`, so QML shows the same pixels the word boxes refer to.
 OcrResult loadAndRecognize(const QString &source, const QString &displayPath, const QString &tessdata,
-                           int rotationHint)
+                           const QString &lang, int rotationHint)
 {
     OcrResult r;
     QFile in(source);
@@ -54,7 +63,7 @@ OcrResult loadAndRecognize(const QString &source, const QString &displayPath, co
     if (qMax(img.width(), img.height()) > kOcrMaxEdge)
         img = img.scaled(kOcrMaxEdge, kOcrMaxEdge, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     img.convertTo(QImage::Format_RGB32);
-    OcrResult r2 = ocr::recognize(img, tessdata, QString::fromLatin1(kLang), rotationHint);
+    OcrResult r2 = ocr::recognize(img, tessdata, lang, rotationHint);
     // A sideways photo is read turned; show it turned the same way so the boxes line up.
     if (r2.rotation != 0)
         img = img.transformed(QTransform().rotate(r2.rotation));
@@ -129,18 +138,21 @@ QString OcrEngine::ensureTessdata(QString *error)
     // Tesseract reads models from a real directory, so the bundled model is copied
     // out of the Qt resources once (1.5 MB).
     const QString dir = tessdataDir();
-    const QString target = dir + u'/' + QLatin1String(kLang) + QStringLiteral(".traineddata");
-    const QString source = QStringLiteral(":/ocr/tessdata/") + QLatin1String(kLang) + QStringLiteral(".traineddata");
-    if (QFileInfo(target).size() == QFileInfo(source).size() && QFileInfo(target).size() > 0)
-        return dir;
     QDir().mkpath(dir);
-    QFile::remove(target);
-    if (!QFile::exists(source) || !QFile::copy(source, target)) {
-        if (error)
-            *error = QStringLiteral("The German OCR language data (deu.traineddata) is missing.");
-        return {};
+    for (const char *lang : kLanguages) {
+        const QString name = QLatin1String(lang) + QStringLiteral(".traineddata");
+        const QString target = dir + u'/' + name;
+        const QString source = QStringLiteral(":/ocr/tessdata/") + name;
+        if (QFileInfo(target).size() == QFileInfo(source).size() && QFileInfo(target).size() > 0)
+            continue;
+        QFile::remove(target);
+        if (!QFile::exists(source) || !QFile::copy(source, target)) {
+            if (error)
+                *error = QStringLiteral("The OCR language data (%1) is missing.").arg(name);
+            return {};
+        }
+        QFile::setPermissions(target, QFile::ReadOwner | QFile::WriteOwner);
     }
-    QFile::setPermissions(target, QFile::ReadOwner | QFile::WriteOwner);
     return dir;
 }
 
@@ -168,9 +180,10 @@ void OcrEngine::recognize(const QUrl &source, int rotationHint)
 void OcrEngine::startOffline()
 {
     const QString path = m_pendingSource, display = m_pendingDisplayPath, tess = tessdataDir();
+    const QString lang = tesseractLanguage(); // read on the UI thread
     const int hint = m_pendingHint;
-    m_watcher.setFuture(QtConcurrent::run([path, display, tess, hint] {
-        return loadAndRecognize(path, display, tess, hint);
+    m_watcher.setFuture(QtConcurrent::run([path, display, tess, lang, hint] {
+        return loadAndRecognize(path, display, tess, lang, hint);
     }));
 }
 

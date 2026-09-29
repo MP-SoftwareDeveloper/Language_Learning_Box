@@ -109,7 +109,7 @@ QJsonValue dateOrNull(const QDateTime &d)
 // ------------------------------------------------------------------ writing
 
 QByteArray writeLbox(const QList<Item> &items, const QHash<QString, QByteArray> &images,
-                     const QString &title, bool withProgress)
+                     const QString &title, bool withProgress, const QString &language)
 {
     QJsonArray cards;
     QHash<QString, QString> pathOf; // image key -> path in the zip
@@ -138,6 +138,7 @@ QByteArray writeLbox(const QList<Item> &items, const QHash<QString, QByteArray> 
         {QStringLiteral("format"), QStringLiteral("learningbox")},
         {QStringLiteral("version"), kLboxVersion},
         {QStringLiteral("title"), title},
+        {QStringLiteral("language"), language},
         {QStringLiteral("exported"), QDateTime::currentDateTimeUtc().toString(Qt::ISODate)},
         {QStringLiteral("withProgress"), withProgress},
         {QStringLiteral("cards"), cards},
@@ -250,6 +251,7 @@ Package readLbox(const QByteArray &data)
     }
     p.title = root.value(QStringLiteral("title")).toString();
     p.hasProgress = root.value(QStringLiteral("withProgress")).toBool();
+    p.language = root.value(QStringLiteral("language")).toString(QStringLiteral("de")); // version 1 files: German
     for (const QJsonValue &v : root.value(QStringLiteral("cards")).toArray()) {
         const QJsonObject c = v.toObject();
         Item it;

@@ -15,11 +15,25 @@ Page {
 
     property string chosenMode: "simple"
     readonly property bool fa: Translator.targetLanguage === "fa"
+    // Language to learn: "de" German or "en" English (American); English meanings are Persian.
+    property string learn: "de"
+    readonly property bool english: learn === "en"
+    readonly property string voiceTag: english ? "en-US" : "de-DE"
+    readonly property bool voiceOk: Speaker.ready && Speaker.hasVoice(voiceTag)
     readonly property var stepTitles: [qsTr("Welcome"), qsTr("Choose your app"), qsTr("Starter words"), qsTr("Ready")]
 
     function finish() {
         AppMode.mode = chosenMode
-        if (starterBox.checked) {
+        if (english) {
+            // An English learning box; a new install's empty German box is not needed then.
+            const empty = CardStore.collections.length === 1 && CardStore.totalCount === 0 ? CardStore.currentCollection : -1
+            const id = CardStore.createCollection(qsTr("My English box"), "en")
+            if (id > 0) {
+                CardStore.selectCollection(id)
+                if (empty > 0)
+                    CardStore.deleteCollection(empty)
+            }
+        } else if (starterBox.checked) {
             // A new install has one empty learning box: use it for the starter words.
             const name = qsTr("Starter – 100 words")
             if (CardStore.collections.length === 1 && CardStore.totalCount === 0) {
@@ -71,22 +85,53 @@ Page {
                     Layout.fillWidth: true
                     wrapMode: Text.WordWrap
                     font.pixelSize: 16
-                    text: qsTr("Learn German words with a Leitner box: cards you know move up and come back later, cards you don't know come back soon.")
+                    text: qsTr("Learn German or English words with a Leitner box: cards you know move up and come back later, cards you don't know come back soon.")
                 }
                 Label {
                     Layout.fillWidth: true
                     wrapMode: Text.WordWrap
                     font.pixelSize: 16
                     horizontalAlignment: Text.AlignRight
-                    text: "واژه‌های آلمانی را با جعبهٔ لایتنر یاد بگیرید."
+                    text: "واژه‌های آلمانی یا انگلیسی را با جعبهٔ لایتنر یاد بگیرید."
                 }
                 Label {
                     Layout.topMargin: 8
+                    font.bold: true
+                    text: qsTr("I want to learn") + " / " + "می‌خواهم یاد بگیرم"
+                }
+                RowLayout {
+                    Layout.fillWidth: true
+                    spacing: 12
+                    Repeater {
+                        model: [ { code: "de", label: "\uD83C\uDDE9\uD83C\uDDEA  Deutsch" }, { code: "en", label: "\uD83C\uDDFA\uD83C\uDDF8  English" } ]
+                        delegate: Button {
+                            required property var modelData
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: 56
+                            highlighted: page.learn === modelData.code
+                            text: modelData.label
+                            font.pixelSize: 17
+                            onClicked: {
+                                page.learn = modelData.code
+                                if (modelData.code === "en")
+                                    Translator.targetLanguage = "fa" // meanings and help in Persian
+                            }
+                        }
+                    }
+                }
+                HintLabel {
+                    visible: page.english
+                    text: qsTr("English with an American voice; meanings are shown in Persian.")
+                }
+                Label {
+                    Layout.topMargin: 8
+                    visible: !page.english
                     font.bold: true
                     text: qsTr("Meanings in") + " / " + "معنی به"
                 }
                 RowLayout {
                     Layout.fillWidth: true
+                    visible: !page.english
                     spacing: 12
                     Repeater {
                         model: [ { code: "en", label: "English" }, { code: "fa", label: "فارسی" } ]
@@ -102,6 +147,7 @@ Page {
                     }
                 }
                 HintLabel {
+                    visible: !page.english
                     text: qsTr("The back of your cards and the help are shown in this language. You can change it any time in Settings.")
                 }
             }
@@ -166,25 +212,37 @@ Page {
                 x: 16; y: 8
                 width: parent.width - 32
                 spacing: 8
+                Label {
+                    Layout.fillWidth: true
+                    visible: page.english
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 16
+                    text: qsTr("The starter words are German. Your English learning box starts empty — add words with Add card, Lens or Get cards.")
+                }
                 CheckBox {
                     id: starterBox
+                    visible: !page.english
                     checked: true
                     text: qsTr("Add %1 starter words (recommended)").arg(WordPacks.starterTotal)
                     font.pixelSize: 16
                 }
                 HintLabel {
+                    visible: !page.english
                     text: qsTr("Common everyday words — greetings, numbers, family, food, home, time, verbs, city — with English and Persian meanings and an example sentence. They go into their own learning box “Starter – 100 words”.")
                 }
-                Label { Layout.topMargin: 8; text: qsTr("For example"); font.bold: true }
+                Label { Layout.topMargin: 8; visible: !page.english; text: qsTr("For example"); font.bold: true }
                 Repeater {
-                    model: [ ["das Brot", "bread", "نان"], ["der Bahnhof", "train station", "ایستگاه قطار"], ["sprechen", "to speak", "صحبت کردن"] ]
+                    model: page.english ? [] : [ ["das Brot", "bread", "نان"], ["der Bahnhof", "train station", "ایستگاه قطار"], ["sprechen", "to speak", "صحبت کردن"] ]
                     delegate: Label {
                         required property var modelData
                         Layout.fillWidth: true
                         text: "• " + modelData[0] + "  →  " + (page.fa ? modelData[2] : modelData[1])
                     }
                 }
-                HintLabel { text: qsTr("You can add them later too: Home → + (new learning box) → Start with: starter words.") }
+                HintLabel {
+                    visible: !page.english
+                    text: qsTr("You can add them later too: Home → + (new learning box) → Start with: starter words.")
+                }
             }
         }
 
@@ -218,14 +276,15 @@ Page {
                     Layout.fillWidth: true
                     wrapMode: Text.WordWrap
                     text: !Speaker.ready ? qsTr("Checking the German voice …")
-                          : Speaker.germanAvailable ? qsTr("German voice: installed ✓")
+                          : page.voiceOk ? (page.english ? qsTr("American English voice: installed ✓") : qsTr("German voice: installed ✓"))
+                          : page.english ? qsTr("American English voice: not installed. Cards are not read aloud until you install one.")
                           : qsTr("German voice: not installed. Cards are not read aloud until you install one.")
-                    color: Speaker.ready && !Speaker.germanAvailable ? Material.color(Material.Orange) : Material.foreground
+                    color: Speaker.ready && !page.voiceOk ? Material.color(Material.Orange) : Material.foreground
                 }
                 Button {
-                    visible: Speaker.ready && !Speaker.germanAvailable && Qt.platform.os === "android"
+                    visible: Speaker.ready && !page.voiceOk && Qt.platform.os === "android"
                     flat: true
-                    text: qsTr("Get the German voice (Google Play)")
+                    text: page.english ? qsTr("Get the American English voice (Google Play)") : qsTr("Get the German voice (Google Play)")
                     onClicked: Qt.openUrlExternally("https://play.google.com/store/apps/details?id=com.google.android.tts")
                 }
                 HintLabel {

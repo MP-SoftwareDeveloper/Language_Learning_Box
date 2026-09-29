@@ -22,6 +22,9 @@ class Speaker : public QObject
     // speech is its own (only that one shows ⏹).
     Q_PROPERTY(int utterance READ utterance NOTIFY stateChanged)
     Q_PROPERTY(bool germanAvailable READ germanAvailable NOTIFY stateChanged)
+    // Voice for the language of the selected learning box (German, or American English only).
+    Q_PROPERTY(bool voiceAvailable READ voiceAvailable NOTIFY stateChanged)
+    Q_PROPERTY(QString voiceName READ voiceName NOTIFY stateChanged) // "German" / "American English"
     Q_PROPERTY(double rate READ rate WRITE setRate NOTIFY rateChanged) // -1.0 .. 1.0
     Q_PROPERTY(QString errorString READ errorString NOTIFY stateChanged)
 
@@ -32,14 +35,21 @@ public:
     bool speaking() const;
     int utterance() const { return m_utterance; }
     bool germanAvailable() const { return m_germanAvailable; }
+    bool voiceAvailable() const;
+    QString voiceName() const;
+    // BCP-47 tag of the learning language: "de-DE" or "en-US".
+    static QString learningTag();
     double rate() const;
     void setRate(double r);
     QString errorString() const;
 
-    // languageTag: BCP-47 such as "de-DE" or "fa-IR". Returns the utterance id, 0 if nothing
-    // is spoken (empty text or no such voice).
-    Q_INVOKABLE int speak(const QString &text, const QString &languageTag = QStringLiteral("de-DE"));
+    // languageTag: BCP-47 such as "de-DE", "en-US" or "fa-IR"; empty = the language of the
+    // selected learning box. Returns the utterance id, 0 if nothing is spoken (empty text or
+    // no such voice).
+    Q_INVOKABLE int speak(const QString &text, const QString &languageTag = QString());
     Q_INVOKABLE void stop();
+    // Is there a voice for "de-DE" / "en-US" (English: American only)?
+    Q_INVOKABLE bool hasVoice(const QString &languageTag) const;
 
 signals:
     void stateChanged();
@@ -48,7 +58,10 @@ signals:
 private:
     explicit Speaker(QObject *parent = nullptr);
     void onEngineState(QTextToSpeech::State s);
-    bool selectLocale(const QLocale &wanted);
+    // `anyVariant`: accept another country of the same language (de_AT for de_DE); off for
+    // English, which must be American.
+    bool selectLocale(const QLocale &wanted, bool anyVariant = true);
+    bool hasLocale(const QLocale &wanted, bool anyVariant) const;
 
     QTextToSpeech *m_tts = nullptr;
     bool m_germanAvailable = false;

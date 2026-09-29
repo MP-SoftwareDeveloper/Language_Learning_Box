@@ -34,13 +34,15 @@ struct Package
     QList<Item> items;
     QHash<QString, QByteArray> images; // key -> image file bytes (JPEG/PNG)
     bool hasProgress = false;
+    QString language;                 // learning language of a .lbox ("de"/"en"); "" = unknown
     QString error;                    // non-empty: nothing could be read
 };
 
 // ---- writing ----
 // `images`: key used in Item::image -> bytes. withProgress=false writes cards as new.
+// `language`: the learning language ("de" / "en"), stored so an import can create the right box.
 QByteArray writeLbox(const QList<Item> &items, const QHash<QString, QByteArray> &images,
-                     const QString &title, bool withProgress);
+                     const QString &title, bool withProgress, const QString &language = QStringLiteral("de"));
 QByteArray writeCsv(const QList<Item> &items); // UTF-8 with BOM, header "German,Meaning,Example"
 
 // ---- reading ----

@@ -107,6 +107,17 @@ private slots:
         QVERIFY(!p.hasProgress);
         QVERIFY(!p.items[0].hasProgress);
         QCOMPARE(p.items[0].box, 1);
+        QCOMPARE(p.language, QStringLiteral("de")); // default
+    }
+    void lboxKeepsLearningLanguage()
+    {
+        Item a;
+        a.front = QStringLiteral("to go");
+        a.back = QStringLiteral("رفتن");
+        const Package p = readLbox(writeLbox({a}, {}, QStringLiteral("English A1"), false, QStringLiteral("en")));
+        QVERIFY(p.error.isEmpty());
+        QCOMPARE(p.language, QStringLiteral("en"));
+        QCOMPARE(p.title, QStringLiteral("English A1"));
     }
     void csvRoundTrip()
     {

@@ -2,11 +2,12 @@ import QtQuick
 import QtQuick.Controls
 import LearningBox
 
-// Reads `speakText` aloud (German by default).
+// Reads `speakText` aloud, by default in the language of the selected learning box
+// (German, or American English).
 ToolButton {
     id: root
     property string speakText: ""
-    property string languageTag: "de-DE"
+    property string languageTag: "" // "" = learning language
 
     // Only the button that started the current speech shows ⏹ (Speaker.utterance is the latest request).
     property int myUtterance: 0

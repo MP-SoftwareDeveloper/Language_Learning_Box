@@ -98,6 +98,8 @@ void WordPacks::refresh()
 
 int WordPacks::addStarterCards()
 {
+    if (CardStore::instance()->learningLanguage() != QLatin1String("de"))
+        return 0; // German words: only for German learning boxes
     Translator *tr = Translator::instance();
     const QString lang = tr ? tr->targetLanguage() : QStringLiteral("fa");
     QList<Card> cards;
@@ -155,6 +157,9 @@ QVariantList WordPacks::chapterWords(int number) const
 
 const Card *WordPacks::find(const QString &word) const
 {
+    // The packs are German: an English learning box never uses them ("Bus" is not "der Bus").
+    if (CardStore::instance()->learningLanguage() != QLatin1String("de"))
+        return nullptr;
     const QString key = word.trimmed().toCaseFolded();
     if (key.isEmpty())
         return nullptr;

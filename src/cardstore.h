@@ -33,6 +33,9 @@ class CardStore : public QObject
     Q_PROPERTY(int currentCollection READ currentCollection WRITE selectCollection NOTIFY changed)
     Q_PROPERTY(QString currentCollectionName READ currentCollectionName NOTIFY changed)
     Q_PROPERTY(QVariantList collections READ collections NOTIFY changed)
+    // Language being learned in the selected learning box: "de" (German) or "en" (English, US).
+    // Speech, text recognition, translation and example sentences follow it.
+    Q_PROPERTY(QString learningLanguage READ learningLanguage NOTIFY changed)
     Q_PROPERTY(QString lastError READ lastError NOTIFY errorOccurred)
     // True after resetCollection / resetBox until undoReset() or the next app start.
     Q_PROPERTY(bool canUndoReset READ canUndoReset NOTIFY changed)
@@ -83,9 +86,11 @@ public:
 
     int currentCollection() const { return m_collection; }
     QString currentCollectionName() const;
-    QVariantList collections() const;
-    // New, empty learning box (not selected yet). Returns its id, -1 on error.
-    Q_INVOKABLE int createCollection(const QString &name);
+    QVariantList collections() const; // [{id, name, language, boxCounts, learned, total, due, current}]
+    QString learningLanguage() const;
+    // New, empty learning box (not selected yet) for `language` ("de" or "en").
+    // Returns its id, -1 on error.
+    Q_INVOKABLE int createCollection(const QString &name, const QString &language = QStringLiteral("de"));
     Q_INVOKABLE bool renameCollection(int id, const QString &name);
     // Deletes a learning box with all its cards; the last remaining one cannot be deleted.
     Q_INVOKABLE bool deleteCollection(int id);

@@ -60,7 +60,7 @@ public:
     // Path for the camera to save the next capture to (app cache).
     Q_INVOKABLE QString captureFilePath() const;
 
-    // Where deu.traineddata is installed (copied from the app resources on first use).
+    // Where deu/eng.traineddata are installed (copied from the app resources on first use).
     static QString tessdataDir();
     static QString ensureTessdata(QString *error);
 

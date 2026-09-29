@@ -11,25 +11,31 @@ namespace tatoeba {
 
 QString languageCode(const QString &target)
 {
-    return target == QLatin1String("en") ? QStringLiteral("eng") : QStringLiteral("pes");
+    if (target == QLatin1String("en"))
+        return QStringLiteral("eng");
+    if (target == QLatin1String("de"))
+        return QStringLiteral("deu");
+    return QStringLiteral("pes");
 }
 
-QString searchWord(const QString &front)
+QString searchWord(const QString &front, const QString &source)
 {
     static const QRegularExpression article(QStringLiteral("^(der|die|das)\\s+"),
                                             QRegularExpression::CaseInsensitiveOption);
+    static const QRegularExpression englishArticle(QStringLiteral("^(to|the|a|an)\\s+"),
+                                                   QRegularExpression::CaseInsensitiveOption);
     QString w = front.simplified();
-    w.remove(article);
+    w.remove(source == QLatin1String("en") ? englishArticle : article);
     w.remove(QRegularExpression(QStringLiteral("[!?.,;:]+$")));
     return w;
 }
 
-QUrl searchUrl(const QString &word, const QString &target, int limit)
+QUrl searchUrl(const QString &word, const QString &target, int limit, const QString &source)
 {
     QUrl url(QStringLiteral("https://api.tatoeba.org/v1/sentences"));
     QUrlQuery q;
-    q.addQueryItem(QStringLiteral("lang"), QStringLiteral("deu"));
-    q.addQueryItem(QStringLiteral("q"), QStringLiteral("=") + searchWord(word)); // "=" = exact word form
+    q.addQueryItem(QStringLiteral("lang"), languageCode(source));
+    q.addQueryItem(QStringLiteral("q"), QStringLiteral("=") + searchWord(word, source)); // "=" = exact word form
     q.addQueryItem(QStringLiteral("sort"), QStringLiteral("words"));           // shortest first
     q.addQueryItem(QStringLiteral("limit"), QString::number(limit));
     q.addQueryItem(QStringLiteral("showtrans:lang"), languageCode(target));
@@ -63,7 +69,8 @@ bool containsWord(const QString &sentence, const QString &word)
 
 } // namespace
 
-QList<Example> parse(const QByteArray &json, const QString &front, const QString &target, int max, QString *error)
+QList<Example> parse(const QByteArray &json, const QString &front, const QString &target, int max, QString *error,
+                     const QString &source)
 {
     const QJsonDocument doc = QJsonDocument::fromJson(json);
     const QJsonObject root = doc.object();
@@ -72,7 +79,7 @@ QList<Example> parse(const QByteArray &json, const QString &front, const QString
             *error = root.value(QStringLiteral("message")).toString(QStringLiteral("unexpected answer from Tatoeba"));
         return {};
     }
-    const QString word = searchWord(front);
+    const QString word = searchWord(front, source);
     const QString lang = languageCode(target);
     QList<Example> withTr, without;
     QSet<QString> seen;

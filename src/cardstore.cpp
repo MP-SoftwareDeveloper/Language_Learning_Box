@@ -20,7 +20,7 @@
 namespace {
 
 constexpr auto kConnection = "learningbox";
-constexpr int kSchemaVersion = 5;
+constexpr int kSchemaVersion = 6;
 constexpr auto kCurrentKey = "learningbox/current"; // QSettings: selected learning box
 
 QSqlDatabase db() { return QSqlDatabase::database(QLatin1String(kConnection)); }
@@ -172,6 +172,10 @@ bool CardStore::migrate()
                                 " due_at INTEGER,"
                                 " reviews INTEGER NOT NULL,"
                                 " lapses INTEGER NOT NULL)");
+    }
+    if (version < 6) {
+        // v6: the language learned in each learning box ("de" German, "en" English).
+        steps << QStringLiteral("ALTER TABLE collections ADD COLUMN language TEXT NOT NULL DEFAULT 'de'");
     }
     steps << QStringLiteral("PRAGMA user_version = %1").arg(kSchemaVersion);
 
@@ -712,13 +716,14 @@ QVariantList CardStore::collections() const
     }
     QVariantList out;
     // Most recently used first; the selected one is always the most recent.
-    q.exec(QStringLiteral("SELECT id, name FROM collections ORDER BY last_used_at DESC, id ASC"));
+    q.exec(QStringLiteral("SELECT id, name, language FROM collections ORDER BY last_used_at DESC, id ASC"));
     while (q.next()) {
         const int id = q.value(0).toInt();
         const Counts c = counts.value(id);
         out.append(QVariantMap{
             {QStringLiteral("id"), id},
             {QStringLiteral("name"), q.value(1).toString()},
+            {QStringLiteral("language"), q.value(2).toString()},
             {QStringLiteral("boxCounts"), c.boxes},
             {QStringLiteral("learned"), c.learned},
             {QStringLiteral("total"), c.total},
@@ -729,16 +734,26 @@ QVariantList CardStore::collections() const
     return out;
 }
 
-int CardStore::createCollection(const QString &name)
+QString CardStore::learningLanguage() const
+{
+    QSqlQuery q(db());
+    q.prepare(QStringLiteral("SELECT language FROM collections WHERE id = ?"));
+    q.addBindValue(m_collection);
+    return q.exec() && q.next() && q.value(0).toString() == QLatin1String("en") ? QStringLiteral("en")
+                                                                              : QStringLiteral("de");
+}
+
+int CardStore::createCollection(const QString &name, const QString &language)
 {
     const QString n = name.simplified();
     if (n.isEmpty())
         return -1;
     QSqlQuery q(db());
-    q.prepare(QStringLiteral("INSERT INTO collections (name, created_at, last_used_at) VALUES (?, ?, ?)"));
+    q.prepare(QStringLiteral("INSERT INTO collections (name, created_at, last_used_at, language) VALUES (?, ?, ?, ?)"));
     q.addBindValue(n);
     q.addBindValue(nowSecs());
     q.addBindValue(0); // not used yet: goes to the end until it is selected
+    q.addBindValue(language == QLatin1String("en") ? QStringLiteral("en") : QStringLiteral("de"));
     if (!q.exec()) {
         fail(QStringLiteral("createCollection"), q.lastError().text());
         return -1;

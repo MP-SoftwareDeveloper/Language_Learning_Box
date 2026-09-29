@@ -132,6 +132,7 @@ flowchart TD
 - [x] Delete a card by press-and-hold (Box pages, All cards) with confirmation 🧪
 - [x] Add a card directly into a box (+ on the Box page; Box chooser in the editor) 🧪
 - [x] Review: فارسی / English switch on the answer side; meaning and example follow it (translated when the card is in the other language) 🧪
+- [x] Learn English too: language per learning box, American voice, English OCR, English → Persian translation and examples 🧪
 - [x] Review direction: German first / Meaning first (say the German word) / Mixed, remembered per learning box 🧪
 - [x] Add / edit / delete / reset / search cards
 - [x] German TTS with speed setting
@@ -220,6 +221,7 @@ Goal: this roadmap and the app version are visible online after each push.
 ## Changelog
 | Date | Change |
 |---|---|
+| 2026-09-29 | Learning English: language per learning box (schema v6), American English voice, English OCR (eng.traineddata), English → Persian translation and Tatoeba examples, flags in the chooser; speech speed on the review card (remembered) |
 | 2026-09-29 | Review direction: German first, Meaning first or Mixed (per learning box) |
 | 2026-09-29 | First-run setup (Simple / Full app), 100 starter words (de / en / fa), start over with undo, Send / Get pages with hints and share sheet; schema v5 |
 | 2026-09-29 | README: *Dependencies & downloads* with links for tools, libraries, services and the phone voice; in-app links: exact Tesseract / deu.traineddata downloads (Lens), German voice on Google Play (Home) |

@@ -33,6 +33,14 @@ A Leitner box for German vocabulary. Qt 6.10+ / C++20 / QML, with no Java. Andro
 - **Box pages**: tap a box on Home to list its cards (tabs switch between boxes 1–5 and Learned). ◀ / ▶ move a card
   one box back / forward; it is then scheduled with the new box's interval (box 1 = tomorrow … box 5 = 16 days,
   Learned = not reviewed), review history is kept (`leitner::moveTo`, `CardStore::moveCard`). *Undo* for 4 s.
+- **Learning English** (schema v6: `collections.language` "de" / "en"): each learning box learns German or English,
+  chosen in *+ New learning box* (and in the first-run setup); a flag shows it in the chooser. For the selected box
+  `CardStore::learningLanguage` drives: speech (`Speaker`: German, or **American English only** — no other English
+  voice is used; `voiceAvailable` / `voiceName` / `hasVoice`), Lens OCR (`eng.traineddata` next to `deu`), online
+  translation and the translation cache (`Translator::sourceLanguage`; English keys are stored as `en|…`), Tatoeba
+  examples (`lang=eng`, "to/the/a/an" dropped). English boxes always use **Persian meanings**
+  (`Translator::meaningLanguage`); German word packs / starter words / der-die-das hints are not used there.
+  `.lbox` files carry `"language"`, so an imported English file becomes an English box.
 - **Review direction** (*Ask:* on the review card): *German first* (the meaning is the answer), *Meaning first* (the
   meaning's first line is the question — the plural line would give the word away; say the German word, it is read
   aloud with the answer) or *Mixed* (random per card). Stored per learning box (`CardStore::reviewDirection`, QSettings

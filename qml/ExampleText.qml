@@ -18,7 +18,7 @@ ColumnLayout {
     property real germanOpacity: 0.85
     spacing: 2
 
-    readonly property bool persian: Translator.targetLanguage === "fa"
+    readonly property bool persian: Translator.meaningLanguage === "fa"
     readonly property bool wanted: example.trim() !== ""
     readonly property string packTranslation: persian ? (knownTranslation || WordPacks.exampleTranslation(example)) : ""
     readonly property string translation: !wanted ? "" : (packTranslation || fetched)

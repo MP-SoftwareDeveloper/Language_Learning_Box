@@ -24,6 +24,9 @@ Page {
     readonly property color tileGreen: "#43A047"
     function tileColor(i) { return Qt.tint(tileBlue, Qt.rgba(tileGreen.r, tileGreen.g, tileGreen.b, i / 5)) }
     readonly property color selectedText: "#0D2A45"
+    // Flag of the language learned in a learning box
+    function flag(lang) { return lang === "en" ? "\uD83C\uDDFA\uD83C\uDDF8" : "\uD83C\uDDE9\uD83C\uDDEA" }
+    readonly property bool english: CardStore.learningLanguage === "en"
     property int menuId: 0
     property string menuName: ""
 
@@ -74,7 +77,7 @@ Page {
                         // Selected learning box
                         Label {
                             width: Math.min(implicitWidth, boxCombo.availableWidth - 8)
-                            text: CardStore.currentCollectionName
+                            text: page.flag(CardStore.learningLanguage) + "  " + CardStore.currentCollectionName
                             elide: Text.ElideRight
                             font.pixelSize: 17
                             font.bold: true
@@ -89,7 +92,8 @@ Page {
                             width: boxCombo.availableWidth - 8
                             visible: CardStore.collections.length > 1
                             text: CardStore.collections.length > 1
-                                  ? CardStore.collections[1].name + "  ·  " + qsTr("%n due", "", CardStore.collections[1].due)
+                                  ? page.flag(CardStore.collections[1].language) + "  " + CardStore.collections[1].name
+                                    + "  ·  " + qsTr("%n due", "", CardStore.collections[1].due)
                                   : ""
                             elide: Text.ElideRight
                             leftPadding: 6
@@ -115,7 +119,7 @@ Page {
                             Label {
                                 Layout.fillWidth: true
                                 Layout.maximumWidth: implicitWidth
-                                text: modelData.name
+                                text: page.flag(modelData.language) + "  " + modelData.name
                                 elide: Text.ElideRight
                                 font.bold: modelData.current
                                 leftPadding: 6
@@ -200,7 +204,8 @@ Page {
                 Layout.fillWidth: true
                 wrapMode: Text.WordWrap
                 text: CardStore.totalCount === 0
-                      ? qsTr("This learning box is empty. Add your first German word.")
+                      ? (page.english ? qsTr("This learning box is empty. Add your first English word.")
+                                      : qsTr("This learning box is empty. Add your first German word."))
                       : qsTr("%n card(s) due today", "", CardStore.dueCount)
                 font.pixelSize: 16
             }
@@ -233,7 +238,7 @@ Page {
                 Layout.fillWidth: true
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
-                visible: AppMode.full
+                visible: AppMode.full && !page.english // German words
                 text: qsTr("Word packs · %1").arg(WordPacks.title)
                 onClicked: page.packsRequested()
             }
@@ -329,15 +334,15 @@ Page {
                 Layout.rightMargin: 16
                 Layout.fillWidth: true
                 wrapMode: Text.WordWrap
-                visible: Speaker.ready && !Speaker.germanAvailable
+                visible: Speaker.ready && !Speaker.voiceAvailable
                 color: Material.color(Material.Orange)
-                text: qsTr("No German voice is installed. On Android: Settings → Text-to-speech → install German voice data.")
+                text: qsTr("No %1 voice is installed. On Android: Settings → Text-to-speech → install the %1 voice data.").arg(Speaker.voiceName)
             }
             Button {
                 Layout.leftMargin: 16
                 flat: true
-                visible: Speaker.ready && !Speaker.germanAvailable && Qt.platform.os === "android"
-                text: qsTr("Get the German voice (Speech Recognition and Synthesis from Google)")
+                visible: Speaker.ready && !Speaker.voiceAvailable && Qt.platform.os === "android"
+                text: qsTr("Get the %1 voice (Speech Recognition and Synthesis from Google)").arg(Speaker.voiceName)
                 onClicked: Qt.openUrlExternally("https://play.google.com/store/apps/details?id=com.google.android.tts")
             }
             RowLayout {
@@ -350,7 +355,7 @@ Page {
                     value: Speaker.rate
                     onMoved: Speaker.rate = value
                 }
-                SpeakButton { speakText: "Guten Morgen! Wie geht es dir?" }
+                SpeakButton { speakText: page.english ? "Good morning! How are you?" : "Guten Morgen! Wie geht es dir?" }
             }
 
             Label {
@@ -432,6 +437,7 @@ Page {
         standardButtons: Dialog.Ok | Dialog.Cancel
         onAboutToShow: {
             newName.text = ""
+            learnGerman.checked = true
             startWith.currentIndex = 0
             newName.forceActiveFocus()
         }
@@ -441,12 +447,33 @@ Page {
             TextField {
                 id: newName
                 Layout.fillWidth: true
-                placeholderText: qsTr("e.g. Netzwerk neu A2")
+                placeholderText: learnEnglish.checked ? qsTr("e.g. English A2") : qsTr("e.g. Netzwerk neu A2")
             }
-            Label { text: qsTr("Start with") }
+            Label { text: qsTr("I want to learn") }
+            RowLayout {
+                ButtonGroup { id: learnGroup }
+                RadioButton {
+                    id: learnGerman
+                    ButtonGroup.group: learnGroup
+                    checked: true
+                    text: "\uD83C\uDDE9\uD83C\uDDEA Deutsch"
+                }
+                RadioButton {
+                    id: learnEnglish
+                    ButtonGroup.group: learnGroup
+                    text: "\uD83C\uDDFA\uD83C\uDDF8 English"
+                    onCheckedChanged: startWith.currentIndex = 0
+                }
+            }
+            HintLabel {
+                visible: learnEnglish.checked
+                text: qsTr("American voice, meanings in Persian.")
+            }
+            Label { text: qsTr("Start with"); visible: !learnEnglish.checked }
             ComboBox {
                 id: startWith
                 Layout.fillWidth: true
+                visible: !learnEnglish.checked // starter words and word packs are German
                 // Word pack only in the Full app
                 model: AppMode.full ? [qsTr("Empty box"), qsTr("%1 starter words (German, English, Persian)").arg(WordPacks.starterTotal), qsTr("Word pack: %1").arg(WordPacks.title)]
                                     : [qsTr("Empty box"), qsTr("%1 starter words (German, English, Persian)").arg(WordPacks.starterTotal)]
@@ -454,7 +481,8 @@ Page {
         }
         onAccepted: {
             const name = newName.text.trim()
-            const id = CardStore.createCollection(name.length > 0 ? name : qsTr("Learning box %1").arg(CardStore.collections.length + 1))
+            const id = CardStore.createCollection(name.length > 0 ? name : qsTr("Learning box %1").arg(CardStore.collections.length + 1),
+                                                  learnEnglish.checked ? "en" : "de")
             if (id > 0) {
                 CardStore.selectCollection(id)
                 if (startWith.currentIndex === 1)

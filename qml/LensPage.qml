@@ -52,7 +52,7 @@ Page {
     function meaningOf(w) {
         const e = entry(w)
         if (e.text) return e.text
-        if (Translator.targetLanguage === "fa") {
+        if (Translator.meaningLanguage === "fa") {
             const known = WordPacks.lookup(w)
             if (known.back) return known.back.split("\n")[0]
         }
@@ -69,7 +69,7 @@ Page {
     // Back side for a word card. Persian: the word pack's curated meaning wins when it has one.
     function backFor(w) {
         const known = WordPacks.lookup(w)
-        if (Translator.targetLanguage === "fa" && known.back) return known.back
+        if (Translator.meaningLanguage === "fa" && known.back) return known.back
         const e = entry(w)
         let back = e.text ?? ""
         if (back !== "" && e.alternatives && e.alternatives.length > 0)
@@ -393,7 +393,7 @@ Page {
                     Layout.fillWidth: true
                     topPadding: 6; bottomPadding: 6
                     text: (page.showFull ? "\u2212  " : "+  ")
-                          + qsTr("Translation · %1").arg(Translator.targetLanguage === "fa" ? "فارسی" : "English")
+                          + qsTr("Translation · %1").arg(Translator.meaningLanguage === "fa" ? "فارسی" : "English")
                           + "  (" + page.sourceLabel(page.fullText) + ")"
                     font.pixelSize: 13
                     onClicked: {
@@ -579,7 +579,8 @@ Page {
 
     FileDialog {
         id: galleryDialog
-        title: qsTr("Choose a photo with German text")
+        title: CardStore.learningLanguage === "en" ? qsTr("Choose a photo with English text")
+                                                   : qsTr("Choose a photo with German text")
         nameFilters: [qsTr("Images (*.jpg *.jpeg *.png *.webp *.bmp)")]
         onAccepted: engine.recognize(selectedFile)
     }

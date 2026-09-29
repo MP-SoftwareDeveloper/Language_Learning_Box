@@ -45,7 +45,7 @@ Page {
     // available (offline, nothing saved) the stored back is shown instead.
     readonly property bool backIsPersian: /[\u0600-\u06FF]/.test(session.back.split("\n")[0])
     readonly property bool backMatches: session.back !== ""
-                                        && (Translator.targetLanguage === "fa") === backIsPersian
+                                        && (Translator.meaningLanguage === "fa") === backIsPersian
     property string frontTranslation: ""
     property int frontRequest: -1
     readonly property string primaryMeaning: backMatches ? session.back
@@ -60,8 +60,8 @@ Page {
         // The meaning is needed once the answer is shown, or at once when it is the question.
         if ((!revealed && germanFirst) || !session.hasCard || backMatches)
             return
-        if (Translator.targetLanguage === "fa") {
-            const known = WordPacks.lookup(session.front)
+        if (Translator.meaningLanguage === "fa") {
+            const known = WordPacks.lookup(session.front) // German boxes only (empty otherwise)
             if (known.back) {
                 frontTranslation = known.back.split("\n")[0]
                 return
@@ -194,7 +194,9 @@ Page {
             border.width: 1
             border.color: Material.accentColor
 
-            readonly property string meaningName: Translator.targetLanguage === "fa" ? "فارسی" : "English"
+            readonly property string meaningName: Translator.meaningLanguage === "fa" ? "فارسی" : "English"
+            // Language being learned in this learning box
+            readonly property string learnName: CardStore.learningLanguage === "en" ? "English" : "Deutsch"
             Row {
                 id: directionRow
                 anchors.centerIn: parent
@@ -202,8 +204,8 @@ Page {
                 Repeater {
                     // Each part is its own label: next to Persian text Android picks a Persian font for
                     // the arrow, which has no "→" (drawn as a box), and the text order could flip.
-                    model: [ { code: "german", from: "Deutsch", to: directionSwitch.meaningName },
-                             { code: "meaning", from: directionSwitch.meaningName, to: "Deutsch" },
+                    model: [ { code: "german", from: directionSwitch.learnName, to: directionSwitch.meaningName },
+                             { code: "meaning", from: directionSwitch.meaningName, to: directionSwitch.learnName },
                              { code: "mixed", from: "\uD83D\uDD00", to: qsTr("Mix") } ]
                     delegate: AbstractButton {
                         id: segment
@@ -238,9 +240,12 @@ Page {
             wrapMode: Text.WordWrap
             font.pixelSize: 13
             opacity: 0.7
-            text: page.direction === "meaning" ? qsTr("See the meaning — can you say it in German?")
+            readonly property bool english: CardStore.learningLanguage === "en"
+            text: page.direction === "meaning" ? (english ? qsTr("See the meaning — can you say it in English?")
+                                                          : qsTr("See the meaning — can you say it in German?"))
                 : page.direction === "mixed" ? qsTr("Surprise me: every card comes from either side.")
-                : qsTr("Read the German word — do you know what it means?")
+                : (english ? qsTr("Read the English word — do you know what it means?")
+                           : qsTr("Read the German word — do you know what it means?"))
         }
 
         Pane {
@@ -281,8 +286,8 @@ Page {
                             }
                             DirectionLabel {
                                 anchors.verticalCenter: parent.verticalCenter
-                                from: page.germanFirst ? "Deutsch" : directionSwitch.meaningName
-                                to: page.germanFirst ? directionSwitch.meaningName : "Deutsch"
+                                from: page.germanFirst ? directionSwitch.learnName : directionSwitch.meaningName
+                                to: page.germanFirst ? directionSwitch.meaningName : directionSwitch.learnName
                                 pixelSize: 12
                                 color: Material.accentColor
                             }
@@ -304,7 +309,8 @@ Page {
                         horizontalAlignment: Text.AlignHCenter
                         wrapMode: Text.WordWrap
                         opacity: 0.6
-                        text: /^(der|die|das) /i.test(session.front)
+                        text: CardStore.learningLanguage === "en" ? qsTr("How do you say it in English?")
+                              : /^(der|die|das) /i.test(session.front)
                               ? qsTr("How do you say it in German? Der, die or das — and the plural?")
                               : qsTr("How do you say it in German?")
                     }
@@ -326,10 +332,10 @@ Page {
 
                     MenuSeparator { Layout.fillWidth: true; visible: page.germanFirst && page.revealed }
 
-                    // Language of the meaning (also changes the setting)
+                    // Language of the meaning (also changes the setting). English boxes: always Persian.
                     RowLayout {
                         Layout.alignment: Qt.AlignHCenter
-                        visible: page.revealed || !page.germanFirst
+                        visible: (page.revealed || !page.germanFirst) && CardStore.learningLanguage === "de"
                         spacing: 0
                         Repeater {
                             model: [ { code: "fa", label: "فارسی" }, { code: "en", label: "English" } ]
@@ -430,7 +436,9 @@ Page {
             Layout.fillWidth: true
             visible: !page.revealed
             highlighted: true
-            text: page.germanFirst ? qsTr("Show the meaning") : qsTr("Show the German word")
+            text: page.germanFirst ? qsTr("Show the meaning")
+                                   : CardStore.learningLanguage === "en" ? qsTr("Show the English word")
+                                   : qsTr("Show the German word")
             onClicked: page.revealed = true
         }
         RowLayout {
