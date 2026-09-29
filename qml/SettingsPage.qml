@@ -26,10 +26,10 @@ Page {
                 font.pixelSize: 16
                 font.bold: true
             }
-            ButtonGroup { id: modeGroup }
+            // checkable: false - the dot always shows the stored mode (see the language choice below)
             RadioButton {
                 Layout.leftMargin: 8
-                ButtonGroup.group: modeGroup
+                checkable: false
                 text: qsTr("Simple")
                 checked: !AppMode.full
                 onClicked: AppMode.mode = "simple"
@@ -42,7 +42,7 @@ Page {
             }
             RadioButton {
                 Layout.leftMargin: 8
-                ButtonGroup.group: modeGroup
+                checkable: false
                 text: qsTr("Full")
                 checked: AppMode.full
                 onClicked: AppMode.mode = "full"
@@ -78,15 +78,15 @@ Page {
                 text: qsTr("Meanings in \u201C%1\u201D (learning %2) are shown in:").arg(CardStore.currentCollectionName)
                       .arg(CardStore.learningLanguage === "en" ? "English" : "Deutsch")
             }
-            ButtonGroup { id: langGroup }
-            // Every language except the one being learned
+            // Every language except the one being learned. Not checkable by itself: the dot always
+            // shows the stored choice (a clicked, checkable radio keeps its own state and drifts).
             Repeater {
                 model: [ { code: "fa", label: "فارسی  (Persian)" }, { code: "en", label: "English" }, { code: "de", label: "Deutsch  (German)" } ]
                     .filter(o => o.code !== CardStore.learningLanguage)
                 delegate: RadioButton {
                     required property var modelData
                     Layout.leftMargin: 8
-                    ButtonGroup.group: langGroup
+                    checkable: false
                     text: modelData.label
                     checked: Translator.meaningLanguage === modelData.code
                     onClicked: Translator.targetLanguage = modelData.code

@@ -772,9 +772,15 @@ QString CardStore::meaningLanguage() const
 
 void CardStore::setMeaningLanguage(const QString &language)
 {
-    if (!isMeaningLanguage(language) || language == learningLanguage() || language == meaningLanguage())
+    if (!isMeaningLanguage(language) || language == learningLanguage())
         return;
+    // Compare with what is stored, not with the resolved default: a box that has no choice yet
+    // follows the Settings default, which the caller may just have changed to this language too.
     QSqlQuery q(db());
+    q.prepare(QStringLiteral("SELECT meaning FROM collections WHERE id = ?"));
+    q.addBindValue(m_collection);
+    if (q.exec() && q.next() && q.value(0).toString() == language)
+        return;
     q.prepare(QStringLiteral("UPDATE collections SET meaning = ? WHERE id = ?"));
     q.addBindValue(language);
     q.addBindValue(m_collection);

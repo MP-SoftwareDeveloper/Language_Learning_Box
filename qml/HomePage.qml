@@ -477,14 +477,13 @@ Page {
             }
             Label { text: qsTr("Meanings in") }
             RowLayout {
-                ButtonGroup { id: meaningGroup }
                 Repeater {
                     // Every language except the one being learned
                     model: [ { code: "fa", label: "فارسی" }, { code: "en", label: "English" }, { code: "de", label: "Deutsch" } ]
                         .filter(o => o.code !== (learnEnglish.checked ? "en" : "de"))
                     delegate: RadioButton {
                         required property var modelData
-                        ButtonGroup.group: meaningGroup
+                        checkable: false // shows newDialog.meaning, never its own state
                         text: modelData.label
                         checked: newDialog.meaning === modelData.code
                         onClicked: newDialog.meaning = modelData.code

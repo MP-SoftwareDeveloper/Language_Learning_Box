@@ -1,4 +1,5 @@
 #include <QtTest>
+#include <QSignalSpy>
 #include <QDir>
 #include <QImage>
 #include <QSet>
@@ -230,6 +231,19 @@ private slots:
         s->selectCollection(first);
         s->setMeaningLanguage(QStringLiteral("fa"));
         QCOMPARE(s->meaningLanguage(), QStringLiteral("fa"));    // stored, the default no longer matters
+        // Regression: a box without a stored choice, whose default already equals the new choice,
+        // must still store it and notify (Settings writes the default first, then the box).
+        const int fresh = s->createCollection(QStringLiteral("Fresh"));
+        s->selectCollection(fresh);
+        QSettings().setValue(QStringLiteral("translation/target"), QStringLiteral("en"));
+        QCOMPARE(s->meaningLanguage(), QStringLiteral("en")); // from the default
+        QSignalSpy spy(s, &CardStore::changed);
+        s->setMeaningLanguage(QStringLiteral("en"));
+        QCOMPARE(spy.count(), 1);
+        QSettings().setValue(QStringLiteral("translation/target"), QStringLiteral("fa"));
+        QCOMPARE(s->meaningLanguage(), QStringLiteral("en")); // stored now, not the default
+        s->selectCollection(first);
+        s->deleteCollection(fresh);
         QSettings().remove(QStringLiteral("translation/target"));
         s->deleteCollection(en);
         s->deleteCollection(enDe);
