@@ -435,8 +435,10 @@ Page {
         x: (page.width - width) / 2
         y: Math.max(8, (page.height - height) / 3)
         standardButtons: Dialog.Ok | Dialog.Cancel
+        property string meaning: "fa"
         onAboutToShow: {
             newName.text = ""
+            meaning = "fa"
             learnGerman.checked = true
             startWith.currentIndex = 0
             newName.forceActiveFocus()
@@ -462,12 +464,32 @@ Page {
                     id: learnEnglish
                     ButtonGroup.group: learnGroup
                     text: "\uD83C\uDDFA\uD83C\uDDF8 English"
-                    onCheckedChanged: startWith.currentIndex = 0
+                    onCheckedChanged: {
+                        startWith.currentIndex = 0
+                        if (newDialog.meaning === (checked ? "en" : "de"))
+                            newDialog.meaning = "fa" // never the language being learned
+                    }
                 }
             }
             HintLabel {
                 visible: learnEnglish.checked
-                text: qsTr("American voice, meanings in Persian.")
+                text: qsTr("Read aloud with an American voice.")
+            }
+            Label { text: qsTr("Meanings in") }
+            RowLayout {
+                ButtonGroup { id: meaningGroup }
+                Repeater {
+                    // Every language except the one being learned
+                    model: [ { code: "fa", label: "فارسی" }, { code: "en", label: "English" }, { code: "de", label: "Deutsch" } ]
+                        .filter(o => o.code !== (learnEnglish.checked ? "en" : "de"))
+                    delegate: RadioButton {
+                        required property var modelData
+                        ButtonGroup.group: meaningGroup
+                        text: modelData.label
+                        checked: newDialog.meaning === modelData.code
+                        onClicked: newDialog.meaning = modelData.code
+                    }
+                }
             }
             Label { text: qsTr("Start with"); visible: !learnEnglish.checked }
             ComboBox {
@@ -482,7 +504,7 @@ Page {
         onAccepted: {
             const name = newName.text.trim()
             const id = CardStore.createCollection(name.length > 0 ? name : qsTr("Learning box %1").arg(CardStore.collections.length + 1),
-                                                  learnEnglish.checked ? "en" : "de")
+                                                  learnEnglish.checked ? "en" : "de", newDialog.meaning)
             if (id > 0) {
                 CardStore.selectCollection(id)
                 if (startWith.currentIndex === 1)

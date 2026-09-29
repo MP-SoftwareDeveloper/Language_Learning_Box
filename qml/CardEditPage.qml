@@ -270,20 +270,30 @@ Page {
             }
 
             // Persian, English or anything else. Qt resolves bidi direction per paragraph.
-            TextArea {
-                id: backField
+            RowLayout {
                 Layout.fillWidth: true
                 Layout.leftMargin: 16
-                Layout.rightMargin: 16
-                Layout.minimumHeight: 80
-                wrapMode: TextEdit.Wrap
-                placeholderText: qsTr("Meaning / notes")
-                // Set the alignment explicitly from the text direction: Material places the floating
-                // label by `horizontalAlignment` but cuts the border gap by the effective (text-direction)
-                // alignment, so with Persian text the label was drawn through the border line.
-                horizontalAlignment: /^[^A-Za-z\u00C0-\u024F\u0600-\u06FF\uFB50-\uFEFF]*[\u0600-\u06FF\uFB50-\uFEFF]/.test(text)
-                                     ? TextEdit.AlignRight : TextEdit.AlignLeft
-                onTextChanged: if (!page.settingBack) page.backAuto = text.trim() === ""
+                Layout.rightMargin: 8
+                TextArea {
+                    id: backField
+                    Layout.fillWidth: true
+                    Layout.minimumHeight: 80
+                    wrapMode: TextEdit.Wrap
+                    placeholderText: qsTr("Meaning / notes")
+                    // Set the alignment explicitly from the text direction: Material places the floating
+                    // label by `horizontalAlignment` but cuts the border gap by the effective (text-direction)
+                    // alignment, so with Persian text the label was drawn through the border line.
+                    horizontalAlignment: /^[^A-Za-z\u00C0-\u024F\u0600-\u06FF\uFB50-\uFEFF]*[\u0600-\u06FF\uFB50-\uFEFF]/.test(text)
+                                         ? TextEdit.AlignRight : TextEdit.AlignLeft
+                    onTextChanged: if (!page.settingBack) page.backAuto = text.trim() === ""
+                }
+                // English / German meaning can be listened to (first line); no Persian voice
+                SpeakButton {
+                    Layout.alignment: Qt.AlignTop
+                    visible: Translator.meaningLanguage !== "fa" && !/[\u0600-\u06FF]/.test(backField.text)
+                    speakText: backField.text.split("\n")[0]
+                    languageTag: Translator.meaningLanguage === "en" ? "en-US" : "de-DE"
+                }
             }
             Label {
                 Layout.leftMargin: 20

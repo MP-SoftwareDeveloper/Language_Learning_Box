@@ -20,7 +20,7 @@
 namespace {
 
 constexpr auto kConnection = "learningbox";
-constexpr int kSchemaVersion = 6;
+constexpr int kSchemaVersion = 7;
 constexpr auto kCurrentKey = "learningbox/current"; // QSettings: selected learning box
 
 QSqlDatabase db() { return QSqlDatabase::database(QLatin1String(kConnection)); }
@@ -176,6 +176,10 @@ bool CardStore::migrate()
     if (version < 6) {
         // v6: the language learned in each learning box ("de" German, "en" English).
         steps << QStringLiteral("ALTER TABLE collections ADD COLUMN language TEXT NOT NULL DEFAULT 'de'");
+    }
+    if (version < 7) {
+        // v7: meaning language of each learning box ("" = not chosen: default).
+        steps << QStringLiteral("ALTER TABLE collections ADD COLUMN meaning TEXT NOT NULL DEFAULT ''");
     }
     steps << QStringLiteral("PRAGMA user_version = %1").arg(kSchemaVersion);
 
@@ -716,7 +720,7 @@ QVariantList CardStore::collections() const
     }
     QVariantList out;
     // Most recently used first; the selected one is always the most recent.
-    q.exec(QStringLiteral("SELECT id, name, language FROM collections ORDER BY last_used_at DESC, id ASC"));
+    q.exec(QStringLiteral("SELECT id, name, language, meaning FROM collections ORDER BY last_used_at DESC, id ASC"));
     while (q.next()) {
         const int id = q.value(0).toInt();
         const Counts c = counts.value(id);
@@ -724,6 +728,7 @@ QVariantList CardStore::collections() const
             {QStringLiteral("id"), id},
             {QStringLiteral("name"), q.value(1).toString()},
             {QStringLiteral("language"), q.value(2).toString()},
+            {QStringLiteral("meaning"), q.value(3).toString()}, // "" = default
             {QStringLiteral("boxCounts"), c.boxes},
             {QStringLiteral("learned"), c.learned},
             {QStringLiteral("total"), c.total},
@@ -743,17 +748,56 @@ QString CardStore::learningLanguage() const
                                                                               : QStringLiteral("de");
 }
 
-int CardStore::createCollection(const QString &name, const QString &language)
+namespace {
+bool isMeaningLanguage(const QString &l)
+{
+    return l == QLatin1String("fa") || l == QLatin1String("en") || l == QLatin1String("de");
+}
+} // namespace
+
+QString CardStore::meaningLanguage() const
+{
+    const QString learn = learningLanguage();
+    QSqlQuery q(db());
+    q.prepare(QStringLiteral("SELECT meaning FROM collections WHERE id = ?"));
+    q.addBindValue(m_collection);
+    const QString m = q.exec() && q.next() ? q.value(0).toString() : QString();
+    if (isMeaningLanguage(m) && m != learn)
+        return m;
+    if (learn == QLatin1String("en"))
+        return QStringLiteral("fa");
+    return QSettings().value(QStringLiteral("translation/target")).toString() == QLatin1String("en")
+        ? QStringLiteral("en") : QStringLiteral("fa");
+}
+
+void CardStore::setMeaningLanguage(const QString &language)
+{
+    if (!isMeaningLanguage(language) || language == learningLanguage() || language == meaningLanguage())
+        return;
+    QSqlQuery q(db());
+    q.prepare(QStringLiteral("UPDATE collections SET meaning = ? WHERE id = ?"));
+    q.addBindValue(language);
+    q.addBindValue(m_collection);
+    if (!q.exec()) {
+        fail(QStringLiteral("setMeaningLanguage"), q.lastError().text());
+        return;
+    }
+    emit changed();
+}
+
+int CardStore::createCollection(const QString &name, const QString &language, const QString &meaning)
 {
     const QString n = name.simplified();
     if (n.isEmpty())
         return -1;
     QSqlQuery q(db());
-    q.prepare(QStringLiteral("INSERT INTO collections (name, created_at, last_used_at, language) VALUES (?, ?, ?, ?)"));
+    q.prepare(QStringLiteral("INSERT INTO collections (name, created_at, last_used_at, language, meaning) VALUES (?, ?, ?, ?, ?)"));
     q.addBindValue(n);
     q.addBindValue(nowSecs());
     q.addBindValue(0); // not used yet: goes to the end until it is selected
-    q.addBindValue(language == QLatin1String("en") ? QStringLiteral("en") : QStringLiteral("de"));
+    const QString learn = language == QLatin1String("en") ? QStringLiteral("en") : QStringLiteral("de");
+    q.addBindValue(learn);
+    q.addBindValue(isMeaningLanguage(meaning) && meaning != learn ? meaning : QStringLiteral("")); // "" = default
     if (!q.exec()) {
         fail(QStringLiteral("createCollection"), q.lastError().text());
         return -1;

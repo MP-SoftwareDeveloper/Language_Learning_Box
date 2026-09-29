@@ -38,8 +38,12 @@ A Leitner box for German vocabulary. Qt 6.10+ / C++20 / QML, with no Java. Andro
   `CardStore::learningLanguage` drives: speech (`Speaker`: German, or **American English only** — no other English
   voice is used; `voiceAvailable` / `voiceName` / `hasVoice`), Lens OCR (`eng.traineddata` next to `deu`), online
   translation and the translation cache (`Translator::sourceLanguage`; English keys are stored as `en|…`), Tatoeba
-  examples (`lang=eng`, "to/the/a/an" dropped). English boxes always use **Persian meanings**
-  (`Translator::meaningLanguage`); German word packs / starter words / der-die-das hints are not used there.
+  examples (`lang=eng`, "to/the/a/an" dropped). German word packs / starter words / der-die-das hints are not used there.
+- **Meaning language per learning box** (schema v7: `collections.meaning`): Persian, English or German — never the
+  language being learned (German boxes: fa / en, English boxes: fa / de). Chosen in *+ New learning box*, the setup,
+  Settings → Translation or the switch on the answer side (`CardStore::meaningLanguage`, `Translator::targetLanguage`
+  writes it; the last German-box choice is the default for new German boxes). English and German meanings, example
+  translations and Lens translations have 🔊 (American / German voice); Persian is not read aloud.
   `.lbox` files carry `"language"`, so an imported English file becomes an English box.
 - **Review direction** (*Ask:* on the review card): *German first* (the meaning is the answer), *Meaning first* (the
   meaning's first line is the question — the plural line would give the word away; say the German word, it is read

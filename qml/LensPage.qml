@@ -389,17 +389,28 @@ Page {
                 anchors.fill: parent
                 spacing: 0
 
+                RowLayout {
+                    Layout.fillWidth: true
+                    spacing: 0
                 ItemDelegate {
                     Layout.fillWidth: true
                     topPadding: 6; bottomPadding: 6
                     text: (page.showFull ? "\u2212  " : "+  ")
-                          + qsTr("Translation · %1").arg(Translator.meaningLanguage === "fa" ? "فارسی" : "English")
+                          + qsTr("Translation · %1").arg(Translator.meaningLanguage === "fa" ? "فارسی"
+                                                         : Translator.meaningLanguage === "de" ? "Deutsch" : "English")
                           + "  (" + page.sourceLabel(page.fullText) + ")"
                     font.pixelSize: 13
                     onClicked: {
                         page.showFull = !page.showFull
                         page.request(page.fullText) // retries if it failed before
                     }
+                }
+                // English / German translation read aloud (no Persian voice)
+                SpeakButton {
+                    visible: page.showFull && Translator.meaningLanguage !== "fa"
+                    speakText: page.entry(page.fullText).text ?? ""
+                    languageTag: Translator.meaningLanguage === "en" ? "en-US" : "de-DE"
+                }
                 }
                 ScrollView {
                     Layout.fillWidth: true

@@ -3,7 +3,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import LearningBox
 
-// A German example sentence with its translation underneath, in the translation language
+// An example sentence (learning language) with its translation underneath, in the translation language
 // (Settings, or the switch on the review card: Persian or English). Source, first match wins:
 //   1. `knownTranslation` (Persian; e.g. a word-pack preview row)
 //   2. the word pack's curated Persian translation (also for cards already in the box)
@@ -16,6 +16,7 @@ ColumnLayout {
     property int pixelSize: 16
     property bool onlineLookup: true // false in long lists (one request per row would be too many)
     property real germanOpacity: 0.85
+    property bool speakTranslation: true // 🔊 on English / German translations
     spacing: 2
 
     readonly property bool persian: Translator.meaningLanguage === "fa"
@@ -65,13 +66,25 @@ ColumnLayout {
         font.pixelSize: root.pixelSize
         opacity: root.germanOpacity
     }
-    Label {
+    RowLayout {
         Layout.fillWidth: true
         visible: root.translation !== ""
-        text: root.translation
-        wrapMode: Text.WordWrap
-        horizontalAlignment: root.persian ? Text.AlignRight : Text.AlignLeft
-        font.pixelSize: root.pixelSize - 1
-        opacity: 0.75
+        spacing: 0
+        Label {
+            Layout.fillWidth: true
+            text: root.translation
+            wrapMode: Text.WordWrap
+            horizontalAlignment: root.persian ? Text.AlignRight : Text.AlignLeft
+            font.pixelSize: root.pixelSize - 1
+            opacity: 0.75
+        }
+        // English / German translations can be heard too (no Persian voice)
+        SpeakButton {
+            Layout.alignment: Qt.AlignTop
+            visible: !root.persian && root.speakTranslation && !/[\u0600-\u06FF]/.test(root.translation)
+            speakText: root.translation
+            languageTag: Translator.meaningLanguage === "en" ? "en-US" : "de-DE"
+            implicitHeight: 32
+        }
     }
 }

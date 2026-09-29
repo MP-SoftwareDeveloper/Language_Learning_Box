@@ -10,6 +10,10 @@ Page {
                             : qsTr("Review · %1 left").arg(session.remaining)
 
     property bool revealed: false
+    // Meanings in English or German can be heard (American / German voice); Persian has no voice.
+    readonly property bool meaningSpeakable: Translator.meaningLanguage !== "fa"
+                                             && !/[\u0600-\u06FF]/.test(primaryMeaning.split("\n")[0])
+    readonly property string meaningTag: Translator.meaningLanguage === "en" ? "en-US" : "de-DE"
     property bool autoSpeak: true
 
     // ---- Direction (remembered per learning box) ----
@@ -194,7 +198,8 @@ Page {
             border.width: 1
             border.color: Material.accentColor
 
-            readonly property string meaningName: Translator.meaningLanguage === "fa" ? "فارسی" : "English"
+            readonly property string meaningName: Translator.meaningLanguage === "fa" ? "فارسی"
+                                                : Translator.meaningLanguage === "de" ? "Deutsch" : "English"
             // Language being learned in this learning box
             readonly property string learnName: CardStore.learningLanguage === "en" ? "English" : "Deutsch"
             Row {
@@ -296,12 +301,20 @@ Page {
 
                     // Meaning first: the question is the meaning (first line only: the plural line
                     // would give the German word away).
-                    MeaningText {
+                    RowLayout {
                         Layout.fillWidth: true
                         visible: !page.germanFirst && page.primaryMeaning.length > 0
-                        text: page.primaryMeaning.split("\n")[0]
-                        center: true
-                        pixelSize: 26
+                        MeaningText {
+                            Layout.fillWidth: true
+                            text: page.primaryMeaning.split("\n")[0]
+                            center: true
+                            pixelSize: 26
+                        }
+                        SpeakButton {
+                            visible: page.meaningSpeakable
+                            speakText: page.primaryMeaning.split("\n")[0]
+                            languageTag: page.meaningTag
+                        }
                     }
                     Label {
                         Layout.fillWidth: true
@@ -332,13 +345,15 @@ Page {
 
                     MenuSeparator { Layout.fillWidth: true; visible: page.germanFirst && page.revealed }
 
-                    // Language of the meaning (also changes the setting). English boxes: always Persian.
+                    // Language of the meaning for this learning box (never the language being learned)
                     RowLayout {
                         Layout.alignment: Qt.AlignHCenter
-                        visible: (page.revealed || !page.germanFirst) && CardStore.learningLanguage === "de"
+                        visible: page.revealed || !page.germanFirst
                         spacing: 0
                         Repeater {
-                            model: [ { code: "fa", label: "فارسی" }, { code: "en", label: "English" } ]
+                            model: CardStore.learningLanguage === "en"
+                                   ? [ { code: "fa", label: "فارسی" }, { code: "de", label: "Deutsch" } ]
+                                   : [ { code: "fa", label: "فارسی" }, { code: "en", label: "English" } ]
                             delegate: Button {
                                 required property var modelData
                                 // Plain buttons: the highlight follows the setting (no checkable state to get out of sync)
@@ -365,15 +380,25 @@ Page {
                     }
 
                     // Free-text back: Persian (RTL) and Latin text both lay out by their own direction.
-                    MeaningText {
+                    RowLayout {
                         Layout.fillWidth: true
                         // Meaning first: the full meaning (with the plural line) once the answer is shown
                         visible: page.revealed && page.primaryMeaning.length > 0
                                  && (page.germanFirst || page.primaryMeaning.indexOf("\n") > 0)
-                        text: page.germanFirst ? page.primaryMeaning
-                                               : page.primaryMeaning.split("\n").slice(1).join("\n")
-                        center: true
-                        pixelSize: 22
+                        MeaningText {
+                            Layout.fillWidth: true
+                            text: page.germanFirst ? page.primaryMeaning
+                                                   : page.primaryMeaning.split("\n").slice(1).join("\n")
+                            center: true
+                            pixelSize: 22
+                        }
+                        // English / German meaning read aloud (first line: the meaning itself)
+                        SpeakButton {
+                            Layout.alignment: Qt.AlignTop
+                            visible: page.meaningSpeakable && page.germanFirst
+                            speakText: page.primaryMeaning.split("\n")[0]
+                            languageTag: page.meaningTag
+                        }
                     }
                     Label {
                         Layout.fillWidth: true

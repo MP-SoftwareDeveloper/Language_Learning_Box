@@ -36,6 +36,10 @@ class CardStore : public QObject
     // Language being learned in the selected learning box: "de" (German) or "en" (English, US).
     // Speech, text recognition, translation and example sentences follow it.
     Q_PROPERTY(QString learningLanguage READ learningLanguage NOTIFY changed)
+    // Language of the meanings in the selected learning box: "fa", "en" or "de" (never the learning
+    // language). German boxes: Persian or English; English boxes: Persian or German.
+    // Not chosen yet: English boxes Persian, German boxes the Settings default (translation/target).
+    Q_PROPERTY(QString meaningLanguage READ meaningLanguage WRITE setMeaningLanguage NOTIFY changed)
     Q_PROPERTY(QString lastError READ lastError NOTIFY errorOccurred)
     // True after resetCollection / resetBox until undoReset() or the next app start.
     Q_PROPERTY(bool canUndoReset READ canUndoReset NOTIFY changed)
@@ -86,11 +90,14 @@ public:
 
     int currentCollection() const { return m_collection; }
     QString currentCollectionName() const;
-    QVariantList collections() const; // [{id, name, language, boxCounts, learned, total, due, current}]
+    QVariantList collections() const; // [{id, name, language, meaning, boxCounts, learned, total, due, current}]
     QString learningLanguage() const;
-    // New, empty learning box (not selected yet) for `language` ("de" or "en").
-    // Returns its id, -1 on error.
-    Q_INVOKABLE int createCollection(const QString &name, const QString &language = QStringLiteral("de"));
+    QString meaningLanguage() const;
+    void setMeaningLanguage(const QString &language);
+    // New, empty learning box (not selected yet) for `language` ("de" or "en") with meanings in
+    // `meaning` ("" = default). Returns its id, -1 on error.
+    Q_INVOKABLE int createCollection(const QString &name, const QString &language = QStringLiteral("de"),
+                                     const QString &meaning = QString());
     Q_INVOKABLE bool renameCollection(int id, const QString &name);
     // Deletes a learning box with all its cards; the last remaining one cannot be deleted.
     Q_INVOKABLE bool deleteCollection(int id);

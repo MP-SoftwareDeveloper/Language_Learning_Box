@@ -51,9 +51,10 @@ Translator::Translator(QObject *parent)
 {
     connect(AppMode::instance(), &AppMode::changed, this, &Translator::networkChanged); // useOnline depends on it
     // Switching to a learning box with another language changes source and meaning language.
-    m_lastSource = sourceLanguage();
+    // The meaning language is chosen per learning box, too.
+    m_lastSource = sourceLanguage() + u'>' + meaningLanguage();
     connect(CardStore::instance(), &CardStore::changed, this, [this] {
-        const QString s = sourceLanguage();
+        const QString s = sourceLanguage() + u'>' + meaningLanguage();
         if (s != m_lastSource) {
             m_lastSource = s;
             emit settingsChanged();
@@ -61,9 +62,6 @@ Translator::Translator(QObject *parent)
         }
     });
     QSettings settings;
-    m_target = settings.value(QStringLiteral("translation/target"), QStringLiteral("fa")).toString();
-    if (m_target != QLatin1String("en"))
-        m_target = QStringLiteral("fa");
     m_onlineEnabled = settings.value(QStringLiteral("translation/online"), true).toBool();
 
     m_nam->setTransferTimeout(kTimeoutMs);
@@ -90,15 +88,18 @@ bool Translator::networkAvailable() const
         || r == QNetworkInformation::Reachability::Unknown;
 }
 
+QString Translator::targetLanguage() const
+{
+    return CardStore::instance()->meaningLanguage();
+}
+
 void Translator::setTargetLanguage(const QString &lang)
 {
-    const QString l = lang == QLatin1String("en") ? QStringLiteral("en") : QStringLiteral("fa");
-    if (l == m_target)
-        return;
-    m_target = l;
-    QSettings().setValue(QStringLiteral("translation/target"), m_target);
-    emit settingsChanged();
-    emit savedCountChanged();
+    CardStore *store = CardStore::instance();
+    // German boxes: the last choice (Persian / English) is also the default for new German boxes.
+    if (store->learningLanguage() == QLatin1String("de") && (lang == QLatin1String("fa") || lang == QLatin1String("en")))
+        QSettings().setValue(QStringLiteral("translation/target"), lang);
+    store->setMeaningLanguage(lang); // emits CardStore::changed -> settingsChanged above
 }
 
 void Translator::setOnlineEnabled(bool on)
@@ -118,7 +119,7 @@ QString Translator::sourceLanguage() const
 
 QString Translator::meaningLanguage() const
 {
-    return sourceLanguage() == QLatin1String("en") ? QStringLiteral("fa") : m_target;
+    return CardStore::instance()->meaningLanguage();
 }
 
 bool Translator::useOnline() const

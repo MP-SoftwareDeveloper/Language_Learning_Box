@@ -72,38 +72,34 @@ Page {
                 font.pixelSize: 16
                 font.bold: true
             }
-            Label {
-                Layout.leftMargin: 16
-                Layout.rightMargin: 16
-                Layout.fillWidth: true
-                wrapMode: Text.WordWrap
-                opacity: 0.7
-                text: AppMode.full ? qsTr("Meanings in review, the help and the back of new cards use this language. Lens translates photos into it.")
-                                   : qsTr("Meanings in review, the help and the back of new cards use this language.")
-            }
-            ButtonGroup { id: langGroup }
-            RadioButton {
-                Layout.leftMargin: 8
-                ButtonGroup.group: langGroup
-                text: "فارسی  (Persian)"
-                checked: Translator.targetLanguage === "fa"
-                onClicked: Translator.targetLanguage = "fa"
-            }
-            RadioButton {
-                Layout.leftMargin: 8
-                ButtonGroup.group: langGroup
-                text: "English"
-                checked: Translator.targetLanguage === "en"
-                onClicked: Translator.targetLanguage = "en"
-            }
-
             HintLabel {
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
-                visible: CardStore.learningLanguage === "en"
-                text: qsTr("\u201C%1\u201D is an English learning box: its meanings are always in Persian. This choice is for German learning boxes and the help.")
-                      .arg(CardStore.currentCollectionName)
+                text: qsTr("Meanings in \u201C%1\u201D (learning %2) are shown in:").arg(CardStore.currentCollectionName)
+                      .arg(CardStore.learningLanguage === "en" ? "English" : "Deutsch")
             }
+            ButtonGroup { id: langGroup }
+            // Every language except the one being learned
+            Repeater {
+                model: [ { code: "fa", label: "فارسی  (Persian)" }, { code: "en", label: "English" }, { code: "de", label: "Deutsch  (German)" } ]
+                    .filter(o => o.code !== CardStore.learningLanguage)
+                delegate: RadioButton {
+                    required property var modelData
+                    Layout.leftMargin: 8
+                    ButtonGroup.group: langGroup
+                    text: modelData.label
+                    checked: Translator.meaningLanguage === modelData.code
+                    onClicked: Translator.targetLanguage = modelData.code
+                }
+            }
+            HintLabel {
+                Layout.leftMargin: 16
+                Layout.rightMargin: 16
+                text: (AppMode.full ? qsTr("Used for the back of new cards, the review and Lens translations; English and German meanings can be listened to (\uD83D\uDD0A). ")
+                                    : qsTr("Used for the back of new cards and the review; English and German meanings can be listened to (\uD83D\uDD0A). "))
+                      + qsTr("Each learning box keeps its own choice. The help follows it (Persian, else English).")
+            }
+
             SwitchDelegate {
                 Layout.fillWidth: true
                 visible: AppMode.full

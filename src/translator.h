@@ -31,8 +31,8 @@ class Translator : public QObject
     Q_PROPERTY(bool rightToLeft READ rightToLeft NOTIFY settingsChanged)  // meaning is Persian
     // Language being learned (from the selected learning box): "de" or "en".
     Q_PROPERTY(QString sourceLanguage READ sourceLanguage NOTIFY settingsChanged)
-    // Language of the meanings actually used: the setting (targetLanguage) when learning German;
-    // always Persian when learning English (English meanings of English words make no sense).
+    // Language of the meanings in the selected learning box: Persian, English or German, never
+    // the learning language (CardStore::meaningLanguage). targetLanguage is the same, writable.
     Q_PROPERTY(QString meaningLanguage READ meaningLanguage NOTIFY settingsChanged)
     Q_PROPERTY(int savedCount READ savedCount NOTIFY savedCountChanged)
 
@@ -40,7 +40,8 @@ public:
     static Translator *create(QQmlEngine *, QJSEngine *);
     static Translator *instance();
 
-    QString targetLanguage() const { return m_target; }
+    // Meaning language of the selected learning box ("fa", "en", "de"); same as meaningLanguage.
+    QString targetLanguage() const;
     void setTargetLanguage(const QString &lang);
     bool onlineEnabled() const { return m_onlineEnabled; }
     void setOnlineEnabled(bool on);
@@ -90,7 +91,6 @@ private:
                 QStringList *alternatives) const;
 
     QNetworkAccessManager *m_nam = nullptr;
-    QString m_target;
     QString m_lastSource;
     bool m_onlineEnabled = true;
     bool m_cacheOk = false;

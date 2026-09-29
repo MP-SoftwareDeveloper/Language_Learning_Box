@@ -14,7 +14,9 @@ Page {
     signal finished()
 
     property string chosenMode: "simple"
-    readonly property bool fa: Translator.targetLanguage === "fa"
+    // Meaning language for the first learning box (never the language being learned)
+    property string meaning: Translator.targetLanguage === "en" ? "en" : "fa"
+    readonly property bool fa: meaning === "fa"
     // Language to learn: "de" German or "en" English (American); English meanings are Persian.
     property string learn: "de"
     readonly property bool english: learn === "en"
@@ -27,22 +29,25 @@ Page {
         if (english) {
             // An English learning box; a new install's empty German box is not needed then.
             const empty = CardStore.collections.length === 1 && CardStore.totalCount === 0 ? CardStore.currentCollection : -1
-            const id = CardStore.createCollection(qsTr("My English box"), "en")
+            const id = CardStore.createCollection(qsTr("My English box"), "en", page.meaning)
             if (id > 0) {
                 CardStore.selectCollection(id)
                 if (empty > 0)
                     CardStore.deleteCollection(empty)
             }
-        } else if (starterBox.checked) {
+        } else if (!starterBox.checked) {
+            Translator.targetLanguage = page.meaning // the German learning box already there
+        } else {
             // A new install has one empty learning box: use it for the starter words.
             const name = qsTr("Starter – 100 words")
             if (CardStore.collections.length === 1 && CardStore.totalCount === 0) {
                 CardStore.renameCollection(CardStore.currentCollection, name)
             } else {
-                const id = CardStore.createCollection(name)
+                const id = CardStore.createCollection(name, "de", page.meaning)
                 if (id > 0)
                     CardStore.selectCollection(id)
             }
+            Translator.targetLanguage = page.meaning // the starter cards' back uses it
             WordPacks.addStarterCards()
         }
         AppMode.setupDone = true
@@ -113,42 +118,41 @@ Page {
                             font.pixelSize: 17
                             onClicked: {
                                 page.learn = modelData.code
-                                if (modelData.code === "en")
-                                    Translator.targetLanguage = "fa" // meanings and help in Persian
+                                if (page.meaning === modelData.code)
+                                    page.meaning = "fa"
                             }
                         }
                     }
                 }
                 HintLabel {
                     visible: page.english
-                    text: qsTr("English with an American voice; meanings are shown in Persian.")
+                    text: qsTr("English is read aloud with an American voice.")
                 }
                 Label {
                     Layout.topMargin: 8
-                    visible: !page.english
                     font.bold: true
                     text: qsTr("Meanings in") + " / " + "معنی به"
                 }
                 RowLayout {
                     Layout.fillWidth: true
-                    visible: !page.english
                     spacing: 12
                     Repeater {
-                        model: [ { code: "en", label: "English" }, { code: "fa", label: "فارسی" } ]
+                        // Every language except the one being learned
+                        model: [ { code: "fa", label: "فارسی" }, { code: "en", label: "English" }, { code: "de", label: "Deutsch" } ]
+                            .filter(o => o.code !== page.learn)
                         delegate: Button {
                             required property var modelData
                             Layout.fillWidth: true
                             Layout.preferredHeight: 56
-                            highlighted: Translator.targetLanguage === modelData.code
+                            highlighted: page.meaning === modelData.code
                             text: modelData.label
                             font.pixelSize: 17
-                            onClicked: Translator.targetLanguage = modelData.code
+                            onClicked: page.meaning = modelData.code
                         }
                     }
                 }
                 HintLabel {
-                    visible: !page.english
-                    text: qsTr("The back of your cards and the help are shown in this language. You can change it any time in Settings.")
+                    text: qsTr("The back of your cards is shown in this language; English and German meanings can also be listened to. You can change it any time in Settings.")
                 }
             }
         }

@@ -32,6 +32,7 @@ private slots:
         QStandardPaths::setTestModeEnabled(true);
         QDir(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)).removeRecursively();
         QSettings().remove(QStringLiteral("review")); // settings outlive the throw-away database
+        QSettings().remove(QStringLiteral("translation"));
         QVERIFY2(CardStore::instance()->ready(), qPrintable(CardStore::instance()->lastError()));
     }
 
@@ -207,6 +208,31 @@ private slots:
         s->selectCollection(first);
         s->deleteCollection(en);
         s->deleteCollection(de);
+    }
+
+    // Meaning language per learning box; never the learning language itself.
+    void meaningLanguagePerBox()
+    {
+        auto *s = CardStore::instance();
+        const int first = s->currentCollection();
+        QSettings().setValue(QStringLiteral("translation/target"), QStringLiteral("en"));
+        QCOMPARE(s->meaningLanguage(), QStringLiteral("en")); // German box: the Settings default
+        const int en = s->createCollection(QStringLiteral("English B1"), QStringLiteral("en"));
+        const int enDe = s->createCollection(QStringLiteral("English for Germans"), QStringLiteral("en"), QStringLiteral("de"));
+        s->selectCollection(en);
+        QCOMPARE(s->meaningLanguage(), QStringLiteral("fa"));  // English box: Persian by default
+        s->setMeaningLanguage(QStringLiteral("en"));             // not the learning language
+        QCOMPARE(s->meaningLanguage(), QStringLiteral("fa"));
+        s->setMeaningLanguage(QStringLiteral("de"));
+        QCOMPARE(s->meaningLanguage(), QStringLiteral("de"));
+        s->selectCollection(enDe);
+        QCOMPARE(s->meaningLanguage(), QStringLiteral("de"));
+        s->selectCollection(first);
+        s->setMeaningLanguage(QStringLiteral("fa"));
+        QCOMPARE(s->meaningLanguage(), QStringLiteral("fa"));    // stored, the default no longer matters
+        QSettings().remove(QStringLiteral("translation/target"));
+        s->deleteCollection(en);
+        s->deleteCollection(enDe);
     }
 
     // The review direction is remembered per learning box.
