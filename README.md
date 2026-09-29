@@ -119,7 +119,7 @@ Plain words and a grey hint under every choice (`qml/HintLabel.qml`).
 - **Example translations**: with Persian selected in Settings, every example sentence shows its Persian translation
   underneath (`ExampleText.qml`: review answer, pack preview, card editor). Source: the pack's own translation (also for
   cards already in the box, looked up by the example text), else a saved translation, else online (debounced, saved).
-- In the app: Home → *Word packs* → add a chapter (skips words already in the box, case-insensitive) or preview it.
+- In the app: Home → ⋮ (learning box menu) → *Word packs* → add a chapter (skips words already in the box, case-insensitive) or preview it.
   Imported cards get `deck = "Netzwerk neu A1 · K<n>"` (schema v2), so searching "K3" in *All cards* finds a chapter.
 - The meaning is stored as two lines, Persian meaning and then the German grammar note, and shown with `MeaningText.qml`,
   so each line gets its own direction (RTL/LTR).

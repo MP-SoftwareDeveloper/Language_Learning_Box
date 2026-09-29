@@ -205,8 +205,7 @@ Page {
                 Layout.fillWidth: true
                 wrapMode: Text.WordWrap
                 text: CardStore.totalCount === 0
-                      ? (page.english ? qsTr("This learning box is empty. Add your first English word.")
-                                      : qsTr("This learning box is empty. Add your first German word."))
+                      ? qsTr("This learning box is empty. Add words from the Dictionary below, or tap Box 1 and then +.")
                       : qsTr("%n card(s) due today", "", CardStore.dueCount)
                 font.pixelSize: 16
             }
@@ -232,21 +231,6 @@ Page {
                 Layout.fillWidth: true
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
-                text: qsTr("Add card")
-                onClicked: page.addRequested()
-            }
-            Button {
-                Layout.fillWidth: true
-                Layout.leftMargin: 16
-                Layout.rightMargin: 16
-                visible: AppMode.full && !page.english // German words
-                text: qsTr("Word packs · %1").arg(WordPacks.title)
-                onClicked: page.packsRequested()
-            }
-            Button {
-                Layout.fillWidth: true
-                Layout.leftMargin: 16
-                Layout.rightMargin: 16
                 flat: true
                 enabled: CardStore.totalCount > 0
                 text: qsTr("All cards (%1)").arg(CardStore.totalCount)
@@ -258,7 +242,6 @@ Page {
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
                 Layout.topMargin: 4
-                flat: true
                 enabled: CardStore.totalCount > 0
                 text: qsTr("\u2B06  Send or back up cards")
                 onClicked: page.sendRequested()
@@ -274,7 +257,6 @@ Page {
                 Layout.fillWidth: true
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
-                flat: true
                 text: qsTr("\u2B07  Get cards from a file or link")
                 onClicked: page.getRequested()
             }
@@ -368,6 +350,14 @@ Page {
                 renameField.text = page.menuName
                 renameDialog.open()
             }
+        }
+        MenuItem {
+            text: qsTr("Word packs · %1").arg(WordPacks.title)
+            // German words: Full app, German learning boxes
+            enabled: AppMode.full && !page.english
+            height: enabled ? implicitHeight : 0
+            visible: enabled
+            onTriggered: page.packsRequested()
         }
         MenuItem {
             text: qsTr("Start over (all cards to Box 1)")
