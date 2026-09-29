@@ -1,0 +1,612 @@
+# LearningBox word pack. Format: chapter<TAB>German<TAB>meaning (Persian)<TAB>example sentence<TAB>example in Persian (optional)
+# Vocabulary and example sentences are original, grouped by the chapter themes of the course "Netzwerk neu A1".
+@pack	netzwerk-neu-a1	Netzwerk neu A1
+@chapter	1	Guten Tag!
+@chapter	2	Freunde, Kollegen und ich
+@chapter	3	In Hamburg
+@chapter	4	Guten Appetit!
+@chapter	5	Alltag und Familie
+@chapter	6	Zeit mit Freunden
+@chapter	7	Arbeitsalltag
+@chapter	8	Fit und gesund
+@chapter	9	Meine Wohnung
+@chapter	10	Studium und Beruf
+@chapter	11	Die Jacke gefällt mir!
+@chapter	12	Ab in den Urlaub!
+1	Hallo!	سلام!	Hallo, ich bin Sara.	سلام، من سارا هستم.
+1	Guten Morgen!	صبح بخیر!	Guten Morgen, Herr Weber!	صبح بخیر، آقای وبر!
+1	Guten Tag!	روز بخیر! (سلام رسمی)	Guten Tag, ich bin Frau Schmidt.	روز بخیر، من خانم اشمیت هستم.
+1	Guten Abend!	عصر بخیر!	Guten Abend, Frau Klein!	عصر بخیر، خانم کلاین!
+1	Gute Nacht!	شب بخیر!	Gute Nacht und schlaf gut!	شب بخیر، خوب بخوابی!
+1	Tschüss!	خداحافظ! (خودمانی)	Tschüss, Anna, bis morgen!	خداحافظ آنا، تا فردا!
+1	Auf Wiedersehen!	خداحافظ! (رسمی)	Auf Wiedersehen und vielen Dank!	خداحافظ و خیلی ممنون!
+1	Bis bald!	به زودی می‌بینمت!	Ich muss jetzt gehen. Bis bald!	الان باید بروم. به زودی می‌بینمت!
+1	Wie geht's?	حالت چطور است؟	Hallo Tom, wie geht's?	سلام تام، چطوری؟
+1	Danke, gut.	ممنون، خوبم.	Wie geht es dir? Danke, gut.	حالت چطور است؟ ممنون، خوبم.
+1	Freut mich!	خوشبختم!	Ich heiße Lena. Freut mich!	اسم من لنا است. از آشنایی‌ات خوشحالم!
+1	heißen	نام داشتن، نامیده شدن	Wie heißt du?	اسمت چیست؟
+1	sein	بودن · er/sie ist	Ich bin Student.	من دانشجو هستم.
+1	der Name	نام، اسم · Pl. die Namen	Mein Name ist Ali.	اسم من علی است.
+1	der Vorname	نام کوچک · Pl. die Vornamen	Mein Vorname ist Reza.	اسم کوچک من رضا است.
+1	der Familienname	نام خانوادگی · Pl. die Familiennamen	Wie ist Ihr Familienname?	نام خانوادگی شما چیست؟
+1	der Herr	آقا · Pl. die Herren	Das ist Herr Müller.	این آقای مولر است.
+1	die Frau	خانم؛ زن · Pl. die Frauen	Frau Becker kommt aus Bremen.	خانم بکر اهل برمن است.
+1	kommen	آمدن	Kommst du aus Österreich?	تو اهل اتریش هستی؟
+1	woher	از کجا	Woher kommen Sie?	شما اهل کجا هستید؟
+1	wo	کجا	Wo wohnst du?	کجا زندگی می‌کنی؟
+1	wer	چه کسی، کی	Wer ist das?	این کیست؟
+1	wohnen	زندگی کردن، سکونت داشتن	Wir wohnen in Berlin.	ما در برلین زندگی می‌کنیم.
+1	sprechen	صحبت کردن · er/sie spricht · hat gesprochen	Sprichst du Deutsch?	آلمانی صحبت می‌کنی؟
+1	lernen	یاد گرفتن، آموختن · hat gelernt	Ich lerne jeden Tag neue Wörter.	من هر روز کلمه‌های جدید یاد می‌گیرم.
+1	das Land	کشور · Pl. die Länder	Deutschland ist ein schönes Land.	آلمان کشور زیبایی است.
+1	die Sprache	زبان · Pl. die Sprachen	Ich spreche zwei Sprachen.	من دو زبان صحبت می‌کنم.
+1	Deutschland	آلمان · Pl. —	Ich wohne seit einem Jahr in Deutschland.	من یک سال است که در آلمان زندگی می‌کنم.
+1	der Iran	ایران · Pl. —	Ich komme aus dem Iran.	من اهل ایران هستم.
+1	Deutsch	زبان آلمانی · Pl. —	Deutsch ist nicht so schwer.	آلمانی آن‌قدرها سخت نیست.
+1	Persisch	زبان فارسی · Pl. —	Meine Muttersprache ist Persisch.	زبان مادری من فارسی است.
+1	Englisch	زبان انگلیسی · Pl. —	Sprechen Sie auch Englisch?	شما انگلیسی هم صحبت می‌کنید؟
+1	die Stadt	شهر · Pl. die Städte	Teheran ist eine große Stadt.	تهران شهر بزرگی است.
+1	die Adresse	آدرس، نشانی · Pl. die Adressen	Wie ist deine Adresse?	آدرست چیست؟
+1	das Alphabet	الفبا · Pl. die Alphabete	Das deutsche Alphabet hat 26 Buchstaben.	الفبای آلمانی ۲۶ حرف دارد.
+1	der Buchstabe	حرف (الفبا) · Pl. die Buchstaben	Mein Name hat fünf Buchstaben.	اسم من پنج حرف دارد.
+1	buchstabieren	هجی کردن	Können Sie das bitte buchstabieren?	لطفاً می‌توانید آن را هجی کنید؟
+1	Wie bitte?	ببخشید، چه گفتید؟	Wie bitte? Wie heißen Sie?	ببخشید؟ اسم شما چیست؟
+1	Noch einmal, bitte.	لطفاً یک بار دیگر.	Ich verstehe das nicht. Noch einmal, bitte.	این را نمی‌فهمم. لطفاً یک بار دیگر.
+1	verstehen	فهمیدن	Verstehst du das Wort?	این کلمه را می‌فهمی؟
+1	Entschuldigung!	ببخشید!	Entschuldigung, sind Sie Herr Wolf?	ببخشید، شما آقای ولف هستید؟
+1	bitte	لطفاً؛ خواهش می‌کنم	Ein Kaffee, bitte.	یک قهوه، لطفاً.
+1	danke	ممنون، متشکرم	Danke für deine Hilfe!	ممنون از کمکت!
+1	ja	بله	Ja, ich komme aus Wien.	بله، من اهل وین هستم.
+1	nein	نه، خیر	Nein, ich wohne nicht hier.	نه، من این‌جا زندگی نمی‌کنم.
+1	die Zahl	عدد · Pl. die Zahlen	Schreib die Zahl bitte an die Tafel.	لطفاً عدد را روی تخته بنویس.
+1	null	صفر	Meine Telefonnummer beginnt mit null.	شماره تلفن من با صفر شروع می‌شود.
+1	eins	یک	Eins plus eins ist zwei.	یک به‌علاوه‌ی یک می‌شود دو.
+1	drei	سه	Wir sind drei Freunde.	ما سه دوست هستیم.
+1	sieben	هفت	Die Woche hat sieben Tage.	هفته هفت روز دارد.
+1	zehn	ده	Ich habe zehn Bücher.	من ده کتاب دارم.
+1	elf	یازده	Mein Sohn ist elf Jahre alt.	پسرم یازده سال دارد.
+1	zwölf	دوازده	Das Jahr hat zwölf Monate.	سال دوازده ماه دارد.
+1	siebzehn	هفده	Der Kurs hat siebzehn Teilnehmer.	این دوره هفده شرکت‌کننده دارد.
+1	zwanzig	بیست	Im Kurs sind zwanzig Leute.	در کلاس بیست نفر هستند.
+1	zwei	دو	Ich habe zwei Brüder.	من دو برادر دارم.
+1	vier	چهار	Wir sind vier Personen.	ما چهار نفر هستیم.
+1	fünf	پنج	Der Kurs hat fünf Teilnehmer.	این دوره پنج شرکت‌کننده دارد.
+1	sechs	شش	Es ist sechs Uhr.	ساعت شش است.
+1	acht	هشت	Meine Tochter ist acht Jahre alt.	دخترم هشت سال دارد.
+1	neun	نه (عدد ۹)	Der Bus kommt um neun.	اتوبوس ساعت نه می‌آید.
+1	dreizehn	سیزده	Das Zimmer hat die Nummer dreizehn.	شماره‌ی این اتاق سیزده است.
+1	vierzehn	چهارده	Mein Sohn ist vierzehn.	پسرم چهارده سال دارد.
+1	fünfzehn	پانزده	Der Kurs dauert fünfzehn Wochen.	این دوره پانزده هفته طول می‌کشد.
+1	sechzehn	شانزده	Wir brauchen sechzehn Stühle.	ما شانزده صندلی لازم داریم.
+1	achtzehn	هجده	Sie ist achtzehn Jahre alt.	او هجده سال دارد.
+1	neunzehn	نوزده	Die Wohnung hat die Nummer neunzehn.	شماره‌ی این آپارتمان نوزده است.
+2	die Freizeit	اوقات فراغت · Pl. —	In der Freizeit lese ich gern.	در وقت آزادم دوست دارم کتاب بخوانم.
+2	das Hobby	سرگرمی · Pl. die Hobbys	Mein Hobby ist Fotografieren.	سرگرمی من عکاسی است.
+2	gern	با علاقه، با کمال میل	Ich spiele gern Fußball.	من دوست دارم فوتبال بازی کنم.
+2	spielen	بازی کردن؛ (ساز) زدن	Die Kinder spielen im Park.	بچه‌ها در پارک بازی می‌کنند.
+2	lesen	خواندن، مطالعه کردن · er/sie liest · hat gelesen	Sie liest gern Bücher.	او دوست دارد کتاب بخواند.
+2	schwimmen	شنا کردن	Am Samstag schwimmen wir im See.	شنبه در دریاچه شنا می‌کنیم.
+2	tanzen	رقصیدن	Tanzt du gern?	رقصیدن را دوست داری؟
+2	kochen	آشپزی کردن، پختن	Mein Vater kocht sehr gut.	پدرم خیلی خوب آشپزی می‌کند.
+2	singen	آواز خواندن	Sie singt in einem Chor.	او در یک گروه کُر آواز می‌خواند.
+2	reisen	سفر کردن	Wir reisen gern nach Italien.	ما دوست داریم به ایتالیا سفر کنیم.
+2	fotografieren	عکاسی کردن، عکس گرفتن	Ich fotografiere gern Blumen.	من دوست دارم از گل‌ها عکس بگیرم.
+2	Musik hören	موسیقی گوش دادن	Abends höre ich gern Musik.	عصرها دوست دارم موسیقی گوش کنم.
+2	treffen	ملاقات کردن، دیدن · er/sie trifft	Ich treffe heute meine Freunde.	امروز دوستانم را می‌بینم.
+2	der Freund	دوست (مرد)؛ دوست‌پسر · Pl. die Freunde	Mein Freund heißt Jonas.	اسم دوستم یوناس است.
+2	die Freundin	دوست (زن)؛ دوست‌دختر · Pl. die Freundinnen	Meine Freundin wohnt in Köln.	دوست (دختر) من در کلن زندگی می‌کند.
+2	der Kollege	همکار (مرد) · Pl. die Kollegen	Mein Kollege ist sehr nett.	همکارم خیلی مهربان است.
+2	die Kollegin	همکار (زن) · Pl. die Kolleginnen	Die Kollegin kommt aus Spanien.	همکار (خانم) اهل اسپانیا است.
+2	arbeiten	کار کردن · hat gearbeitet	Ich arbeite in einem Büro.	من در یک دفتر کار می‌کنم.
+2	der Beruf	شغل، حرفه · Pl. die Berufe	Was sind Sie von Beruf?	شغل شما چیست؟
+2	der Lehrer	معلم (مرد) · Pl. die Lehrer	Der Lehrer erklärt die Aufgabe.	معلم تمرین را توضیح می‌دهد.
+2	die Lehrerin	معلم (زن) · Pl. die Lehrerinnen	Meine Lehrerin ist sehr geduldig.	معلم (خانم) من خیلی صبور است.
+2	der Arzt	پزشک (مرد) · Pl. die Ärzte	Mein Bruder ist Arzt.	برادرم پزشک است.
+2	die Ärztin	پزشک (زن) · Pl. die Ärztinnen	Die Ärztin arbeitet im Krankenhaus.	پزشک (خانم) در بیمارستان کار می‌کند.
+2	der Ingenieur	مهندس (مرد) · Pl. die Ingenieure	Er ist Ingenieur bei einer Firma.	او در یک شرکت مهندس است.
+2	der Student	دانشجو (مرد) · Pl. die Studenten	Der Student lernt in der Bibliothek.	دانشجو در کتابخانه درس می‌خواند.
+2	die Studentin	دانشجو (زن) · Pl. die Studentinnen	Sie ist Studentin in München.	او در مونیخ دانشجو است.
+2	der Verkäufer	فروشنده (مرد) · Pl. die Verkäufer	Der Verkäufer ist sehr freundlich.	فروشنده خیلی مهربان است.
+2	die Firma	شرکت · Pl. die Firmen	Die Firma ist in Stuttgart.	شرکت در اشتوتگارت است.
+2	das Büro	دفتر کار · Pl. die Büros	Ich bin bis 16 Uhr im Büro.	من تا ساعت ۱۶ در دفتر هستم.
+2	studieren	(در دانشگاه) تحصیل کردن · hat studiert	Ich studiere Informatik.	من علوم کامپیوتر می‌خوانم.
+2	alt	پیر؛ کهنه؛ (سن) ساله	Wie alt bist du?	چند سالت است؟
+2	das Jahr	سال · Pl. die Jahre	Ich bin 30 Jahre alt.	من ۳۰ سال دارم.
+2	die Telefonnummer	شماره تلفن · Pl. die Telefonnummern	Wie ist deine Telefonnummer?	شماره تلفنت چیست؟
+2	die E-Mail	ایمیل · Pl. die E-Mails	Ich schreibe dir eine E-Mail.	برایت یک ایمیل می‌نویسم.
+2	schreiben	نوشتن · hat geschrieben	Schreib mir bitte eine Nachricht.	لطفاً برایم یک پیام بنویس.
+2	haben	داشتن · er/sie hat · hat gehabt	Hast du am Freitag Zeit?	جمعه وقت داری؟
+2	die Zeit	وقت، زمان · Pl. die Zeiten	Ich habe heute keine Zeit.	امروز وقت ندارم.
+2	der Tag	روز · Pl. die Tage	Ich arbeite acht Stunden am Tag.	من روزی هشت ساعت کار می‌کنم.
+2	die Woche	هفته · Pl. die Wochen	Ich habe zwei Wochen Urlaub.	من دو هفته مرخصی دارم.
+2	das Wochenende	آخر هفته · Pl. die Wochenenden	Am Wochenende besuche ich meine Eltern.	آخر هفته به پدر و مادرم سر می‌زنم.
+2	der Montag	دوشنبه · Pl. die Montage	Am Montag habe ich einen Deutschkurs.	دوشنبه کلاس آلمانی دارم.
+2	der Dienstag	سه‌شنبه · Pl. die Dienstage	Am Dienstag gehe ich schwimmen.	سه‌شنبه شنا می‌روم.
+2	der Mittwoch	چهارشنبه · Pl. die Mittwoche	Am Mittwoch arbeite ich zu Hause.	چهارشنبه در خانه کار می‌کنم.
+2	der Donnerstag	پنج‌شنبه · Pl. die Donnerstage	Donnerstag ist mein Lieblingstag.	پنجشنبه روز محبوب من است.
+2	der Freitag	جمعه · Pl. die Freitage	Am Freitag gehen wir ins Kino.	جمعه به سینما می‌رویم.
+2	der Samstag	شنبه · Pl. die Samstage	Am Samstag schlafe ich lange.	شنبه تا دیر وقت می‌خوابم.
+2	der Sonntag	یک‌شنبه · Pl. die Sonntage	Am Sonntag besuche ich meine Oma.	یکشنبه به مادربزرگم سر می‌زنم.
+2	einundzwanzig	بیست و یک	Sie ist einundzwanzig Jahre alt.	او بیست‌ویک سال دارد.
+2	dreißig	سی	Der Kurs kostet dreißig Euro.	این دوره سی یورو هزینه دارد.
+2	fünfzig	پنجاه	Mein Vater ist fünfzig.	پدرم پنجاه سال دارد.
+2	hundert	صد	Das Buch hat hundert Seiten.	این کتاب صد صفحه دارد.
+2	tausend	هزار	Das Fahrrad kostet tausend Euro.	این دوچرخه هزار یورو قیمت دارد.
+2	vierzig	چهل	Mein Vater ist vierzig.	پدرم چهل سال دارد.
+2	sechzig	شصت	Das kostet sechzig Euro.	این شصت یورو می‌شود.
+2	siebzig	هفتاد	Meine Oma ist siebzig Jahre alt.	مادربزرگم هفتاد سال دارد.
+2	achtzig	هشتاد	Der Bus Nummer achtzig fährt zum Bahnhof.	اتوبوس شماره‌ی هشتاد به ایستگاه قطار می‌رود.
+2	neunzig	نود	Das Hotel hat neunzig Zimmer.	این هتل نود اتاق دارد.
+3	der Bahnhof	ایستگاه قطار · Pl. die Bahnhöfe	Der Bahnhof ist ganz in der Nähe.	ایستگاه قطار همین نزدیکی است.
+3	der Hafen	بندر · Pl. die Häfen	Der Hafen ist sehr groß.	بندر خیلی بزرگ است.
+3	das Museum	موزه · Pl. die Museen	Das Museum ist am Montag geschlossen.	موزه دوشنبه‌ها تعطیل است.
+3	das Kino	سینما · Pl. die Kinos	Gehen wir heute Abend ins Kino?	امشب به سینما برویم؟
+3	das Theater	تئاتر · Pl. die Theater	Das Theater liegt am Marktplatz.	تئاتر در میدان بازار است.
+3	das Restaurant	رستوران · Pl. die Restaurants	Das Restaurant hat gutes Essen.	این رستوران غذای خوبی دارد.
+3	das Hotel	هتل · Pl. die Hotels	Unser Hotel ist im Zentrum.	هتل ما در مرکز شهر است.
+3	die Kirche	کلیسا · Pl. die Kirchen	Die Kirche ist sehr alt.	این کلیسا خیلی قدیمی است.
+3	das Rathaus	ساختمان شهرداری · Pl. die Rathäuser	Das Rathaus ist ein schönes Gebäude.	ساختمان شهرداری ساختمان زیبایی است.
+3	der Park	پارک · Pl. die Parks	Wir gehen im Park spazieren.	ما در پارک قدم می‌زنیم.
+3	der Platz	میدان؛ جا · Pl. die Plätze	Auf dem Platz sind viele Menschen.	در میدان آدم‌های زیادی هستند.
+3	die Straße	خیابان · Pl. die Straßen	In welcher Straße wohnst du?	در کدام خیابان زندگی می‌کنی؟
+3	die Brücke	پل · Pl. die Brücken	Wir gehen über die Brücke.	ما از روی پل رد می‌شویم.
+3	der Fluss	رودخانه · Pl. die Flüsse	Der Fluss heißt Elbe.	اسم این رودخانه البه است.
+3	das Zentrum	مرکز (شهر) · Pl. die Zentren	Ich wohne im Zentrum.	من در مرکز شهر زندگی می‌کنم.
+3	die Sehenswürdigkeit	جاذبه‌ی دیدنی · Pl. die Sehenswürdigkeiten	Welche Sehenswürdigkeiten gibt es hier?	این‌جا چه جاهای دیدنی‌ای هست؟
+3	das Gebäude	ساختمان · Pl. die Gebäude	Das Gebäude ist sehr hoch.	این ساختمان خیلی بلند است.
+3	der Supermarkt	سوپرمارکت · Pl. die Supermärkte	Der Supermarkt ist bis 22 Uhr offen.	سوپرمارکت تا ساعت ۲۲ باز است.
+3	die Bank	بانک · Pl. die Banken	Die Bank ist neben der Post.	بانک کنار اداره‌ی پست است.
+3	die Post	اداره پست · Pl. —	Ich bringe den Brief zur Post.	نامه را به اداره‌ی پست می‌برم.
+3	die Apotheke	داروخانه · Pl. die Apotheken	Gibt es hier eine Apotheke?	این‌جا داروخانه هست؟
+3	der Flughafen	فرودگاه · Pl. die Flughäfen	Der Flughafen ist weit weg.	فرودگاه خیلی دور است.
+3	die Haltestelle	ایستگاه (اتوبوس، تراموا) · Pl. die Haltestellen	Die Haltestelle ist gleich um die Ecke.	ایستگاه همین سر پیچ است.
+3	der Bus	اتوبوس · Pl. die Busse	Ich fahre mit dem Bus zur Arbeit.	با اتوبوس سر کار می‌روم.
+3	die U-Bahn	مترو · Pl. die U-Bahnen	Die U-Bahn kommt alle fünf Minuten.	مترو هر پنج دقیقه می‌آید.
+3	die S-Bahn	قطار شهری · Pl. die S-Bahnen	Nimm die S-Bahn zum Flughafen.	با قطار شهری (اِس‌بان) به فرودگاه برو.
+3	der Zug	قطار · Pl. die Züge	Der Zug hat zehn Minuten Verspätung.	قطار ده دقیقه تأخیر دارد.
+3	die Straßenbahn	تراموا · Pl. die Straßenbahnen	Die Straßenbahn ist heute sehr voll.	تراموا امروز خیلی شلوغ است.
+3	das Auto	ماشین، خودرو · Pl. die Autos	Mein Auto steht vor dem Haus.	ماشینم جلوی خانه است.
+3	das Fahrrad	دوچرخه · Pl. die Fahrräder	Ich fahre gern Fahrrad.	من دوچرخه‌سواری را دوست دارم.
+3	das Taxi	تاکسی · Pl. die Taxis	Wir nehmen ein Taxi zum Hotel.	با تاکسی به هتل می‌رویم.
+3	zu Fuß	پیاده	Ich gehe zu Fuß zur Schule.	پیاده به مدرسه می‌روم.
+3	fahren	(با وسیله) رفتن، رانندگی کردن · er/sie fährt · ist gefahren	Fährst du mit dem Zug nach Berlin?	با قطار به برلین می‌روی؟
+3	gehen	رفتن؛ پیاده رفتن	Wir gehen jetzt nach Hause.	الان به خانه می‌رویم.
+3	nehmen	برداشتن، گرفتن · er/sie nimmt	Ich nehme den Bus Nummer fünf.	من اتوبوس شماره‌ی پنج را سوار می‌شوم.
+3	die Fahrkarte	بلیت (سفر) · Pl. die Fahrkarten	Wo kann ich eine Fahrkarte kaufen?	کجا می‌توانم بلیت بخرم؟
+3	das Ticket	بلیت · Pl. die Tickets	Das Ticket kostet drei Euro.	بلیت سه یورو است.
+3	kaufen	خریدن	Ich kaufe ein Ticket am Automaten.	من از دستگاه بلیت می‌خرم.
+3	kosten	قیمت داشتن	Was kostet eine Fahrkarte nach Bremen?	بلیت به برمن چند است؟
+3	Wie komme ich zu ...?	چطور به ... بروم؟	Entschuldigung, wie komme ich zum Museum?	ببخشید، چطور به موزه بروم؟
+3	geradeaus	مستقیم	Gehen Sie immer geradeaus.	مستقیم بروید.
+3	links	(سمت) چپ	Die Post ist links.	اداره‌ی پست سمت چپ است.
+3	rechts	(سمت) راست	Gehen Sie an der Ampel rechts.	سر چراغ راهنمایی به راست بپیچید.
+3	die Ecke	گوشه، نبش · Pl. die Ecken	Das Café ist an der Ecke.	کافه سر نبش است.
+3	die Kreuzung	چهارراه، تقاطع · Pl. die Kreuzungen	An der Kreuzung gehen Sie links.	سر چهارراه به چپ بپیچید.
+3	die Ampel	چراغ راهنمایی · Pl. die Ampeln	Die Ampel ist rot.	چراغ قرمز است.
+3	weit	دور	Ist das weit von hier?	از این‌جا دور است؟
+3	nah	نزدیک	Der Park ist ganz nah.	پارک خیلی نزدیک است.
+3	hier	اینجا	Ich warte hier auf dich.	من این‌جا منتظرت می‌مانم.
+3	dort	آنجا	Dort ist die Haltestelle.	ایستگاه آن‌جاست.
+3	der Stadtplan	نقشه شهر · Pl. die Stadtpläne	Hast du einen Stadtplan?	نقشه‌ی شهر داری؟
+3	besichtigen	بازدید کردن، دیدن کردن (از جایی)	Heute besichtigen wir die Altstadt.	امروز از بافت قدیمی شهر بازدید می‌کنیم.
+3	aussteigen	پیاده شدن (از وسیله) · er/sie steigt aus	Wir steigen am Rathaus aus.	ما جلوی شهرداری پیاده می‌شویم.
+3	einsteigen	سوار شدن · er/sie steigt ein	Bitte schnell einsteigen!	لطفاً زود سوار شوید!
+3	umsteigen	(وسیله‌ی نقلیه را) عوض کردن · er/sie steigt um	Am Hauptbahnhof steigen Sie um.	در ایستگاه مرکزی قطار عوض کنید.
+4	das Essen	غذا · Pl. —	Das Essen ist heute sehr gut.	غذا امروز خیلی خوب است.
+4	das Frühstück	صبحانه · Pl. die Frühstücke	Zum Frühstück esse ich Brot.	صبحانه نان می‌خورم.
+4	das Mittagessen	ناهار · Pl. die Mittagessen	Das Mittagessen ist um zwölf Uhr.	ناهار ساعت دوازده است.
+4	das Abendessen	شام · Pl. die Abendessen	Wir kochen zusammen das Abendessen.	شام را با هم درست می‌کنیم.
+4	das Brot	نان · Pl. die Brote	Ich kaufe ein Brot beim Bäcker.	از نانوایی یک نان می‌خرم.
+4	das Brötchen	نان کوچک صبحانه · Pl. die Brötchen	Möchtest du ein Brötchen mit Käse?	یک نان گرد (برُتشِن) با پنیر می‌خواهی؟
+4	die Butter	کره · Pl. —	Die Butter ist im Kühlschrank.	کره در یخچال است.
+4	der Käse	پنیر · Pl. —	Ich mag Käse sehr gern.	من پنیر را خیلی دوست دارم.
+4	die Wurst	سوسیس، کالباس · Pl. die Würste	Er isst keine Wurst.	او سوسیس نمی‌خورد.
+4	das Fleisch	گوشت · Pl. —	Ich esse kein Fleisch.	من گوشت نمی‌خورم.
+4	der Fisch	ماهی · Pl. die Fische	Heute gibt es Fisch mit Reis.	امروز ماهی با برنج داریم.
+4	das Ei	تخم‌مرغ · Pl. die Eier	Ich brauche sechs Eier für den Kuchen.	برای کیک شش تخم‌مرغ لازم دارم.
+4	die Milch	شیر · Pl. —	Trinkst du Kaffee mit Milch?	قهوه را با شیر می‌خوری؟
+4	der Apfel	سیب · Pl. die Äpfel	Ein Apfel kostet fünfzig Cent.	یک سیب پنجاه سنت است.
+4	die Banane	موز · Pl. die Bananen	Die Bananen sind gelb.	موزها زرد هستند.
+4	die Orange	پرتقال · Pl. die Orangen	Ich kaufe ein Kilo Orangen.	یک کیلو پرتقال می‌خرم.
+4	die Tomate	گوجه‌فرنگی · Pl. die Tomaten	Die Tomaten sind sehr frisch.	گوجه‌فرنگی‌ها خیلی تازه هستند.
+4	die Kartoffel	سیب‌زمینی · Pl. die Kartoffeln	Wir essen oft Kartoffeln.	ما زیاد سیب‌زمینی می‌خوریم.
+4	das Gemüse	سبزیجات · Pl. —	Gemüse ist gesund.	سبزیجات سالم است.
+4	das Obst	میوه · Pl. —	Auf dem Markt kaufe ich Obst.	از بازار میوه می‌خرم.
+4	der Reis	برنج · Pl. —	Im Iran isst man viel Reis.	در ایران برنج زیاد می‌خورند.
+4	die Nudel	ماکارونی، رشته فرنگی · Pl. die Nudeln	Die Kinder essen gern Nudeln.	بچه‌ها ماکارونی دوست دارند.
+4	der Salat	سالاد · Pl. die Salate	Ich nehme einen Salat, bitte.	من یک سالاد می‌خواهم، لطفاً.
+4	der Kuchen	کیک · Pl. die Kuchen	Der Kuchen ist sehr süß.	این کیک خیلی شیرین است.
+4	der Zucker	شکر · Pl. —	Ich trinke Tee ohne Zucker.	من چای را بدون شکر می‌خورم.
+4	das Salz	نمک · Pl. —	Die Suppe braucht noch Salz.	سوپ هنوز نمک لازم دارد.
+4	das Wasser	آب · Pl. —	Ein Glas Wasser, bitte.	یک لیوان آب، لطفاً.
+4	der Saft	آبمیوه · Pl. die Säfte	Der Saft ist kalt.	آبمیوه سرد است.
+4	der Kaffee	قهوه · Pl. die Kaffees	Morgens trinke ich Kaffee.	صبح‌ها قهوه می‌خورم.
+4	der Tee	چای · Pl. die Tees	Möchten Sie einen Tee?	چای میل دارید؟
+4	die Flasche	بطری · Pl. die Flaschen	Ich kaufe zwei Flaschen Wasser.	دو بطری آب می‌خرم.
+4	die Packung	بسته · Pl. die Packungen	Wir brauchen eine Packung Reis.	ما یک بسته برنج لازم داریم.
+4	das Glas	لیوان؛ شیشه · Pl. die Gläser	Ein Glas Marmelade, bitte.	یک شیشه مربا، لطفاً.
+4	das Kilo	کیلو · Pl. die Kilos	Zwei Kilo Kartoffeln, bitte.	دو کیلو سیب‌زمینی، لطفاً.
+4	der Liter	لیتر · Pl. die Liter	Ein Liter Milch kostet einen Euro.	یک لیتر شیر یک یورو است.
+4	das Stück	تکه، عدد · Pl. die Stücke	Ein Stück Kuchen, bitte.	یک تکه کیک، لطفاً.
+4	der Markt	بازار · Pl. die Märkte	Am Samstag gehe ich auf den Markt.	شنبه به بازار می‌روم.
+4	der Preis	قیمت · Pl. die Preise	Der Preis ist gut.	قیمتش خوب است.
+4	der Euro	یورو · Pl. die Euro	Das macht zehn Euro.	می‌شود ده یورو.
+4	essen	خوردن · er/sie isst	Er isst gern Fisch.	او ماهی دوست دارد.
+4	trinken	نوشیدن	Was trinkst du?	چه می‌نوشی؟
+4	brauchen	لازم داشتن، نیاز داشتن	Wir brauchen noch Eier.	هنوز تخم‌مرغ لازم داریم.
+4	mögen	دوست داشتن · er/sie mag	Sie mag keine Tomaten.	او گوجه‌فرنگی دوست ندارد.
+4	schmecken	مزه دادن، خوشمزه بودن	Schmeckt dir die Suppe?	سوپ به دهانت مزه می‌کند؟
+4	lecker	خوشمزه	Die Pizza ist lecker!	پیتزا خوشمزه است!
+4	süß	شیرین	Der Kuchen ist zu süß.	این کیک زیادی شیرین است.
+4	teuer	گران	Das Obst ist heute teuer.	میوه امروز گران است.
+4	billig	ارزان	Im Supermarkt ist der Reis billig.	در سوپرمارکت برنج ارزان است.
+4	Wie viel kostet das?	این چند است؟	Entschuldigung, wie viel kostet das?	ببخشید، این چند است؟
+4	Guten Appetit!	نوش جان!	Das Essen ist fertig. Guten Appetit!	غذا آماده است. نوش جان!
+5	der Alltag	زندگی روزمره · Pl. —	Mein Alltag ist oft stressig.	زندگی روزمره‌ی من اغلب پراسترس است.
+5	aufstehen	از خواب بلند شدن · er/sie steht auf	Ich stehe um sieben Uhr auf.	من ساعت هفت بیدار می‌شوم.
+5	frühstücken	صبحانه خوردن	Wir frühstücken zusammen.	ما با هم صبحانه می‌خوریم.
+5	duschen	دوش گرفتن	Er duscht am Morgen.	او صبح دوش می‌گیرد.
+5	anfangen	شروع کردن، شروع شدن · er/sie fängt an · hat angefangen	Der Kurs fängt um neun Uhr an.	کلاس ساعت نه شروع می‌شود.
+5	aufhören	تمام کردن، دست کشیدن · er/sie hört auf	Die Arbeit hört um fünf auf.	کار ساعت پنج تمام می‌شود.
+5	einkaufen	خرید کردن · er/sie kauft ein	Am Nachmittag kaufe ich ein.	بعدازظهر خرید می‌کنم.
+5	aufräumen	مرتب کردن · er/sie räumt auf	Er räumt sein Zimmer auf.	او اتاقش را مرتب می‌کند.
+5	fernsehen	تلویزیون تماشا کردن · er/sie sieht fern	Abends sehen wir fern.	عصرها تلویزیون تماشا می‌کنیم.
+5	anrufen	تلفن زدن · er/sie ruft an	Ich rufe meine Schwester an.	به خواهرم زنگ می‌زنم.
+5	abholen	دنبال کسی رفتن، تحویل گرفتن · er/sie holt ab	Sie holt die Kinder ab.	او دنبال بچه‌ها می‌رود.
+5	schlafen	خوابیدن · er/sie schläft	Das Baby schläft noch.	نوزاد هنوز خواب است.
+5	der Morgen	صبح · Pl. die Morgen	Am Morgen trinke ich Tee.	صبح چای می‌خورم.
+5	der Vormittag	پیش از ظهر · Pl. die Vormittage	Am Vormittag lerne ich Deutsch.	پیش از ظهر آلمانی یاد می‌گیرم.
+5	der Nachmittag	بعدازظهر · Pl. die Nachmittage	Am Nachmittag spiele ich Fußball.	بعدازظهر فوتبال بازی می‌کنم.
+5	der Abend	عصر، سر شب · Pl. die Abende	Am Abend koche ich.	عصر آشپزی می‌کنم.
+5	die Nacht	شب · Pl. die Nächte	In der Nacht schlafe ich.	شب می‌خوابم.
+5	morgens	صبح‌ها	Morgens bin ich müde.	صبح‌ها خسته‌ام.
+5	abends	شب‌ها، عصرها	Abends lese ich ein Buch.	عصرها کتاب می‌خوانم.
+5	die Uhr	ساعت · Pl. die Uhren	Es ist acht Uhr.	ساعت هشت است.
+5	die Stunde	ساعت (مدت زمان) · Pl. die Stunden	Ich arbeite acht Stunden.	من هشت ساعت کار می‌کنم.
+5	Wie spät ist es?	ساعت چند است؟	Entschuldigung, wie spät ist es?	ببخشید، ساعت چند است؟
+5	Um wie viel Uhr?	ساعت چند؟ (در چه ساعتی)	Um wie viel Uhr beginnt der Film?	فیلم ساعت چند شروع می‌شود؟
+5	halb	نیم	Es ist halb neun.	ساعت هشت و نیم است.
+5	Viertel nach	یک ربع گذشته از	Es ist Viertel nach drei.	ساعت سه و ربع است.
+5	früh	زود	Ich stehe früh auf.	من زود بیدار می‌شوم.
+5	spät	دیر	Heute komme ich spät nach Hause.	امروز دیر به خانه می‌آیم.
+5	immer	همیشه	Er frühstückt immer um sieben.	او همیشه ساعت هفت صبحانه می‌خورد.
+5	oft	اغلب	Wir kochen oft zusammen.	ما اغلب با هم آشپزی می‌کنیم.
+5	manchmal	گاهی	Manchmal sehe ich fern.	گاهی تلویزیون تماشا می‌کنم.
+5	nie	هرگز	Ich trinke nie Kaffee.	من هیچ‌وقت قهوه نمی‌خورم.
+5	die Familie	خانواده · Pl. die Familien	Meine Familie ist groß.	خانواده‌ی من بزرگ است.
+5	die Eltern (Pl.)	پدر و مادر، والدین · nur Plural	Meine Eltern wohnen in Teheran.	پدر و مادرم در تهران زندگی می‌کنند.
+5	der Vater	پدر · Pl. die Väter	Mein Vater ist Lehrer.	پدرم معلم است.
+5	die Mutter	مادر · Pl. die Mütter	Meine Mutter kocht sehr gut.	مادرم خیلی خوب آشپزی می‌کند.
+5	der Sohn	پسر (فرزند) · Pl. die Söhne	Ihr Sohn ist zehn Jahre alt.	پسرش ده سال دارد.
+5	die Tochter	دختر (فرزند) · Pl. die Töchter	Seine Tochter geht zur Schule.	دخترش به مدرسه می‌رود.
+5	der Bruder	برادر · Pl. die Brüder	Mein Bruder wohnt in Berlin.	برادرم در برلین زندگی می‌کند.
+5	die Schwester	خواهر · Pl. die Schwestern	Hast du eine Schwester?	خواهر داری؟
+5	die Geschwister (Pl.)	خواهر و برادر · nur Plural	Hast du Geschwister?	خواهر و برادر داری؟
+5	der Großvater	پدربزرگ · Pl. die Großväter	Mein Großvater ist achtzig.	پدربزرگم هشتاد سال دارد.
+5	die Großmutter	مادربزرگ · Pl. die Großmütter	Meine Großmutter backt Kuchen.	مادربزرگم کیک می‌پزد.
+5	die Großeltern (Pl.)	پدربزرگ و مادربزرگ · nur Plural	Am Sonntag besuchen wir die Großeltern.	یکشنبه به پدربزرگ و مادربزرگ سر می‌زنیم.
+5	der Onkel	عمو، دایی · Pl. die Onkel	Mein Onkel hat zwei Kinder.	عمویم دو بچه دارد.
+5	die Tante	عمه، خاله · Pl. die Tanten	Meine Tante wohnt in Hamburg.	خاله‌ام در هامبورگ زندگی می‌کند.
+5	das Kind	بچه، فرزند · Pl. die Kinder	Das Kind spielt im Garten.	بچه در باغ بازی می‌کند.
+5	verheiratet	متأهل	Sind Sie verheiratet?	شما متأهل هستید؟
+5	ledig	مجرد	Mein Bruder ist ledig.	برادرم مجرد است.
+5	mein / meine	مال من، ...ـم	Das ist meine Mutter.	این مادر من است.
+5	dein / deine	مال تو، ...ـت	Ist das dein Bruder?	این برادرت است؟
+5	sein / seine	مال او (مذکر)	Er ruft seine Eltern an.	او به پدر و مادرش زنگ می‌زند.
+5	ihr / ihre	مال او (مؤنث)؛ مال آن‌ها	Sie holt ihre Tochter ab.	او دنبال دخترش می‌رود.
+5	unser / unsere	مال ما	Unsere Familie frühstückt zusammen.	خانواده‌ی ما با هم صبحانه می‌خورد.
+6	hören	شنیدن، گوش دادن	Ich höre gern Musik.	من دوست دارم موسیقی گوش کنم.
+6	Rad fahren	دوچرخه‌سواری کردن · er/sie fährt Rad	Am Wochenende fahre ich Rad.	آخر هفته دوچرخه‌سواری می‌کنم.
+6	der Fußball	فوتبال؛ توپ فوتبال · Pl. die Fußbälle	Spielst du gern Fußball?	فوتبال بازی کردن را دوست داری؟
+6	die Musik	موسیقی · Pl. —	Welche Musik magst du?	چه موسیقی‌ای دوست داری؟
+6	Zeit haben	وقت داشتن · er/sie hat Zeit	Hast du morgen Zeit?	فردا وقت داری؟
+6	der Termin	قرار، وقت ملاقات · Pl. die Termine	Ich habe am Montag einen Termin.	دوشنبه یک قرار ملاقات دارم.
+6	die Einladung	دعوت، دعوت‌نامه · Pl. die Einladungen	Danke für die Einladung!	ممنون از دعوتت!
+6	einladen	دعوت کردن · er/sie lädt ein	Ich lade dich zum Essen ein.	تو را به غذا دعوت می‌کنم.
+6	mitkommen	همراه آمدن · er/sie kommt mit	Kommst du mit ins Kino?	با من به سینما می‌آیی؟
+6	Hast du Lust?	حوصله‌اش را داری؟ دوست داری؟	Wir gehen schwimmen. Hast du Lust?	ما شنا می‌رویم. حوصله‌اش را داری؟
+6	Leider kann ich nicht.	متأسفانه نمی‌توانم.	Morgen? Leider kann ich nicht.	فردا؟ متأسفانه نمی‌توانم.
+6	Gute Idee!	فکر خوبی است!	Pizza essen? Gute Idee!	پیتزا بخوریم؟ فکر خوبی است!
+6	der Geburtstag	تولد، روز تولد · Pl. die Geburtstage	Wann hast du Geburtstag?	تولدت کی است؟
+6	Alles Gute zum Geburtstag!	تولدت مبارک!	Alles Gute zum Geburtstag, Anna!	تولدت مبارک، آنا!
+6	die Party	مهمانی، جشن · Pl. die Partys	Am Samstag mache ich eine Party.	شنبه یک مهمانی می‌گیرم.
+6	das Geschenk	هدیه · Pl. die Geschenke	Das Geschenk ist für dich.	این هدیه برای توست.
+6	feiern	جشن گرفتن	Wir feiern meinen Geburtstag zu Hause.	تولدم را در خانه جشن می‌گیریم.
+6	das Café	کافه · Pl. die Cafés	Wir treffen uns im Café.	در کافه همدیگر را می‌بینیم.
+6	bestellen	سفارش دادن	Ich bestelle eine Suppe.	من یک سوپ سفارش می‌دهم.
+6	bezahlen	پرداختن، حساب کردن	Kann ich mit Karte bezahlen?	می‌توانم با کارت پرداخت کنم؟
+6	Ich hätte gern …	من ... می‌خواهم (مؤدبانه)	Ich hätte gern einen Kaffee, bitte.	یک قهوه می‌خواستم، لطفاً.
+6	Zahlen, bitte!	لطفاً صورت‌حساب را بیاورید!	Entschuldigung, zahlen, bitte!	ببخشید، لطفاً صورت‌حساب!
+6	die Rechnung	صورت‌حساب · Pl. die Rechnungen	Die Rechnung, bitte.	صورت‌حساب، لطفاً.
+6	zusammen	با هم	Zahlen Sie zusammen?	با هم حساب می‌کنید؟
+6	getrennt	جداجدا	Wir zahlen getrennt, bitte.	لطفاً جدا حساب می‌کنیم.
+6	das Trinkgeld	انعام · Pl. die Trinkgelder	In Deutschland gibt man Trinkgeld.	در آلمان انعام می‌دهند.
+6	Stimmt so.	بقیه‌اش مال خودتان.	Hier sind zwölf Euro. Stimmt so.	بفرمایید دوازده یورو. بقیه‌اش مال شما.
+6	der Monat	ماه · Pl. die Monate	Ein Jahr hat zwölf Monate.	یک سال دوازده ماه دارد.
+6	der Januar	ژانویه · Pl. —	Im Januar ist es sehr kalt.	در ژانویه هوا خیلی سرد است.
+6	der Februar	فوریه · Pl. —	Mein Bruder hat im Februar Geburtstag.	تولد برادرم در فوریه است.
+6	der März	مارس · Pl. —	Im März beginnt der Frühling.	در مارس بهار شروع می‌شود.
+6	der April	آوریل · Pl. —	Im April regnet es oft.	در آوریل زیاد باران می‌بارد.
+6	der Mai	مه · Pl. —	Im Mai feiern wir eine Party.	در مه یک مهمانی می‌گیریم.
+6	der Juni	ژوئن · Pl. —	Im Juni habe ich Urlaub.	در ژوئن مرخصی دارم.
+6	der Juli	ژوئیه · Pl. —	Im Juli ist es warm.	در ژوئیه هوا گرم است.
+6	der August	اوت · Pl. —	Im August schwimmen wir im See.	در اوت در دریاچه شنا می‌کنیم.
+6	der September	سپتامبر · Pl. —	Der Kurs beginnt im September.	کلاس در سپتامبر شروع می‌شود.
+6	der Oktober	اکتبر · Pl. —	Im Oktober wandern wir gern.	در اکتبر دوست داریم کوهپیمایی کنیم.
+6	der November	نوامبر · Pl. —	Im November ist es oft grau.	در نوامبر هوا اغلب ابری و خاکستری است.
+6	der Dezember	دسامبر · Pl. —	Im Dezember ist es dunkel.	در دسامبر هوا تاریک است.
+6	die Jahreszeit	فصل · Pl. die Jahreszeiten	Welche Jahreszeit magst du?	کدام فصل را دوست داری؟
+6	der Frühling	بهار · Pl. die Frühlinge	Im Frühling fahre ich gern Rad.	در بهار دوست دارم دوچرخه‌سواری کنم.
+6	der Sommer	تابستان · Pl. die Sommer	Der Sommer ist meine Lieblingsjahreszeit.	تابستان فصل محبوب من است.
+6	der Herbst	پاییز · Pl. die Herbste	Im Herbst ist es windig.	در پاییز باد می‌آید.
+6	der Winter	زمستان · Pl. die Winter	Im Winter trinke ich viel Tee.	در زمستان زیاد چای می‌خورم.
+6	Der Wievielte ist heute?	امروز چندم است؟	Der Wievielte ist heute? Der dritte Mai.	امروز چندم است؟ سوم مه.
+7	die Arbeit	کار · Pl. die Arbeiten	Die Arbeit beginnt um acht Uhr.	کار ساعت هشت شروع می‌شود.
+7	der Chef	رئیس (مرد) · Pl. die Chefs	Der Chef hat heute keine Zeit.	رئیس امروز وقت ندارد.
+7	die Chefin	رئیس (زن) · Pl. die Chefinnen	Die Chefin ist gerade in einer Besprechung.	رئیس (خانم) الان در جلسه است.
+7	die Besprechung	جلسه · Pl. die Besprechungen	Die Besprechung dauert eine Stunde.	جلسه یک ساعت طول می‌کشد.
+7	das Meeting	جلسه، نشست · Pl. die Meetings	Das Meeting beginnt um neun.	جلسه ساعت نه شروع می‌شود.
+7	der Computer	کامپیوتر · Pl. die Computer	Mein Computer ist heute sehr langsam.	کامپیوترم امروز خیلی کند است.
+7	der Drucker	چاپگر، پرینتر · Pl. die Drucker	Der Drucker funktioniert nicht.	چاپگر کار نمی‌کند.
+7	das Telefon	تلفن · Pl. die Telefone	Das Telefon klingelt.	تلفن زنگ می‌زند.
+7	drucken	چاپ کردن	Kannst du das Dokument drucken?	می‌توانی این سند را چاپ کنی؟
+7	kopieren	کپی کردن	Ich kopiere die Unterlagen für das Meeting.	مدارک را برای جلسه کپی می‌کنم.
+7	der Kalender	تقویم · Pl. die Kalender	Der Termin steht in meinem Kalender.	این قرار در تقویمم هست.
+7	die Pause	استراحت، وقفه · Pl. die Pausen	Wir machen um zwölf Uhr Pause.	ساعت دوازده استراحت می‌کنیم.
+7	der Feierabend	پایان ساعت کار روزانه · Pl. —	Um fünf Uhr habe ich Feierabend.	ساعت پنج کارم تمام می‌شود.
+7	die Kantine	غذاخوری محل کار · Pl. die Kantinen	Wir essen mittags in der Kantine.	ظهرها در سلف غذاخوری غذا می‌خوریم.
+7	können	توانستن · er/sie kann	Ich kann heute leider nicht kommen.	متأسفانه امروز نمی‌توانم بیایم.
+7	müssen	مجبور بودن، باید · er/sie muss	Ich muss heute lange arbeiten.	امروز باید تا دیر وقت کار کنم.
+7	wollen	خواستن · er/sie will	Wir wollen ein neues Projekt beginnen.	می‌خواهیم یک پروژه‌ی جدید شروع کنیم.
+7	dürfen	اجازه داشتن · er/sie darf	Hier darf man nicht rauchen.	این‌جا سیگار کشیدن ممنوع است.
+7	einen Termin vereinbaren	وقت گرفتن، قرار گذاشتن	Ich möchte gern einen Termin vereinbaren.	می‌خواهم یک وقت ملاقات بگیرم.
+7	absagen	لغو کردن · er/sie sagt ab	Ich muss den Termin leider absagen.	متأسفانه باید قرار را لغو کنم.
+7	verschieben	به تعویق انداختن	Können wir das Meeting auf Freitag verschieben?	می‌توانیم جلسه را به جمعه موکول کنیم؟
+7	passen	مناسب بودن (زمان)	Passt es Ihnen am Donnerstag?	پنجشنبه برای شما مناسب است؟
+7	Wann haben Sie Zeit?	کی وقت دارید؟	Wann haben Sie Zeit, Herr Müller?	آقای مولر، شما کی وقت دارید؟
+7	Wer spricht da?	کی پشت خط است؟	Hallo? Wer spricht da, bitte?	الو؟ ببخشید، شما؟
+7	Einen Moment, bitte.	یک لحظه، لطفاً.	Einen Moment, bitte, ich verbinde Sie.	یک لحظه لطفاً، وصلتان می‌کنم.
+7	Kann ich eine Nachricht hinterlassen?	می‌توانم پیغام بگذارم؟	Er ist nicht da. Kann ich eine Nachricht hinterlassen?	او این‌جا نیست. می‌توانم پیغام بگذارم؟
+7	Sehr geehrte Damen und Herren	خانم‌ها و آقایان محترم (آغاز نامهٔ رسمی)	Sehr geehrte Damen und Herren, ich brauche Informationen.	خانم‌ها و آقایان محترم، من به اطلاعاتی نیاز دارم.
+7	Mit freundlichen Grüßen	با احترام (پایان نامهٔ رسمی)	Am Ende schreibe ich: Mit freundlichen Grüßen.	در پایان می‌نویسم: با احترام.
+7	die Nachricht	پیام · Pl. die Nachrichten	Ich habe deine Nachricht bekommen.	پیامت به دستم رسید.
+7	das Datum	تاریخ · Pl. die Daten	Welches Datum ist heute?	امروز چه تاریخی است؟
+7	erste	اول، نخستین (عدد ترتیبی)	Heute ist der erste Mai.	امروز اول مه است.
+7	zweite	دوم	Mein Büro ist im zweiten Stock.	دفترم در طبقه‌ی دوم است.
+7	dritte	سوم	Am dritten Juni habe ich frei.	سوم ژوئن تعطیلم.
+7	der Urlaub	مرخصی، تعطیلات · Pl. die Urlaube	Im August habe ich zwei Wochen Urlaub.	در اوت دو هفته مرخصی دارم.
+7	die Arbeitszeit	ساعت کاری · Pl. die Arbeitszeiten	Meine Arbeitszeit ist von neun bis fünf.	ساعت کاری من از نه تا پنج است.
+7	pünktlich	سر وقت، به موقع	Bitte seien Sie morgen pünktlich.	لطفاً فردا سر وقت باشید.
+7	leider	متأسفانه	Ich habe leider keine Zeit.	متأسفانه وقت ندارم.
+7	der Kunde	مشتری (مرد) · Pl. die Kunden	Der Kunde wartet am Telefon.	مشتری پشت خط منتظر است.
+7	die Kundin	مشتری (زن) · Pl. die Kundinnen	Die Kundin möchte eine Rechnung.	مشتری (خانم) یک صورت‌حساب می‌خواهد.
+7	die Aufgabe	وظیفه، کار · Pl. die Aufgaben	Das ist eine wichtige Aufgabe.	این یک کار مهم است.
+7	erledigen	انجام دادن، به پایان رساندن	Ich erledige das sofort.	فوراً انجامش می‌دهم.
+7	das Formular	فرم · Pl. die Formulare	Das Formular liegt auf dem Tisch.	فرم روی میز است.
+7	ausfüllen	پر کردن (فرم) · er/sie füllt aus	Bitte füllen Sie das Formular aus.	لطفاً فرم را پر کنید.
+7	der Schreibtisch	میز تحریر، میز کار · Pl. die Schreibtische	Auf meinem Schreibtisch liegen viele Papiere.	روی میز کارم کاغذهای زیادی هست.
+8	der Körper	بدن · Pl. die Körper	Sport ist gut für den Körper.	ورزش برای بدن خوب است.
+8	der Kopf	سر · Pl. die Köpfe	Mein Kopf tut weh.	سرم درد می‌کند.
+8	das Auge	چشم · Pl. die Augen	Sie hat blaue Augen.	او چشم‌های آبی دارد.
+8	das Ohr	گوش · Pl. die Ohren	Das Kind hat Schmerzen im Ohr.	بچه گوش‌درد دارد.
+8	die Nase	بینی · Pl. die Nasen	Meine Nase läuft.	آبریزش بینی دارم.
+8	der Mund	دهان · Pl. die Münder	Bitte öffnen Sie den Mund.	لطفاً دهانتان را باز کنید.
+8	der Zahn	دندان · Pl. die Zähne	Ich putze zweimal am Tag die Zähne.	من روزی دو بار دندان‌هایم را مسواک می‌زنم.
+8	der Hals	گلو، گردن · Pl. die Hälse	Mein Hals tut sehr weh.	گلویم خیلی درد می‌کند.
+8	der Arm	بازو، دست · Pl. die Arme	Heben Sie bitte den Arm.	لطفاً دستتان را بالا ببرید.
+8	die Hand	دست · Pl. die Hände	Wasch dir bitte die Hände!	لطفاً دست‌هایت را بشور!
+8	das Bein	پا (از ران تا مچ) · Pl. die Beine	Nach dem Sport tun mir die Beine weh.	بعد از ورزش پاهایم درد می‌کند.
+8	der Fuß	پا (از مچ به پایین) · Pl. die Füße	Mein linker Fuß ist dick.	پای چپم ورم کرده است.
+8	der Bauch	شکم · Pl. die Bäuche	Ich habe Schmerzen im Bauch.	شکمم درد می‌کند.
+8	der Rücken	پشت، کمر · Pl. die Rücken	Er hat oft Probleme mit dem Rücken.	او اغلب کمردرد دارد.
+8	das Knie	زانو · Pl. die Knie	Beim Joggen tut mein Knie weh.	موقع دویدن زانویم درد می‌کند.
+8	die Schulter	شانه (کتف) · Pl. die Schultern	Ich habe Schmerzen in der Schulter.	شانه‌ام درد می‌کند.
+8	krank	بیمار، مریض	Ich bin krank und bleibe zu Hause.	مریضم و در خانه می‌مانم.
+8	gesund	سالم	Ich lebe gesund und mache viel Sport.	من سالم زندگی می‌کنم و زیاد ورزش می‌کنم.
+8	die Gesundheit	سلامتی · Pl. —	Rauchen ist schlecht für die Gesundheit.	سیگار کشیدن برای سلامتی بد است.
+8	die Krankheit	بیماری · Pl. die Krankheiten	Grippe ist eine gefährliche Krankheit.	آنفولانزا بیماری خطرناکی است.
+8	der Schmerz	درد · Pl. die Schmerzen	Haben Sie Schmerzen?	درد دارید؟
+8	die Kopfschmerzen (Pl.)	سردرد · nur Plural	Ich habe seit gestern Kopfschmerzen.	از دیروز سردرد دارم.
+8	das Fieber	تب · Pl. —	Das Kind hat hohes Fieber.	بچه تب بالایی دارد.
+8	der Husten	سرفه · Pl. —	Ich habe seit drei Tagen Husten.	سه روز است که سرفه می‌کنم.
+8	der Schnupfen	آبریزش بینی · Pl. —	Im Winter habe ich oft Schnupfen.	در زمستان اغلب آبریزش بینی دارم.
+8	die Erkältung	سرماخوردگی · Pl. die Erkältungen	Ich habe eine starke Erkältung.	سرماخوردگی شدیدی دارم.
+8	die Grippe	آنفولانزا · Pl. —	Er liegt mit Grippe im Bett.	او با آنفولانزا در رختخواب است.
+8	die Praxis	مطب · Pl. die Praxen	Die Praxis ist am Mittwochnachmittag geschlossen.	مطب چهارشنبه بعدازظهر تعطیل است.
+8	die Sprechstunde	ساعت ویزیت · Pl. die Sprechstunden	Die Sprechstunde ist von acht bis zwölf.	ساعت ویزیت از هشت تا دوازده است.
+8	der Patient	بیمار (مرد) · Pl. die Patienten	Der Patient wartet schon lange.	بیمار خیلی وقت است که منتظر است.
+8	das Wartezimmer	اتاق انتظار · Pl. die Wartezimmer	Bitte nehmen Sie im Wartezimmer Platz.	لطفاً در اتاق انتظار بنشینید.
+8	die Krankenkasse	صندوق بیمهٔ درمانی · Pl. die Krankenkassen	Bei welcher Krankenkasse sind Sie?	بیمه‌ی درمانی شما کدام است؟
+8	untersuchen	معاینه کردن	Der Arzt untersucht mein Bein.	پزشک پایم را معاینه می‌کند.
+8	das Krankenhaus	بیمارستان · Pl. die Krankenhäuser	Er liegt seit Montag im Krankenhaus.	او از دوشنبه در بیمارستان بستری است.
+8	das Medikament	دارو · Pl. die Medikamente	Das Medikament gibt es nur in der Apotheke.	این دارو را فقط در داروخانه می‌شود پیدا کرد.
+8	die Tablette	قرص · Pl. die Tabletten	Nehmen Sie morgens eine Tablette.	صبح‌ها یک قرص بخورید.
+8	das Rezept	نسخه (پزشک) · Pl. die Rezepte	Der Arzt schreibt mir ein Rezept.	پزشک برایم نسخه می‌نویسد.
+8	wehtun	درد کردن · er/sie tut weh	Was tut Ihnen weh?	کجایتان درد می‌کند؟
+8	sich fühlen	احساس کردن (حال)	Wie fühlen Sie sich heute?	امروز حالتان چطور است؟
+8	Was fehlt Ihnen?	چه مشکلی دارید؟ (در مطب)	Guten Tag, was fehlt Ihnen denn?	روز بخیر، چه مشکلی دارید؟
+8	Gute Besserung!	زود خوب شوید! (آرزوی بهبودی)	Du bist krank? Gute Besserung!	مریضی؟ امیدوارم زود خوب شوی!
+8	der Sport	ورزش · Pl. —	Ich mache dreimal pro Woche Sport.	هفته‌ای سه بار ورزش می‌کنم.
+8	joggen	آهسته دویدن، دویدن	Wir joggen jeden Morgen im Park.	ما هر صبح در پارک می‌دویم.
+8	Fahrrad fahren	دوچرخه‌سواری کردن · er/sie fährt Fahrrad	Am Wochenende fahre ich gern Fahrrad.	آخر هفته دوست دارم دوچرخه‌سواری کنم.
+8	das Fitnessstudio	باشگاه بدنسازی · Pl. die Fitnessstudios	Er geht abends ins Fitnessstudio.	او عصرها به باشگاه بدنسازی می‌رود.
+8	fit	سرحال، روی فرم	Nach dem Urlaub bin ich wieder fit.	بعد از تعطیلات دوباره سرحالم.
+8	müde	خسته	Ich bin sehr müde und gehe ins Bett.	خیلی خسته‌ام و می‌روم بخوابم.
+8	sollen	باید (توصیه یا دستور دیگری) · er/sie soll	Der Arzt sagt, ich soll viel trinken.	پزشک می‌گوید باید زیاد آب بخورم.
+8	sich ausruhen	استراحت کردن · er/sie ruht sich aus	Ruhen Sie sich gut aus!	خوب استراحت کنید!
+9	die Wohnung	آپارتمان، خانه · Pl. die Wohnungen	Unsere Wohnung liegt im Zentrum.	آپارتمان ما در مرکز شهر است.
+9	das Haus	خانه، ساختمان · Pl. die Häuser	Wir wohnen in einem kleinen Haus.	ما در یک خانه‌ی کوچک زندگی می‌کنیم.
+9	das Zimmer	اتاق · Pl. die Zimmer	Die Wohnung hat zwei Zimmer.	آپارتمان دو اتاق دارد.
+9	die Küche	آشپزخانه · Pl. die Küchen	Die Küche ist ganz neu.	آشپزخانه کاملاً نو است.
+9	das Bad	حمام · Pl. die Bäder	Das Bad ist klein, aber schön.	حمام کوچک است، ولی قشنگ است.
+9	das Schlafzimmer	اتاق خواب · Pl. die Schlafzimmer	Im Schlafzimmer steht ein großes Bett.	در اتاق خواب یک تخت بزرگ هست.
+9	das Wohnzimmer	اتاق نشیمن، پذیرایی · Pl. die Wohnzimmer	Wir sehen im Wohnzimmer fern.	ما در اتاق نشیمن تلویزیون تماشا می‌کنیم.
+9	der Flur	راهرو · Pl. die Flure	Im Flur stehen die Schuhe.	کفش‌ها در راهرو هستند.
+9	der Balkon	بالکن · Pl. die Balkone	Im Sommer frühstücken wir auf dem Balkon.	تابستان‌ها روی بالکن صبحانه می‌خوریم.
+9	der Garten	باغچه، حیاط · Pl. die Gärten	Das Haus hat einen schönen Garten.	این خانه یک باغ زیبا دارد.
+9	die Toilette	توالت، دستشویی · Pl. die Toiletten	Die Toilette ist neben dem Bad.	توالت کنار حمام است.
+9	der Keller	زیرزمین، انباری · Pl. die Keller	Das Fahrrad steht im Keller.	دوچرخه در زیرزمین است.
+9	das Erdgeschoss	طبقهٔ همکف · Pl. die Erdgeschosse	Die Wohnung liegt im Erdgeschoss.	آپارتمان در طبقه‌ی همکف است.
+9	der Aufzug	آسانسور · Pl. die Aufzüge	Das Haus hat leider keinen Aufzug.	متأسفانه این ساختمان آسانسور ندارد.
+9	die Treppe	پله، راه‌پله · Pl. die Treppen	Ich nehme immer die Treppe.	من همیشه از پله‌ها می‌روم.
+9	die Möbel (Pl.)	مبلمان، اثاثیه · nur Plural	Die Möbel sind alt, aber schön.	مبلمان قدیمی است، ولی قشنگ است.
+9	das Bett	تخت خواب · Pl. die Betten	Das Bett ist zu klein für mich.	این تخت برای من خیلی کوچک است.
+9	der Tisch	میز · Pl. die Tische	Der Tisch steht in der Küche.	میز در آشپزخانه است.
+9	der Stuhl	صندلی · Pl. die Stühle	Wir brauchen noch vier Stühle.	هنوز چهار صندلی لازم داریم.
+9	das Sofa	مبل، کاناپه · Pl. die Sofas	Das Sofa ist sehr bequem.	این مبل خیلی راحت است.
+9	der Schrank	کمد · Pl. die Schränke	Meine Kleidung ist im Schrank.	لباس‌هایم در کمد است.
+9	das Regal	قفسه · Pl. die Regale	Die Bücher stehen im Regal.	کتاب‌ها در قفسه هستند.
+9	die Lampe	چراغ · Pl. die Lampen	Die Lampe ist kaputt.	چراغ خراب است.
+9	der Teppich	فرش · Pl. die Teppiche	Der Teppich liegt vor dem Sofa.	فرش جلوی مبل است.
+9	das Fenster	پنجره · Pl. die Fenster	Mach bitte das Fenster auf!	لطفاً پنجره را باز کن!
+9	die Tür	در · Pl. die Türen	Die Tür ist offen.	در باز است.
+9	die Wand	دیوار · Pl. die Wände	Die Wand im Wohnzimmer ist weiß.	دیوار اتاق نشیمن سفید است.
+9	der Kühlschrank	یخچال · Pl. die Kühlschränke	Die Milch ist im Kühlschrank.	شیر در یخچال است.
+9	der Herd	اجاق گاز · Pl. die Herde	Der Herd ist ganz neu.	اجاق کاملاً نو است.
+9	die Waschmaschine	ماشین لباسشویی · Pl. die Waschmaschinen	Die Waschmaschine steht im Keller.	ماشین لباسشویی در زیرزمین است.
+9	die Dusche	دوش (حمام) · Pl. die Duschen	Die Dusche ist leider kaputt.	متأسفانه دوش خراب است.
+9	die Miete	اجاره‌بها · Pl. die Mieten	Die Miete kostet 700 Euro im Monat.	اجاره ماهی ۷۰۰ یورو است.
+9	die Nebenkosten (Pl.)	هزینه‌های جانبی (آب، گرمایش و غیره) · nur Plural	Die Nebenkosten sind 150 Euro.	هزینه‌های جانبی ۱۵۰ یورو است.
+9	mieten	اجاره کردن	Wir möchten eine Wohnung mieten.	می‌خواهیم یک آپارتمان اجاره کنیم.
+9	umziehen	اسباب‌کشی کردن · er/sie zieht um · ist umgezogen	Nächste Woche ziehen wir um.	هفته‌ی آینده اسباب‌کشی می‌کنیم.
+9	die Anzeige	آگهی · Pl. die Anzeigen	Ich lese die Anzeigen in der Zeitung.	آگهی‌ها را در روزنامه می‌خوانم.
+9	der Quadratmeter	متر مربع · Pl. die Quadratmeter	Die Wohnung hat 60 Quadratmeter.	آپارتمان ۶۰ متر مربع است.
+9	der Vermieter	صاحبخانه، موجر · Pl. die Vermieter	Der Vermieter wohnt im Erdgeschoss.	صاحبخانه در طبقه‌ی همکف زندگی می‌کند.
+9	der Nachbar	همسایه (مرد) · Pl. die Nachbarn	Unser Nachbar ist sehr freundlich.	همسایه‌ی ما خیلی مهربان است.
+9	hell	روشن، پرنور	Das Wohnzimmer ist schön hell.	اتاق نشیمن خوب و روشن است.
+9	dunkel	تاریک	Der Flur ist ein bisschen dunkel.	راهرو کمی تاریک است.
+9	ruhig	آرام، ساکت	Die Straße ist sehr ruhig.	خیابان خیلی آرام است.
+9	laut	پرسروصدا	Die Wohnung ist schön, aber laut.	آپارتمان قشنگ است، ولی پرسروصداست.
+9	gemütlich	دنج، راحت و دلپذیر	Unser Wohnzimmer ist sehr gemütlich.	اتاق نشیمن ما خیلی دنج است.
+9	möbliert	مبله	Ist das Zimmer möbliert?	این اتاق مبله است؟
+9	auf	روی	Das Buch liegt auf dem Tisch.	کتاب روی میز است.
+9	unter	زیر	Die Katze schläft unter dem Bett.	گربه زیر تخت خوابیده است.
+9	neben	کنار	Die Lampe steht neben dem Sofa.	چراغ کنار مبل است.
+9	vor	جلوی	Das Auto steht vor dem Haus.	ماشین جلوی خانه است.
+9	hinter	پشت	Hinter dem Haus ist ein Garten.	پشت خانه یک باغ هست.
+9	über	بالای	Über dem Bett hängt ein Bild.	بالای تخت یک تابلو آویزان است.
+9	zwischen	بین	Der Sessel steht zwischen Sofa und Fenster.	صندلی راحتی بین مبل و پنجره است.
+9	an	به، کنارِ (چسبیده به)	Das Bild hängt an der Wand.	تابلو به دیوار آویزان است.
+9	liegen	قرار داشتن (به حالت افقی)	Das Handy liegt auf dem Sofa.	گوشی روی مبل است.
+9	hängen	آویزان بودن	Die Jacke hängt im Flur.	کاپشن در راهرو آویزان است.
+10	die Schule	مدرسه · Pl. die Schulen	Meine Tochter geht gern in die Schule.	دخترم مدرسه رفتن را دوست دارد.
+10	die Universität	دانشگاه · Pl. die Universitäten	Die Universität liegt im Zentrum.	دانشگاه در مرکز شهر است.
+10	das Studium	تحصیل دانشگاهی · Pl. die Studien	Mein Studium dauert vier Jahre.	تحصیلات من چهار سال طول می‌کشد.
+10	der Schüler	دانش‌آموز (پسر) · Pl. die Schüler	Der Schüler macht seine Hausaufgaben.	دانش‌آموز تکالیفش را انجام می‌دهد.
+10	die Klasse	کلاس، پایه تحصیلی · Pl. die Klassen	Mein Sohn ist in der dritten Klasse.	پسرم کلاس سوم است.
+10	das Fach	درس، ماده درسی · Pl. die Fächer	Mathe ist mein Lieblingsfach.	ریاضی درس محبوب من است.
+10	die Hausaufgabe	تکلیف، مشق · Pl. die Hausaufgaben	Hast du deine Hausaufgaben schon gemacht?	تکالیفت را انجام داده‌ای؟
+10	die Prüfung	امتحان · Pl. die Prüfungen	Morgen habe ich eine wichtige Prüfung.	فردا یک امتحان مهم دارم.
+10	das Zeugnis	کارنامه، گواهی‌نامه · Pl. die Zeugnisse	Sie hat ein sehr gutes Zeugnis.	او کارنامه‌ی خیلی خوبی دارد.
+10	der Abschluss	مدرک تحصیلی، فارغ‌التحصیلی · Pl. die Abschlüsse	Nach dem Abschluss möchte ich arbeiten.	بعد از فارغ‌التحصیلی می‌خواهم کار کنم.
+10	das Abitur	دیپلم دبیرستان (در آلمان) · Pl. —	Er hat 2015 das Abitur gemacht.	او در سال ۲۰۱۵ دیپلم (آبیتور) گرفت.
+10	der Kurs	دوره آموزشی، کلاس · Pl. die Kurse	Der Deutschkurs beginnt um neun Uhr.	کلاس آلمانی ساعت نه شروع می‌شود.
+10	die Ausbildung	آموزش حرفه‌ای، دوره فنی‌وحرفه‌ای · Pl. die Ausbildungen	Sie macht eine Ausbildung zur Köchin.	او دوره‌ی آموزش آشپزی می‌گذراند.
+10	das Praktikum	دوره کارآموزی · Pl. die Praktika	Im Sommer mache ich ein Praktikum.	تابستان کارآموزی می‌کنم.
+10	Was sind Sie von Beruf?	شغل شما چیست؟	Was sind Sie von Beruf? Ich bin Lehrer.	شغل شما چیست؟ من معلم هستم.
+10	die Stelle	جای خالی شغلی، موقعیت کاری · Pl. die Stellen	Ich suche eine neue Stelle.	دنبال یک کار جدید می‌گردم.
+10	die Stellenanzeige	آگهی استخدام · Pl. die Stellenanzeigen	Ich lese jeden Tag die Stellenanzeigen.	هر روز آگهی‌های استخدام را می‌خوانم.
+10	die Bewerbung	درخواست کار (نامه) · Pl. die Bewerbungen	Heute schicke ich meine Bewerbung ab.	امروز درخواست کارم را می‌فرستم.
+10	der Lebenslauf	رزومه، شرح‌حال · Pl. die Lebensläufe	Bitte schicken Sie uns Ihren Lebenslauf.	لطفاً رزومه‌تان را برای ما بفرستید.
+10	die Erfahrung	تجربه · Pl. die Erfahrungen	Ich habe drei Jahre Erfahrung als Kellner.	سه سال سابقه‌ی گارسونی دارم.
+10	die Krankenpflegerin	پرستار (زن) · Pl. die Krankenpflegerinnen	Meine Schwester ist Krankenpflegerin.	خواهرم پرستار است.
+10	der Mechaniker	مکانیک (مرد) · Pl. die Mechaniker	Der Mechaniker repariert mein Auto.	مکانیک ماشینم را تعمیر می‌کند.
+10	arbeitslos	بیکار	Mein Nachbar ist seit Mai arbeitslos.	همسایه‌ام از ماه مه بیکار است.
+10	machen	انجام دادن، کردن · hat gemacht	Was hast du am Wochenende gemacht?	آخر هفته چه کار کردی؟
+10	besuchen	رفتن به (مدرسه، کلاس)؛ دیدن کردن · hat besucht	Ich habe zwölf Jahre die Schule besucht.	من دوازده سال به مدرسه رفتم.
+10	werden	شدن · er/sie wird · ist geworden	Meine Freundin ist Ärztin geworden.	دوستم پزشک شده است.
+10	suchen	جستجو کردن، دنبال چیزی گشتن · hat gesucht	Er hat lange eine Arbeit gesucht.	او مدت زیادی دنبال کار گشت.
+10	finden	پیدا کردن · hat gefunden	Endlich habe ich eine Stelle gefunden.	بالاخره یک کار پیدا کردم.
+10	verdienen	درآمد داشتن، پول درآوردن · hat verdient	Im Praktikum hat sie wenig verdient.	او در دوره‌ی کارآموزی درآمد کمی داشت.
+10	sich bewerben	درخواست کار دادن · er/sie bewirbt sich · hat sich beworben	Ich habe mich bei einer Bank beworben.	من برای کار در یک بانک درخواست دادم.
+10	bestehen	قبول شدن (در امتحان) · hat bestanden	Hast du die Prüfung bestanden?	امتحان را قبول شدی؟
+10	kennenlernen	آشنا شدن با · er/sie lernt kennen · hat kennengelernt	Ich habe meine Frau an der Uni kennengelernt.	همسرم را در دانشگاه شناختم.
+10	geboren	متولد، به‌دنیا آمده	Ich bin 1992 in Schiras geboren.	من در سال ۱۹۹۲ در شیراز به دنیا آمدم.
+10	früher	قبلاً، در گذشته	Früher habe ich in Isfahan gewohnt.	قبلاً در اصفهان زندگی می‌کردم.
+10	letztes Jahr	سال گذشته	Letztes Jahr habe ich mein Studium beendet.	پارسال تحصیلاتم را تمام کردم.
+11	die Kleidung	لباس، پوشاک · Pl. —	Ich kaufe meine Kleidung oft online.	من اغلب لباس‌هایم را اینترنتی می‌خرم.
+11	die Jacke	کاپشن، ژاکت · Pl. die Jacken	Die Jacke gefällt mir sehr.	این کاپشن خیلی به دلم نشسته است.
+11	der Mantel	پالتو · Pl. die Mäntel	Im Winter trage ich einen warmen Mantel.	زمستان‌ها یک پالتوی گرم می‌پوشم.
+11	die Hose	شلوار · Pl. die Hosen	Die Hose ist leider zu lang.	متأسفانه شلوار زیادی بلند است.
+11	der Rock	دامن · Pl. die Röcke	Der rote Rock kostet 30 Euro.	دامن قرمز ۳۰ یورو است.
+11	das Kleid	لباس زنانه، پیراهن زنانه · Pl. die Kleider	Sie trägt heute ein schönes Kleid.	او امروز یک پیراهن زنانه‌ی قشنگ پوشیده است.
+11	das Hemd	پیراهن مردانه · Pl. die Hemden	Das weiße Hemd passt gut.	پیراهن سفید خوب اندازه است.
+11	die Bluse	بلوز زنانه · Pl. die Blusen	Die Bluse ist aus Baumwolle.	این بلوز از جنس پنبه است.
+11	der Pullover	پلیور، بلوز بافتنی · Pl. die Pullover	Der Pullover ist schön warm.	این پلیور حسابی گرم است.
+11	das T-Shirt	تی‌شرت · Pl. die T-Shirts	Im Sommer trage ich gern T-Shirts.	تابستان‌ها دوست دارم تی‌شرت بپوشم.
+11	der Anzug	کت‌وشلوار · Pl. die Anzüge	Für das Interview kaufe ich einen Anzug.	برای مصاحبه یک کت‌وشلوار می‌خرم.
+11	der Schuh	کفش · Pl. die Schuhe	Diese Schuhe sind sehr bequem.	این کفش‌ها خیلی راحت هستند.
+11	die Mütze	کلاه بافتنی · Pl. die Mützen	Nimm eine Mütze mit, es ist kalt!	یک کلاه بافتنی با خودت ببر، هوا سرد است!
+11	der Hut	کلاه لبه‌دار · Pl. die Hüte	Der Hut steht dir wirklich gut.	این کلاه واقعاً به تو می‌آید.
+11	der Schal	شال‌گردن · Pl. die Schals	Der Schal passt gut zur Jacke.	این شال‌گردن به کاپشن می‌آید.
+11	die Tasche	کیف · Pl. die Taschen	Die Tasche ist leider zu teuer.	متأسفانه این کیف زیادی گران است.
+11	die Verkäuferin	فروشنده (زن) · Pl. die Verkäuferinnen	Die Verkäuferin bringt mir eine andere Größe.	فروشنده (خانم) برایم یک سایز دیگر می‌آورد.
+11	die Umkleidekabine	اتاق پرو · Pl. die Umkleidekabinen	Die Umkleidekabine ist dort hinten.	اتاق پرو آن ته است.
+11	die Größe	اندازه، سایز · Pl. die Größen	Haben Sie die Hose auch in Größe 40?	این شلوار را در سایز ۴۰ هم دارید؟
+11	die Farbe	رنگ · Pl. die Farben	Welche Farbe gefällt dir am besten?	کدام رنگ را از همه بیشتر دوست داری؟
+11	das Angebot	پیشنهاد ویژه، جنس حراجی · Pl. die Angebote	Die Schuhe sind heute im Angebot.	این کفش‌ها امروز حراج هستند.
+11	die Kasse	صندوق (پرداخت) · Pl. die Kassen	Bitte bezahlen Sie an der Kasse.	لطفاً سر صندوق پرداخت کنید.
+11	rot	قرمز	Ich suche einen roten Pullover.	دنبال یک پلیور قرمز می‌گردم.
+11	blau	آبی	Das blaue Hemd gefällt mir.	پیراهن آبی را دوست دارم.
+11	grün	سبز	Ihre Jacke ist dunkelgrün.	کاپشن او سبز تیره است.
+11	gelb	زرد	Ein gelbes Kleid ist schön im Sommer.	پیراهن زنانه‌ی زرد در تابستان قشنگ است.
+11	schwarz	سیاه، مشکی	Er trägt immer schwarze Schuhe.	او همیشه کفش مشکی می‌پوشد.
+11	weiß	سفید	Die weiße Bluse ist neu.	این بلوز سفید نو است.
+11	braun	قهوه‌ای	Ich habe braune Stiefel gekauft.	من چکمه‌ی قهوه‌ای خریدم.
+11	groß	بزرگ	Die Jacke ist mir zu groß.	این کاپشن برایم زیادی بزرگ است.
+11	klein	کوچک	Haben Sie das auch eine Nummer kleiner?	این را یک سایز کوچک‌تر هم دارید؟
+11	lang	بلند	Der Rock ist zu lang für mich.	این دامن برای من زیادی بلند است.
+11	kurz	کوتاه	Im Sommer trage ich kurze Hosen.	تابستان‌ها شلوارک می‌پوشم.
+11	eng	تنگ	Die Jeans ist ein bisschen zu eng.	این شلوار جین کمی تنگ است.
+11	tragen	پوشیدن (به تن داشتن)؛ حمل کردن · er/sie trägt	Sie trägt gern bunte Kleider.	او دوست دارد لباس‌های رنگارنگ بپوشد.
+11	anziehen	پوشیدن (لباس به تن کردن) · er/sie zieht an	Zieh bitte eine warme Jacke an!	لطفاً یک کاپشن گرم بپوش!
+11	anprobieren	پرو کردن، امتحان کردن (لباس) · er/sie probiert an	Kann ich die Hose anprobieren?	می‌توانم این شلوار را امتحان کنم؟
+11	umtauschen	تعویض کردن (جنس خریده‌شده) · er/sie tauscht um	Kann ich die Schuhe umtauschen?	می‌توانم این کفش‌ها را عوض کنم؟
+11	gefallen	خوش آمدن، پسندیدن · er/sie gefällt	Der Rock gefällt mir nicht.	این دامن را دوست ندارم.
+11	stehen	(لباس) به کسی آمدن · er/sie steht	Die Farbe steht dir super!	این رنگ خیلی به تو می‌آید!
+11	Kann ich Ihnen helfen?	می‌توانم کمکتان کنم؟	Guten Tag, kann ich Ihnen helfen?	روز بخیر، می‌توانم کمکتان کنم؟
+11	besser	بهتر	Die grüne Jacke gefällt mir besser.	کاپشن سبز را بیشتر دوست دارم.
+11	als	از (در مقایسه)	Der Mantel ist teurer als die Jacke.	پالتو از کاپشن گران‌تر است.
+11	lieber	ترجیحاً، بیشتر (دوست داشتن)	Ich trage lieber Hosen als Röcke.	شلوار را بیشتر از دامن دوست دارم.
+11	am liebsten	بیش از همه، از همه بیشتر	Am liebsten trage ich Jeans.	از همه بیشتر دوست دارم شلوار جین بپوشم.
+12	die Ferien (Pl.)	تعطیلات (مدرسه، دانشگاه) · nur Plural	In den Ferien fahren wir ans Meer.	در تعطیلات به کنار دریا می‌رویم.
+12	die Reise	سفر · Pl. die Reisen	Die Reise nach Wien war toll.	سفر به وین عالی بود.
+12	Gute Reise!	سفر به‌خیر!	Tschüss und gute Reise!	خداحافظ، سفر خوش!
+12	der Tourist	گردشگر (مرد) · Pl. die Touristen	Im Sommer gibt es hier viele Touristen.	تابستان‌ها این‌جا گردشگر زیاد است.
+12	das Einzelzimmer	اتاق یک‌تخته · Pl. die Einzelzimmer	Ich möchte ein Einzelzimmer für zwei Nächte.	یک اتاق یک‌تخته برای دو شب می‌خواهم.
+12	das Doppelzimmer	اتاق دوتخته · Pl. die Doppelzimmer	Ein Doppelzimmer kostet 90 Euro pro Nacht.	اتاق دوتخته شبی ۹۰ یورو است.
+12	die Ferienwohnung	آپارتمان اجاره‌ای برای تعطیلات · Pl. die Ferienwohnungen	Wir mieten eine Ferienwohnung am See.	یک آپارتمان تعطیلات کنار دریاچه اجاره می‌کنیم.
+12	die Jugendherberge	مهمان‌سرای جوانان · Pl. die Jugendherbergen	Die Jugendherberge ist billig und sauber.	مهمان‌سرای جوانان ارزان و تمیز است.
+12	der Campingplatz	محل کمپینگ · Pl. die Campingplätze	Der Campingplatz ist direkt am Wald.	کمپینگ درست کنار جنگل است.
+12	die Rezeption	پذیرش (هتل) · Pl. die Rezeptionen	Den Schlüssel bekommen Sie an der Rezeption.	کلید را از پذیرش می‌گیرید.
+12	die Übernachtung	اقامت شبانه · Pl. die Übernachtungen	Die Übernachtung kostet mit Frühstück 70 Euro.	اقامت با صبحانه ۷۰ یورو است.
+12	übernachten	شب ماندن، اقامت کردن	Wir übernachten in einem kleinen Hotel.	ما در یک هتل کوچک شب را می‌گذرانیم.
+12	buchen	رزرو کردن (بلیت، هتل)	Ich buche den Flug im Internet.	بلیت هواپیما را اینترنتی رزرو می‌کنم.
+12	reservieren	رزرو کردن	Ich möchte ein Zimmer reservieren.	می‌خواهم یک اتاق رزرو کنم.
+12	der Koffer	چمدان · Pl. die Koffer	Mein Koffer ist sehr schwer.	چمدانم خیلی سنگین است.
+12	das Gepäck	بار و بنه، چمدان‌ها · Pl. —	Wo kann ich mein Gepäck abgeben?	کجا می‌توانم بارم را تحویل بدهم؟
+12	der Rucksack	کوله‌پشتی · Pl. die Rucksäcke	Zum Wandern nehme ich einen Rucksack mit.	برای کوهپیمایی یک کوله‌پشتی با خودم می‌برم.
+12	packen	بستن (چمدان)، جمع کردن وسایل	Hast du schon deinen Koffer gepackt?	چمدانت را بسته‌ای؟
+12	der Pass	گذرنامه · Pl. die Pässe	Vergiss deinen Pass nicht!	گذرنامه‌ات را فراموش نکن!
+12	das Flugzeug	هواپیما · Pl. die Flugzeuge	Das Flugzeug landet um 18 Uhr.	هواپیما ساعت ۱۸ فرود می‌آید.
+12	fliegen	پرواز کردن، با هواپیما رفتن	Nächste Woche fliegen wir nach Spanien.	هفته‌ی آینده با هواپیما به اسپانیا می‌رویم.
+12	ankommen	رسیدن · er/sie kommt an	Der Zug kommt um acht Uhr an.	قطار ساعت هشت می‌رسد.
+12	abfahren	حرکت کردن (وسیله نقلیه) · er/sie fährt ab	Der Bus fährt in fünf Minuten ab.	اتوبوس پنج دقیقه‌ی دیگر حرکت می‌کند.
+12	das Meer	دریا · Pl. die Meere	Das Meer ist heute ganz ruhig.	دریا امروز کاملاً آرام است.
+12	der Strand	ساحل · Pl. die Strände	Am Nachmittag liegen wir am Strand.	بعدازظهر در ساحل دراز می‌کشیم.
+12	der Berg	کوه · Pl. die Berge	Im Urlaub wandern wir in den Bergen.	در تعطیلات در کوهستان پیاده‌روی می‌کنیم.
+12	der See	دریاچه · Pl. die Seen	Der See ist im Sommer schön warm.	آب دریاچه تابستان‌ها خوب و گرم است.
+12	der Wald	جنگل · Pl. die Wälder	Hinter dem Hotel ist ein großer Wald.	پشت هتل یک جنگل بزرگ هست.
+12	die Insel	جزیره · Pl. die Inseln	Wir machen Urlaub auf einer Insel.	تعطیلات را در یک جزیره می‌گذرانیم.
+12	wandern	کوه‌پیمایی کردن، پیاده‌روی در طبیعت	Am Wochenende wandern wir gern.	آخر هفته دوست داریم کوهپیمایی کنیم.
+12	die Postkarte	کارت‌پستال · Pl. die Postkarten	Ich schreibe meiner Oma eine Postkarte.	برای مادربزرگم یک کارت پستال می‌نویسم.
+12	Viele Grüße	با سلام و آرزوی بهترین‌ها (پایان نامه)	Viele Grüße aus Hamburg!	سلام‌های گرم از هامبورگ!
+12	das Wetter	آب‌وهوا · Pl. —	Wie ist das Wetter bei euch?	هوا پیش شما چطور است؟
+12	die Sonne	خورشید، آفتاب · Pl. —	Heute scheint die Sonne.	امروز آفتاب می‌تابد.
+12	der Regen	باران · Pl. —	Bei Regen bleiben wir im Hotel.	اگر باران ببارد، در هتل می‌مانیم.
+12	der Schnee	برف · Pl. —	In den Bergen liegt noch Schnee.	در کوهستان هنوز برف هست.
+12	regnen	باران باریدن	Heute regnet es den ganzen Tag.	امروز تمام روز باران می‌بارد.
+12	sonnig	آفتابی	Morgen wird es sonnig und warm.	فردا هوا آفتابی و گرم می‌شود.
+12	warm	گرم	Im Juli ist es hier sehr warm.	در ژوئیه این‌جا هوا خیلی گرم است.
+12	kalt	سرد	Im Januar ist es oft kalt.	در ژانویه هوا اغلب سرد است.
+12	der Grad	درجه (دما) · Pl. die Grade	Heute sind es 28 Grad.	امروز ۲۸ درجه است.

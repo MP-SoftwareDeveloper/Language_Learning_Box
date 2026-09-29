@@ -1,0 +1,96 @@
+# LearningBox — files that are never committed.
+# Check with:  git status --ignored
+
+# ---- Build output (Qt Creator / CMake / deploy.bat) ----
+build/
+build-*/
+out/
+Testing/
+CMakeCache.txt
+CMakeFiles/
+CMakeUserPresets.json
+cmake_install.cmake
+CTestTestfile.cmake
+compile_commands.json
+_deps/
+*_autogen/
+.rcc/
+.qt/
+.qmake.stash
+moc_*.cpp
+qrc_*.cpp
+ui_*.h
+*.qmlc
+*.jsc
+
+# ---- Binaries and packages ----
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dll
+*.exe
+*.pdb
+*.ilk
+*.exp
+*.dmp
+*.apk
+*.aab
+*.ipa
+*.app/
+*.xcarchive/
+*.msi
+*.msix
+
+# Exception: the phone OpenSSL libs are committed (HTTPS for online translation) ...
+!3rdparty/android_openssl/ssl_3/arm64-v8a/*.so
+# ... the emulator copy is not (get it from KDAB/android_openssl)
+3rdparty/android_openssl/ssl_3/x86_64/
+
+# ---- OCR: sources are downloaded, libraries built by 3rdparty/build_ocr_android.cmd ----
+3rdparty/tesseract/
+3rdparty/leptonica/
+3rdparty/cpu_features/
+3rdparty/build-*/
+3rdparty/install/
+
+# ---- Android / Gradle ----
+.gradle/
+android/.gradle/
+android/build/
+android/local.properties
+*.keystore
+*.jks
+
+# ---- iOS / macOS (phase 2) ----
+DerivedData/
+*.xcuserstate
+xcuserdata/
+
+# ---- IDEs and tools ----
+.qtcreator/
+*.user
+*.user.*
+*.autosave
+.qtc_clangd/
+.cache/
+.vs/
+.vscode/
+.idea/
+*.swp
+*~
+
+# ---- OS ----
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# ---- Local data, logs and scratch ----
+*.log
+debug_log.txt
+install_log.txt
+*.sqlite
+*.sqlite-journal
+.env
+_to_delete/
