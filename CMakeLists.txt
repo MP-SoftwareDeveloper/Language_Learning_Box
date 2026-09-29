@@ -60,6 +60,7 @@ qt_add_qml_module(appLearningBox
         qml/ModeComparison.qml
         qml/ResetDialog.qml
         qml/HintLabel.qml
+        qml/DirectionLabel.qml
         qml/CameraShotPage.qml
         qml/EditIcon.qml
         qml/HelpIcon.qml

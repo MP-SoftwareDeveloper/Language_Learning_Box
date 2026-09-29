@@ -200,9 +200,11 @@ Page {
                 anchors.centerIn: parent
                 spacing: 0
                 Repeater {
-                    model: [ { code: "german", label: "Deutsch \u2192 " + directionSwitch.meaningName },
-                             { code: "meaning", label: "\u200E" + directionSwitch.meaningName + " \u2192 Deutsch" },
-                             { code: "mixed", label: "\uD83D\uDD00 " + qsTr("Mix") } ]
+                    // Each part is its own label: next to Persian text Android picks a Persian font for
+                    // the arrow, which has no "→" (drawn as a box), and the text order could flip.
+                    model: [ { code: "german", from: "Deutsch", to: directionSwitch.meaningName },
+                             { code: "meaning", from: directionSwitch.meaningName, to: "Deutsch" },
+                             { code: "mixed", from: "\uD83D\uDD00", to: qsTr("Mix") } ]
                     delegate: AbstractButton {
                         id: segment
                         required property var modelData
@@ -218,13 +220,12 @@ Page {
                                                     : (segment.pressed ? Qt.rgba(0.5, 0.5, 0.5, 0.2) : "transparent")
                             Behavior on color { ColorAnimation { duration: 150 } }
                         }
-                        contentItem: Label {
-                            text: segment.modelData.label
-                            font.pixelSize: 13
-                            font.bold: segment.selected
+                        contentItem: DirectionLabel {
+                            from: segment.modelData.from
+                            to: segment.modelData.to
+                            arrow: segment.modelData.code !== "mixed"
+                            bold: segment.selected
                             color: segment.selected ? "white" : Material.foreground
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
                         }
                     }
                 }
@@ -258,22 +259,33 @@ Page {
                     spacing: 16
 
                     // Mix: which way this card is asked
-                    Label {
+                    Pane {
                         Layout.alignment: Qt.AlignHCenter
                         visible: page.direction === "mixed"
-                        font.pixelSize: 12
-                        leftPadding: 10
-                        rightPadding: 10
                         topPadding: 3
                         bottomPadding: 3
-                        color: Material.accentColor
-                        text: "\uD83D\uDD00 " + (page.germanFirst ? "Deutsch \u2192 " + directionSwitch.meaningName
-                                                                  : "\u200E" + directionSwitch.meaningName + " \u2192 Deutsch")
+                        leftPadding: 10
+                        rightPadding: 10
                         background: Rectangle {
                             radius: height / 2
                             color: "transparent"
                             border.width: 1
                             border.color: Material.accentColor
+                        }
+                        contentItem: Row {
+                            spacing: 6
+                            Label {
+                                anchors.verticalCenter: parent.verticalCenter
+                                text: "\uD83D\uDD00"
+                                font.pixelSize: 12
+                            }
+                            DirectionLabel {
+                                anchors.verticalCenter: parent.verticalCenter
+                                from: page.germanFirst ? "Deutsch" : directionSwitch.meaningName
+                                to: page.germanFirst ? directionSwitch.meaningName : "Deutsch"
+                                pixelSize: 12
+                                color: Material.accentColor
+                            }
                         }
                     }
 
