@@ -45,6 +45,11 @@ A Leitner box for German vocabulary. Qt 6.10+ / C++20 / QML, with no Java. Andro
   writes it; the last German-box choice is the default for new German boxes). English and German meanings, example
   translations and Lens translations have 🔊 (American / German voice); Persian is not read aloud.
   `.lbox` files carry `"language"`, so an imported English file becomes an English box.
+- **Dictionary** (`qml/DictionaryPage.qml`, last button on Home): looks a word or sentence up between the learning
+  language and the meaning language of the selected learning box, both directions (drawn swap button);
+  word pack first (German → Persian, offline), then `Translator::translateBetween` (online, saved for offline;
+  cache keys get a source prefix except German), alternatives, Tatoeba examples, 🔊 for German / English,
+  *+ Add* opens the card editor prefilled. The speed slider left Home (review card and Settings have it).
 - **Review direction** (*Ask:* on the review card): *German first* (the meaning is the answer), *Meaning first* (the
   meaning's first line is the question — the plural line would give the word away; say the German word, it is read
   aloud with the answer) or *Mixed* (random per card). Stored per learning box (`CardStore::reviewDirection`, QSettings

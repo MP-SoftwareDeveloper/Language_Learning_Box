@@ -83,6 +83,7 @@ ApplicationWindow {
             onAddRequested: stack.push(editPage)
             onBrowseRequested: stack.push(listPage)
             onSendRequested: stack.push(sendPage)
+            onDictionaryRequested: stack.push(dictionaryPage)
             onGetRequested: stack.push(getPage)
             onPacksRequested: stack.push(packsPage)
             onLensRequested: stack.push(lensPage)
@@ -98,6 +99,7 @@ ApplicationWindow {
     Component { id: settingsPage; SettingsPage {} }
     Component { id: boxPage; BoxPage {} }
     Component { id: sendPage; SendCardsPage {} }
+    Component { id: dictionaryPage; DictionaryPage {} }
     Component { id: getPage; GetCardsPage {} }
     Component {
         id: setupPage

@@ -11,6 +11,7 @@ Page {
     signal reviewRequested()
     signal addRequested()
     signal browseRequested()
+    signal dictionaryRequested()
     signal sendRequested()
     signal getRequested()
     signal packsRequested()
@@ -321,17 +322,11 @@ Page {
                 }
             }
 
-            // Speech settings
-            Label {
-                Layout.leftMargin: 16
-                Layout.topMargin: 8
-                text: qsTr("Speech")
-                font.pixelSize: 16
-                font.bold: true
-            }
+            // Only when the voice for this learning box is missing (speed: on the review card / Settings)
             Label {
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
+                Layout.topMargin: 8
                 Layout.fillWidth: true
                 wrapMode: Text.WordWrap
                 visible: Speaker.ready && !Speaker.voiceAvailable
@@ -345,17 +340,15 @@ Page {
                 text: qsTr("Get the %1 voice (Speech Recognition and Synthesis from Google)").arg(Speaker.voiceName)
                 onClicked: Qt.openUrlExternally("https://play.google.com/store/apps/details?id=com.google.android.tts")
             }
-            RowLayout {
+
+            // Dictionary: the last item on Home
+            Button {
+                Layout.fillWidth: true
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
-                Label { text: qsTr("Speed") }
-                Slider {
-                    Layout.fillWidth: true
-                    from: -1; to: 1; stepSize: 0.1
-                    value: Speaker.rate
-                    onMoved: Speaker.rate = value
-                }
-                SpeakButton { speakText: page.english ? "Good morning! How are you?" : "Guten Morgen! Wie geht es dir?" }
+                Layout.topMargin: 8
+                text: qsTr("\uD83D\uDCD6  Dictionary")
+                onClicked: page.dictionaryRequested()
             }
 
             Label {

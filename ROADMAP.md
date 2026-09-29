@@ -132,6 +132,7 @@ flowchart TD
 - [x] Delete a card by press-and-hold (Box pages, All cards) with confirmation 🧪
 - [x] Add a card directly into a box (+ on the Box page; Box chooser in the editor) 🧪
 - [x] Review: فارسی / English switch on the answer side; meaning and example follow it (translated when the card is in the other language) 🧪
+- [x] Dictionary on Home: both directions, alternatives, examples, 🔊, add as card 🧪
 - [x] Meaning language per learning box (Persian / English / German); English and German meanings and translations can be listened to 🧪
 - [x] Learn English too: language per learning box, American voice, English OCR, English → Persian translation and examples 🧪
 - [x] Review direction: German first / Meaning first (say the German word) / Mixed, remembered per learning box 🧪
@@ -222,6 +223,7 @@ Goal: this roadmap and the app version are visible online after each push.
 ## Changelog
 | Date | Change |
 |---|---|
+| 2026-09-29 | Dictionary page (last item on Home); speed control removed from Home; fix: choosing Persian / English in Settings did not stick |
 | 2026-09-29 | Meaning language chosen per learning box (fa / en / de, schema v7); 🔊 for English and German meanings, example and Lens translations |
 | 2026-09-29 | Learning English: language per learning box (schema v6), American English voice, English OCR (eng.traineddata), English → Persian translation and Tatoeba examples, flags in the chooser; speech speed on the review card (remembered) |
 | 2026-09-29 | Review direction: German first, Meaning first or Mixed (per learning box) |

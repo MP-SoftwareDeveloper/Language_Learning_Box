@@ -28,7 +28,8 @@ QSqlDatabase db() { return QSqlDatabase::database(QLatin1String(kConnection)); }
 QString key(const QString &source, const QString &text)
 {
     const QString k = text.simplified().toCaseFolded();
-    return source == QLatin1String("en") ? QStringLiteral("en|") + k : k;
+    // German keeps the original keys; other source languages get a prefix ("en|", "fa|").
+    return source == QLatin1String("de") ? k : source + u'|' + k;
 }
 } // namespace
 
@@ -129,6 +130,11 @@ bool Translator::useOnline() const
 
 int Translator::translate(const QString &text)
 {
+    return translateBetween(text, sourceLanguage(), meaningLanguage());
+}
+
+int Translator::translateBetween(const QString &text, const QString &source, const QString &target)
+{
     const int id = m_nextId++;
     const QString t = text.simplified();
     if (t.isEmpty()) {
@@ -136,12 +142,10 @@ int Translator::translate(const QString &text)
         return id;
     }
     if (!useOnline()) {
-        QTimer::singleShot(0, this, [=, this] { answerOffline(id, t, {}); });
+        QTimer::singleShot(0, this, [=, this] { answerOffline(id, t, source, target, {}); });
         return id;
     }
 
-    const QString source = sourceLanguage();
-    const QString target = meaningLanguage();
     QNetworkRequest req(GoogleTranslate::requestUrl(source, target));
     req.setHeader(QNetworkRequest::ContentTypeHeader, QStringLiteral("application/x-www-form-urlencoded;charset=UTF-8"));
     req.setHeader(QNetworkRequest::UserAgentHeader, QStringLiteral("Mozilla/5.0 (LearningBox)"));
@@ -161,15 +165,15 @@ void Translator::onReply(QNetworkReply *reply, int id, const QString &text, cons
         const auto r = GoogleTranslate::parse(reply->readAll());
         if (r.error.isEmpty()) {
             store(source, target, text, r.text, r.alternatives);
-            if (target == meaningLanguage() && source == sourceLanguage()) {
-                emit translated(id, r.text, r.alternatives, QStringLiteral("online"), {});
-                return;
-            }
+            // Always the pair that was asked for; callers drop answers they no longer wait for
+            // (request ids are reset when the language changes).
+            emit translated(id, r.text, r.alternatives, QStringLiteral("online"), {});
+            return;
         }
         error = r.error;
     }
     qWarning().noquote() << "Translation online failed:" << error;
-    answerOffline(id, text, error);
+    answerOffline(id, text, source, target, error);
 }
 
 void Translator::remember(const QString &text, const QString &translation)
@@ -221,14 +225,22 @@ int Translator::suggestExamples(const QString &word)
     return id;
 }
 
-void Translator::answerOffline(int id, const QString &text, const QString &error)
+void Translator::answerOffline(int id, const QString &text, const QString &source, const QString &target,
+                               const QString &error)
 {
     QString translation;
     QStringList alternatives;
-    if (lookup(sourceLanguage(), meaningLanguage(), text, &translation, &alternatives))
+    if (lookup(source, target, text, &translation, &alternatives))
         emit translated(id, translation, alternatives, QStringLiteral("saved"), error);
     else
         emit translated(id, {}, {}, {}, error);
+}
+
+QString Translator::savedBetween(const QString &text, const QString &source, const QString &target) const
+{
+    QString t;
+    QStringList alt;
+    return lookup(source, target, text, &t, &alt) ? t : QString();
 }
 
 QString Translator::saved(const QString &text) const

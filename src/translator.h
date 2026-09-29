@@ -58,8 +58,11 @@ public:
     // Starts a translation of `text` (in the learning language) into the meaning language. Returns a request id;
     // the answer arrives through translated(id, ...). Offline misses answer with empty text.
     Q_INVOKABLE int translate(const QString &text);
+    // Same between any two languages ("de", "en", "fa"), e.g. the dictionary in both directions.
+    Q_INVOKABLE int translateBetween(const QString &text, const QString &source, const QString &target);
     // Saved translation (any source) or an empty string; synchronous.
     Q_INVOKABLE QString saved(const QString &text) const;
+    Q_INVOKABLE QString savedBetween(const QString &text, const QString &source, const QString &target) const;
     Q_INVOKABLE void clearSaved();
     // Saves a known translation (e.g. from Tatoeba) so saved() / offline use find it.
     Q_INVOKABLE void remember(const QString &text, const QString &translation);
@@ -81,7 +84,8 @@ signals:
 private:
     explicit Translator(QObject *parent = nullptr);
     void onReply(QNetworkReply *reply, int id, const QString &text, const QString &source, const QString &target);
-    void answerOffline(int id, const QString &text, const QString &error);
+    void answerOffline(int id, const QString &text, const QString &source, const QString &target,
+                       const QString &error);
     bool openCache();
     // Cache rows are per meaning language and source text; English source texts are stored with an
     // "en|" prefix so they never mix with German ones (German rows keep their old keys).
