@@ -84,6 +84,7 @@ ApplicationWindow {
             onBrowseRequested: stack.push(listPage)
             onSendRequested: stack.push(sendPage)
             onDictionaryRequested: stack.push(dictionaryPage)
+            onFavoritesRequested: stack.push(favoritesPage)
             onGetRequested: stack.push(getPage)
             onPacksRequested: stack.push(packsPage)
             onLensRequested: stack.push(lensPage)
@@ -100,6 +101,7 @@ ApplicationWindow {
     Component { id: boxPage; BoxPage {} }
     Component { id: sendPage; SendCardsPage {} }
     Component { id: dictionaryPage; DictionaryPage {} }
+    Component { id: favoritesPage; FavoritesPage {} }
     Component { id: getPage; GetCardsPage {} }
     Component {
         id: setupPage

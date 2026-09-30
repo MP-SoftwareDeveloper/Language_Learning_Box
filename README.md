@@ -3,7 +3,7 @@
 A Leitner box for German vocabulary. Qt 6.10+ / C++20 / QML, with no Java. Android is the first target.
 
 ## Milestone 1 (done)
-- SQLite card store (`AppDataLocation/learningbox.sqlite`), schema versioned via `PRAGMA user_version` (v5)
+- SQLite card store (`AppDataLocation/learningbox.sqlite`), schema versioned via `PRAGMA user_version` (v8)
 - **First-run setup** (`qml/SetupPage.qml`, once, before Home): meaning language (English / فارسی) → **Simple or Full
   app** (comparison table `qml/ModeComparison.qml`) → **100 starter words** into the learning box
   *Starter – 100 words* → German voice check (+ online translation switch in Full). APKs have no installer wizard,
@@ -30,7 +30,19 @@ A Leitner box for German vocabulary. Qt 6.10+ / C++20 / QML, with no Java. Andro
   (`CardStore` scopes every query by `collection_id`). Existing cards are migrated into *My learning box*.
 - 5 Leitner boxes: intervals 1/2/4/8/16 days (day-aligned); wrong → box 1; correct in box 5 → *Learned*
 - Review session: failed cards are re-asked at the end of the session (the DB is updated only once)
-- **Box pages**: tap a box on Home to list its cards (tabs switch between boxes 1–5 and Learned). ◀ / ▶ move a card
+- **Favorite words** (schema v8: `cards.favorite` = time starred, 0 = not): ★ (`qml/StarButton.qml`, drawn
+  `qml/StarIcon.qml`) on the review card (top row), in box pages, in the card editor (existing cards) and in Lens
+  (selected words; words that are no cards yet are added first, like *Add N words*; all starred → unstar).
+  Home → *★ Favorite words (N)* opens `qml/FavoritesPage.qml` (whole cards like the box pages via `qml/CardFace.qml`: meaning, example, 🔊; newest star first; tap = edit, ★ = remove from the list).
+  Per learning box. A star emits only `favoritesChanged` (not `changed`), so lists are not rebuilt (no flicker); on
+  Favorite words an unstarred card stays (empty ★, tap to undo) until the page is shown again.
+  `CardStore::favoriteCount / isFavorite / setFavorite / favorites`; `card()` and `cardsInBox()` carry
+  `favorite`. Not in `.lbox` exports yet.
+- **Select several cards** on a box page: press and hold a card or *Select* → check boxes; the bar has select-all
+  (tri-state), count, ★ (star all), *Delete* (confirmation, `CardStore::removeCards`, one transaction, pictures removed)
+  and *Done*. Tap = toggle while selecting, otherwise edit. The Learned tab shows 🎓 (★ means favorite now).
+- **Box pages**: tap a box on Home to list its cards — the whole card: front, every line of the meaning and the
+  example, each with 🔊 (meaning only when English / German), plus ★ (tabs switch between boxes 1–5 and Learned). ◀ / ▶ move a card
   one box back / forward; it is then scheduled with the new box's interval (box 1 = tomorrow … box 5 = 16 days,
   Learned = not reviewed), review history is kept (`leitner::moveTo`, `CardStore::moveCard`). *Undo* for 4 s.
 - **Learning English** (schema v6: `collections.language` "de" / "en"): each learning box learns German or English,
@@ -172,7 +184,8 @@ Plain words and a grey hint under every choice (`qml/HintLabel.qml`).
   Setup: portal.azure.com → *Create a resource* → **Computer Vision** → region e.g. *West Europe*, pricing tier
   **Free F0** → after creation *Keys and Endpoint* → copy *Endpoint* and *KEY 1* into the app.
 - **Translation** (Settings ⚙ → *Translation*: Persian or English). After recognition the whole text is shown
-  translated in a collapsible panel under the picture; every selected word gets its own translation (and a
+  translated in a collapsible panel under the picture (above it: *Text in the photo* with 🔊, the recognized text read
+  aloud in the learning language); every selected word gets its own translation (and a
   multi-word/sentence selection its phrase translation). *Add N words* / *Create card* put that translation on the
   card's back. Persian keeps the word pack's curated meaning (+ grammar note) when the word is in the pack; English
   adds the pack's grammar note after the translation.

@@ -62,6 +62,10 @@ qt_add_qml_module(appLearningBox
         qml/HintLabel.qml
         qml/DirectionLabel.qml
         qml/DictionaryPage.qml
+        qml/FavoritesPage.qml
+        qml/StarIcon.qml
+        qml/StarButton.qml
+        qml/CardFace.qml
         qml/CameraShotPage.qml
         qml/EditIcon.qml
         qml/HelpIcon.qml

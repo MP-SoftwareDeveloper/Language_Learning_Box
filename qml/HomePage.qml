@@ -16,6 +16,7 @@ Page {
     signal getRequested()
     signal packsRequested()
     signal lensRequested()
+    signal favoritesRequested()
     signal boxRequested(int box) // 1..5, 6 = Learned
 
     // Learning-box chooser: light-blue background.
@@ -226,6 +227,37 @@ Page {
                 visible: AppMode.full
                 text: qsTr("\uD83D\uDCF7  Lens \u00B7 words from a photo")
                 onClicked: page.lensRequested()
+            }
+            // Starred cards (★ on any card)
+            Button {
+                id: favButton
+                objectName: "favoritesButton"
+                Layout.fillWidth: true
+                Layout.leftMargin: 16
+                Layout.rightMargin: 16
+                text: qsTr("Favorite words (%1)").arg(CardStore.favoriteCount)
+                contentItem: Item {
+                    implicitHeight: favRow.implicitHeight
+                    implicitWidth: favRow.implicitWidth
+                    Row {
+                        id: favRow
+                        anchors.centerIn: parent
+                        spacing: 8
+                        StarIcon {
+                            anchors.verticalCenter: parent.verticalCenter
+                            width: 18
+                            height: 18
+                            filled: CardStore.favoriteCount > 0
+                        }
+                        Label {
+                            anchors.verticalCenter: parent.verticalCenter
+                            text: favButton.text
+                            font: favButton.font
+                            color: favButton.Material.foreground
+                        }
+                    }
+                }
+                onClicked: page.favoritesRequested()
             }
             Button {
                 Layout.fillWidth: true

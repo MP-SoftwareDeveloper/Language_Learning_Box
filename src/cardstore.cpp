@@ -11,6 +11,7 @@
 #include <QTemporaryFile>
 #include <QSqlError>
 #include <QSqlQuery>
+#include <QSet>
 #include <QSettings>
 #include <QStandardPaths>
 #include <QDebug>
@@ -20,7 +21,7 @@
 namespace {
 
 constexpr auto kConnection = "learningbox";
-constexpr int kSchemaVersion = 7;
+constexpr int kSchemaVersion = 8;
 constexpr auto kCurrentKey = "learningbox/current"; // QSettings: selected learning box
 
 QSqlDatabase db() { return QSqlDatabase::database(QLatin1String(kConnection)); }
@@ -79,6 +80,8 @@ CardStore *CardStore::create(QQmlEngine *, QJSEngine *engine)
 CardStore::CardStore(QObject *parent)
     : QObject(parent)
 {
+    // Cards deleted, another learning box …: the favorites may have changed too
+    connect(this, &CardStore::changed, this, &CardStore::favoritesChanged);
     m_ready = open() && migrate();
     if (m_ready) {
         removeOrphanImages();
@@ -181,6 +184,10 @@ bool CardStore::migrate()
         // v7: meaning language of each learning box ("" = not chosen: default).
         steps << QStringLiteral("ALTER TABLE collections ADD COLUMN meaning TEXT NOT NULL DEFAULT ''");
     }
+    if (version < 8) {
+        // v8: favorites (★); the value is the time it was starred (0 = not a favorite)
+        steps << QStringLiteral("ALTER TABLE cards ADD COLUMN favorite INTEGER NOT NULL DEFAULT 0");
+    }
     steps << QStringLiteral("PRAGMA user_version = %1").arg(kSchemaVersion);
 
     d.transaction();
@@ -222,6 +229,88 @@ int CardStore::learnedCount() const
 int CardStore::totalCount() const
 {
     return scalar(QStringLiteral("SELECT COUNT(*) FROM cards WHERE 1%1").arg(scope()));
+}
+
+int CardStore::favoriteCount() const
+{
+    return scalar(QStringLiteral("SELECT COUNT(*) FROM cards WHERE favorite > 0%1").arg(scope()));
+}
+
+bool CardStore::isFavorite(int id) const
+{
+    QSqlQuery q(db());
+    q.prepare(QStringLiteral("SELECT favorite FROM cards WHERE id = ?"));
+    q.addBindValue(id);
+    return q.exec() && q.next() && q.value(0).toLongLong() > 0;
+}
+
+bool CardStore::setFavorite(int id, bool favorite)
+{
+    if (isFavorite(id) == favorite)
+        return true;
+    QSqlQuery q(db());
+    q.prepare(QStringLiteral("UPDATE cards SET favorite = ? WHERE id = ?"));
+    q.addBindValue(favorite ? nowSecs() : qint64(0));
+    q.addBindValue(id);
+    if (!q.exec()) {
+        fail(QStringLiteral("setFavorite"), q.lastError().text());
+        return false;
+    }
+    if (q.numRowsAffected() == 0)
+        return false;
+    emit favoritesChanged(); // not changed(): nothing else about the card changed
+    return true;
+}
+
+QVariantList CardStore::favorites() const
+{
+    QVariantList out;
+    QSqlQuery q(db());
+    q.exec(QStringLiteral("SELECT %1 FROM cards WHERE favorite > 0%2 ORDER BY favorite DESC, id DESC")
+               .arg(QLatin1String(kCardColumns), scope()));
+    while (q.next()) {
+        const Card c = readCard(q);
+        out.append(QVariantMap{
+            {QStringLiteral("id"), c.id},
+            {QStringLiteral("front"), c.front},
+            {QStringLiteral("back"), c.back},
+            {QStringLiteral("example"), c.example},
+            {QStringLiteral("box"), c.box},
+            {QStringLiteral("imageUrl"), imageUrl(c.image)},
+        });
+    }
+    return out;
+}
+
+int CardStore::removeCards(const QVariantList &ids)
+{
+    auto d = db();
+    QStringList images;
+    int removed = 0;
+    d.transaction();
+    QSqlQuery q(d);
+    q.prepare(QStringLiteral("DELETE FROM cards WHERE id = ?"));
+    for (const QVariant &v : ids) {
+        const int id = v.toInt();
+        const auto old = cardById(id);
+        q.addBindValue(id);
+        if (!q.exec()) {
+            fail(QStringLiteral("removeCards"), q.lastError().text());
+            d.rollback();
+            return 0;
+        }
+        if (q.numRowsAffected() > 0) {
+            ++removed;
+            if (old)
+                images << old->image;
+        }
+    }
+    d.commit();
+    for (const QString &image : std::as_const(images))
+        discardImage(image);
+    if (removed > 0)
+        emit changed();
+    return removed;
 }
 
 int CardStore::dueCount() const
@@ -350,6 +439,11 @@ QVariantList CardStore::cardsInBox(int box) const
     q.addBindValue(leitner::moveTo(box).box);
     if (!q.exec())
         return out;
+    QSet<int> favs;
+    QSqlQuery f(db());
+    f.exec(QStringLiteral("SELECT id FROM cards WHERE favorite > 0%1").arg(scope()));
+    while (f.next())
+        favs.insert(f.value(0).toInt());
     while (q.next()) {
         const Card c = readCard(q);
         out.append(QVariantMap{
@@ -361,6 +455,7 @@ QVariantList CardStore::cardsInBox(int box) const
             {QStringLiteral("dueAt"), c.dueAt},
             {QStringLiteral("reviews"), c.reviews},
             {QStringLiteral("imageUrl"), imageUrl(c.image)},
+            {QStringLiteral("favorite"), favs.contains(c.id)},
         });
     }
     return out;
@@ -392,6 +487,7 @@ QVariantMap CardStore::card(int id) const
         {QStringLiteral("lapses"), c->lapses},
         {QStringLiteral("deck"), c->deck},
         {QStringLiteral("image"), c->image},
+        {QStringLiteral("favorite"), isFavorite(id)},
     };
 }
 

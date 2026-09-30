@@ -121,6 +121,7 @@ Page {
     }
 
     Component { id: editPage; CardEditPage {} }
+    StackView.onDeactivating: Speaker.stop() // leaving the page: stop reading aloud
 
     ScrollView {
         anchors.fill: parent

@@ -162,6 +162,12 @@ Page {
                 }
             }
             Item { Layout.fillWidth: true }
+            // ★ Favorite words
+            StarButton {
+                objectName: "reviewStar"
+                visible: session.hasCard
+                cardId: session.hasCard ? session.cardId : -1
+            }
             ToolButton {
                 focusPolicy: Qt.NoFocus
                 onClicked: page.editCurrent()

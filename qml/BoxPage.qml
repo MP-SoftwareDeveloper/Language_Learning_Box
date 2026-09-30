@@ -5,7 +5,8 @@ import QtQuick.Controls.Material
 import LearningBox
 
 // One Leitner box: every card in it, with buttons to move a card to the previous or next box.
-// Tabs switch between boxes 1-5 and Learned (6).
+// Tabs switch between boxes 1-5 and Learned (6). ★ adds a card to Favorite words.
+// Press and hold (or "Select") shows check boxes: select several cards, then delete or star them.
 Page {
     id: page
     property int box: 1
@@ -14,13 +15,43 @@ Page {
     property var cards: []
     property var lastMove: null // {id, front, from, to} for Undo
 
-    function reload() { cards = CardStore.cardsInBox(box) }
-    onBoxChanged: reload()
+    // Selection mode: {id: true} of the checked cards
+    property bool selecting: false
+    property var checked: ({})
+    readonly property int checkedCount: Object.keys(checked).length
+    readonly property var checkedIds: Object.keys(checked).map(k => Number(k))
+    function isChecked(id) { return checked[id] === true }
+    function toggle(id) {
+        const c = Object.assign({}, checked)
+        if (c[id]) delete c[id]; else c[id] = true
+        checked = c
+    }
+    function selectAll(on) {
+        const c = {}
+        if (on) for (const card of cards) c[card.id] = true
+        checked = c
+    }
+    function stopSelecting() { selecting = false; checked = {} }
+
+    function reload() {
+        // A new list resets the ListView to the top: keep the scroll position (star, delete, move)
+        const y = list.contentY
+        cards = CardStore.cardsInBox(box)
+        list.forceLayout()
+        list.contentY = Math.max(list.originY, Math.min(y, list.originY + list.contentHeight - list.height))
+        // Drop checks of cards that left this box
+        const c = {}
+        for (const card of cards) if (checked[card.id]) c[card.id] = true
+        if (Object.keys(c).length !== checkedCount) checked = c
+    }
+    onBoxChanged: { stopSelecting(); reload(); list.positionViewAtBeginning() } // another box: from the top
     Component.onCompleted: reload()
     Connections {
         target: CardStore
         function onChanged() { page.reload() }
     }
+
+    StackView.onDeactivating: Speaker.stop()
 
     function boxName(b) { return b > 5 ? qsTr("Learned") : qsTr("Box %1").arg(b) }
     function move(card, to) {
@@ -55,7 +86,7 @@ Page {
                 TabButton {
                     required property int index
                     readonly property int count: index < 5 ? (CardStore.boxCounts[index] ?? 0) : CardStore.learnedCount
-                    text: (index < 5 ? (index + 1) : "★") + " (" + count + ")"
+                    text: (index < 5 ? (index + 1) : "\uD83C\uDF93") + " (" + count + ")" // 🎓 Learned (★ is for favorites)
                     font.pixelSize: 13
                     leftPadding: 2
                     rightPadding: 2
@@ -71,16 +102,88 @@ Page {
             opacity: 0.7
             text: page.box > 5
                   ? qsTr("Learned cards are no longer reviewed. Move one back to box 5 to practise it again.")
-                  : qsTr("Reviewed every %n day(s). \u2039 moves a card back, \u203A moves it forward; it is then due after that box's interval. Press and hold a card to edit or delete it.",
+                  : qsTr("Reviewed every %n day(s). \u2039 moves a card back, \u203A moves it forward; it is then due after that box's interval. Tap a card to edit it; press and hold to select several.",
                          "", Math.pow(2, page.box - 1))
         }
 
-        Button {
+        RowLayout {
+            Layout.fillWidth: true
             Layout.leftMargin: 8
-            visible: page.box > 1 && page.cards.length > 0
-            flat: true
-            text: qsTr("Move all %n card(s) to Box 1", "", page.cards.length)
-            onClicked: resetDialog.open()
+            Layout.rightMargin: 8
+            visible: !page.selecting && page.cards.length > 0
+            Button {
+                visible: page.box > 1
+                flat: true
+                text: qsTr("Move all %n card(s) to Box 1", "", page.cards.length)
+                onClicked: resetDialog.open()
+            }
+            Item { Layout.fillWidth: true }
+            Button {
+                objectName: "selectButton"
+                flat: true
+                text: qsTr("Select")
+                onClicked: page.selecting = true
+            }
+        }
+
+        // Selection bar: all / count / ★ / delete / done
+        Pane {
+            objectName: "selectionBar"
+            Layout.fillWidth: true
+            visible: page.selecting
+            padding: 4
+            Material.elevation: 2
+            RowLayout {
+                anchors.fill: parent
+                spacing: 0
+                CheckBox {
+                    objectName: "selectAll"
+                    checkable: false // follows the selection, not its own state
+                    checkState: page.checkedCount === 0 ? Qt.Unchecked
+                              : page.checkedCount === page.cards.length ? Qt.Checked : Qt.PartiallyChecked
+                    onClicked: page.selectAll(page.checkedCount < page.cards.length)
+                }
+                Label {
+                    Layout.fillWidth: true
+                    text: qsTr("%n selected", "", page.checkedCount)
+                    elide: Text.ElideRight
+                }
+                ToolButton {
+                    objectName: "starSelected"
+                    enabled: page.checkedCount > 0
+                    contentItem: Item {
+                        implicitWidth: 22
+                        implicitHeight: 22
+                        StarIcon {
+                            anchors.centerIn: parent
+                            width: 22
+                            height: 22
+                            filled: true
+                            opacity: parent.parent.enabled ? 1 : 0.35
+                        }
+                    }
+                    ToolTip.visible: hovered || pressed
+                    ToolTip.text: qsTr("Add to Favorite words")
+                    onClicked: {
+                        for (const id of page.checkedIds)
+                            CardStore.setFavorite(id, true)
+                        page.stopSelecting()
+                    }
+                }
+                Button {
+                    objectName: "deleteSelected"
+                    flat: true
+                    enabled: page.checkedCount > 0
+                    text: qsTr("Delete")
+                    Material.foreground: Material.color(Material.Red)
+                    onClicked: confirmDelete.open()
+                }
+                Button {
+                    flat: true
+                    text: qsTr("Done")
+                    onClicked: page.stopSelecting()
+                }
+            }
         }
 
         ListView {
@@ -98,69 +201,77 @@ Page {
                 width: ListView.view.width
                 leftPadding: 12
                 rightPadding: 4
+                topPadding: 8
+                bottomPadding: 8
+                // Thin line between cards
+                Rectangle {
+                    anchors.bottom: parent.bottom
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.leftMargin: 12
+                    height: 1
+                    color: Material.foreground
+                    opacity: 0.12
+                }
 
+                // The whole card: front, full meaning and example, each with 🔊
                 contentItem: RowLayout {
                     spacing: 6
-                    Image {
-                        Layout.preferredWidth: 40
-                        Layout.preferredHeight: 40
-                        visible: row.modelData.imageUrl.toString() !== ""
-                        source: row.modelData.imageUrl
-                        sourceSize: Qt.size(80, 80)
-                        fillMode: Image.PreserveAspectCrop
-                        asynchronous: true
-                        clip: true
+                    CheckBox {
+                        Layout.alignment: Qt.AlignTop
+                        visible: page.selecting
+                        checkable: false
+                        checked: page.isChecked(row.modelData.id)
+                        onClicked: page.toggle(row.modelData.id)
+                        padding: 0
                     }
-                    ColumnLayout {
+                    CardFace {
                         Layout.fillWidth: true
-                        spacing: 1
-                        Label {
-                            Layout.fillWidth: true
-                            text: row.modelData.front
-                            font.pixelSize: 16
+                        card: row.modelData
+                        note: page.dueText(row.modelData)
+                        StarButton {
+                            implicitWidth: 36
+                            cardId: row.modelData.id
+                        }
+                        ToolButton {
+                            visible: !page.selecting
+                            enabled: row.modelData.box > 1
+                            opacity: enabled ? 1 : 0.25
+                            text: "\u2039" // ‹ (◀ is drawn as an emoji on Android)
+                            font.pixelSize: 30
                             font.bold: true
-                            elide: Text.ElideRight
+                            implicitWidth: 36
+                            ToolTip.visible: hovered || pressed
+                            ToolTip.text: qsTr("Move to %1").arg(page.boxName(row.modelData.box - 1))
+                            onClicked: page.move(row.modelData, row.modelData.box - 1)
                         }
-                        Label {
-                            Layout.fillWidth: true
-                            visible: text !== ""
-                            text: row.modelData.back.split("\n")[0]
-                            opacity: 0.75
-                            elide: Text.ElideRight
+                        ToolButton {
+                            visible: !page.selecting
+                            enabled: row.modelData.box < 6
+                            opacity: enabled ? 1 : 0.25
+                            text: "\u203A" // ›
+                            font.pixelSize: 30
+                            font.bold: true
+                            implicitWidth: 36
+                            ToolTip.visible: hovered || pressed
+                            ToolTip.text: qsTr("Move to %1").arg(page.boxName(row.modelData.box + 1))
+                            onClicked: page.move(row.modelData, row.modelData.box + 1)
                         }
-                        Label {
-                            visible: text !== ""
-                            text: page.dueText(row.modelData)
-                            font.pixelSize: 12
-                            opacity: 0.55
-                        }
-                    }
-                    SpeakButton { speakText: row.modelData.front }
-                    ToolButton {
-                        enabled: row.modelData.box > 1
-                        opacity: enabled ? 1 : 0.25
-                        text: "\u2039" // ‹ (◀ is drawn as an emoji on Android)
-                        font.pixelSize: 30
-                        font.bold: true
-                        ToolTip.visible: hovered || pressed
-                        ToolTip.text: qsTr("Move to %1").arg(page.boxName(row.modelData.box - 1))
-                        onClicked: page.move(row.modelData, row.modelData.box - 1)
-                    }
-                    ToolButton {
-                        enabled: row.modelData.box < 6
-                        opacity: enabled ? 1 : 0.25
-                        text: "\u203A" // ›
-                        font.pixelSize: 30
-                        font.bold: true
-                        ToolTip.visible: hovered || pressed
-                        ToolTip.text: qsTr("Move to %1").arg(page.boxName(row.modelData.box + 1))
-                        onClicked: page.move(row.modelData, row.modelData.box + 1)
                     }
                 }
-                onClicked: page.StackView.view.push(editPage, { cardId: row.modelData.id })
+                highlighted: page.selecting && page.isChecked(row.modelData.id)
+                onClicked: {
+                    if (page.selecting)
+                        page.toggle(row.modelData.id)
+                    else
+                        page.StackView.view.push(editPage, { cardId: row.modelData.id })
+                }
                 onPressAndHold: {
-                    page.menuCard = { id: row.modelData.id, front: row.modelData.front }
-                    cardMenu.popup()
+                    if (!page.selecting) {
+                        page.selecting = true
+                        page.checked = {}
+                    }
+                    page.toggle(row.modelData.id)
                 }
             }
 
@@ -173,20 +284,7 @@ Page {
         }
     }
 
-    // Press and hold a card: Edit / Delete (with confirmation).
-    property var menuCard: null // {id, front}
-    Menu {
-        id: cardMenu
-        MenuItem {
-            text: qsTr("Edit")
-            onTriggered: page.StackView.view.push(editPage, { cardId: page.menuCard.id })
-        }
-        MenuItem {
-            text: qsTr("Delete")
-            Material.foreground: Material.color(Material.Red)
-            onTriggered: confirmDelete.open()
-        }
-    }
+    // Delete the selected cards (with confirmation)
     Dialog {
         id: confirmDelete
         // Fixed width + x/y: a size bound to the page (anchors/width) made a layout loop with the
@@ -195,21 +293,26 @@ Page {
         y: (page.height - height) / 2
         width: 320
         modal: true
-        title: qsTr("Delete this card?")
+        title: qsTr("Delete %n card(s)?", "", page.checkedCount)
         standardButtons: Dialog.Yes | Dialog.No
         Label {
             width: confirmDelete.availableWidth
             wrapMode: Text.WordWrap
-            text: (page.menuCard ? page.menuCard.front : "") + "\n\n"
-                  + qsTr("The card, its progress and its picture are removed. This cannot be undone.")
+            text: page.cards.filter(c => page.isChecked(c.id)).slice(0, 5).map(c => c.front).join(", ")
+                  + (page.checkedCount > 5 ? " …" : "") + "\n\n"
+                  + qsTr("The cards, their progress and their pictures are removed. This cannot be undone.")
         }
-        onAccepted: if (page.menuCard) CardStore.removeCard(page.menuCard.id)
+        onAccepted: {
+            CardStore.removeCards(page.checkedIds)
+            page.stopSelecting()
+        }
     }
 
     ResetDialog { id: resetDialog; box: page.box }
 
     // Add a card straight into this box
     RoundButton {
+        visible: !page.selecting
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         anchors.margins: 20

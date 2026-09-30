@@ -301,6 +301,49 @@ private slots:
         QCOMPARE(imageFiles(), 0);
     }
 
+    void favoritesAndBulkDelete()
+    {
+        auto *s = CardStore::instance();
+        const int before = s->favoriteCount();
+        const int a = s->addCard(QStringLiteral("der Stern"), QStringLiteral("ستاره"), QString());
+        const int b = s->addCard(QStringLiteral("der Mond"), QStringLiteral("ماه"), QString());
+        const int c = s->addCard(QStringLiteral("die Sonne"), QStringLiteral("خورشید"), QString());
+        QVERIFY(a > 0 && b > 0 && c > 0);
+        QVERIFY(!s->isFavorite(a));
+        QSignalSpy spy(s, &CardStore::favoritesChanged);
+        QSignalSpy lists(s, &CardStore::changed); // card lists must not be rebuilt for a star
+        QVERIFY(s->setFavorite(a, true));
+        QVERIFY(s->setFavorite(b, true));
+        QCOMPARE(spy.count(), 2);
+        QVERIFY(s->setFavorite(b, true)); // unchanged: no signal
+        QCOMPARE(spy.count(), 2);
+        QCOMPARE(lists.count(), 0);
+        QCOMPARE(s->favoriteCount(), before + 2);
+        QVERIFY(s->card(a).value(QStringLiteral("favorite")).toBool());
+        bool listed = false;
+        for (const QVariant &v : s->cardsInBox(1)) {
+            const auto m = v.toMap();
+            if (m.value(QStringLiteral("id")).toInt() == c)
+                QVERIFY(!m.value(QStringLiteral("favorite")).toBool());
+            if (m.value(QStringLiteral("id")).toInt() == a)
+                listed = m.value(QStringLiteral("favorite")).toBool();
+        }
+        QVERIFY(listed);
+        QSet<int> favIds;
+        for (const QVariant &v : s->favorites())
+            favIds.insert(v.toMap().value(QStringLiteral("id")).toInt());
+        QVERIFY(favIds.contains(a) && favIds.contains(b) && !favIds.contains(c));
+        QVERIFY(s->setFavorite(a, false));
+        QVERIFY(!s->isFavorite(a));
+        QVERIFY(!s->setFavorite(999999, true)); // no such card
+
+        // several at once; one id unknown
+        QCOMPARE(s->removeCards({a, b, 999999}), 2);
+        QVERIFY(!s->cardById(a) && !s->cardById(b) && s->cardById(c));
+        QCOMPARE(s->favoriteCount(), before);
+        QVERIFY(s->removeCard(c));
+    }
+
     void rejectsBrokenImage()
     {
         const QString path = QDir::temp().filePath(QStringLiteral("lb_not_an_image.jpg"));

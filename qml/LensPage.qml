@@ -114,6 +114,40 @@ Page {
         selected = []
     }
 
+    // ★ Favorite words: every selected word becomes a starred card (new words are added to the
+    // learning box first, like "Add N words"). All already starred: the stars are removed.
+    property bool selectionStarred: false
+    function refreshStar() {
+        let all = selectedList.length > 0
+        for (const w of selectedList) {
+            const id = CardStore.findByFront(frontFor(w))
+            if (id < 0 || !CardStore.isFavorite(id)) { all = false; break }
+        }
+        selectionStarred = all
+    }
+    Connections {
+        target: CardStore
+        function onFavoritesChanged() { page.refreshStar() }
+    }
+    function starSelectedWords() {
+        const on = !selectionStarred
+        let added = 0, starred = 0
+        for (const w of selectedList) {
+            let id = CardStore.findByFront(frontFor(w))
+            if (id < 0 && on) {
+                added += WordPacks.addTranslatedWords([{ word: w, back: backFor(w) }], qsTr("Lens"))
+                id = CardStore.findByFront(frontFor(w))
+            }
+            if (id >= 0 && CardStore.setFavorite(id, on))
+                ++starred
+        }
+        if (!on)
+            toast.show(qsTr("Removed from Favorite words"))
+        else
+            toast.show(qsTr("%n word(s) in Favorite words", "", starred)
+                       + (added > 0 ? " · " + qsTr("%n card(s) added", "", added) : ""))
+    }
+
     Connections {
         target: Translator
         function onTranslated(requestId, text, alternatives, source, error) {
@@ -126,7 +160,7 @@ Page {
         }
         function onSettingsChanged() { page.resetTranslations() }
     }
-    onSelectedListChanged: { for (const w of selectedList) request(w) }
+    onSelectedListChanged: { for (const w of selectedList) request(w); refreshStar() }
     onSelectedTextChanged: if (selected.length > 1) request(selectedText)
 
     OcrEngine {
@@ -159,6 +193,8 @@ Page {
             cameraPermission.request()
     }
     StackView.onRemoved: engine.clear()
+    // Leaving Lens (back, or on to the card editor): stop reading aloud
+    StackView.onDeactivating: Speaker.stop()
 
     Component { id: editPage; CardEditPage {} }
 
@@ -389,6 +425,23 @@ Page {
                 anchors.fill: parent
                 spacing: 0
 
+                // The recognized text itself, read aloud in the learning language
+                RowLayout {
+                    objectName: "originalRow"
+                    Layout.fillWidth: true
+                    spacing: 0
+                    Label {
+                        Layout.fillWidth: true
+                        leftPadding: 16
+                        font.pixelSize: 13
+                        elide: Text.ElideRight
+                        text: qsTr("Text in the photo · %1").arg(CardStore.learningLanguage === "en" ? "English" : "Deutsch")
+                    }
+                    SpeakButton {
+                        speakText: page.fullText
+                    }
+                }
+
                 RowLayout {
                     Layout.fillWidth: true
                     spacing: 0
@@ -485,6 +538,28 @@ Page {
                         elide: Text.ElideRight
                     }
                     SpeakButton { speakText: page.selectedText; visible: page.selected.length > 0 }
+                    ToolButton {
+                        objectName: "lensStar"
+                        visible: page.selected.length > 0
+                        enabled: !page.anyPending
+                        focusPolicy: Qt.NoFocus
+                        contentItem: Item {
+                            implicitWidth: 24
+                            implicitHeight: 24
+                            StarIcon {
+                                anchors.centerIn: parent
+                                width: 24
+                                height: 24
+                                filled: page.selectionStarred
+                                color: page.selectionStarred ? "#F5B301" : Material.foreground
+                                opacity: parent.parent.enabled ? (page.selectionStarred ? 1 : 0.6) : 0.3
+                            }
+                        }
+                        ToolTip.visible: hovered || pressed
+                        ToolTip.text: page.selectionStarred ? qsTr("Remove from Favorite words")
+                                                            : qsTr("Add to Favorite words")
+                        onClicked: page.starSelectedWords()
+                    }
                 }
 
                 // Several words / a sentence: its translation as a whole

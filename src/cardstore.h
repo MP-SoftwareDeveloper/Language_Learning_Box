@@ -26,6 +26,9 @@ class CardStore : public QObject
     Q_PROPERTY(int learnedCount READ learnedCount NOTIFY changed)
     Q_PROPERTY(int dueCount READ dueCount NOTIFY changed)
     Q_PROPERTY(int totalCount READ totalCount NOTIFY changed)
+    // Starred cards (★) in the selected learning box. A star alone emits only favoritesChanged
+    // (not changed), so card lists are not rebuilt (and do not flicker) when a star is tapped.
+    Q_PROPERTY(int favoriteCount READ favoriteCount NOTIFY favoritesChanged)
     Q_PROPERTY(bool ready READ ready CONSTANT)
     // Learning boxes: each has its own boxes 1-5 + Learned; all card functions work on the
     // selected one. `collections` = [{id, name, boxCounts[5], learned, total, due, current}],
@@ -58,6 +61,7 @@ public:
     int learnedCount() const;
     int dueCount() const;
     int totalCount() const;
+    int favoriteCount() const;
 
     Q_INVOKABLE int addCard(const QString &front, const QString &back, const QString &example,
                             const QString &image = QString());
@@ -78,6 +82,13 @@ public:
     Q_INVOKABLE QString cameraFilePath() const;
     Q_INVOKABLE QString importCameraShot(const QString &path, int rotation = 0);
     Q_INVOKABLE bool removeCard(int id);
+    // Several cards at once (box page selection); returns how many were deleted
+    Q_INVOKABLE int removeCards(const QVariantList &ids);
+    // Favorites (★): any card can be starred; the list is per learning box
+    Q_INVOKABLE bool isFavorite(int id) const;
+    Q_INVOKABLE bool setFavorite(int id, bool favorite);
+    // Starred cards of the selected learning box, newest star first: [{id, front, back, example, box, imageUrl}]
+    Q_INVOKABLE QVariantList favorites() const;
     Q_INVOKABLE bool resetCard(int id); // back to box 1, due now
     // Manual move to another box (1..5, 6 = Learned), scheduled with that box's interval.
     // Review counts are kept; returns false if the card does not exist.
@@ -139,6 +150,7 @@ public:
 
 signals:
     void changed();
+    void favoritesChanged(); // a star was set / removed; also emitted with every changed()
     void errorOccurred(const QString &message);
 
 private:

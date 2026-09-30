@@ -240,6 +240,10 @@ Page {
                     onAccepted: backField.forceActiveFocus()
                 }
                 SpeakButton { speakText: frontField.text }
+                StarButton {
+                    visible: !page.isNew // a new card can be starred once it is saved
+                    cardId: page.isNew ? -1 : page.cardId
+                }
             }
             Label {
                 Layout.leftMargin: 16
