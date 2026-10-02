@@ -10,6 +10,7 @@ Page {
     title: qsTr("Word packs")
 
     Component { id: chapterPage; WordPackChapterPage {} }
+    Component { id: levelsPage; LevelPacksPage {} }
 
     function addedMessage(n) {
         return n > 0 ? qsTr("%n word(s) added to Box 1", "", n)
@@ -46,6 +47,36 @@ Page {
                     enabled: WordPacks.starterInBox < WordPacks.starterTotal
                     text: WordPacks.starterInBox < WordPacks.starterTotal ? qsTr("Add") : qsTr("Added")
                     onClicked: WordPacks.addStarterCards()
+                }
+            }
+        }
+
+        // A1 and A2 levels (3 levels each), themes of the course "Starten wir!"
+        Pane {
+            Layout.fillWidth: true
+            Layout.margins: 12
+            Layout.bottomMargin: 0
+            Material.elevation: 1
+            RowLayout {
+                anchors.fill: parent
+                ColumnLayout {
+                    Layout.fillWidth: true
+                    spacing: 2
+                    Label {
+                        Layout.fillWidth: true
+                        wrapMode: Text.WordWrap
+                        font.bold: true
+                        text: qsTr("A1 and A2 levels")
+                    }
+                    HintLabel {
+                        text: qsTr("%1 words and phrases in 6 levels (3 for A1, 3 for A2). Each level is its own learning box, with English and Persian meanings and example sentences.")
+                              .arg(LevelPacks.totalWords)
+                    }
+                }
+                Button {
+                    highlighted: true
+                    text: qsTr("Open")
+                    onClicked: page.StackView.view.push(levelsPage)
                 }
             }
         }

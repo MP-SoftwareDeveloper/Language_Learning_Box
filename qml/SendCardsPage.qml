@@ -30,6 +30,8 @@ Page {
             width: parent.width
             spacing: 4
 
+            HowToBar { exporting: true }
+
             Pane {
                 Layout.fillWidth: true
                 Layout.margins: 12

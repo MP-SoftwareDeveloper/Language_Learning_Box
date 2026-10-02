@@ -47,6 +47,8 @@ Page {
             width: parent.width
             spacing: 4
 
+            HowToBar { exporting: false }
+
             // ---- Where from ----
             ColumnLayout {
                 Layout.fillWidth: true
@@ -67,6 +69,9 @@ Page {
                 HintLabel {
                     text: AppMode.full ? qsTr("Files ending in .lbox (LearningBox), .csv or .txt (Excel, Quizlet) or .apkg (Anki).")
                                        : qsTr("Files ending in .lbox (LearningBox), .csv or .txt (Excel, Quizlet).")
+                }
+                HintLabel {
+                    text: qsTr("Your own list as a .txt file: German word, English meaning, German example sentence, each card ending with ; — tap ? above for the format.")
                 }
 
                 Label {

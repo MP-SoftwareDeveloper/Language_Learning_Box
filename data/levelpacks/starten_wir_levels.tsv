@@ -1,0 +1,507 @@
+# LearningBox level packs: German A1 and A2 vocabulary in 3 levels each, grouped by the lesson themes of the course "Starten wir!" (Hueber).
+# Vocabulary, phrases and example sentences are ORIGINAL (only the topics follow the course). Not copied from any book or word list.
+# Format:  @level<TAB>id<TAB>title<TAB>subtitle   @chapter<TAB>levelId<TAB>number<TAB>title
+#          levelId<TAB>chapter<TAB>German<TAB>plural ("-" = none)<TAB>English<TAB>Persian<TAB>example (de)<TAB>example (en)<TAB>example (fa)
+@level	a1-1	A1 · Level 1	Greetings, people, food and daily life
+@chapter	a1-1	1	Super! · Begrüßen und sich vorstellen
+@chapter	a1-1	2	Menschen · Familie, Gefühle, Zahlen, Berufe
+@chapter	a1-1	3	Essen und Trinken
+@chapter	a1-1	4	Mein Leben · Alltag und Arbeit
+@level	a1-2	A1 · Level 2	Free time, home and city, weather and dates, getting around
+@chapter	a1-2	1	Freizeit
+@chapter	a1-2	2	Meine Stadt, meine Wohnung
+@chapter	a1-2	3	Wie, wo und wann? · Wetter, Datum, Zeit
+@chapter	a1-2	4	Unterwegs
+@level	a1-3	A1 · Level 3	Friends, travel, body and health, work
+@chapter	a1-3	1	Unter Freunden
+@chapter	a1-3	2	Ich war noch nie … · Reisen und Urlaub
+@chapter	a1-3	3	Bist du fit? · Körper und Gesundheit
+@chapter	a1-3	4	Beruf und Leben
+@level	a2-1	A2 · Level 1	Origins and languages, clothes, family and friends, the apartment
+@chapter	a2-1	1	Deutsch global
+@chapter	a2-1	2	Gut aussehen
+@chapter	a2-1	3	Familie und Freunde
+@chapter	a2-1	4	Die Ferienwohnung
+@level	a2-2	A2 · Level 2	Food and restaurants, environment and culture, school and jobs, health
+@chapter	a2-2	1	Guten Appetit
+@chapter	a2-2	2	Trends & mehr
+@chapter	a2-2	3	Schule und Beruf
+@chapter	a2-2	4	Glück und Gesundheit
+@level	a2-3	A2 · Level 3	Media and technology, shopping and services, bank and post, travel
+@chapter	a2-3	1	Freie Zeit
+@chapter	a2-3	2	So macht es Spaß!
+@chapter	a2-3	3	Welt im Wandel
+@chapter	a2-3	4	Ab in den Urlaub
+a1-1	1	Wie heißt du?	-	What is your name?	اسمت چیست؟	Wie heißt du? – Ich heiße Ali.	What is your name? – My name is Ali.	اسمت چیست؟ – اسم من علی است.
+a1-1	1	Ich heiße …	-	My name is …	اسم من … است	Ich heiße Maria.	My name is Maria.	اسم من ماریا است.
+a1-1	1	Woher kommst du?	-	Where are you from?	اهل کجایی؟	Woher kommst du? – Aus dem Iran.	Where are you from? – From Iran.	اهل کجایی؟ – از ایران.
+a1-1	1	Wie geht's?	-	How are you?	حالت چطور است؟	Wie geht's? – Danke, gut.	How are you? – Fine, thanks.	حالت چطور است؟ – ممنون، خوبم.
+a1-1	1	Freut mich!	-	Nice to meet you!	خوشبختم!	Freut mich, Anna!	Nice to meet you, Anna!	خوشبختم، آنا!
+a1-1	1	der Name	Namen	name	نام؛ اسم	Mein Name ist Tom.	My name is Tom.	اسم من تام است.
+a1-1	1	das Land	Länder	country	کشور	Welches Land ist das?	Which country is that?	این کدام کشور است؟
+a1-1	1	die Sprache	Sprachen	language	زبان	Ich spreche zwei Sprachen.	I speak two languages.	من دو زبان صحبت می‌کنم.
+a1-1	1	Deutsch	-	German (language)	آلمانی	Ich lerne Deutsch in Berlin.	I am learning German in Berlin.	من در برلین آلمانی یاد می‌گیرم.
+a1-1	1	Englisch	-	English (language)	انگلیسی	Er spricht gut Englisch.	He speaks English well.	او خوب انگلیسی صحبت می‌کند.
+a1-1	1	Persisch	-	Persian (language)	فارسی	Meine Mutter spricht Persisch.	My mother speaks Persian.	مادرم فارسی صحبت می‌کند.
+a1-1	1	der Iran	-	Iran	ایران	Ich komme aus dem Iran.	I come from Iran.	من اهل ایران هستم.
+a1-1	1	Deutschland	-	Germany	آلمان	Berlin liegt in Deutschland.	Berlin is in Germany.	برلین در آلمان است.
+a1-1	1	Schweden	-	Sweden	سوئد	Er wohnt in Schweden.	He lives in Sweden.	او در سوئد زندگی می‌کند.
+a1-1	1	buchstabieren	-	to spell	هجی کردن	Können Sie das buchstabieren?	Can you spell that?	می‌توانید این را هجی کنید؟
+a1-1	1	ja	-	yes	بله	Ja, das stimmt.	Yes, that is right.	بله، درست است.
+a1-1	1	nein	-	no	نه	Nein, ich komme aus Spanien.	No, I come from Spain.	نه، من اهل اسپانیا هستم.
+a1-1	1	Wie bitte?	-	Pardon?; What did you say?	چی گفتید؟	Wie bitte? Ich verstehe das nicht.	Pardon? I don't understand that.	چی گفتید؟ من این را نمی‌فهمم.
+a1-1	1	Gern geschehen.	-	You're welcome.	خواهش می‌کنم.	Danke für die Hilfe! – Gern geschehen.	Thanks for the help! – You're welcome.	ممنون از کمک! – خواهش می‌کنم.
+a1-1	1	der Herr	Herren	Mr.; gentleman	آقا	Herr Müller ist mein Lehrer.	Mr. Müller is my teacher.	آقای مولر معلم من است.
+a1-1	2	die Oma	Omas	grandma	مادربزرگ	Meine Oma kocht gern.	My grandma likes cooking.	مادربزرگم عاشق آشپزی است.
+a1-1	2	der Opa	Opas	grandpa	پدربزرگ	Mein Opa wohnt auf dem Land.	My grandpa lives in the countryside.	پدربزرگم در روستا زندگی می‌کند.
+a1-1	2	die Eltern	Eltern	parents	پدر و مادر؛ والدین	Meine Eltern sind nett.	My parents are nice.	پدر و مادرم مهربان هستند.
+a1-1	2	die Geschwister	Geschwister	siblings	خواهر و برادرها	Ich habe zwei Geschwister.	I have two siblings.	من دو خواهر یا برادر دارم.
+a1-1	2	der Sohn	Söhne	son	پسر (فرزند)	Mein Sohn ist fünf Jahre alt.	My son is five years old.	پسرم پنج ساله است.
+a1-1	2	die Tochter	Töchter	daughter	دختر (فرزند)	Ihre Tochter heißt Lena.	Her daughter is called Lena.	دخترش لنا نام دارد.
+a1-1	2	der Onkel	Onkel	uncle	دایی؛ عمو	Mein Onkel hat ein Restaurant.	My uncle has a restaurant.	دایی من یک رستوران دارد.
+a1-1	2	die Tante	Tanten	aunt	خاله؛ عمه	Meine Tante kommt morgen.	My aunt is coming tomorrow.	خاله‌ام فردا می‌آید.
+a1-1	2	verheiratet	-	married	متأهل	Sie ist verheiratet.	She is married.	او متأهل است.
+a1-1	2	glücklich	-	happy	خوشحال؛ خوشبخت	Wir sind sehr glücklich.	We are very happy.	ما خیلی خوشحالیم.
+a1-1	2	traurig	-	sad	غمگین	Warum bist du traurig?	Why are you sad?	چرا غمگین هستی؟
+a1-1	2	zwanzig	-	twenty	بیست	Ich bin zwanzig Jahre alt.	I am twenty years old.	من بیست ساله هستم.
+a1-1	2	null	-	zero	صفر	Null Grad ist kalt.	Zero degrees is cold.	صفر درجه سرد است.
+a1-1	2	der Lehrer	Lehrer	teacher (male)	معلم	Mein Lehrer ist sehr freundlich.	My teacher is very friendly.	معلم من خیلی مهربان است.
+a1-1	2	der Arzt	Ärzte	doctor (male)	پزشک؛ دکتر	Der Arzt arbeitet im Krankenhaus.	The doctor works in the hospital.	پزشک در بیمارستان کار می‌کند.
+a1-1	2	der Verkäufer	Verkäufer	shop assistant (male)	فروشنده	Der Verkäufer ist sehr nett.	The shop assistant is very nice.	فروشنده خیلی مهربان است.
+a1-1	2	Wie alt bist du?	-	How old are you?	چند ساله‌ای؟	Wie alt bist du? – Ich bin dreißig.	How old are you? – I am thirty.	چند ساله‌ای؟ – من سی ساله‌ام.
+a1-1	2	Ich bin … Jahre alt.	-	I am … years old.	من … ساله هستم.	Ich bin dreißig Jahre alt.	I am thirty years old.	من سی ساله هستم.
+a1-1	2	Was bist du von Beruf?	-	What do you do for a living?	شغل تو چیست؟	Was bist du von Beruf? – Ich bin Arzt.	What do you do? – I am a doctor.	شغل تو چیست؟ – من پزشک هستم.
+a1-1	2	Das ist mein …	-	This is my …	این … من است	Das ist mein Onkel Karl.	This is my uncle Karl.	این دایی من، کارل، است.
+a1-1	3	die Wurst	Würste	sausage	سوسیس؛ کالباس	Ich esse gern Wurst.	I like eating sausage.	من سوسیس خوردن را دوست دارم.
+a1-1	3	der Reis	-	rice	برنج	Wir essen heute Reis mit Gemüse.	We eat rice with vegetables today.	ما امروز برنج با سبزیجات می‌خوریم.
+a1-1	3	der Saft	Säfte	juice	آب‌میوه	Der Saft ist sehr kalt.	The juice is very cold.	آب‌میوه خیلی سرد است.
+a1-1	3	das Bier	Biere	beer	آبجو	Er trinkt ein Bier.	He drinks a beer.	او یک آبجو می‌نوشد.
+a1-1	3	das Obst	-	fruit	میوه	Obst ist gesund.	Fruit is healthy.	میوه سالم است.
+a1-1	3	die Banane	Bananen	banana	موز	Die Banane ist gelb.	The banana is yellow.	موز زرد است.
+a1-1	3	die Kartoffel	Kartoffeln	potato	سیب‌زمینی	Ich koche Kartoffeln.	I am cooking potatoes.	من سیب‌زمینی می‌پزم.
+a1-1	3	die Tomate	Tomaten	tomato	گوجه‌فرنگی	Die Tomaten sind frisch.	The tomatoes are fresh.	گوجه‌فرنگی‌ها تازه هستند.
+a1-1	3	der Zucker	-	sugar	شکر؛ قند	Ich nehme keinen Zucker im Tee.	I take no sugar in my tea.	من در چای شکر نمی‌ریزم.
+a1-1	3	das Salz	-	salt	نمک	Gibst du mir bitte das Salz?	Can you pass me the salt, please?	لطفاً نمک را به من می‌دهی؟
+a1-1	3	kosten	-	to cost	قیمت داشتن؛ خرج داشتن	Wie viel kostet die Banane?	How much does the banana cost?	موز چند است؟
+a1-1	3	bezahlen	-	to pay	پرداخت کردن	Ich bezahle mit Karte.	I pay by card.	من با کارت پرداخت می‌کنم.
+a1-1	3	die Rechnung	Rechnungen	bill; check	صورت‌حساب	Die Rechnung, bitte!	The bill, please!	صورت‌حساب را لطفاً!
+a1-1	3	Ich möchte …	-	I would like …	من … می‌خواهم	Ich möchte einen Saft, bitte.	I would like a juice, please.	من یک آب‌میوه می‌خواهم، لطفاً.
+a1-1	3	Das macht … Euro.	-	That comes to … euros.	مجموعاً … یورو می‌شود.	Das macht zehn Euro.	That comes to ten euros.	مجموعاً ده یورو می‌شود.
+a1-1	3	Ich habe Hunger.	-	I'm hungry.	گرسنه‌ام.	Ich habe Hunger – was gibt es zu essen?	I'm hungry – what is there to eat?	گرسنه‌ام – چه چیزی برای خوردن هست؟
+a1-1	3	Ich habe Durst.	-	I'm thirsty.	تشنه‌ام.	Ich habe Durst und trinke Wasser.	I'm thirsty and drink water.	تشنه‌ام و آب می‌نوشم.
+a1-1	3	Guten Appetit!	-	Enjoy your meal!	نوش جان!	Guten Appetit, Opa!	Enjoy your meal, Grandpa!	نوش جان، پدربزرگ!
+a1-1	3	die Speisekarte	Speisekarten	menu	منو؛ فهرست غذا	Die Speisekarte, bitte.	The menu, please.	منو را لطفاً.
+a1-1	3	lecker	-	tasty; delicious	خوشمزه	Der Kuchen ist sehr lecker.	The cake is very tasty.	کیک خیلی خوشمزه است.
+a1-1	4	aufstehen	-	to get up	بلند شدن؛ از خواب بیدار شدن	Ich stehe um sieben Uhr auf.	I get up at seven o'clock.	من ساعت هفت بیدار می‌شوم.
+a1-1	4	frühstücken	-	to have breakfast	صبحانه خوردن	Wir frühstücken zusammen.	We have breakfast together.	ما با هم صبحانه می‌خوریم.
+a1-1	4	anfangen	-	to begin; to start	شروع کردن؛ شروع شدن	Die Arbeit fängt um acht Uhr an.	Work starts at eight o'clock.	کار ساعت هشت شروع می‌شود.
+a1-1	4	das Büro	Büros	office	دفتر؛ اداره	Mein Büro ist in der Stadt.	My office is in the city.	دفتر من در شهر است.
+a1-1	4	der Chef	Chefs	boss (male)	رئیس	Der Chef ist heute nicht da.	The boss is not here today.	رئیس امروز اینجا نیست.
+a1-1	4	der Kollege	Kollegen	colleague (male)	همکار	Mein Kollege hilft mir.	My colleague helps me.	همکارم به من کمک می‌کند.
+a1-1	4	die Pause	Pausen	break	استراحت؛ تنفس	Wir machen eine Pause.	We take a break.	ما استراحت می‌کنیم.
+a1-1	4	der Termin	Termine	appointment	قرار ملاقات؛ وقت	Ich habe morgen einen Termin.	I have an appointment tomorrow.	من فردا یک قرار ملاقات دارم.
+a1-1	4	die Arbeit	-	work; job	کار	Die Arbeit ist interessant.	The work is interesting.	کار جالب است.
+a1-1	4	der Feierabend	-	end of the working day	پایان ساعت کاری	Um fünf Uhr ist Feierabend.	Work ends at five o'clock.	ساعت پنج کار تمام می‌شود.
+a1-1	4	der Morgen	Morgen	morning	صبح	Am Morgen trinke ich Tee.	In the morning I drink tea.	صبح‌ها من چای می‌نوشم.
+a1-1	4	der Abend	Abende	evening	عصر؛ شب	Am Abend lese ich ein Buch.	In the evening I read a book.	عصرها من کتاب می‌خوانم.
+a1-1	4	Wie spät ist es?	-	What time is it?	ساعت چند است؟	Wie spät ist es? – Es ist halb drei.	What time is it? – It is half past two.	ساعت چند است؟ – ساعت دو و نیم است.
+a1-1	4	Viertel nach	-	quarter past	ربع گذشته؛ و ربع	Es ist Viertel nach zehn.	It is quarter past ten.	ساعت ده و ربع است.
+a1-1	4	halb	-	half (past)	نیم؛ و نیم	Es ist halb acht.	It is half past seven.	ساعت هفت و نیم است.
+a1-1	4	um … Uhr	-	at … o'clock	ساعت …	Der Kurs beginnt um neun Uhr.	The course begins at nine o'clock.	کلاس ساعت نه شروع می‌شود.
+a1-1	4	müssen	-	must; to have to	باید؛ مجبور بودن	Ich muss heute lange arbeiten.	I have to work long today.	من امروز باید زیاد کار کنم.
+a1-1	4	können	-	can; to be able to	توانستن؛ بلد بودن	Ich kann gut kochen.	I can cook well.	من خوب آشپزی بلدم.
+a1-1	4	wollen	-	to want to	خواستن؛ قصد داشتن	Ich will nach der Arbeit schlafen.	I want to sleep after work.	من می‌خواهم بعد از کار بخوابم.
+a1-1	4	anrufen	-	to call; to phone	زنگ زدن؛ تماس گرفتن	Ich rufe meinen Chef an.	I call my boss.	من به رئیسم زنگ می‌زنم.
+a1-2	1	schwimmen	-	to swim	شنا کردن	Ich schwimme gern im Sommer.	I like swimming in summer.	من تابستان‌ها دوست دارم شنا کنم.
+a1-2	1	tanzen	-	to dance	رقصیدن	Sie tanzt auf der Party.	She is dancing at the party.	او در مهمانی می‌رقصد.
+a1-2	1	Fußball spielen	-	to play football (soccer)	فوتبال بازی کردن	Die Kinder spielen im Park Fußball.	The children play football in the park.	بچه‌ها در پارک فوتبال بازی می‌کنند.
+a1-2	1	Musik hören	-	to listen to music	موسیقی گوش دادن	Ich höre abends gern Musik.	I like listening to music in the evening.	من عصرها دوست دارم موسیقی گوش بدهم.
+a1-2	1	kochen	-	to cook	آشپزی کردن; پختن	Er kocht gern Suppe.	He likes cooking soup.	او دوست دارد سوپ بپزد.
+a1-2	1	der Dienstag	Dienstage	Tuesday	سه‌شنبه	Am Dienstag habe ich Deutschkurs.	On Tuesday I have a German course.	سه‌شنبه کلاس آلمانی دارم.
+a1-2	1	der Mittwoch	Mittwoche	Wednesday	چهارشنبه	Am Mittwoch gehe ich ins Kino.	On Wednesday I go to the cinema.	چهارشنبه به سینما می‌روم.
+a1-2	1	der Donnerstag	Donnerstage	Thursday	پنجشنبه	Donnerstags arbeite ich lange.	On Thursdays I work late.	پنجشنبه‌ها تا دیروقت کار می‌کنم.
+a1-2	1	der Freitag	Freitage	Friday	جمعه	Freitag ist mein Lieblingstag.	Friday is my favorite day.	جمعه روز مورد علاقه من است.
+a1-2	1	der Samstag	Samstage	Saturday	شنبه	Am Samstag schlafe ich lange.	On Saturday I sleep in.	شنبه تا دیروقت می‌خوابم.
+a1-2	1	der Sonntag	Sonntage	Sunday	یکشنبه	Am Sonntag besuche ich meine Oma.	I visit my grandma on Sunday.	یکشنبه به دیدن مادربزرگم می‌روم.
+a1-2	1	der Park	Parks	park	پارک	Wir gehen im Park spazieren.	We are going for a walk in the park.	ما در پارک قدم می‌زنیم.
+a1-2	1	das Kino	Kinos	cinema; movie theater	سینما	Ich gehe heute Abend ins Kino.	I am going to the cinema this evening.	امشب به سینما می‌روم.
+a1-2	1	gern	-	gladly; with pleasure (likes to)	با میل؛ دوست داشتن	Sie singt gern.	She likes singing.	او دوست دارد آواز بخواند.
+a1-2	1	lieber	-	rather; preferably	ترجیحاً؛ بیشتر دوست داشتن	Ich bleibe lieber zu Hause.	I'd rather stay at home.	من ترجیح می‌دهم در خانه بمانم.
+a1-2	1	Hast du Lust …?	-	Do you feel like …?	حال داری ...؟	Hast du Lust, Fußball zu spielen?	Do you feel like playing football?	حال داری فوتبال بازی کنیم؟
+a1-2	1	Wollen wir …?	-	Shall we …?	بیا ... کنیم؟	Wollen wir ins Kino gehen?	Shall we go to the cinema?	بیا برویم سینما؟
+a1-2	1	Viel Spaß!	-	Have fun!	خوش بگذرد!	Viel Spaß im Schwimmbad!	Have fun at the pool!	در استخر خوش بگذرد!
+a1-2	1	Gute Idee!	-	Good idea!	ایده خوبی است!	Gute Idee! Ich komme mit.	Good idea! I'll come along.	ایده خوبی است! من هم می‌آیم.
+a1-2	2	das Bad	Bäder	bathroom	حمام; دستشویی	Das Bad ist klein, aber sauber.	The bathroom is small but clean.	حمام کوچک ولی تمیز است.
+a1-2	2	das Schlafzimmer	Schlafzimmer	bedroom	اتاق خواب	Mein Schlafzimmer hat ein großes Fenster.	My bedroom has a big window.	اتاق خواب من یک پنجره بزرگ دارد.
+a1-2	2	das Wohnzimmer	Wohnzimmer	living room	اتاق نشیمن	Abends sitzen wir im Wohnzimmer.	In the evening we sit in the living room.	عصرها در اتاق نشیمن می‌نشینیم.
+a1-2	2	der Balkon	Balkone	balcony	بالکن	Auf dem Balkon steht ein Tisch.	There is a table on the balcony.	روی بالکن یک میز هست.
+a1-2	2	das Sofa	Sofas	sofa; couch	مبل; کاناپه	Das Sofa ist sehr bequem.	The sofa is very comfortable.	مبل خیلی راحت است.
+a1-2	2	der Schrank	Schränke	cupboard; wardrobe	کمد; قفسه	Die Jacke hängt im Schrank.	The jacket is hanging in the wardrobe.	کاپشن در کمد آویزان است.
+a1-2	2	die Lampe	Lampen	lamp; light	چراغ; لامپ	Die Lampe steht neben dem Sofa.	The lamp is next to the sofa.	چراغ کنار مبل است.
+a1-2	2	das Fenster	Fenster	window	پنجره	Bitte mach das Fenster auf.	Please open the window.	لطفاً پنجره را باز کن.
+a1-2	2	auf	-	on; on top of	روی	Das Buch liegt auf dem Tisch.	The book is on the table.	کتاب روی میز است.
+a1-2	2	unter	-	under; below	زیر	Die Katze schläft unter dem Bett.	The cat sleeps under the bed.	گربه زیر تخت می‌خوابد.
+a1-2	2	neben	-	next to; beside	کنار	Die Bank ist neben der Post.	The bank is next to the post office.	بانک کنار اداره پست است.
+a1-2	2	hinter	-	behind	پشت	Der Garten ist hinter dem Haus.	The garden is behind the house.	باغ پشت خانه است.
+a1-2	2	die Bäckerei	Bäckereien	bakery	نانوایی	In der Bäckerei kaufe ich Brötchen.	I buy bread rolls at the bakery.	از نانوایی نان کوچک می‌خرم.
+a1-2	2	die Post	-	post office; mail	اداره پست; پست	Die Post ist bis 18 Uhr offen.	The post office is open until 6 pm.	اداره پست تا ساعت ۱۸ باز است.
+a1-2	2	die Schule	Schulen	school	مدرسه	Die Schule beginnt um acht Uhr.	School starts at eight o'clock.	مدرسه ساعت هشت شروع می‌شود.
+a1-2	2	der Markt	Märkte	market	بازار	Auf dem Markt ist das Obst frisch.	The fruit at the market is fresh.	میوه در بازار تازه است.
+a1-2	2	Wo ist die Toilette?	-	Where is the toilet?	دستشویی کجاست؟	Entschuldigung, wo ist die Toilette?	Excuse me, where is the toilet?	ببخشید، دستشویی کجاست؟
+a1-2	2	Ich wohne auf dem Land.	-	I live in the countryside.	من در روستا زندگی می‌کنم.	Meine Oma wohnt auf dem Land.	My grandma lives in the countryside.	مادربزرگم در روستا زندگی می‌کند.
+a1-2	2	Ich suche eine Wohnung.	-	I am looking for an apartment.	من دنبال یک آپارتمان می‌گردم.	Ich suche eine Wohnung in der Stadt.	I am looking for an apartment in the city.	من دنبال آپارتمانی در شهر می‌گردم.
+a1-2	2	Hier ist es ruhig.	-	It is quiet here.	اینجا آرام است.	Hier ist es ruhig, das gefällt mir.	It is quiet here, I like that.	اینجا آرام است، این را دوست دارم.
+a1-2	3	der Regen	-	rain	باران	Der Regen hört bald auf.	The rain will stop soon.	باران به‌زودی بند می‌آید.
+a1-2	3	die Sonne	-	sun; sunshine	خورشید; آفتاب	Die Sonne scheint heute.	The sun is shining today.	امروز آفتاب است.
+a1-2	3	kalt	-	cold	سرد	Im Winter ist es sehr kalt.	It is very cold in winter.	در زمستان هوا خیلی سرد است.
+a1-2	3	warm	-	warm	گرم	Im Sommer ist es warm.	It is warm in summer.	در تابستان هوا گرم است.
+a1-2	3	es regnet	-	it is raining	باران می‌آید	Heute regnet es den ganzen Tag.	Today it rains all day.	امروز تمام روز باران می‌آید.
+a1-2	3	es schneit	-	it is snowing	برف می‌آید	Im Januar schneit es oft.	It often snows in January.	در ژانویه اغلب برف می‌بارد.
+a1-2	3	der Sommer	Sommer	summer	تابستان	Im Sommer fahre ich ans Meer.	In summer I go to the sea.	تابستان به کنار دریا می‌روم.
+a1-2	3	der Winter	Winter	winter	زمستان	Der Winter in Schweden ist lang.	Winter in Sweden is long.	زمستان در سوئد طولانی است.
+a1-2	3	der Januar	-	January	ژانویه	Im Januar beginnt das neue Jahr.	The new year begins in January.	سال نو در ژانویه شروع می‌شود.
+a1-2	3	der Vormittag	Vormittage	morning (before noon)	صبح; قبل از ظهر	Am Vormittag habe ich Unterricht.	I have class in the morning.	صبح‌ها کلاس دارم.
+a1-2	3	der Nachmittag	Nachmittage	afternoon	بعدازظهر	Am Nachmittag spielen die Kinder draußen.	The children play outside in the afternoon.	بعدازظهر بچه‌ها بیرون بازی می‌کنند.
+a1-2	3	immer	-	always	همیشه	Er ist immer pünktlich.	He is always on time.	او همیشه سر وقت است.
+a1-2	3	oft	-	often	اغلب; زیاد	Ich fahre oft mit dem Fahrrad.	I often ride my bike.	من اغلب با دوچرخه می‌روم.
+a1-2	3	manchmal	-	sometimes	گاهی; بعضی وقت‌ها	Manchmal koche ich am Wochenende.	Sometimes I cook at the weekend.	گاهی آخر هفته آشپزی می‌کنم.
+a1-2	3	nie	-	never	هرگز; هیچ‌وقت	Ich trinke nie Kaffee am Abend.	I never drink coffee in the evening.	هیچ‌وقت عصر قهوه نمی‌نوشم.
+a1-2	3	der Geburtstag	Geburtstage	birthday	تولد; روز تولد	Mein Geburtstag ist im Mai.	My birthday is in May.	تولد من در ماه مه است.
+a1-2	3	das Datum	Daten	date	تاریخ	Welches Datum haben wir heute?	What is the date today?	امروز چندم است؟
+a1-2	3	Wie ist das Wetter?	-	What is the weather like?	هوا چطور است؟	Wie ist das Wetter in Berlin?	What is the weather like in Berlin?	هوا در برلین چطور است؟
+a1-2	3	Alles Gute zum Geburtstag!	-	Happy birthday!	تولدت مبارک!	Alles Gute zum Geburtstag, liebe Anna!	Happy birthday, dear Anna!	تولدت مبارک، آنای عزیز!
+a1-2	4	die U-Bahn	U-Bahnen	subway; underground	مترو	Die U-Bahn kommt gleich.	The subway is coming in a moment.	مترو الان می‌رسد.
+a1-2	4	die Straßenbahn	Straßenbahnen	tram	تراموا	Ich nehme die Straßenbahn zur Arbeit.	I take the tram to work.	من با تراموا سر کار می‌روم.
+a1-2	4	das Flugzeug	Flugzeuge	airplane	هواپیما	Das Flugzeug landet um zehn Uhr.	The plane lands at ten o'clock.	هواپیما ساعت ده فرود می‌آید.
+a1-2	4	das Fahrrad	Fahrräder	bicycle	دوچرخه	Ich fahre jeden Tag mit dem Fahrrad.	I ride my bicycle every day.	من هر روز با دوچرخه می‌روم.
+a1-2	4	der Flughafen	Flughäfen	airport	فرودگاه	Der Flughafen ist weit von hier.	The airport is far from here.	فرودگاه از اینجا دور است.
+a1-2	4	die Haltestelle	Haltestellen	stop (bus, tram)	ایستگاه (اتوبوس، تراموا)	Die Haltestelle ist gleich um die Ecke.	The stop is just around the corner.	ایستگاه همین نزدیکی است.
+a1-2	4	das Gleis	Gleise	platform; track	سکو; خط ریل	Der Zug fährt von Gleis drei ab.	The train leaves from platform three.	قطار از سکوی سه حرکت می‌کند.
+a1-2	4	das Ticket	Tickets	ticket	بلیت	Ich brauche ein Ticket nach Hamburg.	I need a ticket to Hamburg.	من یک بلیت به مقصد هامبورگ لازم دارم.
+a1-2	4	abfahren	-	to depart; to leave	حرکت کردن (وسیله نقلیه)	Der Bus fährt in fünf Minuten ab.	The bus leaves in five minutes.	اتوبوس پنج دقیقه دیگر حرکت می‌کند.
+a1-2	4	ankommen	-	to arrive	رسیدن	Wir kommen um acht Uhr an.	We arrive at eight o'clock.	ما ساعت هشت می‌رسیم.
+a1-2	4	umsteigen	-	to change (trains, buses)	عوض کردن وسیله؛ تعویض قطار	In Köln muss ich umsteigen.	I have to change in Cologne.	در کلن باید قطار را عوض کنم.
+a1-2	4	einsteigen	-	to get on; to board	سوار شدن	Bitte steigen Sie hier ein.	Please get on here.	لطفاً اینجا سوار شوید.
+a1-2	4	aussteigen	-	to get off	پیاده شدن	Ich steige an der nächsten Haltestelle aus.	I get off at the next stop.	من در ایستگاه بعدی پیاده می‌شوم.
+a1-2	4	die Verspätung	Verspätungen	delay	تأخیر	Entschuldigung für die Verspätung.	Sorry for the delay.	بابت تأخیر عذرخواهی می‌کنم.
+a1-2	4	geradeaus	-	straight ahead	مستقیم	Gehen Sie geradeaus bis zur Bank.	Go straight ahead to the bank.	مستقیم تا بانک بروید.
+a1-2	4	rechts	-	right; on the right	راست; سمت راست	Die Post ist rechts.	The post office is on the right.	اداره پست سمت راست است.
+a1-2	4	Wie komme ich zum …?	-	How do I get to …?	چطور به ... برسم؟	Wie komme ich zum Flughafen?	How do I get to the airport?	چطور به فرودگاه برسم؟
+a1-2	4	an der Ampel	-	at the traffic light	سر چراغ راهنما	Biegen Sie an der Ampel links ab.	Turn left at the traffic light.	سر چراغ راهنما به چپ بپیچید.
+a1-2	4	Gute Reise!	-	Have a good trip!	سفر خوبی داشته باشی!	Gute Reise und bis bald!	Have a good trip and see you soon!	سفر خوبی داشته باشی و به‌زودی می‌بینمت!
+a1-2	4	Der Zug hat Verspätung.	-	The train is late.	قطار تأخیر دارد.	Leider hat der Zug heute Verspätung.	Unfortunately the train is late today.	متأسفانه امروز قطار تأخیر دارد.
+a1-3	1	die Party	Partys	party	مهمانی	Am Samstag machen wir eine Party.	On Saturday we are having a party.	شنبه ما یک مهمانی می‌گیریم.
+a1-3	1	einladen	-	to invite	دعوت کردن	Ich lade dich zu meiner Party ein.	I am inviting you to my party.	من تو را به مهمانی‌‌ام دعوت می‌کنم.
+a1-3	1	das Geschenk	Geschenke	gift; present	هدیه؛ کادو	Das Geschenk ist für meine Freundin.	The gift is for my girlfriend.	این هدیه برای دوست دخترم است.
+a1-3	1	das Geschäft	Geschäfte	shop; store	مغازه؛ فروشگاه	Das Geschäft ist bis 18 Uhr geöffnet.	The shop is open until 6 p.m.	مغازه تا ساعت ۶ عصر باز است.
+a1-3	1	die Kleidung	-	clothes; clothing	لباس؛ پوشاک	Die Kleidung hier ist nicht teuer.	The clothes here are not expensive.	لباس‌‌های اینجا گران نیستند.
+a1-3	1	der Preis	Preise	price	قیمت	Was ist der Preis für die Jacke?	What is the price of the jacket?	قیمت این ژاکت چقدر است؟
+a1-3	1	der Rabatt	Rabatte	discount	تخفیف	Heute gibt es zehn Prozent Rabatt.	Today there is a ten percent discount.	امروز ده درصد تخفیف داریم.
+a1-3	1	die Kasse	Kassen	checkout; cash register	صندوق	Bitte zahlen Sie an der Kasse.	Please pay at the checkout.	لطفاً در صندوق پرداخت کنید.
+a1-3	1	bestellen	-	to order	سفارش دادن	Ich bestelle eine Suppe und ein Wasser.	I am ordering a soup and a water.	من یک سوپ و یک آب سفارش می‌دهم.
+a1-3	1	der Kellner	Kellner	waiter	گارسون	Der Kellner bringt das Essen.	The waiter brings the food.	گارسون غذا را می‌آورد.
+a1-3	1	das Trinkgeld	Trinkgelder	tip (money)	انعام	Wir geben fünf Euro Trinkgeld.	We are giving a five euro tip.	ما پنج یورو انعام می‌دهیم.
+a1-3	1	Zahlen, bitte!	-	The bill, please!	لطفاً صورت‌‌حساب!	Zahlen, bitte! Wir möchten gehen.	The bill, please! We would like to leave.	لطفاً صورت‌‌حساب! ما می‌خواهیم برویم.
+a1-3	1	die Kreuzung	Kreuzungen	intersection; crossroads	چهارراه	An der Kreuzung müssen Sie warten.	You have to wait at the intersection.	در چهارراه باید صبر کنید.
+a1-3	1	die Ampel	Ampeln	traffic light	چراغ راهنما	Die Ampel ist rot.	The traffic light is red.	چراغ قرمز است.
+a1-3	1	die Ecke	Ecken	corner	گوشه؛ نبش	Der Kiosk ist gleich um die Ecke.	The kiosk is just around the corner.	دکه همین دور نبش است.
+a1-3	1	Treffen wir uns …?	-	Shall we meet …?	... همدیگر را ببینیم؟	Treffen wir uns um acht Uhr?	Shall we meet at eight o'clock?	ساعت هشت همدیگر را ببینیم؟
+a1-3	1	Ich hätte gern …	-	I would like …	من ... می‌‌خواستم	Ich hätte gern einen Orangensaft.	I would like an orange juice.	من یک آب پرتقال می‌‌خواستم.
+a1-3	1	anprobieren	-	to try on	پرو کردن	Darf ich die Hose anprobieren?	May I try on the trousers?	می‌‌توانم این شلوار را پرو کنم؟
+a1-3	1	Wie viel kostet das?	-	How much does this cost?	این چقدر است؟	Wie viel kostet das Hemd?	How much does the shirt cost?	این پیراهن چقدر است؟
+a1-3	2	die Reise	Reisen	trip; journey	سفر	Die Reise nach Italien war toll.	The trip to Italy was great.	سفر به ایتالیا عالی بود.
+a1-3	2	der Urlaub	-	vacation; holiday	تعطیلات؛ مرخصی	Wir machen im Juli Urlaub am Meer.	We are going on holiday by the sea in July.	ما در ماه ژوئیه کنار دریا تعطیلات می‌گذرانیم.
+a1-3	2	das Hotel	Hotels	hotel	هتل	Das Hotel liegt direkt am Strand.	The hotel is right on the beach.	هتل درست کنار ساحل است.
+a1-3	2	der Koffer	Koffer	suitcase	چمدان	Mein Koffer ist sehr schwer.	My suitcase is very heavy.	چمدان من خیلی سنگین است.
+a1-3	2	der Reisepass	Reisepässe	passport	گذرنامه؛ پاسپورت	Haben Sie Ihren Reisepass dabei?	Do you have your passport with you?	گذرنامه‌‌تان همراهتان است؟
+a1-3	2	der Strand	Strände	beach	ساحل	Am Strand ist es heute sehr voll.	The beach is very crowded today.	امروز ساحل خیلی شلوغ است.
+a1-3	2	das Meer	Meere	sea; ocean	دریا	Das Meer ist heute ruhig.	The sea is calm today.	دریا امروز آرام است.
+a1-3	2	der Berg	Berge	mountain	کوه	Wir steigen auf den Berg.	We are climbing the mountain.	ما از کوه بالا می‌رویم.
+a1-3	2	buchen	-	to book	رزرو کردن	Ich buche den Flug im Internet.	I am booking the flight online.	من پرواز را اینترنتی رزرو می‌کنم.
+a1-3	2	besichtigen	-	to visit; to tour (a sight)	بازدید کردن	Wir besichtigen morgen das Schloss.	Tomorrow we are visiting the castle.	فردا از قصر بازدید می‌کنیم.
+a1-3	2	die Sehenswürdigkeit	Sehenswürdigkeiten	sight; tourist attraction	جاذبه گردشگری؛ دیدنی	Berlin hat viele Sehenswürdigkeiten.	Berlin has many sights.	برلین جاذبه‌‌های گردشگری زیادی دارد.
+a1-3	2	das Reisebüro	Reisebüros	travel agency	آژانس مسافرتی	Das Reisebüro öffnet um neun Uhr.	The travel agency opens at nine o'clock.	آژانس مسافرتی ساعت نه باز می‌شود.
+a1-3	2	ein Zimmer reservieren	-	to reserve a room	یک اتاق رزرو کردن	Ich möchte ein Zimmer für zwei Nächte reservieren.	I would like to reserve a room for two nights.	می‌‌خواهم یک اتاق برای دو شب رزرو کنم.
+a1-3	2	Ich würde gern …	-	I would like to …	دوست دارم ...	Ich würde gern nach Spanien fahren.	I would like to go to Spain.	دوست دارم به اسپانیا سفر کنم.
+a1-3	2	Wo warst du?	-	Where were you?	کجا بودی؟	Wo warst du im Urlaub?	Where were you on holiday?	در تعطیلات کجا بودی؟
+a1-3	2	die Postkarte	Postkarten	postcard	کارت‌‌پستال	Ich schreibe dir eine Postkarte.	I will write you a postcard.	برایت یک کارت‌‌پستال می‌نویسم.
+a1-3	2	das Foto	Fotos	photo	عکس	Ich mache ein Foto vom Meer.	I am taking a photo of the sea.	من از دریا عکس می‌گیرم.
+a1-3	2	Ich war noch nie in …	-	I have never been to …	من هرگز ... نبوده‌‌ام	Ich war noch nie in Österreich.	I have never been to Austria.	من هرگز در اتریش نبوده‌‌ام.
+a1-3	3	der Kopf	Köpfe	head	سر	Mein Kopf ist heiß.	My head is hot.	سرم داغ است.
+a1-3	3	der Arm	Arme	arm	بازو؛ دست	Er hat sich den Arm gebrochen.	He has broken his arm.	او دستش را شکسته است.
+a1-3	3	das Bein	Beine	leg	پا	Mein linkes Bein ist müde.	My left leg is tired.	پای چپم خسته است.
+a1-3	3	die Hand	Hände	hand	دست	Gib mir bitte deine Hand.	Give me your hand, please.	لطفاً دستت را به من بده.
+a1-3	3	der Fuß	Füße	foot	پا؛ کف پا	Der Fuß ist ganz kalt.	The foot is completely cold.	پایم کاملاً سرد است.
+a1-3	3	das Auge	Augen	eye	چشم	Sie hat blaue Augen.	She has blue eyes.	او چشم‌‌های آبی دارد.
+a1-3	3	das Ohr	Ohren	ear	گوش	Mein Ohr tut weh.	My ear hurts.	گوشم درد می‌کند.
+a1-3	3	der Mund	Münder	mouth	دهان	Mach bitte den Mund auf.	Please open your mouth.	لطفاً دهانت را باز کن.
+a1-3	3	der Bauch	Bäuche	belly; stomach; tummy	شکم؛ دل	Ich habe Bauchschmerzen, mein Bauch tut weh.	I have stomach ache, my belly hurts.	دل‌‌درد دارم، شکمم درد می‌کند.
+a1-3	3	der Rücken	Rücken	back	پشت؛ کمر	Mein Rücken tut nach der Arbeit weh.	My back hurts after work.	کمرم بعد از کار درد می‌کند.
+a1-3	3	der Zahn	Zähne	tooth	دندان	Ich putze zweimal am Tag meine Zähne.	I brush my teeth twice a day.	من روزی دو بار دندان‌‌هایم را مسواک می‌زنم.
+a1-3	3	krank	-	sick; ill	بیمار؛ مریض	Mein Sohn ist seit Montag krank.	My son has been sick since Monday.	پسرم از دوشنبه بیمار است.
+a1-3	3	der Schmerz	Schmerzen	pain; ache	درد	Ich habe starke Schmerzen im Knie.	I have bad pain in my knee.	من در زانویم درد شدید دارم.
+a1-3	3	das Fieber	-	fever	تب	Das Kind hat hohes Fieber.	The child has a high fever.	بچه تب بالایی دارد.
+a1-3	3	das Medikament	Medikamente	medicine; medication	دارو	Nimm das Medikament dreimal am Tag.	Take the medicine three times a day.	دارو را روزی سه بار بخور.
+a1-3	3	Ruh dich aus!	-	Get some rest!	استراحت کن!	Du bist krank. Ruh dich aus!	You are sick. Get some rest!	تو بیماری. استراحت کن!
+a1-3	3	Trink viel!	-	Drink a lot!	زیاد بنوش!	Du hast Fieber. Trink viel!	You have a fever. Drink a lot!	تب داری. زیاد بنوش!
+a1-3	3	Mir tut … weh.	-	My … hurts.	... من درد می‌‌کند.	Mir tut der Kopf weh.	My head hurts.	سرم درد می‌کند.
+a1-3	3	Gute Besserung!	-	Get well soon!	زود خوب شوی! / شفا یابی!	Gute Besserung! Bis bald!	Get well soon! See you soon!	زود خوب شوی! به زودی می‌بینمت!
+a1-3	4	der Beruf	Berufe	profession; occupation	شغل؛ حرفه	Was ist dein Beruf?	What is your profession?	شغل تو چیست؟
+a1-3	4	die Firma	Firmen	company; firm	شرکت	Die Firma sucht neue Mitarbeiter.	The company is looking for new employees.	شرکت دنبال کارمندان جدید می‌گردد.
+a1-3	4	das Gehalt	Gehälter	salary	حقوق	Das Gehalt kommt am Monatsende.	The salary arrives at the end of the month.	حقوق آخر ماه می‌رسد.
+a1-3	4	der Vertrag	Verträge	contract	قرارداد	Ich unterschreibe heute den Vertrag.	I am signing the contract today.	من امروز قرارداد را امضا می‌کنم.
+a1-3	4	die Bewerbung	Bewerbungen	job application	درخواست کار؛ اپلای	Ich schreibe eine Bewerbung für die Stelle.	I am writing an application for the job.	من برای این شغل یک درخواست کار می‌نویسم.
+a1-3	4	der Lebenslauf	Lebensläufe	CV; résumé	رزومه	Bitte schicken Sie uns Ihren Lebenslauf.	Please send us your CV.	لطفاً رزومه‌‌تان را برای ما بفرستید.
+a1-3	4	die Ausbildung	Ausbildungen	vocational training; apprenticeship	آموزش حرفه‌‌ای؛ دوره کارآموزی	Meine Ausbildung dauert drei Jahre.	My training lasts three years.	دوره آموزش حرفه‌‌ای من سه سال طول می‌کشد.
+a1-3	4	die Erfahrung	Erfahrungen	experience	تجربه	Ich habe zwei Jahre Erfahrung als Fahrer.	I have two years of experience as a driver.	من دو سال تجربه کار به عنوان راننده دارم.
+a1-3	4	die Arbeitszeit	Arbeitszeiten	working hours	ساعت کاری	Die Arbeitszeit ist von acht bis vier.	The working hours are from eight to four.	ساعت کاری از هشت تا چهار است.
+a1-3	4	Urlaub nehmen	-	to take time off	مرخصی گرفتن	Ich möchte im August Urlaub nehmen.	I would like to take time off in August.	می‌‌خواهم در ماه اوت مرخصی بگیرم.
+a1-3	4	die Besprechung	Besprechungen	meeting; discussion	جلسه	Die Besprechung beginnt um zehn Uhr.	The meeting starts at ten o'clock.	جلسه ساعت ده شروع می‌شود.
+a1-3	4	das Praktikum	Praktika	internship	کارآموزی	Ich mache ein Praktikum in einer Firma.	I am doing an internship at a company.	من در یک شرکت کارآموزی می‌کنم.
+a1-3	4	arbeitslos	-	unemployed	بیکار	Mein Bruder ist leider arbeitslos.	My brother is unfortunately unemployed.	برادرم متأسفانه بیکار است.
+a1-3	4	sollen	-	to be supposed to; should	باید؛ قرار بودن	Ich soll morgen früher kommen.	I am supposed to come earlier tomorrow.	قرار است فردا زودتر بیایم.
+a1-3	4	die Zukunft	-	future	آینده	In der Zukunft möchte ich in Berlin leben.	In the future I would like to live in Berlin.	در آینده می‌‌خواهم در برلین زندگی کنم.
+a1-3	4	der Plan	Pläne	plan	برنامه؛ نقشه	Hast du schon Pläne für nächstes Jahr?	Do you already have plans for next year?	آیا برای سال آینده برنامه‌‌ای داری؟
+a1-3	4	Was möchtest du werden?	-	What do you want to become?	می‌‌خواهی چه کاره بشوی؟	Was möchtest du später werden?	What would you like to become later?	بعداً می‌‌خواهی چه کاره بشوی؟
+a1-3	4	Ich bin von Beruf …	-	I am a … by profession	شغل من ... است	Ich bin von Beruf Elektriker.	I am an electrician by profession.	شغل من برقکار است.
+a1-3	4	Ich suche eine Stelle.	-	I am looking for a job.	دنبال کار می‌‌گردم.	Ich suche eine Stelle als Verkäufer.	I am looking for a job as a salesperson.	دنبال کاری به عنوان فروشنده می‌گردم.
+a2-1	1	die Herkunft	-	origin; background	اصل و نسب؛ خاستگاه	Meine Herkunft ist mir sehr wichtig.	My origin is very important to me.	خاستگاه من برایم خیلی مهم است.
+a2-1	1	die Muttersprache	Muttersprachen	mother tongue	زبان مادری	Meine Muttersprache ist Persisch.	My mother tongue is Persian.	زبان مادری من فارسی است.
+a2-1	1	die Fremdsprache	Fremdsprachen	foreign language	زبان خارجی	Ich lerne gerade eine zweite Fremdsprache.	I am currently learning a second foreign language.	من الان دارم دومین زبان خارجی‌ام را یاد می‌گیرم.
+a2-1	1	der Austausch	-	exchange	تبادل؛ مبادله	Wir machen einen Austausch mit einer Schule in Spanien.	We are doing an exchange with a school in Spain.	ما با یک مدرسه در اسپانیا تبادل دانش‌آموز داریم.
+a2-1	1	die Gastfamilie	Gastfamilien	host family	خانواده‌ی میزبان	Meine Gastfamilie war sehr herzlich.	My host family was very warm.	خانواده‌ی میزبانم خیلی صمیمی بود.
+a2-1	1	das Auslandsjahr	Auslandsjahre	year abroad	یک سال تحصیل یا زندگی در خارج	Nach der Schule macht sie ein Auslandsjahr in Kanada.	After school she is doing a year abroad in Canada.	او بعد از مدرسه یک سال را در کانادا می‌گذراند.
+a2-1	1	die Kultur	Kulturen	culture	فرهنگ	Ich interessiere mich für fremde Kulturen.	I am interested in foreign cultures.	من به فرهنگ‌های بیگانه علاقه دارم.
+a2-1	1	die Heimat	-	home; homeland	وطن؛ زادگاه	Ich vermisse meine Heimat manchmal sehr.	I sometimes miss my homeland a lot.	گاهی دلم برای وطنم خیلی تنگ می‌شود.
+a2-1	1	das Heimweh	-	homesickness	دلتنگی برای وطن	Im ersten Monat hatte ich großes Heimweh.	In the first month I was very homesick.	در ماه اول خیلی دلتنگ وطن بودم.
+a2-1	1	das Au-pair	Au-pairs	au pair	اوپر (کمک‌دار خانه و کودک در خانه‌ی میزبان)	Sie arbeitet als Au-pair in Hamburg.	She works as an au pair in Hamburg.	او در هامبورگ به عنوان اوپر کار می‌کند.
+a2-1	1	damals	-	back then; at that time	آن موقع؛ در آن زمان	Damals war ich noch ein Kind.	Back then I was still a child.	آن موقع هنوز بچه بودم.
+a2-1	1	früher	-	earlier; in the past	قبلاً؛ در گذشته	Früher habe ich in einer kleinen Stadt gewohnt.	In the past I lived in a small town.	قبلاً در یک شهر کوچک زندگی می‌کردم.
+a2-1	1	seit	-	since; for (time)	از؛ از وقتی؛ به مدت	Ich lerne seit einem Jahr Deutsch.	I have been learning German for a year.	من یک سال است که آلمانی یاد می‌گیرم.
+a2-1	1	zuerst	-	first; at first	اول؛ در ابتدا	Zuerst war alles ganz fremd für mich.	At first everything was completely strange to me.	اول همه چیز برایم کاملاً غریبه بود.
+a2-1	1	danach	-	afterwards; after that	بعد از آن؛ سپس	Danach habe ich einen Sprachkurs besucht.	Afterwards I took a language course.	بعد از آن در یک دوره‌ی زبان شرکت کردم.
+a2-1	1	vermissen	-	to miss	دلتنگ بودن؛ دلتنگ کسی یا چیزی بودن	Ich vermisse meine Freunde zu Hause.	I miss my friends back home.	دلم برای دوستانم در وطن تنگ شده است.
+a2-1	1	Ich habe … gelernt.	-	I have learned …	من … یاد گرفته‌ام.	Ich habe in der Schule Französisch gelernt.	I learned French at school.	من در مدرسه فرانسوی یاد گرفتم.
+a2-1	1	noch nie	-	never (so far); not ever	هرگز؛ تا به حال هیچ‌وقت	Ich war noch nie in der Schweiz.	I have never been to Switzerland.	من تا به حال هیچ‌وقت در سوئیس نبوده‌ام.
+a2-1	1	schon einmal	-	once before; already once	یک بار؛ قبلاً یک بار	Hast du schon einmal in einem anderen Land gelebt?	Have you ever lived in another country?	آیا تا حالا یک بار در کشور دیگری زندگی کرده‌ای؟
+a2-1	1	vor einem Jahr	-	a year ago	یک سال پیش	Vor einem Jahr bin ich nach Deutschland gezogen.	A year ago I moved to Germany.	یک سال پیش به آلمان نقل مکان کردم.
+a2-1	2	die Hose	Hosen	trousers; pants	شلوار	Diese Hose ist mir zu lang.	These trousers are too long for me.	این شلوار برای من زیادی بلند است.
+a2-1	2	der Rock	Röcke	skirt	دامن	Sie trägt gern einen kurzen Rock.	She likes wearing a short skirt.	او دوست دارد دامن کوتاه بپوشد.
+a2-1	2	die Jacke	Jacken	jacket	کت؛ ژاکت	Nimm eine Jacke mit, es wird kühl.	Take a jacket with you, it is getting cool.	یک ژاکت با خودت ببر، هوا دارد سرد می‌شود.
+a2-1	2	der Mantel	Mäntel	coat	پالتو	Im Winter trage ich einen dicken Mantel.	In winter I wear a thick coat.	زمستان‌ها پالتوی کلفتی می‌پوشم.
+a2-1	2	der Schuh	Schuhe	shoe	کفش	Meine Schuhe sind nass geworden.	My shoes got wet.	کفش‌هایم خیس شده‌اند.
+a2-1	2	das Kleid	Kleider	dress	لباس زنانه؛ پیراهن	Das Kleid hat sie gestern gekauft.	She bought the dress yesterday.	او دیروز این لباس را خرید.
+a2-1	2	der Anzug	Anzüge	suit	کت و شلوار	Für das Vorstellungsgespräch brauche ich einen Anzug.	I need a suit for the job interview.	برای مصاحبه‌ی کاری به کت و شلوار نیاز دارم.
+a2-1	2	passen	-	to fit; to suit	اندازه بودن؛ مناسب بودن	Die Hose passt mir leider nicht.	Unfortunately the trousers don't fit me.	متأسفانه این شلوار اندازه‌ی من نیست.
+a2-1	2	die Größe	Größen	size; height	اندازه؛ سایز	Haben Sie das Hemd in meiner Größe?	Do you have the shirt in my size?	آیا این پیراهن را در سایز من دارید؟
+a2-1	2	modisch	-	fashionable	مدروز؛ به‌روز	Ihr Mantel sieht sehr modisch aus.	Her coat looks very fashionable.	پالتوی او خیلی مدروز به نظر می‌رسد.
+a2-1	2	bequem	-	comfortable	راحت	Diese Schuhe sind schön, aber nicht bequem.	These shoes are nice, but not comfortable.	این کفش‌ها قشنگ‌اند، ولی راحت نیستند.
+a2-1	2	elegant	-	elegant	شیک؛ باکلاس	Auf der Hochzeit waren alle elegant gekleidet.	At the wedding everyone was elegantly dressed.	در عروسی همه شیک لباس پوشیده بودند.
+a2-1	2	die Frisur	Frisuren	hairstyle	مدل مو	Deine neue Frisur gefällt mir sehr.	I like your new hairstyle a lot.	مدل موی جدیدت خیلی به دلم نشسته است.
+a2-1	2	die Brille	Brillen	glasses	عینک	Ohne Brille kann ich nichts lesen.	I can't read anything without glasses.	بدون عینک نمی‌توانم چیزی بخوانم.
+a2-1	2	grau	-	grey	خاکستری	Er hat einen grauen Pullover an.	He is wearing a grey sweater.	او یک پلیور خاکستری پوشیده است.
+a2-1	2	braun	-	brown	قهوه‌ای	Ich suche braune Lederschuhe.	I am looking for brown leather shoes.	من دنبال کفش چرمی قهوه‌ای می‌گردم.
+a2-1	2	Das steht dir gut.	-	That suits you.	این به تو می‌آید.	Die blaue Farbe steht dir wirklich gut.	The colour blue really suits you.	رنگ آبی واقعاً به تو می‌آید.
+a2-1	2	Welche Größe haben Sie?	-	What size are you?	سایز شما چند است؟	Welche Größe haben Sie? Ich hole die Jacke.	What size are you? I'll get the jacket.	سایز شما چند است؟ من ژاکت را می‌آورم.
+a2-1	2	am schönsten	-	the most beautiful; the nicest	زیباترین؛ قشنگ‌ترین	Das rote Kleid gefällt mir am besten, es ist am schönsten.	I like the red dress best, it is the nicest.	لباس قرمز را از همه بیشتر دوست دارم، از همه قشنگ‌تر است.
+a2-1	2	Die Farbe gefällt mir.	-	I like the colour.	رنگش به دلم می‌نشیند.	Die Farbe gefällt mir, aber der Stoff ist zu dünn.	I like the colour, but the fabric is too thin.	رنگش به دلم می‌نشیند، ولی پارچه‌اش زیادی نازک است.
+a2-1	3	der Cousin	Cousins	cousin (male)	پسرعمو؛ پسرخاله؛ پسرعمه؛ پسردایی	Mein Cousin wohnt in Köln.	My cousin lives in Cologne.	پسرعموی من در کلن زندگی می‌کند.
+a2-1	3	die Cousine	Cousinen	cousin (female)	دخترعمو؛ دخترخاله؛ دخترعمه؛ دختردایی	Meine Cousine hat letzte Woche geheiratet.	My cousin got married last week.	دخترعموی من هفته‌ی پیش ازدواج کرد.
+a2-1	3	die Schwiegermutter	Schwiegermütter	mother-in-law	مادرشوهر؛ مادرزن	Meine Schwiegermutter kocht ausgezeichnet.	My mother-in-law cooks excellently.	مادرشوهرم فوق‌العاده آشپزی می‌کند.
+a2-1	3	der Enkel	Enkel	grandson; grandchild	نوه	Der Enkel besucht jeden Sonntag seine Großeltern.	The grandson visits his grandparents every Sunday.	نوه هر یکشنبه به دیدن پدربزرگ و مادربزرگش می‌رود.
+a2-1	3	der Zwilling	Zwillinge	twin	دوقلو	Die Zwillinge sehen sich sehr ähnlich.	The twins look very much alike.	دوقلوها خیلی شبیه هم‌اند.
+a2-1	3	freundlich	-	friendly; kind	مهربان؛ خوش‌برخورد	Unsere Nachbarin ist immer sehr freundlich.	Our neighbour is always very friendly.	همسایه‌ی ما همیشه خیلی خوش‌برخورد است.
+a2-1	3	ehrlich	-	honest	صادق؛ راستگو	Ein guter Freund ist immer ehrlich.	A good friend is always honest.	دوست خوب همیشه صادق است.
+a2-1	3	schüchtern	-	shy	خجالتی	Als Kind war ich sehr schüchtern.	As a child I was very shy.	بچه که بودم خیلی خجالتی بودم.
+a2-1	3	neugierig	-	curious	کنجکاو	Meine Tochter ist neugierig und stellt viele Fragen.	My daughter is curious and asks many questions.	دخترم کنجکاو است و سؤال‌های زیادی می‌پرسد.
+a2-1	3	zuverlässig	-	reliable	قابل اعتماد؛ مطمئن	Mein Bruder ist ein zuverlässiger Mensch.	My brother is a reliable person.	برادرم آدم قابل اعتمادی است.
+a2-1	3	eifersüchtig	-	jealous	حسود؛ رشک‌ورز	Er ist eifersüchtig, weil sie viele Freunde hat.	He is jealous because she has many friends.	او حسادت می‌کند چون دوستان زیادی دارد.
+a2-1	3	streiten	-	to argue; to quarrel	دعوا کردن؛ بحث و جدل کردن	Meine Geschwister streiten oft um Kleinigkeiten.	My siblings often argue about little things.	خواهر و برادرهایم اغلب سر چیزهای کوچک دعوا می‌کنند.
+a2-1	3	sich vertragen	-	to get along; to make up	با هم کنار آمدن؛ آشتی کردن	Nach dem Streit haben wir uns wieder vertragen.	After the quarrel we made up again.	بعد از دعوا دوباره با هم آشتی کردیم.
+a2-1	3	sich verlieben	-	to fall in love	عاشق شدن	Sie hat sich in einen Kollegen verliebt.	She fell in love with a colleague.	او عاشق یکی از همکارانش شد.
+a2-1	3	heiraten	-	to marry; to get married	ازدواج کردن	Meine Eltern haben vor dreißig Jahren geheiratet.	My parents got married thirty years ago.	پدر و مادرم سی سال پیش ازدواج کردند.
+a2-1	3	aufwachsen	-	to grow up	بزرگ شدن	Ich bin in einem kleinen Dorf aufgewachsen.	I grew up in a small village.	من در یک روستای کوچک بزرگ شدم.
+a2-1	3	Wir haben uns … kennengelernt.	-	We got to know each other …	ما در … با هم آشنا شدیم.	Wir haben uns im Deutschkurs kennengelernt.	We met in the German course.	ما در کلاس آلمانی با هم آشنا شدیم.
+a2-1	3	Ich verstehe mich gut mit …	-	I get along well with …	من با … رابطه‌ی خوبی دارم.	Ich verstehe mich gut mit meiner Schwester.	I get along well with my sister.	من با خواهرم رابطه‌ی خوبی دارم.
+a2-1	3	gut miteinander auskommen	-	to get along well with each other	خوب با هم کنار آمدن	Meine Kollegen und ich kommen gut miteinander aus.	My colleagues and I get along well with each other.	من و همکارانم خوب با هم کنار می‌آییم.
+a2-1	3	sich scheiden lassen	-	to get divorced	طلاق گرفتن	Ihre Eltern haben sich vor zwei Jahren scheiden lassen.	Her parents got divorced two years ago.	پدر و مادر او دو سال پیش از هم طلاق گرفتند.
+a2-1	4	die Ferienwohnung	Ferienwohnungen	holiday apartment	آپارتمان تعطیلات	Wir haben eine Ferienwohnung am Meer gemietet.	We rented a holiday apartment by the sea.	ما یک آپارتمان تعطیلات کنار دریا اجاره کردیم.
+a2-1	4	die Miete	Mieten	rent	اجاره؛ اجاره‌بها	Die Miete ist in dieser Stadt sehr hoch.	The rent is very high in this city.	اجاره‌بها در این شهر خیلی بالاست.
+a2-1	4	der Vermieter	Vermieter	landlord	صاحب‌خانه؛ مؤجر	Der Vermieter wohnt im Erdgeschoss.	The landlord lives on the ground floor.	صاحب‌خانه در طبقه‌ی همکف زندگی می‌کند.
+a2-1	4	die Nachbarschaft	Nachbarschaften	neighbourhood; neighbours	همسایگی؛ محله	Die Nachbarschaft hier ist sehr freundlich.	The neighbourhood here is very friendly.	همسایه‌های اینجا خیلی مهربان‌اند.
+a2-1	4	die Etage	Etagen	floor; storey	طبقه	Unsere Wohnung liegt in der dritten Etage.	Our apartment is on the third floor.	آپارتمان ما در طبقه‌ی سوم است.
+a2-1	4	der Aufzug	Aufzüge	lift; elevator	آسانسور	Der Aufzug ist leider kaputt.	Unfortunately the lift is broken.	متأسفانه آسانسور خراب است.
+a2-1	4	der Keller	Keller	cellar; basement	زیرزمین	Das Fahrrad steht im Keller.	The bicycle is in the cellar.	دوچرخه در زیرزمین است.
+a2-1	4	der Garten	Gärten	garden	باغ؛ باغچه	Hinter dem Haus gibt es einen großen Garten.	Behind the house there is a big garden.	پشت خانه یک باغ بزرگ هست.
+a2-1	4	die Waschmaschine	Waschmaschinen	washing machine	ماشین لباسشویی	Die Waschmaschine steht im Badezimmer.	The washing machine is in the bathroom.	ماشین لباسشویی در حمام است.
+a2-1	4	der Herd	Herde	cooker; stove	اجاق گاز؛ اجاق	Vorsicht, der Herd ist noch heiß!	Careful, the stove is still hot!	مواظب باش، اجاق هنوز داغ است!
+a2-1	4	der Kühlschrank	Kühlschränke	fridge	یخچال	Die Milch steht im Kühlschrank.	The milk is in the fridge.	شیر در یخچال است.
+a2-1	4	der Staubsauger	Staubsauger	vacuum cleaner	جارو برقی	Ich muss heute den Teppich mit dem Staubsauger reinigen.	I have to vacuum the carpet today.	امروز باید فرش را با جارو برقی تمیز کنم.
+a2-1	4	einrichten	-	to furnish; to set up	مبله کردن؛ چیدن (خانه)	Wir möchten die Wohnung modern einrichten.	We would like to furnish the apartment in a modern style.	ما می‌خواهیم خانه را مدرن بچینیم.
+a2-1	4	umziehen	-	to move (house)	اسباب‌کشی کردن؛ نقل مکان کردن	Nächsten Monat ziehen wir nach Berlin um.	Next month we are moving to Berlin.	ماه آینده به برلین اسباب‌کشی می‌کنیم.
+a2-1	4	mieten	-	to rent	اجاره کردن	Ich möchte eine kleine Wohnung in der Stadt mieten.	I would like to rent a small apartment in the city.	می‌خواهم یک آپارتمان کوچک در شهر اجاره کنم.
+a2-1	4	stellen	-	to put; to place (upright)	گذاشتن؛ قرار دادن (ایستاده)	Stell die Flasche bitte auf den Tisch.	Please put the bottle on the table.	لطفاً بطری را روی میز بگذار.
+a2-1	4	Wo ist …?	-	Where is …?	… کجاست؟	Wo ist der Schlüssel für die Garage?	Where is the key for the garage?	کلید گاراژ کجاست؟
+a2-1	4	Ich suche …	-	I am looking for …	من دنبال … می‌گردم.	Ich suche eine Wohnung mit Balkon.	I am looking for an apartment with a balcony.	من دنبال یک آپارتمان با بالکن می‌گردم.
+a2-1	4	im dritten Stock	-	on the third floor	در طبقه‌ی سوم	Die Ferienwohnung liegt im dritten Stock.	The holiday apartment is on the third floor.	آپارتمان تعطیلات در طبقه‌ی سوم است.
+a2-1	4	Das Bild hängt an der Wand.	-	The picture hangs on the wall.	تصویر به دیوار آویزان است.	Das Bild hängt an der Wand über dem Sofa.	The picture hangs on the wall above the sofa.	تصویر روی دیوار بالای مبل آویزان است.
+a2-2	1	die Packung	Packungen	package; pack	بسته	Ich kaufe eine Packung Nudeln.	I'm buying a package of pasta.	من یک بسته ماکارونی می‌خرم.
+a2-2	1	die Flasche	Flaschen	bottle	بطری	Bring bitte eine Flasche Wasser mit.	Please bring a bottle of water.	لطفاً یک بطری آب بیاور.
+a2-2	1	die Tüte	Tüten	bag	کیسه؛ پاکت	Brauchen Sie eine Tüte für die Äpfel?	Do you need a bag for the apples?	برای سیب‌ها کیسه لازم دارید؟
+a2-2	1	das Gramm	Gramm	gram	گرم	Ich brauche zweihundert Gramm Käse.	I need two hundred grams of cheese.	من دویست گرم پنیر لازم دارم.
+a2-2	1	das Kilo	Kilos	kilo	کیلو	Ein Kilo Tomaten kostet drei Euro.	A kilo of tomatoes costs three euros.	یک کیلو گوجه‌فرنگی سه یورو است.
+a2-2	1	die Scheibe	Scheiben	slice	برش؛ تکه	Er isst eine Scheibe Brot mit Käse.	He eats a slice of bread with cheese.	او یک تکه نان با پنیر می‌خورد.
+a2-2	1	die Zutat	Zutaten	ingredient	ماده (غذایی)؛ مواد	Alle Zutaten sind frisch.	All the ingredients are fresh.	همهٔ مواد تازه هستند.
+a2-2	1	das Rezept	Rezepte	recipe	دستور پخت	Das Rezept ist ganz einfach.	The recipe is very simple.	دستور پخت خیلی ساده است.
+a2-2	1	backen	-	to bake	پختن (در فر)	Am Sonntag backe ich einen Kuchen.	On Sunday I bake a cake.	یکشنبه من کیک می‌پزم.
+a2-2	1	braten	-	to fry; to roast	سرخ کردن؛ کباب کردن	Er brät das Fleisch in der Pfanne.	He fries the meat in the pan.	او گوشت را در تابه سرخ می‌کند.
+a2-2	1	schneiden	-	to cut	بریدن؛ خرد کردن	Schneide bitte die Zwiebel klein.	Please chop the onion.	لطفاً پیاز را ریز خرد کن.
+a2-2	1	die Vorspeise	Vorspeisen	starter	پیش‌غذا	Als Vorspeise nehme ich eine Suppe.	As a starter I'll have a soup.	به عنوان پیش‌غذا من یک سوپ می‌گیرم.
+a2-2	1	der Nachtisch	Nachtische	dessert	دسر	Möchten Sie noch einen Nachtisch?	Would you like a dessert as well?	دسر هم میل دارید؟
+a2-2	1	scharf	-	spicy; sharp	تند؛ تیز	Die Suppe ist mir zu scharf.	The soup is too spicy for me.	سوپ برای من خیلی تند است.
+a2-2	1	süß	-	sweet	شیرین	Der Kuchen ist sehr süß.	The cake is very sweet.	کیک خیلی شیرین است.
+a2-2	1	sauer	-	sour; angry	ترش؛ عصبانی	Die Zitrone ist sehr sauer.	The lemon is very sour.	لیمو خیلی ترش است.
+a2-2	1	Könnten Sie mir … bringen?	-	Could you bring me …?	می‌توانید ... برایم بیاورید؟	Könnten Sie mir bitte die Speisekarte bringen?	Could you please bring me the menu?	می‌توانید لطفاً منو را برایم بیاورید؟
+a2-2	1	Ich nehme …	-	I'll take …; I'll have …	من ... را می‌گیرم	Ich nehme das Hähnchen mit Reis.	I'll have the chicken with rice.	من مرغ با برنج می‌گیرم.
+a2-2	1	Stimmt so.	-	Keep the change.	بقیه مال شما.	Das macht zwölf Euro. – Stimmt so.	That's twelve euros. – Keep the change.	می‌شود دوازده یورو. – بقیه مال شما.
+a2-2	1	Zum Mitnehmen, bitte.	-	To take away, please.	بیرون‌بر، لطفاً.	Einen Kaffee zum Mitnehmen, bitte.	A coffee to take away, please.	یک قهوه بیرون‌بر، لطفاً.
+a2-2	2	das Graffiti	Graffiti	graffiti	گرافیتی؛ نقاشی دیواری	An der Mauer ist ein buntes Graffiti.	There is a colourful graffiti on the wall.	روی دیوار یک گرافیتی رنگارنگ هست.
+a2-2	2	die Umwelt	-	environment	محیط زیست	Wir müssen die Umwelt schützen.	We have to protect the environment.	ما باید از محیط زیست محافظت کنیم.
+a2-2	2	der Müll	-	rubbish; waste	زباله	Der Müll steht vor der Tür.	The rubbish is outside the door.	زباله جلوی در است.
+a2-2	2	trennen	-	to separate	جدا کردن	Wir trennen den Müll zu Hause.	We separate the waste at home.	ما زباله را در خانه جدا می‌کنیم.
+a2-2	2	recyceln	-	to recycle	بازیافت کردن	Man kann Plastik und Papier recyceln.	You can recycle plastic and paper.	می‌شود پلاستیک و کاغذ را بازیافت کرد.
+a2-2	2	der Klimawandel	-	climate change	تغییر اقلیم	Der Klimawandel ist ein großes Problem.	Climate change is a big problem.	تغییر اقلیم یک مشکل بزرگ است.
+a2-2	2	die Energie	-	energy	انرژی	Solarenergie ist gut für die Umwelt.	Solar energy is good for the environment.	انرژی خورشیدی برای محیط زیست خوب است.
+a2-2	2	sparen	-	to save	صرفه‌جویی کردن؛ پس‌انداز کردن	Ich will Strom und Wasser sparen.	I want to save electricity and water.	می‌خواهم در برق و آب صرفه‌جویی کنم.
+a2-2	2	der Freiwillige	Freiwillige	volunteer	داوطلب	Viele Freiwillige helfen beim Fest.	Many volunteers help at the festival.	بسیاری از داوطلبان در جشن کمک می‌کنند.
+a2-2	2	die Ausstellung	Ausstellungen	exhibition	نمایشگاه	Die Ausstellung ist bis Freitag geöffnet.	The exhibition is open until Friday.	نمایشگاه تا جمعه باز است.
+a2-2	2	das Konzert	Konzerte	concert	کنسرت	Gestern waren wir auf einem Konzert.	Yesterday we went to a concert.	دیروز ما در یک کنسرت بودیم.
+a2-2	2	der Schauspieler	Schauspieler	actor	بازیگر	Der Schauspieler war richtig gut.	The actor was really good.	بازیگر واقعاً عالی بود.
+a2-2	2	die Kinokarte	Kinokarten	cinema ticket	بلیت سینما	Ich habe zwei Kinokarten gekauft.	I bought two cinema tickets.	من دو بلیت سینما خریدم.
+a2-2	2	der Trend	Trends	trend	روند؛ ترند	Dieser Trend kommt aus Amerika.	This trend comes from America.	این ترند از آمریکا می‌آید.
+a2-2	2	beliebt	-	popular	محبوب	Dieser Film ist bei Jugendlichen beliebt.	This film is popular with young people.	این فیلم میان جوانان محبوب است.
+a2-2	2	das Festival	Festivals	festival	جشنواره	Im Sommer besuche ich ein Festival.	In summer I'm visiting a festival.	تابستان به یک جشنواره می‌روم.
+a2-2	2	Der Eintritt ist frei.	-	Admission is free.	ورودی رایگان است.	Der Eintritt ist frei, weil es ein Fest ist.	Admission is free because it is a festival.	ورودی رایگان است چون جشن است.
+a2-2	2	Das ist in Mode.	-	That is in fashion.	این مد روز است.	Diese Jacke ist gerade in Mode.	This jacket is in fashion right now.	این کت الان مد است.
+a2-2	2	Wer spielt die Hauptrolle?	-	Who plays the lead role?	نقش اصلی را چه کسی بازی می‌کند؟	Wer spielt die Hauptrolle in dem Film?	Who plays the lead role in the film?	نقش اصلی فیلم را چه کسی بازی می‌کند؟
+a2-2	2	Ich interessiere mich für …	-	I am interested in …	من به ... علاقه دارم	Ich interessiere mich für Straßenkunst.	I am interested in street art.	من به هنر خیابانی علاقه دارم.
+a2-2	3	die Grundschule	Grundschulen	primary school	مدرسهٔ ابتدایی	Meine Tochter geht in die Grundschule.	My daughter goes to primary school.	دخترم به مدرسهٔ ابتدایی می‌رود.
+a2-2	3	das Gymnasium	Gymnasien	grammar school	دبیرستان (نوع آکادمیک)	Nach der Grundschule kommt das Gymnasium.	After primary school comes the Gymnasium.	بعد از ابتدایی نوبت گیمنازیوم است.
+a2-2	3	das Abitur	-	school-leaving exam	دیپلم پایان دبیرستان (آبیتور)	Er hat das Abitur mit Note zwei gemacht.	He passed the Abitur with a grade of two.	او آبیتور را با نمرهٔ دو گذراند.
+a2-2	3	die Universität	Universitäten	university	دانشگاه	Sie arbeitet an der Universität.	She works at the university.	او در دانشگاه کار می‌کند.
+a2-2	3	das Studium	-	studies; degree course	تحصیلات دانشگاهی؛ دورهٔ تحصیل	Mein Studium dauert drei Jahre.	My degree course lasts three years.	دورهٔ تحصیل من سه سال طول می‌کشد.
+a2-2	3	das Fach	Fächer	subject	درس؛ رشته	Mein Lieblingsfach ist Mathematik.	My favourite subject is maths.	درس مورد علاقهٔ من ریاضی است.
+a2-2	3	die Prüfung	Prüfungen	exam	امتحان	Morgen habe ich eine wichtige Prüfung.	Tomorrow I have an important exam.	فردا یک امتحان مهم دارم.
+a2-2	3	die Note	Noten	grade; mark	نمره	Ich habe eine gute Note bekommen.	I got a good grade.	من نمرهٔ خوبی گرفتم.
+a2-2	3	das Zeugnis	Zeugnisse	certificate; report card	کارنامه؛ گواهینامه	Das Zeugnis liegt im Ordner.	The certificate is in the folder.	کارنامه در پوشه است.
+a2-2	3	die Stelle	Stellen	job; position	شغل؛ موقعیت شغلی	Die Stelle ist schon besetzt.	The position is already filled.	این موقعیت شغلی قبلاً پر شده است.
+a2-2	3	das Vorstellungsgespräch	Vorstellungsgespräche	job interview	مصاحبهٔ شغلی	Ich habe nächste Woche ein Vorstellungsgespräch.	I have a job interview next week.	هفتهٔ آینده مصاحبهٔ شغلی دارم.
+a2-2	3	die Teilzeit	-	part-time	پاره‌وقت	Sie arbeitet in Teilzeit, weil sie Kinder hat.	She works part-time because she has children.	او پاره‌وقت کار می‌کند چون بچه دارد.
+a2-2	3	die Vollzeit	-	full-time	تمام‌وقت	Ich suche eine Stelle in Vollzeit.	I'm looking for a full-time job.	من دنبال یک شغل تمام‌وقت هستم.
+a2-2	3	der Handwerker	Handwerker	craftsman; tradesman	صنعتگر؛ استادکار	Der Handwerker repariert das Dach.	The tradesman is repairing the roof.	استادکار سقف را تعمیر می‌کند.
+a2-2	3	der Ingenieur	Ingenieure	engineer	مهندس	Mein Onkel ist Ingenieur bei einer Firma.	My uncle is an engineer at a company.	عمویم در یک شرکت مهندس است.
+a2-2	3	die Berufserfahrung	-	work experience	سابقهٔ کار	Haben Sie schon Berufserfahrung?	Do you already have work experience?	آیا قبلاً سابقهٔ کار دارید؟
+a2-2	3	sich bewerben um	-	to apply for	درخواست دادن برای	Ich bewerbe mich um die Stelle als Techniker.	I'm applying for the position as technician.	من برای موقعیت شغلی تکنسین درخواست می‌دهم.
+a2-2	3	eine Prüfung bestehen	-	to pass an exam	امتحان را قبول شدن	Er hat die Prüfung endlich bestanden.	He finally passed the exam.	او سرانجام امتحان را قبول شد.
+a2-2	3	einen Abschluss machen	-	to graduate	مدرک گرفتن؛ فارغ‌التحصیل شدن	Sie möchte nächstes Jahr einen Abschluss machen.	She wants to graduate next year.	او می‌خواهد سال آینده مدرکش را بگیرد.
+a2-2	3	Was haben Sie studiert?	-	What did you study?	چه رشته‌ای خوانده‌اید؟	Was haben Sie studiert, bevor Sie hier angefangen haben?	What did you study before you started here?	پیش از شروع کار اینجا چه رشته‌ای خوانده‌اید؟
+a2-2	4	der Hausarzt	Hausärzte	family doctor	پزشک خانوادگی	Mein Hausarzt ist sehr freundlich.	My family doctor is very friendly.	پزشک خانوادگی من خیلی مهربان است.
+a2-2	4	die Praxis	Praxen	doctor's surgery	مطب	Die Praxis ist am Mittwoch geschlossen.	The surgery is closed on Wednesday.	مطب چهارشنبه تعطیل است.
+a2-2	4	die Tablette	Tabletten	tablet; pill	قرص	Nimm die Tablette nach dem Essen.	Take the tablet after the meal.	قرص را بعد از غذا بخور.
+a2-2	4	die Erkältung	Erkältungen	cold	سرماخوردگی	Ich habe eine starke Erkältung.	I have a bad cold.	من سرماخوردگی شدیدی دارم.
+a2-2	4	der Husten	-	cough	سرفه	Der Husten ist schon seit drei Tagen da.	The cough has been there for three days.	سرفه از سه روز پیش هست.
+a2-2	4	die Allergie	Allergien	allergy	آلرژی	Er hat eine Allergie gegen Pollen.	He has an allergy to pollen.	او به گرده آلرژی دارد.
+a2-2	4	der Verband	Verbände	bandage	باند؛ پانسمان	Die Krankenschwester wechselt den Verband.	The nurse changes the bandage.	پرستار باند را عوض می‌کند.
+a2-2	4	die Krankenkasse	Krankenkassen	health insurance	بیمهٔ درمانی	Meine Krankenkasse bezahlt die Behandlung.	My health insurance pays for the treatment.	بیمهٔ درمانی من هزینهٔ درمان را می‌پردازد.
+a2-2	4	das Krankenhaus	Krankenhäuser	hospital	بیمارستان	Er musste zwei Tage im Krankenhaus bleiben.	He had to stay in hospital for two days.	او مجبور بود دو روز در بیمارستان بماند.
+a2-2	4	der Notfall	Notfälle	emergency	اورژانس؛ وضعیت اضطراری	Im Notfall rufen Sie die 112 an.	In an emergency, call 112.	در مواقع اضطراری با ۱۱۲ تماس بگیرید.
+a2-2	4	die Ernährung	-	nutrition; diet	تغذیه	Gesunde Ernährung ist wichtig für mich.	Healthy nutrition is important to me.	تغذیهٔ سالم برای من مهم است.
+a2-2	4	der Stress	-	stress	استرس	Ich habe im Moment viel Stress bei der Arbeit.	I have a lot of stress at work right now.	من الان در کار استرس زیادی دارم.
+a2-2	4	der Schlaf	-	sleep	خواب	Genug Schlaf ist wichtig für die Gesundheit.	Enough sleep is important for your health.	خواب کافی برای سلامتی مهم است.
+a2-2	4	das Glück	-	happiness; luck	خوشبختی؛ شانس	Gesundheit ist das größte Glück.	Health is the greatest happiness.	سلامتی بزرگ‌ترین خوشبختی است.
+a2-2	4	zufrieden	-	satisfied; content	راضی؛ خشنود	Ich bin mit meinem Leben zufrieden.	I am content with my life.	من از زندگی‌ام راضی هستم.
+a2-2	4	sich erholen	-	to recover; to relax	استراحت کردن؛ بهبود یافتن	Nach der Arbeit erhole ich mich im Park.	After work I relax in the park.	بعد از کار در پارک استراحت می‌کنم.
+a2-2	4	Was fehlt Ihnen?	-	What's wrong? (formal)	چه مشکلی دارید؟	Was fehlt Ihnen? – Ich habe Kopfschmerzen.	What's wrong? – I have a headache.	چه مشکلی دارید؟ – سردرد دارم.
+a2-2	4	sich fühlen	-	to feel	احساس کردن	Ich fühle mich heute viel besser.	I feel much better today.	امروز خیلی بهتر احساس می‌کنم.
+a2-2	4	einen Termin ausmachen	-	to make an appointment	وقت گرفتن؛ قرار گذاشتن	Ich möchte einen Termin beim Arzt ausmachen.	I'd like to make an appointment with the doctor.	می‌خواهم از دکتر وقت بگیرم.
+a2-2	4	gesund leben	-	to live healthily	سالم زندگی کردن	Wenn man gesund leben will, sollte man Sport machen.	If you want to live healthily, you should exercise.	اگر بخواهید سالم زندگی کنید، باید ورزش کنید.
+a2-3	1	das Fernsehen	-	television; watching TV	تلویزیون؛ تماشای تلویزیون	Nach der Arbeit schaue ich gern Fernsehen.	After work I like watching TV.	بعد از کار دوست دارم تلویزیون تماشا کنم.
+a2-3	1	die Sendung	Sendungen	programme; show; broadcast	برنامه (تلویزیونی یا رادیویی)	Diese Sendung läuft jeden Mittwoch um acht Uhr.	This show is on every Wednesday at eight.	این برنامه هر چهارشنبه ساعت هشت پخش می‌شود.
+a2-3	1	die Nachrichten	-	news	اخبار	Ich sehe jeden Abend die Nachrichten.	I watch the news every evening.	من هر شب اخبار می‌بینم.
+a2-3	1	die Serie	Serien	series; TV series	سریال	Wir haben gestern die ganze Serie angeschaut.	We watched the whole series yesterday.	ما دیروز تمام سریال را تماشا کردیم.
+a2-3	1	die Werbung	-	advertising; advert	تبلیغات؛ آگهی	Die Werbung im Fernsehen nervt mich.	The advertising on TV annoys me.	تبلیغات تلویزیون من را کلافه می‌کند.
+a2-3	1	die Zeitung	Zeitungen	newspaper	روزنامه	Mein Opa liest jeden Morgen die Zeitung.	My grandpa reads the newspaper every morning.	پدربزرگم هر صبح روزنامه می‌خواند.
+a2-3	1	das Smartphone	Smartphones	smartphone	گوشی هوشمند	Mein Smartphone ist leider kaputt gegangen.	Unfortunately my smartphone broke.	متأسفانه گوشی هوشمندم خراب شد.
+a2-3	1	die App	Apps	app	اپلیکیشن؛ برنامه (موبایل)	Diese App hilft mir beim Deutschlernen.	This app helps me learn German.	این اپلیکیشن به من در یادگیری آلمانی کمک می‌کند.
+a2-3	1	der Bildschirm	Bildschirme	screen; monitor	صفحه نمایش؛ مانیتور	Der Bildschirm ist zu hell eingestellt.	The screen is set too bright.	صفحه نمایش بیش از حد روشن تنظیم شده است.
+a2-3	1	das Passwort	Passwörter	password	رمز عبور	Ich habe mein Passwort vergessen.	I have forgotten my password.	رمز عبورم را فراموش کرده‌ام.
+a2-3	1	herunterladen	-	to download	دانلود کردن	Kannst du das Video bitte herunterladen?	Can you please download the video?	می‌توانی لطفاً ویدیو را دانلود کنی؟
+a2-3	1	speichern	-	to save; to store	ذخیره کردن	Vergiss nicht, die Datei zu speichern.	Don't forget to save the file.	فراموش نکن که فایل را ذخیره کنی.
+a2-3	1	online	-	online	آنلاین	Meine Tante kauft gern online ein.	My aunt likes shopping online.	خاله‌ام دوست دارد آنلاین خرید کند.
+a2-3	1	eine Nachricht schicken	-	to send a message	پیام فرستادن	Ich schicke dir gleich eine Nachricht.	I'll send you a message in a moment.	همین الان برایت پیام می‌فرستم.
+a2-3	1	im Internet surfen	-	to surf the internet	در اینترنت گشتن	Am Wochenende surfe ich oft im Internet.	On weekends I often surf the internet.	آخر هفته‌ها اغلب در اینترنت می‌گردم.
+a2-3	1	die Feier	Feiern	celebration; party	جشن؛ مراسم	Die Feier war sehr schön und lustig.	The celebration was very nice and fun.	جشن خیلی خوب و بامزه بود.
+a2-3	1	die Hochzeit	Hochzeiten	wedding	عروسی	Meine Schwester hat im Sommer Hochzeit.	My sister is getting married in summer.	خواهرم تابستان عروسی دارد.
+a2-3	1	überraschen	-	to surprise	غافلگیر کردن	Wir wollen unsere Mutter mit einem Kuchen überraschen.	We want to surprise our mother with a cake.	می‌خواهیم مادرمان را با یک کیک غافلگیر کنیم.
+a2-3	1	gratulieren	-	to congratulate	تبریک گفتن	Alle haben ihm zum Geburtstag gratuliert.	Everyone congratulated him on his birthday.	همه تولدش را به او تبریک گفتند.
+a2-3	1	Herzlichen Glückwunsch!	-	Congratulations!	تبریک می‌گویم!	Herzlichen Glückwunsch zur bestandenen Prüfung!	Congratulations on passing the exam!	قبولی در امتحان را تبریک می‌گویم!
+a2-3	2	das Kaufhaus	Kaufhäuser	department store	فروشگاه بزرگ	Im Kaufhaus gibt es alles unter einem Dach.	In the department store you find everything under one roof.	در فروشگاه بزرگ همه چیز زیر یک سقف پیدا می‌شود.
+a2-3	2	das Angebot	Angebote	offer; selection	پیشنهاد؛ تخفیف ویژه؛ تنوع کالا	Dieses Angebot gilt nur noch bis Freitag.	This offer is only valid until Friday.	این پیشنهاد فقط تا جمعه معتبر است.
+a2-3	2	das Sonderangebot	Sonderangebote	special offer	حراج؛ پیشنهاد ویژه	Die Jacke war ein Sonderangebot und kostete nur zwanzig Euro.	The jacket was a special offer and cost only twenty euros.	این کاپشن حراج بود و فقط بیست یورو قیمت داشت.
+a2-3	2	der Umtausch	-	exchange	تعویض کالا	Ein Umtausch ist nur mit Quittung möglich.	An exchange is only possible with a receipt.	تعویض کالا فقط با رسید ممکن است.
+a2-3	2	die Quittung	Quittungen	receipt	رسید	Bitte heben Sie die Quittung gut auf.	Please keep the receipt safe.	لطفاً رسید را خوب نگه دارید.
+a2-3	2	die Garantie	Garantien	guarantee; warranty	گارانتی؛ ضمانت	Auf den Fernseher haben wir zwei Jahre Garantie.	The TV has a two-year warranty.	تلویزیون دو سال گارانتی دارد.
+a2-3	2	reklamieren	-	to complain (about a defect); to make a claim	شکایت کردن (از کالای معیوب)	Ich muss die kaputte Hose reklamieren.	I have to complain about the damaged trousers.	باید درباره شلوار خراب شکایت کنم.
+a2-3	2	die Baumwolle	-	cotton	پنبه	Dieses T-Shirt ist aus reiner Baumwolle.	This T-shirt is made of pure cotton.	این تی‌شرت از پنبه خالص است.
+a2-3	2	das Leder	-	leather	چرم	Meine Schuhe sind aus echtem Leder.	My shoes are made of real leather.	کفش‌هایم از چرم اصل هستند.
+a2-3	2	das Holz	-	wood	چوب	Der Tisch ist aus Holz gemacht.	The table is made of wood.	این میز از چوب ساخته شده است.
+a2-3	2	das Metall	Metalle	metal	فلز	Der Schlüssel besteht aus Metall.	The key is made of metal.	کلید از فلز ساخته شده است.
+a2-3	2	das Kompliment	Komplimente	compliment	تعریف؛ تعارف خوب	Danke für das nette Kompliment!	Thanks for the nice compliment!	از تعریف قشنگت ممنونم!
+a2-3	2	die Reinigung	Reinigungen	dry cleaner's; cleaning	خشک‌شویی؛ نظافت	Ich bringe den Mantel morgen zur Reinigung.	I'll take the coat to the dry cleaner's tomorrow.	فردا پالتو را به خشک‌شویی می‌برم.
+a2-3	2	der Friseur	Friseure	hairdresser; barber	آرایشگر؛ سلمانی	Ich habe morgen einen Termin beim Friseur.	I have an appointment at the hairdresser's tomorrow.	فردا پیش آرایشگر وقت دارم.
+a2-3	2	die Reparatur	Reparaturen	repair	تعمیر	Die Reparatur dauert leider drei Tage.	The repair unfortunately takes three days.	متأسفانه تعمیر سه روز طول می‌کشد.
+a2-3	2	die Beratung	Beratungen	advice; consultation	مشاوره	Die Beratung im Geschäft war sehr freundlich.	The advice in the shop was very friendly.	مشاوره در فروشگاه خیلی دوستانه بود.
+a2-3	2	Die Farbe steht dir gut.	-	The colour suits you.	این رنگ به تو می‌آید.	Die neue Haarfarbe steht dir wirklich gut.	The new hair colour really suits you.	رنگ موی جدیدت واقعاً به تو می‌آید.
+a2-3	2	Kann ich Ihnen helfen?	-	Can I help you?	می‌توانم کمکتان کنم؟	Guten Tag, kann ich Ihnen helfen?	Good afternoon, can I help you?	روز بخیر، می‌توانم کمکتان کنم؟
+a2-3	2	ein Geschenk aussuchen	-	to choose a present	یک هدیه انتخاب کردن	Wir wollen für Oma ein Geschenk aussuchen.	We want to choose a present for Grandma.	می‌خواهیم برای مادربزرگ یک هدیه انتخاب کنیم.
+a2-3	2	ein gutes Preis-Leistungs-Verhältnis	-	good value for money	نسبت قیمت به کیفیت خوب	Das Handy hat ein gutes Preis-Leistungs-Verhältnis.	The phone is good value for money.	این گوشی نسبت قیمت به کیفیت خوبی دارد.
+a2-3	3	das Konto	Konten	account	حساب (بانکی)	Ich habe ein Konto bei einer deutschen Bank.	I have an account at a German bank.	من در یک بانک آلمانی حساب دارم.
+a2-3	3	der Geldautomat	Geldautomaten	cash machine; ATM	دستگاه خودپرداز	Der Geldautomat ist direkt neben dem Eingang.	The cash machine is right next to the entrance.	خودپرداز درست کنار ورودی است.
+a2-3	3	die Bankkarte	Bankkarten	bank card	کارت بانکی	Meine Bankkarte funktioniert nicht mehr.	My bank card no longer works.	کارت بانکی‌ام دیگر کار نمی‌کند.
+a2-3	3	die Überweisung	Überweisungen	bank transfer	انتقال پول؛ حواله	Die Überweisung kommt in zwei Tagen an.	The transfer will arrive in two days.	حواله دو روز دیگر می‌رسد.
+a2-3	3	das Bargeld	-	cash	پول نقد	Ich habe heute kein Bargeld dabei.	I don't have any cash on me today.	امروز پول نقد همراهم نیست.
+a2-3	3	abheben	-	to withdraw (money)	برداشت کردن (پول)	Ich möchte fünfzig Euro abheben.	I would like to withdraw fifty euros.	می‌خواهم پنجاه یورو برداشت کنم.
+a2-3	3	einzahlen	-	to pay in; to deposit	واریز کردن	Er zahlt jeden Monat Geld auf sein Konto ein.	He pays money into his account every month.	او هر ماه به حسابش پول واریز می‌کند.
+a2-3	3	der Kontostand	Kontostände	account balance	موجودی حساب	Wie hoch ist mein Kontostand?	What is my account balance?	موجودی حسابم چقدر است؟
+a2-3	3	die Zinsen	-	interest	سود بانکی	Die Bank zahlt zurzeit wenig Zinsen.	The bank currently pays little interest.	بانک این روزها سود کمی می‌دهد.
+a2-3	3	die Briefmarke	Briefmarken	stamp	تمبر	Ich brauche zwei Briefmarken für Postkarten.	I need two stamps for postcards.	برای کارت‌پستال دو تا تمبر لازم دارم.
+a2-3	3	der Absender	Absender	sender	فرستنده	Auf dem Umschlag fehlt der Absender.	The sender is missing on the envelope.	روی پاکت فرستنده نوشته نشده است.
+a2-3	3	der Empfänger	Empfänger	recipient; receiver	گیرنده	Der Empfänger war leider nicht zu Hause.	The recipient was unfortunately not at home.	متأسفانه گیرنده خانه نبود.
+a2-3	3	die Postleitzahl	Postleitzahlen	postcode; zip code	کد پستی	Wie lautet Ihre Postleitzahl?	What is your postcode?	کد پستی شما چیست؟
+a2-3	3	das Formular	Formulare	form	فرم؛ برگه	Bitte füllen Sie dieses Formular aus.	Please fill out this form.	لطفاً این فرم را پر کنید.
+a2-3	3	ausfüllen	-	to fill out	پر کردن (فرم)	Ich muss noch den Antrag ausfüllen.	I still have to fill out the application.	هنوز باید درخواست را پر کنم.
+a2-3	3	unterschreiben	-	to sign	امضا کردن	Hier müssen Sie bitte unterschreiben.	You have to sign here, please.	اینجا لطفاً باید امضا کنید.
+a2-3	3	die Gebühr	Gebühren	fee; charge	هزینه؛ عوارض	Für die Überweisung zahlt man eine kleine Gebühr.	You pay a small fee for the transfer.	برای حواله یک هزینه کوچک پرداخت می‌شود.
+a2-3	3	ein Konto eröffnen	-	to open an account	حساب باز کردن	Ich möchte bei Ihrer Bank ein Konto eröffnen.	I would like to open an account at your bank.	می‌خواهم در بانک شما حساب باز کنم.
+a2-3	3	mit Karte zahlen	-	to pay by card	با کارت پرداخت کردن	Kann ich hier auch mit Karte zahlen?	Can I also pay by card here?	می‌توانم اینجا با کارت هم پرداخت کنم؟
+a2-3	3	ein Paket aufgeben	-	to send a parcel (hand it in at the post office)	بسته پستی فرستادن	Ich muss heute noch ein Paket aufgeben.	I still have to send a parcel today.	امروز هنوز باید یک بسته پستی بفرستم.
+a2-3	4	der Reiseführer	Reiseführer	guidebook; tour guide	کتاب راهنمای سفر؛ راهنمای تور	Im Reiseführer stehen viele gute Tipps.	The guidebook has many good tips.	در کتاب راهنمای سفر نکته‌های خوب زیادی هست.
+a2-3	4	die Unterkunft	Unterkünfte	accommodation	محل اقامت	Wir haben noch keine Unterkunft gefunden.	We haven't found any accommodation yet.	هنوز محل اقامتی پیدا نکرده‌ایم.
+a2-3	4	die Jugendherberge	Jugendherbergen	youth hostel	مهمانسرای جوانان	In der Jugendherberge haben wir viele Leute kennengelernt.	We met many people at the youth hostel.	در مهمان‌سرای جوانان با آدم‌های زیادی آشنا شدیم.
+a2-3	4	das Ferienhaus	Ferienhäuser	holiday home	خانه تعطیلات	Wir mieten im Sommer ein Ferienhaus am See.	We are renting a holiday home by the lake in summer.	تابستان یک خانه تعطیلات کنار دریاچه اجاره می‌کنیم.
+a2-3	4	die Pauschalreise	Pauschalreisen	package holiday	سفر گروهی با بسته کامل	Eine Pauschalreise ist oft billiger als einzeln buchen.	A package holiday is often cheaper than booking separately.	سفر با بسته کامل اغلب ارزان‌تر از رزرو جداگانه است.
+a2-3	4	das Gepäck	-	luggage	بار؛ چمدان‌ها	Mein Gepäck ist leider nicht angekommen.	Unfortunately my luggage didn't arrive.	متأسفانه چمدان‌هایم نرسیدند.
+a2-3	4	der Zoll	-	customs	گمرک	Am Zoll mussten wir unsere Taschen öffnen.	At customs we had to open our bags.	در گمرک باید کیف‌هایمان را باز می‌کردیم.
+a2-3	4	die Passkontrolle	Passkontrollen	passport control	کنترل گذرنامه	Die Passkontrolle dauerte fast eine Stunde.	Passport control took almost an hour.	کنترل گذرنامه نزدیک یک ساعت طول کشید.
+a2-3	4	der Fahrplan	Fahrpläne	timetable	جدول زمانی (حمل‌ونقل)	Laut Fahrplan fährt der Bus um zehn Uhr ab.	According to the timetable the bus leaves at ten.	طبق جدول زمانی اتوبوس ساعت ده حرکت می‌کند.
+a2-3	4	der Anschluss	Anschlüsse	connection (transport)	ارتباط (قطار یا اتوبوس بعدی)	Wegen der Verspätung haben wir den Anschluss verpasst.	Because of the delay we missed the connection.	به خاطر تأخیر به قطار بعدی نرسیدیم.
+a2-3	4	der Fahrkartenautomat	Fahrkartenautomaten	ticket machine	دستگاه فروش بلیت	Der Fahrkartenautomat nimmt nur Münzen an.	The ticket machine only accepts coins.	دستگاه فروش بلیت فقط سکه قبول می‌کند.
+a2-3	4	der Mietwagen	Mietwagen	rental car	ماشین کرایه‌ای	Wir haben für die Reise einen Mietwagen gebucht.	We booked a rental car for the trip.	برای سفر یک ماشین کرایه‌ای رزرو کرده‌ایم.
+a2-3	4	die Tankstelle	Tankstellen	petrol station	پمپ بنزین	Die nächste Tankstelle ist zwei Kilometer entfernt.	The next petrol station is two kilometres away.	پمپ بنزین بعدی دو کیلومتر دورتر است.
+a2-3	4	der Stau	Staus	traffic jam	ترافیک سنگین	Wegen des Staus kamen wir zu spät an.	Because of the traffic jam we arrived late.	به خاطر ترافیک سنگین دیر رسیدیم.
+a2-3	4	die Umleitung	Umleitungen	detour; diversion	مسیر انحرافی	Wegen der Baustelle gibt es eine Umleitung.	Because of the roadworks there is a detour.	به خاطر کارگاه ساختمانی مسیر انحرافی وجود دارد.
+a2-3	4	die Wegbeschreibung	Wegbeschreibungen	directions	توضیح مسیر	Danke für die genaue Wegbeschreibung!	Thanks for the precise directions!	از توضیح دقیق مسیر ممنونم!
+a2-3	4	der Ausflug	Ausflüge	trip; excursion	گردش؛ سفر کوتاه	Am Sonntag machen wir einen Ausflug an den See.	On Sunday we are going on a trip to the lake.	یکشنبه برای گردش به کنار دریاچه می‌رویم.
+a2-3	4	Entschuldigung, wie komme ich zum Dom?	-	Excuse me, how do I get to the cathedral?	ببخشید، چطور به کلیسای جامع برسم؟	Entschuldigung, wie komme ich zum Dom?	Excuse me, how do I get to the cathedral?	ببخشید، چطور به کلیسای جامع برسم؟
+a2-3	4	den Anschluss verpassen	-	to miss the connection	به وسیله بعدی نرسیدن	Beeil dich, sonst verpassen wir den Anschluss!	Hurry up, otherwise we'll miss the connection!	عجله کن وگرنه به وسیله بعدی نمی‌رسیم!
+a2-3	4	im Kreisverkehr die zweite Ausfahrt nehmen	-	to take the second exit at the roundabout	در میدان از خروجی دوم رفتن	Sie müssen im Kreisverkehr die zweite Ausfahrt nehmen.	You have to take the second exit at the roundabout.	باید در میدان از خروجی دوم بروید.

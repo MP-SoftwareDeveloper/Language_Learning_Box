@@ -99,6 +99,69 @@ bool isHeader(const QStringList &row)
     return !row.isEmpty() && names.contains(row.first().trimmed().toLower());
 }
 
+// "Card list" text written by hand: every card ends with ';'. Inside a card either
+//   * one field per line - German word / meaning / example sentence (the example may wrap), or
+//   * one line - German word, meaning, example sentence (separated by tab, | or comma;
+//     the example keeps any further commas).
+// Several cards may share a line. Returns false when the text is not in this format
+// (for example a semicolon-separated Excel table), so the normal CSV reader takes over.
+bool parseCardList(const QString &text, QList<Item> *out)
+{
+    bool endsWithSemicolon = false;
+    for (const QString &line : text.split(u'\n')) {
+        if (line.trimmed().endsWith(u';')) { endsWithSemicolon = true; break; }
+    }
+    if (!endsWithSemicolon)
+        return false;
+
+    int records = 0;
+    QList<Item> items;
+    for (const QString &record : text.split(u';')) {
+        QStringList lines;
+        for (const QString &l : record.split(u'\n')) {
+            const QString t = l.trimmed();
+            if (!t.isEmpty())
+                lines << t;
+        }
+        if (lines.isEmpty())
+            continue;
+        ++records;
+
+        QString front, back, example;
+        if (lines.size() >= 2) {
+            front = lines.at(0);
+            back = lines.at(1);
+            example = lines.mid(2).join(u' ');
+        } else {
+            const QString &l = lines.first();
+            QChar sep;
+            if (l.contains(u'\t')) sep = u'\t';
+            else if (l.contains(u'|')) sep = u'|';
+            else if (l.contains(u',')) sep = u',';
+            else continue; // a single word with nothing to split
+            const int a = int(l.indexOf(sep));
+            const int b = int(l.indexOf(sep, a + 1));
+            front = l.left(a).trimmed();
+            if (b < 0) {
+                back = l.mid(a + 1).trimmed();
+            } else {
+                back = l.mid(a + 1, b - a - 1).trimmed();
+                example = l.mid(b + 1).trimmed();
+            }
+        }
+        Item it;
+        it.front = plainText(front).replace(u'\n', u' ').trimmed();
+        it.back = plainText(back).trimmed();
+        it.example = plainText(example).replace(u'\n', u' ').trimmed();
+        if (!it.front.isEmpty() && !it.back.isEmpty())
+            items << it;
+    }
+    if (items.isEmpty() || items.size() * 2 < records)
+        return false;
+    *out = items;
+    return true;
+}
+
 QJsonValue dateOrNull(const QDateTime &d)
 {
     return d.isValid() ? QJsonValue(d.toUTC().toString(Qt::ISODate)) : QJsonValue();
@@ -204,6 +267,11 @@ Package readCsv(const QByteArray &bytes)
     QString text = QString::fromUtf8(bytes);
     if (text.startsWith(QChar(0xFEFF)))
         text.remove(0, 1);
+    QList<Item> listed;
+    if (parseCardList(text, &listed)) {
+        p.items = listed;
+        return p;
+    }
     const QChar sep = detectSeparator(text);
     bool first = true;
     for (QStringList row : parseDelimited(text, sep)) {

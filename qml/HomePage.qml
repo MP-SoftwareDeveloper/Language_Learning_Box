@@ -116,24 +116,28 @@ Page {
                         required property var modelData
                         required property int index
                         width: ListView.view ? ListView.view.width : implicitWidth
-                        contentItem: RowLayout {
-                            spacing: 8
+                        contentItem: ColumnLayout {
+                            spacing: 0
+                            // Full name (wraps instead of being cut off)
                             Label {
                                 Layout.fillWidth: true
-                                Layout.maximumWidth: implicitWidth
                                 text: page.flag(modelData.language) + "  " + modelData.name
-                                elide: Text.ElideRight
+                                wrapMode: Text.WordWrap
                                 font.bold: modelData.current
                                 leftPadding: 6
                                 rightPadding: 6
                             }
-                            Item { Layout.fillWidth: true }
                             Label {
-                                text: qsTr("%1 cards").arg(modelData.total)
+                                Layout.fillWidth: true
+                                text: qsTr("%1 cards").arg(modelData.total) + "  \u00B7  " + qsTr("%n due", "", modelData.due)
                                 opacity: 0.6
+                                font.pixelSize: 13
+                                leftPadding: 6
                             }
                         }
                     }
+                    // The list is as wide as the page, not only as wide as the combo box
+                    popup.width: page.width - 16
                 }
                 ToolButton {
                     text: "+"
@@ -339,11 +343,35 @@ Page {
                 }
             }
             Button {
+                id: lensBtn
                 Layout.fillWidth: true
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
                 visible: AppMode.full
-                text: qsTr("\uD83D\uDCF7  Lens \u00B7 words from a photo")
+                Layout.preferredHeight: 67   // 70% of Start (96)
+                text: qsTr("Lens \u00B7 words from a photo")
+                contentItem: Item {
+                    implicitHeight: lensRow.implicitHeight
+                    implicitWidth: lensRow.implicitWidth
+                    Row {
+                        id: lensRow
+                        anchors.centerIn: parent
+                        spacing: 10
+                        Image {
+                            anchors.verticalCenter: parent.verticalCenter
+                            width: 44; height: 44
+                            source: "../assets/lens.png"
+                            fillMode: Image.PreserveAspectFit
+                            mipmap: true
+                        }
+                        Label {
+                            anchors.verticalCenter: parent.verticalCenter
+                            text: lensBtn.text
+                            font: lensBtn.font
+                            color: lensBtn.Material.foreground
+                        }
+                    }
+                }
                 onClicked: page.lensRequested()
                 Component.onCompleted: if (background) background.radius = 4
             }
@@ -351,7 +379,10 @@ Page {
             Button {
                 id: favButton
                 objectName: "favoritesButton"
+                Material.background: "#E65100"
+                Material.foreground: "white"
                 Layout.fillWidth: true
+                Layout.preferredHeight: 67   // 70% of Start (96)
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
                 text: qsTr("Favorite words (%1)").arg(CardStore.favoriteCount)
@@ -362,11 +393,13 @@ Page {
                         id: favRow
                         anchors.centerIn: parent
                         spacing: 8
-                        StarIcon {
+                        Image {
                             anchors.verticalCenter: parent.verticalCenter
-                            width: 18
-                            height: 18
-                            filled: CardStore.favoriteCount > 0
+                            width: 44; height: 44
+                            source: "../assets/favorites.png"
+                            fillMode: Image.PreserveAspectFit
+                            mipmap: true
+                            opacity: CardStore.favoriteCount > 0 ? 1 : 0.7
                         }
                         Label {
                             anchors.verticalCenter: parent.verticalCenter
@@ -379,49 +412,118 @@ Page {
                 onClicked: page.favoritesRequested()
                 Component.onCompleted: if (background) background.radius = 4
             }
+            // Dictionary (right after Favorite words)
             Button {
+                id: dictButton
                 Layout.fillWidth: true
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
-                flat: true
-                enabled: CardStore.totalCount > 0
-                text: qsTr("All cards (%1)").arg(CardStore.totalCount)
-                onClicked: page.browseRequested()
+                Layout.preferredHeight: 67   // 70% of Start (96)
+                text: qsTr("Dictionary")
+                Material.background: "#7B1FA2"
+                Material.foreground: "white"
+                contentItem: Item {
+                    implicitHeight: dictRow.implicitHeight
+                    implicitWidth: dictRow.implicitWidth
+                    Row {
+                        id: dictRow
+                        anchors.centerIn: parent
+                        spacing: 10
+                        Image {
+                            anchors.verticalCenter: parent.verticalCenter
+                            width: 44; height: 44
+                            source: "../assets/dictionary.png"
+                            fillMode: Image.PreserveAspectFit
+                            mipmap: true
+                        }
+                        Label {
+                            anchors.verticalCenter: parent.verticalCenter
+                            text: dictButton.text
+                            font: dictButton.font
+                            color: dictButton.Material.foreground
+                        }
+                    }
+                }
+                onClicked: page.dictionaryRequested()
                 Component.onCompleted: if (background) background.radius = 4
             }
-            // Send / get cards, each with a hint in plain words
-            Button {
+
+            // Export and import side by side (each page has a ? with a short how-to)
+            RowLayout {
                 Layout.fillWidth: true
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
                 Layout.topMargin: 4
-                enabled: CardStore.totalCount > 0
-                text: qsTr("\u2B06  Send or back up cards")
-                onClicked: page.sendRequested()
-                Component.onCompleted: if (background) background.radius = 4
-            }
-            HintLabel {
-                Layout.leftMargin: 24
-                Layout.rightMargin: 24
-                Layout.topMargin: -8
-                horizontalAlignment: Text.AlignHCenter
-                text: qsTr("Save this learning box as a file — for a friend, a new phone or a backup.")
-            }
-            Button {
-                Layout.fillWidth: true
-                Layout.leftMargin: 16
-                Layout.rightMargin: 16
-                text: qsTr("\u2B07  Get cards from a file or link")
-                onClicked: page.getRequested()
-                Component.onCompleted: if (background) background.radius = 4
-            }
-            HintLabel {
-                Layout.leftMargin: 24
-                Layout.rightMargin: 24
-                Layout.topMargin: -8
-                horizontalAlignment: Text.AlignHCenter
-                text: AppMode.full ? qsTr("Add cards a friend sent you, or from Anki, Quizlet or Excel.")
-                                   : qsTr("Add cards a friend sent you, or from Quizlet or Excel.")
+                spacing: 12
+
+                Button {
+                    id: exportButton
+                    Layout.fillWidth: true
+                    Layout.preferredWidth: 1
+                    Layout.preferredHeight: 67   // 70% of Start (96)
+                    enabled: CardStore.totalCount > 0
+                    text: qsTr("Export")
+                    Material.background: "#1976D2"
+                    Material.foreground: "white"
+                    contentItem: Item {
+                        implicitHeight: exportRow.implicitHeight
+                        implicitWidth: exportRow.implicitWidth
+                        Row {
+                            id: exportRow
+                            anchors.centerIn: parent
+                            spacing: 8
+                            Image {
+                                anchors.verticalCenter: parent.verticalCenter
+                                width: 34; height: 34
+                                source: "../assets/export.png"
+                                fillMode: Image.PreserveAspectFit
+                                mipmap: true
+                                opacity: exportButton.enabled ? 1 : 0.4
+                            }
+                            Label {
+                                anchors.verticalCenter: parent.verticalCenter
+                                text: exportButton.text
+                                font: exportButton.font
+                                color: exportButton.Material.foreground
+                            }
+                        }
+                    }
+                    onClicked: page.sendRequested()
+                    Component.onCompleted: if (background) background.radius = 4
+                }
+                Button {
+                    id: importButton
+                    Layout.fillWidth: true
+                    Layout.preferredWidth: 1
+                    Layout.preferredHeight: 67   // 70% of Start (96)
+                    text: qsTr("Import")
+                    Material.background: "#2E7D32"
+                    Material.foreground: "white"
+                    contentItem: Item {
+                        implicitHeight: importRow.implicitHeight
+                        implicitWidth: importRow.implicitWidth
+                        Row {
+                            id: importRow
+                            anchors.centerIn: parent
+                            spacing: 8
+                            Image {
+                                anchors.verticalCenter: parent.verticalCenter
+                                width: 34; height: 34
+                                source: "../assets/import.png"
+                                fillMode: Image.PreserveAspectFit
+                                mipmap: true
+                            }
+                            Label {
+                                anchors.verticalCenter: parent.verticalCenter
+                                text: importButton.text
+                                font: importButton.font
+                                color: importButton.Material.foreground
+                            }
+                        }
+                    }
+                    onClicked: page.getRequested()
+                    Component.onCompleted: if (background) background.radius = 4
+                }
             }
 
             // Simple mode: what Full mode would add
@@ -478,14 +580,18 @@ Page {
                 onClicked: Qt.openUrlExternally("https://play.google.com/store/apps/details?id=com.google.android.tts")
             }
 
-            // Dictionary: the last item on Home
+            // All cards: last button on Home
             Button {
                 Layout.fillWidth: true
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
                 Layout.topMargin: 8
-                text: qsTr("\uD83D\uDCD6  Dictionary")
-                onClicked: page.dictionaryRequested()
+                Layout.preferredHeight: 67   // 70% of Start (96)
+                enabled: CardStore.totalCount > 0
+                text: qsTr("All cards (%1)").arg(CardStore.totalCount)
+                Material.background: "#455A64"
+                Material.foreground: "white"
+                onClicked: page.browseRequested()
                 Component.onCompleted: if (background) background.radius = 4
             }
 

@@ -5,7 +5,7 @@ import LearningBox
 
 // An example sentence (learning language) with its translation underneath, in the translation language
 // (Settings, or the switch on the review card: Persian or English). Source, first match wins:
-//   1. `knownTranslation` (Persian; e.g. a word-pack preview row)
+//   1. `knownTranslation` (already in the translation language; e.g. a word-pack preview row)
 //   2. the word pack's curated Persian translation (also for cards already in the box)
 //   3. a saved translation, else an online one (Settings: online on), fetched once and saved
 ColumnLayout {
@@ -23,7 +23,8 @@ ColumnLayout {
     readonly property string lang: target !== "" ? target : Translator.meaningLanguage
     readonly property bool persian: lang === "fa"
     readonly property bool wanted: example.trim() !== ""
-    readonly property string packTranslation: persian ? (knownTranslation || WordPacks.exampleTranslation(example)) : ""
+    readonly property string packTranslation: knownTranslation !== "" ? knownTranslation
+                                              : (persian ? WordPacks.exampleTranslation(example) : "")
     readonly property string translation: !wanted ? "" : (packTranslation || fetched)
     property string fetched: ""
     property int requestId: -1

@@ -21,21 +21,31 @@ ApplicationWindow {
         topPadding: SafeArea.margins.top
         leftPadding: SafeArea.margins.left
         rightPadding: SafeArea.margins.right
-        contentHeight: 48
+        contentHeight: 58   // 20% bigger than 48
 
         RowLayout {
             anchors.fill: parent
             spacing: 0
             ToolButton {
                 visible: stack.depth > 1 && stack.currentItem?.objectName !== "setupPage"
-                text: "\u2190"
-                font.pixelSize: 20
+                implicitWidth: 58
+                implicitHeight: 58
+                contentItem: Item {
+                    Image {
+                        anchors.centerIn: parent
+                        width: 38; height: 38
+                        source: "../assets/back.png"
+                        fillMode: Image.PreserveAspectFit
+                        smooth: true
+                        mipmap: true
+                    }
+                }
                 onClicked: stack.pop()
             }
             Label {
                 Layout.fillWidth: true
                 text: stack.currentItem?.title ?? window.title
-                font.pixelSize: 18
+                font.pixelSize: 22
                 font.bold: true
                 elide: Text.ElideRight
                 leftPadding: stack.depth > 1 && stack.currentItem?.objectName !== "setupPage" ? 0 : 16
@@ -44,12 +54,12 @@ ApplicationWindow {
             ToolButton {
                 visible: stack.currentItem?.objectName !== "helpPage"
                 contentItem: Item {
-                    implicitWidth: 24
-                    implicitHeight: 24
+                    implicitWidth: 29
+                    implicitHeight: 29
                     HelpIcon {
                         anchors.centerIn: parent
-                        width: 24
-                        height: 24
+                        width: 29
+                        height: 29
                         color: "white"
                     }
                 }
@@ -59,12 +69,12 @@ ApplicationWindow {
             ToolButton {
                 visible: stack.currentItem?.objectName !== "settingsPage"
                 contentItem: Item {
-                    implicitWidth: 24
-                    implicitHeight: 24
+                    implicitWidth: 29
+                    implicitHeight: 29
                     GearIcon {
                         anchors.centerIn: parent
-                        width: 24
-                        height: 24
+                        width: 29
+                        height: 29
                         color: "white"
                     }
                 }
@@ -108,7 +118,16 @@ ApplicationWindow {
         SetupPage { onFinished: stack.pop(null) }
     }
     // First start: the setup (Simple or Full, starter words) before Home.
-    Component.onCompleted: if (!AppMode.setupDone) stack.push(setupPage, {}, StackView.Immediate)
+    // First run: the setup wizard finishes after start-up, so create the A1/A2 level boxes then
+    Connections {
+        target: AppMode
+        function onChanged() { if (AppMode.setupDone) LevelPacks.installBoxes(false) }
+    }
+
+    Component.onCompleted: {
+        if (AppMode.setupDone) LevelPacks.installBoxes(false) // A1/A2 levels as their own learning boxes (first start only)
+        if (!AppMode.setupDone) stack.push(setupPage, {}, StackView.Immediate)
+    }
     Component { id: helpPage; HelpPage {} }
 
     // Due counts depend on the date: refresh when the app comes back to the foreground.

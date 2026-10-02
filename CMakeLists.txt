@@ -25,6 +25,8 @@ qt_add_qml_module(appLearningBox
         src/wordpack.h         src/wordpack.cpp
         src/wordpacks.h        src/wordpacks.cpp
         src/starterdeck.h      src/starterdeck.cpp
+        src/levelpack.h        src/levelpack.cpp
+        src/levelpacks.h       src/levelpacks.cpp
         src/appmode.h          src/appmode.cpp
         src/cardimages.h       src/cardimages.cpp
         src/ocrengine.h        src/ocrengine.cpp
@@ -71,12 +73,24 @@ qt_add_qml_module(appLearningBox
         qml/HelpIcon.qml
         qml/HelpPage.qml
         qml/TailButton.qml
+        qml/HelpLanguageBar.qml
+        qml/HowToBar.qml
+        qml/TrayArrowIcon.qml
+        qml/LevelPacksPage.qml
+        qml/LevelPage.qml
+    RESOURCES
+        assets/lens.png
+        assets/favorites.png
+        assets/back.png
+        assets/dictionary.png
+        assets/export.png
+        assets/import.png
 )
 
 # Built-in vocabulary packs (read at runtime from :/data/wordpacks/...)
 qt_add_resources(appLearningBox "wordpacks"
     PREFIX "/"
-    FILES data/wordpacks/netzwerk_neu_a1.tsv data/starter/starter_100.tsv
+    FILES data/wordpacks/netzwerk_neu_a1.tsv data/starter/starter_100.tsv data/levelpacks/starten_wir_levels.tsv
 )
 
 target_include_directories(appLearningBox PRIVATE src)
@@ -187,6 +201,14 @@ if (LEARNINGBOX_BUILD_TESTS AND NOT ANDROID AND NOT IOS)
             LB_WORDPACK_FILE="${CMAKE_CURRENT_SOURCE_DIR}/data/wordpacks/netzwerk_neu_a1.tsv")
         set_target_properties(tst_wordpack PROPERTIES WIN32_EXECUTABLE FALSE)
         add_test(NAME tst_wordpack COMMAND tst_wordpack)
+
+        qt_add_executable(tst_levelpack tests/tst_levelpack.cpp src/levelpack.cpp)
+        target_include_directories(tst_levelpack PRIVATE src)
+        target_link_libraries(tst_levelpack PRIVATE Qt6::Test)
+        target_compile_definitions(tst_levelpack PRIVATE
+            LB_LEVELPACK_FILE="${CMAKE_CURRENT_SOURCE_DIR}/data/levelpacks/starten_wir_levels.tsv")
+        set_target_properties(tst_levelpack PROPERTIES WIN32_EXECUTABLE FALSE)
+        add_test(NAME tst_levelpack COMMAND tst_levelpack)
 
         qt_add_executable(tst_cardimages tests/tst_cardimages.cpp src/cardimages.cpp)
         target_include_directories(tst_cardimages PRIVATE src)

@@ -18,6 +18,8 @@ class AppMode : public QObject
     Q_PROPERTY(QString mode READ mode WRITE setMode NOTIFY changed)          // "simple" | "full"
     Q_PROPERTY(bool full READ full NOTIFY changed)
     Q_PROPERTY(bool setupDone READ setupDone WRITE setSetupDone NOTIFY changed)
+    // Language of every help / how-to text: "en" | "fa" | "de"; empty = not chosen yet
+    Q_PROPERTY(QString helpLanguage READ helpLanguage WRITE setHelpLanguage NOTIFY changed)
 
 public:
     static AppMode *instance();
@@ -28,6 +30,8 @@ public:
     bool full() const { return m_full; }
     bool setupDone() const { return m_setupDone; }
     void setSetupDone(bool done);
+    QString helpLanguage() const { return m_helpLanguage; }
+    void setHelpLanguage(const QString &lang);
 
 signals:
     void changed();
@@ -36,4 +40,5 @@ private:
     explicit AppMode(QObject *parent = nullptr);
     bool m_full = true;
     bool m_setupDone = false;
+    QString m_helpLanguage;
 };

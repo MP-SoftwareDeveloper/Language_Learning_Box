@@ -4,20 +4,37 @@ import QtQuick.Layouts
 import QtQuick.Controls.Material
 import LearningBox
 
-// Preview of one word-pack chapter, with "add to box" for the whole chapter.
+// Preview of one word-pack chapter (Netzwerk neu A1, or a chapter of a level pack when levelId is set),
+// with "add to box" for the whole chapter.
 Page {
     id: page
+    property string levelId: ""        // "" = the Netzwerk neu A1 pack, else a level pack ("a1-1" ...)
     property int chapterNumber: 0
     property string chapterTitle: ""
     property var words: []
 
     title: qsTr("K%1 · %2").arg(chapterNumber).arg(chapterTitle)
 
-    function reload() { words = WordPacks.chapterWords(chapterNumber) }
+    function reload() {
+        words = levelId !== "" ? LevelPacks.chapterWords(levelId, chapterNumber)
+                               : WordPacks.chapterWords(chapterNumber)
+    }
+    function addChapter() {
+        if (levelId !== "") LevelPacks.addChapter(levelId, chapterNumber)
+        else WordPacks.addChapter(chapterNumber)
+    }
     Component.onCompleted: reload()
     Connections {
         target: WordPacks
         function onChaptersChanged() { page.reload() }
+    }
+    Connections {
+        target: LevelPacks
+        function onChanged() { page.reload() }
+    }
+    Connections {
+        target: Translator
+        function onSettingsChanged() { page.reload() } // meaning language switched
     }
 
     readonly property int missing: {
@@ -37,7 +54,7 @@ Page {
             enabled: page.missing > 0
             text: page.missing > 0 ? qsTr("Add %n word(s) to my box", "", page.missing)
                                    : qsTr("All words of this chapter are in your box")
-            onClicked: WordPacks.addChapter(page.chapterNumber)
+            onClicked: page.addChapter()
         }
 
         ListView {
@@ -73,7 +90,7 @@ Page {
                         ExampleText {
                             Layout.fillWidth: true
                             example: row.modelData.example
-                            knownTranslation: row.modelData.exampleFa ?? ""
+                            knownTranslation: (Translator.meaningLanguage === "fa" ? row.modelData.exampleFa : row.modelData.exampleEn) ?? ""
                             onlineLookup: false
                             pixelSize: 14
                             germanOpacity: 0.6

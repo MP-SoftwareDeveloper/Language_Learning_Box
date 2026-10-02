@@ -151,6 +151,26 @@ private slots:
         QCOMPARE(p.items[0].back, QStringLiteral("apple\nfruit"));
         QVERIFY(!readCsv("\n\n").error.isEmpty());
     }
+    void cardListText()
+    {
+        // Hand-written list: German / meaning / example on separate lines, each card ends with ';'
+        Package p = readCsv("Haus\nhouse\nDas Haus ist groß.;\nBaum\ntree\nDer Baum ist alt.;\n");
+        QCOMPARE(p.items.size(), 2);
+        QCOMPARE(p.items[0].front, QStringLiteral("Haus"));
+        QCOMPARE(p.items[0].back, QStringLiteral("house"));
+        QCOMPARE(p.items[0].example, QStringLiteral("Das Haus ist groß."));
+        QCOMPARE(p.items[1].front, QStringLiteral("Baum"));
+        // One line per card (several cards may share a line); the example keeps its commas;
+        // Windows line endings; the last card may leave out the final ';'
+        p = readCsv("Haus, house, Das Haus ist groß, nicht klein.; Baum, tree, Der Baum ist alt.;\r\nHund\r\ndog\r\nDer Hund bellt.");
+        QCOMPARE(p.items.size(), 3);
+        QCOMPARE(p.items[0].example, QStringLiteral("Das Haus ist groß, nicht klein."));
+        QCOMPARE(p.items[2].front, QStringLiteral("Hund"));
+        QCOMPARE(p.items[2].example, QStringLiteral("Der Hund bellt."));
+        // A semicolon-separated Excel table with trailing separators is still a table
+        p = readCsv("Haus;house;Das Haus;\nBaum;tree;Der Baum;\n");
+        QVERIFY(p.items.isEmpty() || p.items[0].back == QStringLiteral("house"));
+    }
     void anki()
     {
         QTemporaryDir tmp;

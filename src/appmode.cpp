@@ -8,6 +8,7 @@
 namespace {
 constexpr auto kModeKey = "app/mode";
 constexpr auto kSetupKey = "setup/done";
+constexpr auto kHelpLangKey = "help/language";
 }
 
 AppMode *AppMode::instance()
@@ -40,6 +41,7 @@ AppMode::AppMode(QObject *parent)
     }
     m_setupDone = st.value(QLatin1String(kSetupKey), false).toBool();
     m_full = st.value(QLatin1String(kModeKey), QStringLiteral("full")).toString() != QLatin1String("simple");
+    m_helpLanguage = st.value(QLatin1String(kHelpLangKey)).toString();
 }
 
 void AppMode::setMode(const QString &mode)
@@ -58,5 +60,16 @@ void AppMode::setSetupDone(bool done)
         return;
     m_setupDone = done;
     QSettings().setValue(QLatin1String(kSetupKey), done);
+    emit changed();
+}
+
+void AppMode::setHelpLanguage(const QString &lang)
+{
+    if (lang != QLatin1String("en") && lang != QLatin1String("fa") && lang != QLatin1String("de"))
+        return;
+    if (lang == m_helpLanguage)
+        return;
+    m_helpLanguage = lang;
+    QSettings().setValue(QLatin1String(kHelpLangKey), lang);
     emit changed();
 }
