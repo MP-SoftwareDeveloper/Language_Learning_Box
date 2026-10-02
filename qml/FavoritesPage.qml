@@ -4,7 +4,7 @@ import QtQuick.Layouts
 import QtQuick.Controls.Material
 import LearningBox
 
-// Favorite words: every starred card of the selected learning box, newest star first.
+// Favorite words: every starred card of all learning boxes, newest star first.
 // Tap a word to edit it; the star removes it from the list (the card itself stays).
 Page {
     id: page
@@ -65,7 +65,7 @@ Page {
             // The whole card: front, meaning and example, each with 🔊
             contentItem: CardFace {
                 card: row.modelData
-                note: page.boxName(row.modelData.box)
+                note: (row.modelData.collection ? row.modelData.collection + " \u00B7 " : "") + page.boxName(row.modelData.box)
                 StarButton {
                     implicitWidth: 36
                     cardId: row.modelData.id

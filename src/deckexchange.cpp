@@ -93,14 +93,14 @@ bool androidShare(const QString &path, const QString &mime, const QString &title
 #endif
 } // namespace
 
-QVariantMap DeckExchange::shareCards(const QString &format, bool withProgress, int box)
+QVariantMap DeckExchange::shareCards(const QString &format, bool withProgress, int scope)
 {
     const QString dir = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/shared");
     QDir(dir).removeRecursively(); // only the file being shared now
     if (!QDir().mkpath(dir))
         return {{QStringLiteral("ok"), false}, {QStringLiteral("error"), tr("Cannot create %1").arg(dir)}};
-    const QString path = dir + u'/' + suggestedFileName(format);
-    QVariantMap r = exportCards(QUrl::fromLocalFile(path), format, withProgress, box);
+    const QString path = dir + u'/' + suggestedFileName(format, scope);
+    QVariantMap r = exportCards(QUrl::fromLocalFile(path), format, withProgress, scope);
     if (!r.value(QStringLiteral("ok")).toBool())
         return r;
     r.insert(QStringLiteral("file"), QFileInfo(path).fileName());
@@ -114,10 +114,20 @@ QVariantMap DeckExchange::shareCards(const QString &format, bool withProgress, i
     return r;
 }
 
-QString DeckExchange::suggestedFileName(const QString &format) const
+QVariantMap DeckExchange::boxInfo(int id) const
+{
+    for (const QVariant &v : CardStore::instance()->collections())
+        if (v.toMap().value(QStringLiteral("id")).toInt() == id)
+            return v.toMap();
+    return {};
+}
+
+QString DeckExchange::suggestedFileName(const QString &format, int scope) const
 {
     // learningbox-<learning box>-<date>.lbox, e.g. learningbox-netzwerk-neu-a2-2026-09-29.lbox
-    QString name = CardStore::instance()->currentCollectionName().toLower();
+    QString name = scope == 0 ? QStringLiteral("all learning boxes")
+                 : scope < 0 ? QStringLiteral("favorite cards")
+                             : boxInfo(scope).value(QStringLiteral("name")).toString().toLower();
     name.replace(QStringLiteral("ä"), QStringLiteral("ae")).replace(QStringLiteral("ö"), QStringLiteral("oe"))
         .replace(QStringLiteral("ü"), QStringLiteral("ue")).replace(QStringLiteral("ß"), QStringLiteral("ss"));
     QString slug;
@@ -134,19 +144,20 @@ QString DeckExchange::suggestedFileName(const QString &format) const
              format == QLatin1String("csv") ? QStringLiteral("csv") : QStringLiteral("lbox"));
 }
 
-QVariantMap DeckExchange::exportCards(const QUrl &target, const QString &format, bool withProgress, int box)
+QVariantMap DeckExchange::exportCards(const QUrl &target, const QString &format, bool withProgress, int scope)
 {
     CardStore *store = CardStore::instance();
     QList<deckformats::Item> items;
     QHash<QString, QByteArray> images;
-    for (const Card &c : store->allCards()) {
-        if (box > 0 && c.box != box)
-            continue;
+    QStringList boxNames;
+    const QList<Card> cards = store->cardsAcrossBoxes(scope < 0, scope > 0 ? scope : 0, &boxNames);
+    for (int i = 0; i < cards.size(); ++i) {
+        const Card &c = cards.at(i);
         deckformats::Item it;
         it.front = c.front;
         it.back = c.back;
         it.example = c.example;
-        it.deck = c.deck;
+        it.deck = (scope <= 0 && c.deck.isEmpty()) ? boxNames.value(i) : c.deck; // keep the learning box it came from
         it.box = c.box;
         it.dueAt = c.dueAt;
         it.reviews = c.reviews;
@@ -163,10 +174,15 @@ QVariantMap DeckExchange::exportCards(const QUrl &target, const QString &format,
     if (items.isEmpty())
         return {{QStringLiteral("ok"), false}, {QStringLiteral("error"), tr("There are no cards to export.")}};
 
+    const QVariantMap info = scope > 0 ? boxInfo(scope) : QVariantMap();
+    const QString title = scope > 0 ? info.value(QStringLiteral("name")).toString()
+                        : scope == 0 ? tr("All learning boxes") : tr("Favorite cards");
+    const QString language = scope > 0 ? info.value(QStringLiteral("language"), QStringLiteral("de")).toString()
+                                       : store->learningLanguage();
     const QByteArray bytes = format == QLatin1String("csv")
         ? deckformats::writeCsv(items)
-        : deckformats::writeLbox(items, images, store->currentCollectionName(), withProgress,
-                                 store->learningLanguage());
+        : deckformats::writeLbox(items, images,
+                                 title, withProgress, language);
     QFile out(localPath(target));
     if (!out.open(QIODevice::WriteOnly | QIODevice::Truncate) || out.write(bytes) != bytes.size())
         return {{QStringLiteral("ok"), false}, {QStringLiteral("error"), out.errorString()}};

@@ -30,14 +30,15 @@ public:
     bool busy() const { return m_busy; }
     QVariantMap preview() const { return m_preview; }
 
-    // Export. format: "lbox" or "csv"; box: 0 = all cards, 1..5, 6 = Learned.
+    // Export. format: "lbox" or "csv"; scope: 0 = every card of ALL learning boxes, > 0 = all cards of the
+    // learning box with that id, -1 = favorite cards (★) of all learning boxes.
     // Returns {ok, count, error}. `target` comes from a save dialog (file:// or content://).
-    Q_INVOKABLE QVariantMap exportCards(const QUrl &target, const QString &format, bool withProgress, int box);
-    Q_INVOKABLE QString suggestedFileName(const QString &format) const;
+    Q_INVOKABLE QVariantMap exportCards(const QUrl &target, const QString &format, bool withProgress, int scope);
+    Q_INVOKABLE QString suggestedFileName(const QString &format, int scope = 0) const;
     // Export into the app's own folder and open the system share sheet (WhatsApp, Telegram,
     // e-mail, Drive ...). On desktop the folder with the file is opened instead.
     // Returns {ok, count, file, error}.
-    Q_INVOKABLE QVariantMap shareCards(const QString &format, bool withProgress, int box);
+    Q_INVOKABLE QVariantMap shareCards(const QString &format, bool withProgress, int scope);
 
     // Import step 1: read a file (file:// or content://) or download a link; fills `preview`.
     Q_INVOKABLE void openFile(const QUrl &source);
@@ -55,6 +56,7 @@ signals:
     void previewChanged();
 
 private:
+    QVariantMap boxInfo(int id) const; // collections() entry of a learning box, {} if none
     explicit DeckExchange(QObject *parent = nullptr);
     void setPackage(deckformats::Package package, const QString &fallbackTitle);
     void setBusy(bool b);

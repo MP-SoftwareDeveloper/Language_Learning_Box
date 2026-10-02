@@ -197,6 +197,8 @@ Page {
     // camera is (re)created, leaving the shutter stuck disabled. Toggling this briefly
     // true forces the Loader below to destroy and recreate the whole camera session.
     property bool cameraKick: false
+    property int kickCount: 0           // restarts since the viewfinder was shown
+    readonly property int maxKicks: 2
     StackView.onRemoved: engine.clear()
     // Leaving Lens (back, or on to the card editor): stop reading aloud
     StackView.onDeactivating: Speaker.stop()
@@ -274,6 +276,7 @@ Page {
                     && cameraPermission.status === Qt.PermissionStatus.Granted
                     && !page.cameraKick
             onLoaded: readyWatchdog.restart()
+            onActiveChanged: if (!active && !page.cameraKick) page.kickCount = 0 // shown again later: start fresh
             sourceComponent: Item {
                 readonly property alias capture: imageCapture
 
@@ -361,16 +364,31 @@ Page {
         // session was (re)created, restart the session once instead of leaving it stuck.
         Timer {
             id: readyWatchdog
-            interval: 4000
+            // A stuck camera is restarted after 4 s (this recovers it); later tries wait a little longer,
+            // and it gives up after maxKicks restarts instead of looping forever.
+            interval: 4000 + page.kickCount * 4000
             repeat: false
             onTriggered: {
                 const cap = cameraLoader.item ? cameraLoader.item.capture : null
-                if (cap && !cap.readyForCapture) {
-                    status.text = qsTr("Camera is taking a moment — restarting it…")
-                    page.cameraKick = true
-                    Qt.callLater(() => page.cameraKick = false)
+                if (!cap || cap.readyForCapture)
+                    return
+                if (page.kickCount >= page.maxKicks) {
+                    status.text = qsTr("The camera is not ready. Go back and open Lens again, or pick a photo from the gallery.")
+                    return
                 }
+                page.kickCount++
+                status.text = qsTr("Camera is taking a moment — restarting it…")
+                page.cameraKick = true
+                kickGap.restart()
             }
+        }
+        // Android closes a camera asynchronously: opening it again in the same moment often fails
+        // (black preview, shutter stays grey). Leave it closed for a while before re-creating it.
+        Timer {
+            id: kickGap
+            interval: 1500
+            repeat: false
+            onTriggered: page.cameraKick = false
         }
     }
 

@@ -71,6 +71,8 @@ set "APK="
 for /f "delims=" %%F in ('powershell -NoProfile -Command "$f = Get-ChildItem -Path '%BUILD_DIR%' -Recurse -Filter '*-debug.apk' | Sort-Object LastWriteTime -Descending | Select-Object -First 1; if ($f) { $f.FullName }"') do set "APK=%%F"
 if not defined APK ( echo APK not found under %BUILD_DIR% & pause & exit /b 1 )
 echo APK: %APK%
+copy /y "%APK%" "%SRC_DIR%\LearningBox-debug.apk" >nul
+if errorlevel 1 ( echo WARNING: could not copy the APK to %SRC_DIR% ) else ( echo APK copy: %SRC_DIR%\LearningBox-debug.apk )
 echo [OK] Build done.
 echo.
 

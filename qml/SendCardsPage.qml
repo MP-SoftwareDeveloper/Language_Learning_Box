@@ -13,9 +13,18 @@ Page {
     title: qsTr("Send or back up cards")
 
     readonly property bool forLearningBox: lboxFormat.checked
-    readonly property int scope: scopeBox.currentIndex // 0 = all, 1..5, 6 = Learned
-    readonly property int cardCount: scope === 0 ? CardStore.totalCount
-                                     : scope < 6 ? (CardStore.boxCounts[scope - 1] ?? 0) : CardStore.learnedCount
+    // 0 = all cards of all learning boxes, a learning box id, or -1 = favorite cards (all boxes)
+    readonly property int scope: scopeBox.currentIndex === 0 ? 0
+                                 : scopeBox.currentIndex <= CardStore.collections.length
+                                   ? CardStore.collections[scopeBox.currentIndex - 1].id : -1
+    function allBoxesTotal() {
+        let n = 0
+        for (const col of CardStore.collections) n += col.total
+        return n
+    }
+    readonly property int cardCount: scopeBox.currentIndex === 0 ? allBoxesTotal()
+                                     : scope > 0 ? CardStore.collections[scopeBox.currentIndex - 1].total
+                                     : CardStore.favoriteCount
     readonly property string format: forLearningBox ? "lbox" : "csv"
     readonly property bool withProgress: forLearningBox && keepProgress.checked
     property string message: ""
@@ -104,9 +113,9 @@ Page {
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
                 Layout.fillWidth: true
-                model: [qsTr("All cards of “%1”").arg(CardStore.currentCollectionName),
-                        qsTr("Only Box 1"), qsTr("Only Box 2"), qsTr("Only Box 3"), qsTr("Only Box 4"), qsTr("Only Box 5"),
-                        qsTr("Only learned cards")]
+                model: [qsTr("All cards (all learning boxes)")]
+                       .concat(CardStore.collections.map(col => col.name))
+                       .concat([qsTr("Favorite cards (all learning boxes)")])
             }
             HintLabel {
                 Layout.leftMargin: 16
@@ -190,7 +199,7 @@ Page {
         defaultSuffix: page.format
         nameFilters: page.forLearningBox ? [qsTr("LearningBox (*.lbox)")] : [qsTr("CSV (*.csv)")]
         currentFolder: StandardPaths.writableLocation(StandardPaths.DocumentsLocation)
-        selectedFile: currentFolder + "/" + DeckExchange.suggestedFileName(page.format)
+        selectedFile: currentFolder + "/" + DeckExchange.suggestedFileName(page.format, page.scope)
         onAccepted: {
             const r = DeckExchange.exportCards(selectedFile, page.format, page.withProgress, page.scope)
             if (r.ok) {

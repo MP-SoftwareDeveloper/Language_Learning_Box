@@ -233,7 +233,7 @@ int CardStore::totalCount() const
 
 int CardStore::favoriteCount() const
 {
-    return scalar(QStringLiteral("SELECT COUNT(*) FROM cards WHERE favorite > 0%1").arg(scope()));
+    return scalar(QStringLiteral("SELECT COUNT(*) FROM cards WHERE favorite > 0"));
 }
 
 bool CardStore::isFavorite(int id) const
@@ -264,10 +264,16 @@ bool CardStore::setFavorite(int id, bool favorite)
 
 QVariantList CardStore::favorites() const
 {
+    QHash<int, QString> names;
+    QSqlQuery nq(db());
+    nq.exec(QStringLiteral("SELECT id, name FROM collections"));
+    while (nq.next())
+        names.insert(nq.value(0).toInt(), nq.value(1).toString());
+
     QVariantList out;
     QSqlQuery q(db());
-    q.exec(QStringLiteral("SELECT %1 FROM cards WHERE favorite > 0%2 ORDER BY favorite DESC, id DESC")
-               .arg(QLatin1String(kCardColumns), scope()));
+    q.exec(QStringLiteral("SELECT %1, collection_id FROM cards WHERE favorite > 0 ORDER BY favorite DESC, id DESC")
+               .arg(QLatin1String(kCardColumns)));
     while (q.next()) {
         const Card c = readCard(q);
         out.append(QVariantMap{
@@ -277,6 +283,7 @@ QVariantList CardStore::favorites() const
             {QStringLiteral("example"), c.example},
             {QStringLiteral("box"), c.box},
             {QStringLiteral("imageUrl"), imageUrl(c.image)},
+            {QStringLiteral("collection"), names.value(q.value(10).toInt())},
         });
     }
     return out;
@@ -513,6 +520,30 @@ QList<Card> CardStore::allCards() const
     q.exec(QStringLiteral("SELECT %1 FROM cards WHERE 1%2 ORDER BY created_at DESC, id ASC").arg(QLatin1String(kCardColumns), scope()));
     while (q.next())
         out << readCard(q);
+    return out;
+}
+
+QList<Card> CardStore::cardsAcrossBoxes(bool favoritesOnly, int collectionId, QStringList *boxNames) const
+{
+    QHash<int, QString> names;
+    QSqlQuery nq(db());
+    nq.exec(QStringLiteral("SELECT id, name FROM collections"));
+    while (nq.next())
+        names.insert(nq.value(0).toInt(), nq.value(1).toString());
+
+    QList<Card> out;
+    QSqlQuery q(db());
+    q.exec(QStringLiteral("SELECT %1, collection_id FROM cards WHERE 1%2%3 ORDER BY %4")
+               .arg(QLatin1String(kCardColumns),
+                    favoritesOnly ? QStringLiteral(" AND favorite > 0") : QString(),
+                    collectionId > 0 ? QStringLiteral(" AND collection_id = %1").arg(collectionId) : QString(),
+                    favoritesOnly ? QStringLiteral("favorite DESC, id DESC")
+                                  : QStringLiteral("collection_id ASC, created_at DESC, id ASC")));
+    while (q.next()) {
+        out << readCard(q);
+        if (boxNames)
+            boxNames->append(names.value(q.value(10).toInt()));
+    }
     return out;
 }
 

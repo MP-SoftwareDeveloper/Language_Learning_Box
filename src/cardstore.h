@@ -4,6 +4,7 @@
 
 #include <QList>
 #include <QSet>
+#include <QStringList>
 #include <QUrl>
 #include <QObject>
 #include <QVariantList>
@@ -26,7 +27,7 @@ class CardStore : public QObject
     Q_PROPERTY(int learnedCount READ learnedCount NOTIFY changed)
     Q_PROPERTY(int dueCount READ dueCount NOTIFY changed)
     Q_PROPERTY(int totalCount READ totalCount NOTIFY changed)
-    // Starred cards (★) in the selected learning box. A star alone emits only favoritesChanged
+    // Starred cards (★) in ALL learning boxes. A star alone emits only favoritesChanged
     // (not changed), so card lists are not rebuilt (and do not flicker) when a star is tapped.
     Q_PROPERTY(int favoriteCount READ favoriteCount NOTIFY favoritesChanged)
     Q_PROPERTY(bool ready READ ready CONSTANT)
@@ -84,10 +85,10 @@ public:
     Q_INVOKABLE bool removeCard(int id);
     // Several cards at once (box page selection); returns how many were deleted
     Q_INVOKABLE int removeCards(const QVariantList &ids);
-    // Favorites (★): any card can be starred; the list is per learning box
+    // Favorites (★): any card can be starred; the favorites list spans all learning boxes
     Q_INVOKABLE bool isFavorite(int id) const;
     Q_INVOKABLE bool setFavorite(int id, bool favorite);
-    // Starred cards of the selected learning box, newest star first: [{id, front, back, example, box, imageUrl}]
+    // Starred cards of all learning boxes, newest star first: [{id, front, back, example, box, imageUrl, collection}]
     Q_INVOKABLE QVariantList favorites() const;
     Q_INVOKABLE bool resetCard(int id); // back to box 1, due now
     // Manual move to another box (1..5, 6 = Learned), scheduled with that box's interval.
@@ -134,6 +135,10 @@ public:
     // C++ API
     std::optional<Card> cardById(int id) const;
     QList<Card> allCards() const;
+    // For export across learning boxes: the cards of every learning box (collectionId 0) or of one
+    // learning box; favoritesOnly = only starred ones (newest star first). *boxNames gets the
+    // learning box name of each card.
+    QList<Card> cardsAcrossBoxes(bool favoritesOnly, int collectionId, QStringList *boxNames) const;
     QList<int> dueCardIds(int limit = 0) const;
     bool recordAnswer(int id, bool correct);
     // Bulk insert in one transaction; skips fronts already in the box (case-insensitive).
