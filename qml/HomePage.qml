@@ -211,14 +211,132 @@ Page {
                 font.pixelSize: 16
             }
 
-            TailButton {
+            // Start — double height, rainbow tail on rounded edge
+            Item {
+                id: startItem
                 Layout.fillWidth: true
                 Layout.preferredHeight: 96
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
-                enabled: CardStore.dueCount > 0
-                text: qsTr("Start review")
-                onClicked: page.reviewRequested()
+
+                property real tailAngle: 0
+                NumberAnimation on tailAngle {
+                    from: 0; to: 360; duration: 2000
+                    loops: Animation.Infinite; running: true
+                }
+
+                // Button with explicit radius 8 background (matching box tiles)
+                Button {
+                    id: startBtn
+                    anchors.fill: parent
+                    highlighted: true
+                    enabled: CardStore.dueCount > 0
+                    onClicked: page.reviewRequested()
+
+                    background: Rectangle {
+                        radius: 8
+                        color: Material.accentColor
+                        opacity: startBtn.enabled ? 1.0 : 0.38
+                    }
+
+                    // "Start" — 3× font, single color that cycles every 800ms
+                    property var rainbowColors: ["#ff5555", "#ffaa00", "#ffe000", "#44ff88", "#33d6ff", "#5577ff", "#cc44ff"]
+                    property int colorIdx: 0
+                    property color startTextColor: rainbowColors[colorIdx]
+
+                    Timer {
+                        interval: 800
+                        running: startBtn.enabled
+                        repeat: true
+                        onTriggered: startBtn.colorIdx = (startBtn.colorIdx + 1) % startBtn.rainbowColors.length
+                    }
+
+                    contentItem: Label {
+                        text: "Start"
+                        font.pixelSize: 42
+                        font.bold: true
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        color: startBtn.enabled ? startBtn.startTextColor : "#80ffffff"
+                        Behavior on color { ColorAnimation { duration: 300 } }
+                    }
+                }
+
+                // Rainbow tail follows the rounded-rect edge — point-based (no setLineDash, no glitches)
+                Canvas {
+                    anchors.fill: parent
+                    property real angle: startItem.tailAngle
+                    onAngleChanged: requestPaint()
+
+                    function perimPt(pos, w, h, lw, br) {
+                        var half = lw / 2
+                        var L1 = w - lw - 2 * br   // top/bottom straight length
+                        var L2 = h - lw - 2 * br   // left/right straight length
+                        var arcLen = (Math.PI / 2) * br
+                        var P = 2 * L1 + 2 * L2 + 4 * arcLen
+                        pos = ((pos % P) + P) % P
+
+                        if (pos < L1) return { x: half + br + pos, y: half }
+                        pos -= L1
+                        if (pos < arcLen) {
+                            var a1 = -Math.PI/2 + (pos/arcLen) * (Math.PI/2)
+                            return { x: (w-half-br) + br*Math.cos(a1), y: (half+br) + br*Math.sin(a1) }
+                        }
+                        pos -= arcLen
+                        if (pos < L2) return { x: w - half, y: half + br + pos }
+                        pos -= L2
+                        if (pos < arcLen) {
+                            var a2 = (pos/arcLen) * (Math.PI/2)
+                            return { x: (w-half-br) + br*Math.cos(a2), y: (h-half-br) + br*Math.sin(a2) }
+                        }
+                        pos -= arcLen
+                        if (pos < L1) return { x: (w-half-br) - pos, y: h - half }
+                        pos -= L1
+                        if (pos < arcLen) {
+                            var a3 = Math.PI/2 + (pos/arcLen) * (Math.PI/2)
+                            return { x: (half+br) + br*Math.cos(a3), y: (h-half-br) + br*Math.sin(a3) }
+                        }
+                        pos -= arcLen
+                        if (pos < L2) return { x: half, y: (h-half-br) - pos }
+                        pos -= L2
+                        var a4 = Math.PI + (pos/arcLen) * (Math.PI/2)
+                        return { x: (half+br) + br*Math.cos(a4), y: (half+br) + br*Math.sin(a4) }
+                    }
+
+                    onPaint: {
+                        var ctx = getContext("2d")
+                        ctx.clearRect(0, 0, width, height)
+                        var w = width, h = height, lw = 5, br = 8
+                        var half = lw / 2
+                        var L1 = w - lw - 2*br, L2 = h - lw - 2*br
+                        var arcLen = (Math.PI/2) * br
+                        var P = 2*L1 + 2*L2 + 4*arcLen
+                        var tailLen = P * 0.4
+                        var head = (startItem.tailAngle / 360) * P
+                        var pal = [[255,0,0],[255,128,0],[255,255,0],[0,255,0],[0,200,255],[0,0,255],[200,0,255]]
+                        var N = 30
+                        for (var i = 0; i < N; i++) {
+                            var t0 = i / N, t1 = (i + 1) / N
+                            var from = head - (1 - t0) * tailLen
+                            var to   = head - (1 - t1) * tailLen
+                            var ci = t0 * (pal.length - 1)
+                            var i0 = Math.floor(ci), i1 = Math.min(i0 + 1, pal.length - 1), f = ci - i0
+                            var c0 = pal[i0], c1 = pal[i1]
+                            var R = Math.round(c0[0] + f*(c1[0]-c0[0]))
+                            var G = Math.round(c0[1] + f*(c1[1]-c0[1]))
+                            var B = Math.round(c0[2] + f*(c1[2]-c0[2]))
+                            ctx.strokeStyle = "rgba("+R+","+G+","+B+","+(0.2+0.8*t0)+")"
+                            ctx.lineWidth = lw
+                            ctx.lineCap = (i === N - 1) ? "round" : "butt"
+                            var p0 = perimPt(from, w, h, lw, br)
+                            var p1 = perimPt(to, w, h, lw, br)
+                            ctx.beginPath()
+                            ctx.moveTo(p0.x, p0.y)
+                            ctx.lineTo(p1.x, p1.y)
+                            ctx.stroke()
+                        }
+                    }
+                }
             }
             Button {
                 Layout.fillWidth: true
@@ -227,6 +345,7 @@ Page {
                 visible: AppMode.full
                 text: qsTr("\uD83D\uDCF7  Lens \u00B7 words from a photo")
                 onClicked: page.lensRequested()
+                Component.onCompleted: if (background) background.radius = 4
             }
             // Starred cards (★ on any card)
             Button {
@@ -258,6 +377,7 @@ Page {
                     }
                 }
                 onClicked: page.favoritesRequested()
+                Component.onCompleted: if (background) background.radius = 4
             }
             Button {
                 Layout.fillWidth: true
@@ -267,6 +387,7 @@ Page {
                 enabled: CardStore.totalCount > 0
                 text: qsTr("All cards (%1)").arg(CardStore.totalCount)
                 onClicked: page.browseRequested()
+                Component.onCompleted: if (background) background.radius = 4
             }
             // Send / get cards, each with a hint in plain words
             Button {
@@ -277,6 +398,7 @@ Page {
                 enabled: CardStore.totalCount > 0
                 text: qsTr("\u2B06  Send or back up cards")
                 onClicked: page.sendRequested()
+                Component.onCompleted: if (background) background.radius = 4
             }
             HintLabel {
                 Layout.leftMargin: 24
@@ -291,6 +413,7 @@ Page {
                 Layout.rightMargin: 16
                 text: qsTr("\u2B07  Get cards from a file or link")
                 onClicked: page.getRequested()
+                Component.onCompleted: if (background) background.radius = 4
             }
             HintLabel {
                 Layout.leftMargin: 24
@@ -363,6 +486,7 @@ Page {
                 Layout.topMargin: 8
                 text: qsTr("\uD83D\uDCD6  Dictionary")
                 onClicked: page.dictionaryRequested()
+                Component.onCompleted: if (background) background.radius = 4
             }
 
             Label {

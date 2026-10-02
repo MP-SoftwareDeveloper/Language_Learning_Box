@@ -17,6 +17,11 @@ Page {
     property int shotRotation: 0
     property bool busy: false
 
+    // On some Android devices ImageCapture occasionally never reaches "ready" after the
+    // camera is created, leaving the shutter stuck disabled. Toggling this briefly true
+    // forces the Loader below to destroy and recreate the whole camera session.
+    property bool cameraKick: false
+
     CameraPermission { id: cameraPermission }
     Component.onCompleted: {
         if (cameraPermission.status !== Qt.PermissionStatus.Granted)
@@ -34,7 +39,8 @@ Page {
     Loader {
         id: cameraLoader
         anchors.fill: parent
-        active: page.visible && cameraPermission.status === Qt.PermissionStatus.Granted
+        active: page.visible && cameraPermission.status === Qt.PermissionStatus.Granted && !page.cameraKick
+        onLoaded: readyWatchdog.restart()
         sourceComponent: Item {
             readonly property alias capture: imageCapture
             CaptureSession {
@@ -86,6 +92,22 @@ Page {
         padding: 8
         color: "white"
         background: Rectangle { color: "#99000000"; radius: 6 }
+    }
+
+    // Self-healing: if the shutter is still disabled a few seconds after the camera
+    // session was created, restart the session once instead of leaving it stuck.
+    Timer {
+        id: readyWatchdog
+        interval: 4000
+        repeat: false
+        onTriggered: {
+            const cap = cameraLoader.item ? cameraLoader.item.capture : null
+            if (cap && !cap.readyForCapture) {
+                status.text = qsTr("Camera is taking a moment — restarting it…")
+                page.cameraKick = true
+                Qt.callLater(() => page.cameraKick = false)
+            }
+        }
     }
 
     RoundButton {

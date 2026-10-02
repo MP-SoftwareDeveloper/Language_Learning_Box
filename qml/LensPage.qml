@@ -192,6 +192,11 @@ Page {
         if (engine.available && cameraPermission.status !== Qt.PermissionStatus.Granted)
             cameraPermission.request()
     }
+
+    // On some Android devices ImageCapture occasionally never reaches "ready" after the
+    // camera is (re)created, leaving the shutter stuck disabled. Toggling this briefly
+    // true forces the Loader below to destroy and recreate the whole camera session.
+    property bool cameraKick: false
     StackView.onRemoved: engine.clear()
     // Leaving Lens (back, or on to the card editor): stop reading aloud
     StackView.onDeactivating: Speaker.stop()
@@ -267,6 +272,8 @@ Page {
             anchors.fill: parent
             active: page.mode === "camera" && engine.available && page.visible
                     && cameraPermission.status === Qt.PermissionStatus.Granted
+                    && !page.cameraKick
+            onLoaded: readyWatchdog.restart()
             sourceComponent: Item {
                 readonly property alias capture: imageCapture
 
@@ -348,6 +355,22 @@ Page {
                 }
             }
             Item { Layout.preferredWidth: 56 }
+        }
+
+        // Self-healing: if the shutter is still disabled a few seconds after the camera
+        // session was (re)created, restart the session once instead of leaving it stuck.
+        Timer {
+            id: readyWatchdog
+            interval: 4000
+            repeat: false
+            onTriggered: {
+                const cap = cameraLoader.item ? cameraLoader.item.capture : null
+                if (cap && !cap.readyForCapture) {
+                    status.text = qsTr("Camera is taking a moment — restarting it…")
+                    page.cameraKick = true
+                    Qt.callLater(() => page.cameraKick = false)
+                }
+            }
         }
     }
 
