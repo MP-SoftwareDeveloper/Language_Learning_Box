@@ -70,6 +70,7 @@ qt_add_qml_module(appLearningBox
         qml/EditIcon.qml
         qml/HelpIcon.qml
         qml/HelpPage.qml
+        qml/TailButton.qml
 )
 
 # Built-in vocabulary packs (read at runtime from :/data/wordpacks/...)

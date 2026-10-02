@@ -211,11 +211,11 @@ Page {
                 font.pixelSize: 16
             }
 
-            Button {
+            TailButton {
                 Layout.fillWidth: true
+                Layout.preferredHeight: 96
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
-                highlighted: true
                 enabled: CardStore.dueCount > 0
                 text: qsTr("Start review")
                 onClicked: page.reviewRequested()
