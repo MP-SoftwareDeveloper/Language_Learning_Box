@@ -8,6 +8,9 @@ ToolButton {
     id: root
     property string speakText: ""
     property string languageTag: "" // "" = learning language
+    // Size of the speaker symbol in pixels (3x the old 20). Padding keeps the button clear of the edges.
+    property int iconSize: 60
+    padding: 6
 
     // Only the button that started the current speech shows ⏹ (Speaker.utterance is the latest request).
     property int myUtterance: 0
@@ -16,7 +19,7 @@ ToolButton {
     enabled: speakText.trim().length > 0
     contentItem: Label {
         text: root.active ? "\u23F9" : "\uD83D\uDD0A" // emoji stop / speaker: always in the emoji font
-        font.pixelSize: 20
+        font.pixelSize: root.iconSize
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
         opacity: root.enabled ? 1 : 0.3

@@ -135,39 +135,19 @@ Page {
     // ---- Card ----
     ColumnLayout {
         anchors.fill: parent
-        anchors.margins: 16
+        anchors.margins: 22 // keep clear of the screen edges
         spacing: 12
         visible: session.hasCard
 
         RowLayout {
             Layout.fillWidth: true
-            // Box of this card; choose another to move it there by hand (then the next card comes).
-            ComboBox {
-                id: boxChooser
-                Layout.preferredWidth: 130
-                focusPolicy: Qt.NoFocus
-                model: [qsTr("Box 1"), qsTr("Box 2"), qsTr("Box 3"), qsTr("Box 4"), qsTr("Box 5"), qsTr("Learned")]
-                currentIndex: Math.max(0, Math.min(5, session.box - 1))
-                displayText: session.isRetry ? qsTr("Again · Box %1").arg(session.box) : currentText
-                onActivated: (index) => {
-                    const target = index + 1
-                    const name = currentText
-                    currentIndex = Qt.binding(() => Math.max(0, Math.min(5, session.box - 1)))
-                    if (target === session.box && !session.isRetry)
-                        return
-                    movedHint.text = qsTr("\u201C%1\u201D moved to %2").arg(session.front).arg(name)
-                    movedHint.visible = true
-                    movedTimer.restart()
-                    session.moveCurrent(target)
-                }
+            // Auto-speak on the left, Edit and the favorite star on the right
+            Switch {
+                text: qsTr("Auto-speak")
+                checked: page.autoSpeak
+                onToggled: page.autoSpeak = checked
             }
             Item { Layout.fillWidth: true }
-            // ★ Favorite words
-            StarButton {
-                objectName: "reviewStar"
-                visible: session.hasCard
-                cardId: session.hasCard ? session.cardId : -1
-            }
             ToolButton {
                 focusPolicy: Qt.NoFocus
                 onClicked: page.editCurrent()
@@ -185,10 +165,11 @@ Page {
                     }
                 }
             }
-            Switch {
-                text: qsTr("Auto-speak")
-                checked: page.autoSpeak
-                onToggled: page.autoSpeak = checked
+            // ★ Favorite words
+            StarButton {
+                objectName: "reviewStar"
+                visible: session.hasCard
+                cardId: session.hasCard ? session.cardId : -1
             }
         }
 

@@ -90,7 +90,6 @@ ColumnLayout {
             visible: !root.persian && root.speakTranslation && !/[\u0600-\u06FF]/.test(root.translation)
             speakText: root.translation
             languageTag: root.lang === "en" ? "en-US" : "de-DE"
-            implicitHeight: 32
         }
     }
 }

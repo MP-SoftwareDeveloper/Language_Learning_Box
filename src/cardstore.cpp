@@ -423,7 +423,8 @@ bool CardStore::moveCard(int id, int box)
     QSqlQuery q(db());
     q.prepare(QStringLiteral("UPDATE cards SET box = ?, due_at = ?, updated_at = ? WHERE id = ?"));
     q.addBindValue(step.box);
-    q.addBindValue(dueFor(step.intervalDays));
+    // Moved to Box 1 by hand = "practise this again": due right now (not tomorrow), so Start works.
+    q.addBindValue(step.box == leitner::kFirstBox ? QVariant(nowSecs()) : dueFor(step.intervalDays));
     q.addBindValue(nowSecs());
     q.addBindValue(id);
     if (!q.exec()) {
