@@ -13,7 +13,8 @@ Page {
     HelpLanguageBar { id: langBar; visible: false }
     readonly property string lang: langBar.lang
     readonly property bool rtl: lang === "fa"
-    readonly property int hAlign: rtl ? Text.AlignRight : Text.AlignLeft
+    // Left in the code: the mirrored layout below turns it into right-aligned text for Persian.
+    readonly property int hAlign: Text.AlignLeft
     readonly property var tx: ({
         "en": {
             "lang": "Language of the explanations",
@@ -115,6 +116,8 @@ Page {
         ColumnLayout {
             width: parent.width
             spacing: 8
+            LayoutMirroring.enabled: page.rtl
+            LayoutMirroring.childrenInherit: true
 
             Item { Layout.preferredHeight: 4 }
 
