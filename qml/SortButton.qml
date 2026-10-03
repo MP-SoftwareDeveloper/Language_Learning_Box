@@ -10,7 +10,7 @@ Button {
     property string order: store.order        // "none" | "az" | "za"
     flat: true
     focusPolicy: Qt.NoFocus
-    text: qsTr("Sort") + ": " + (order === "az" ? "A → Z" : order === "za" ? "Z → A" : qsTr("added"))
+    text: qsTr("Sort") + ": " + (order === "az" ? "A → Z" : order === "za" ? "Z → A" : qsTr("Default"))
     // Bold and in the accent colour so it is easy to see
     contentItem: Label {
         text: root.text
