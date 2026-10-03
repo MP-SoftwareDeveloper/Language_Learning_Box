@@ -256,13 +256,20 @@ Page {
                     id: startBtn
                     anchors.fill: parent
                     highlighted: true
-                    enabled: CardStore.dueCount > 0
-                    onClicked: page.reviewRequested()
+                    // Clickable whenever the box has cards; with nothing due, a notice explains why.
+                    readonly property bool ready: CardStore.dueCount > 0
+                    enabled: CardStore.totalCount > 0
+                    onClicked: {
+                        if (ready)
+                            page.reviewRequested()
+                        else
+                            nothingDueDialog.open()
+                    }
 
                     background: Rectangle {
                         radius: 8
                         color: Material.accentColor
-                        opacity: startBtn.enabled ? 1.0 : 0.38
+                        opacity: startBtn.ready ? 1.0 : 0.38
                     }
 
                     // "Start" — 3× font, single color that cycles every 800ms
@@ -272,7 +279,7 @@ Page {
 
                     Timer {
                         interval: 800
-                        running: startBtn.enabled
+                        running: startBtn.ready
                         repeat: true
                         onTriggered: startBtn.colorIdx = (startBtn.colorIdx + 1) % startBtn.rainbowColors.length
                     }
@@ -283,7 +290,7 @@ Page {
                         font.bold: true
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
-                        color: startBtn.enabled ? startBtn.startTextColor : "#80ffffff"
+                        color: startBtn.ready ? startBtn.startTextColor : "#80ffffff"
                         Behavior on color { ColorAnimation { duration: 300 } }
                     }
                 }
@@ -656,6 +663,71 @@ Page {
     }
 
     ResetDialog { id: resetDialog }
+
+    // Start pressed with no card due today: explain the learning box rule (English / Persian / German).
+    Dialog {
+        id: nothingDueDialog
+        modal: true
+        width: Math.min(page.width - 32, 400)
+        x: (page.width - width) / 2
+        y: Math.max(8, (page.height - height) / 6)
+        standardButtons: Dialog.Ok
+
+        readonly property string lang: dueLang.lang
+        readonly property bool rtl: lang === "fa"
+        readonly property int waiting: CardStore.totalCount - CardStore.learnedCount
+        readonly property var tx: ({
+            en: { title: "No cards due today",
+                  waiting: "The %n card(s) still in the boxes are waiting for their review day.",
+                  mastered: "All cards in this learning box are mastered.",
+                  rule: "How the learning box works: a card is only asked when its box says it is time. %1: every day, %2: every 2 days, %3: every 4 days, %4: every 8 days, %5: every 16 days.",
+                  miss: "A card you did not know goes back to %1 and is asked again tomorrow. A card you knew moves up one box and waits longer.",
+                  tip: "Want to practise now? Open a box, tick the cards, move them one box forward and then back again: a card moved to %1 is due immediately." },
+            fa: { title: "امروز کارتی برای مرور نیست",
+                  waiting: "%n کارت هنوز در جعبه‌ها منتظر روز مرورشان هستند.",
+                  mastered: "همهٔ کارت‌های این جعبهٔ یادگیری یاد گرفته شده‌اند.",
+                  rule: "جعبهٔ لایتنر چگونه کار می‌کند: هر کارت فقط وقتی پرسیده می‌شود که نوبت جعبه‌اش برسد. %1: هر روز، %2: هر ۲ روز، %3: هر ۴ روز، %4: هر ۸ روز، %5: هر ۱۶ روز.",
+                  miss: "کارتی که بلد نبودید به %1 برمی‌گردد و فردا دوباره پرسیده می‌شود. کارتی که بلد بودید یک جعبه بالا می‌رود و دیرتر پرسیده می‌شود.",
+                  tip: "می‌خواهید همین حالا تمرین کنید؟ یک جعبه را باز کنید، کارت‌ها را انتخاب کنید، یک جعبه به جلو و دوباره به عقب ببرید: کارتی که به %1 منتقل شود بلافاصله آمادهٔ مرور است." },
+            de: { title: "Heute sind keine Karten fällig",
+                  waiting: "Die %n Karte(n), die noch in den Boxen liegen, warten auf ihren Wiederholungstag.",
+                  mastered: "Alle Karten dieser Lernbox sind gemeistert.",
+                  rule: "So funktioniert die Lernbox: Eine Karte wird erst gefragt, wenn ihre Box an der Reihe ist. %1: jeden Tag, %2: alle 2 Tage, %3: alle 4 Tage, %4: alle 8 Tage, %5: alle 16 Tage.",
+                  miss: "Eine Karte, die du nicht wusstest, kommt zurück in %1 und wird morgen wieder gefragt. Eine Karte, die du wusstest, rückt eine Box weiter und wartet länger.",
+                  tip: "Du willst jetzt üben? Öffne eine Box, hake die Karten an, schiebe sie eine Box vor und wieder zurück: Eine Karte, die nach %1 verschoben wird, ist sofort fällig." }
+        })
+        // Box names are Latin text: keep them as one left-to-right run inside Persian sentences.
+        function nm(b) { return (rtl ? "\u200E" : "") + BoxNames.name(b) + (rtl ? "\u200E" : "") }
+        function body() {
+            const t = tx[lang] ?? tx.en
+            return (waiting > 0 ? t.waiting.replace("%n", waiting) : t.mastered)
+                   + "\n\n" + t.rule.replace("%1", nm(1)).replace("%2", nm(2)).replace("%3", nm(3))
+                                      .replace("%4", nm(4)).replace("%5", nm(5))
+                   + "\n\n" + t.miss.replace("%1", nm(1))
+                   + "\n\n" + t.tip.replace("%1", nm(1))
+        }
+
+        header: Label {
+            text: (nothingDueDialog.tx[nothingDueDialog.lang] ?? nothingDueDialog.tx.en).title
+            font.pixelSize: 20
+            font.bold: true
+            wrapMode: Text.WordWrap
+            leftPadding: 24; rightPadding: 24; topPadding: 20; bottomPadding: 4
+            horizontalAlignment: nothingDueDialog.rtl ? Text.AlignRight : Text.AlignLeft
+        }
+
+        contentItem: ColumnLayout {
+            spacing: 12
+            HelpLanguageBar { id: dueLang; Layout.alignment: Qt.AlignHCenter }
+            Label {
+                Layout.fillWidth: true
+                wrapMode: Text.WordWrap
+                textFormat: Text.PlainText
+                horizontalAlignment: nothingDueDialog.rtl ? Text.AlignRight : Text.AlignLeft
+                text: nothingDueDialog.body()
+            }
+        }
+    }
 
     Dialog {
         id: compareDialog
