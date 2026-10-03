@@ -149,6 +149,13 @@ Page {
                 onClicked: page.selectAll(true)
             }
         }
+        // Light-blue line under the Sort row, edge to edge
+        Rectangle {
+            Layout.fillWidth: true
+            Layout.preferredHeight: 2
+            color: "#4FC3F7"
+            visible: !page.selecting && page.cards.length > 0
+        }
 
         // Selection bar: all / count / move back / move forward / ★ / delete / done
         Pane {
