@@ -19,12 +19,19 @@ Page {
     signal favoritesRequested()
     signal boxRequested(int box) // 1..5, 6 = Learned
 
-    // Learning-box chooser: light-blue background.
-    readonly property color comboColor: "#E3F2FD"
-    // Box tiles fade from blue (Box 1) to green (Learned).
-    readonly property color tileBlue: "#1E88E5"
-    readonly property color tileGreen: "#43A047"
-    function tileColor(i) { return Qt.tint(tileBlue, Qt.rgba(tileGreen.r, tileGreen.g, tileGreen.b, i / 5)) }
+    // Every learning box has its own colour (by its id); the chooser, the list and the six box
+    // tiles use it. The tiles fade from a light to a deep shade of it (Box 1 -> Learned).
+    readonly property var boxPalette: ["#1E88E5", "#43A047", "#8E24AA", "#F4511E", "#00897B", "#E53935",
+                                       "#3949AB", "#6D4C41", "#D81B60", "#FB8C00", "#546E7A", "#7CB342"]
+    function boxColor(id) { return boxPalette[(Math.max(1, id) - 1) % boxPalette.length] }
+    function boxLight(id) { return Qt.tint(boxColor(id), Qt.rgba(1, 1, 1, 0.82)) } // pale background
+    readonly property color boxBase: boxColor(CardStore.currentCollection)
+    readonly property color comboColor: boxLight(CardStore.currentCollection)
+    function tileColor(i) {
+        const light = Qt.tint(boxBase, Qt.rgba(1, 1, 1, 0.38))
+        const dark = Qt.darker(boxBase, 1.25)
+        return Qt.tint(light, Qt.rgba(dark.r, dark.g, dark.b, i / 5))
+    }
     readonly property color selectedText: "#0D2A45"
     // Flag of the language learned in a learning box
     function flag(lang) { return lang === "en" ? "\uD83C\uDDFA\uD83C\uDDF8" : "\uD83C\uDDE9\uD83C\uDDEA" }
@@ -116,6 +123,16 @@ Page {
                         required property var modelData
                         required property int index
                         width: ListView.view ? ListView.view.width : implicitWidth
+                        // The learning box's own colour: pale background, strong stripe on the left
+                        background: Rectangle {
+                            color: page.boxLight(modelData.id)
+                            opacity: parent.pressed ? 0.8 : 1
+                            Rectangle {
+                                width: 6
+                                height: parent.height
+                                color: page.boxColor(modelData.id)
+                            }
+                        }
                         contentItem: ColumnLayout {
                             spacing: 0
                             // Full name (wraps instead of being cut off)
@@ -124,15 +141,17 @@ Page {
                                 text: page.flag(modelData.language) + "  " + modelData.name
                                 wrapMode: Text.WordWrap
                                 font.bold: modelData.current
-                                leftPadding: 6
+                                color: page.selectedText
+                                leftPadding: 12
                                 rightPadding: 6
                             }
                             Label {
                                 Layout.fillWidth: true
                                 text: qsTr("%1 cards").arg(modelData.total) + "  \u00B7  " + qsTr("%n due", "", modelData.due)
-                                opacity: 0.6
+                                opacity: 0.7
+                                color: page.selectedText
                                 font.pixelSize: 13
-                                leftPadding: 6
+                                leftPadding: 12
                             }
                         }
                     }
@@ -172,7 +191,7 @@ Page {
                         id: tile
                         readonly property color base: page.tileColor(index)
                         padding: 10
-                        // Fading blue-green: lighter at the top, the tile's colour at the bottom.
+                        // Fades from the learning box's light shade (Box 1) to its deep shade (Learned).
                         background: Rectangle {
                             radius: 8
                             opacity: boxTap.pressed ? 0.8 : 1
