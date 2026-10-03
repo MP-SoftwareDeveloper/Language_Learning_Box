@@ -152,7 +152,7 @@ Page {
         // Light-blue line under the Sort row, edge to edge
         Rectangle {
             Layout.fillWidth: true
-            Layout.preferredHeight: 2
+            Layout.preferredHeight: 12
             color: "#4FC3F7"
             visible: !page.selecting && page.cards.length > 0
         }

@@ -38,14 +38,14 @@ Page {
         anchors.top: parent.top
         anchors.left: parent.left
         anchors.right: parent.right
-        height: page.cards.length > 0 ? sortButton.implicitHeight + 2 : 0
+        height: page.cards.length > 0 ? sortButton.implicitHeight + 12 : 0
         clip: true
         // Light-blue line under Sort, edge to edge
         Rectangle {
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.bottom: parent.bottom
-            height: 2
+            height: 12
             color: "#4FC3F7"
         }
         SortButton {

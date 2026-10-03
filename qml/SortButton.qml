@@ -10,6 +10,12 @@ Button {
     property string order: store.order        // "none" | "az" | "za"
     flat: true
     focusPolicy: Qt.NoFocus
+    // Compact, so the line under it is close
+    implicitHeight: 36
+    topInset: 0
+    bottomInset: 0
+    topPadding: 4
+    bottomPadding: 4
     text: qsTr("Sort") + ": " + (order === "az" ? "A → Z" : order === "za" ? "Z → A" : qsTr("Default"))
     // Bold and in the accent colour so it is easy to see
     contentItem: Label {
