@@ -437,7 +437,7 @@ Page {
                 ComboBox {
                     id: boxChoice
                     Layout.preferredWidth: 160
-                    model: [qsTr("Box 1"), qsTr("Box 2"), qsTr("Box 3"), qsTr("Box 4"), qsTr("Box 5"), qsTr("Learned")]
+                    model: BoxNames.all
                     currentIndex: Math.max(0, Math.min(5, page.initialBox - 1))
                 }
             }
@@ -469,12 +469,12 @@ Page {
                 Label {
                     Layout.fillWidth: true
                     opacity: 0.7
-                    text: page.original.box > 5 ? qsTr("Learned")
-                                                : qsTr("Box %1 · reviewed %2×").arg(page.original.box).arg(page.original.reviews)
+                    text: page.original.box > 5 ? BoxNames.name(6)
+                                                : qsTr("%1 · reviewed %2×").arg(BoxNames.name(page.original.box)).arg(page.original.reviews)
                 }
                 Button {
                     flat: true
-                    text: qsTr("Reset to box 1")
+                    text: qsTr("Reset to %1").arg(BoxNames.name(1))
                     onClicked: { CardStore.resetCard(page.cardId); page.original = CardStore.card(page.cardId) }
                 }
                 Button {
@@ -534,8 +534,8 @@ Page {
                 wrapMode: Text.WordWrap
                 opacity: 0.7
                 text: (duplicateDialog.existing.box ?? 1) > 5
-                      ? qsTr("Learned")
-                      : qsTr("Box %1 · reviewed %2×").arg(duplicateDialog.existing.box ?? 1).arg(duplicateDialog.existing.reviews ?? 0)
+                      ? BoxNames.name(6)
+                      : qsTr("%1 · reviewed %2×").arg(BoxNames.name(duplicateDialog.existing.box ?? 1)).arg(duplicateDialog.existing.reviews ?? 0)
             }
             Label {
                 Layout.fillWidth: true

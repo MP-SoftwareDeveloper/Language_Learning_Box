@@ -11,7 +11,7 @@ import LearningBox
 Page {
     id: page
     property int box: 1
-    title: box > 5 ? qsTr("Learned") : qsTr("Box %1").arg(box)
+    title: BoxNames.name(box)
 
     property var cards: []
     property var lastMove: null // {label, to, items: [{id, from}]} for Undo
@@ -57,7 +57,7 @@ Page {
 
     StackView.onDeactivating: Speaker.stop()
 
-    function boxName(b) { return b > 5 ? qsTr("Learned") : qsTr("Box %1").arg(b) }
+    function boxName(b) { return BoxNames.name(b) }
     function move(card, to) {
         const from = card.box, id = card.id, front = card.front // before the list reloads
         if (CardStore.moveCard(id, to))
@@ -109,7 +109,7 @@ Page {
                 TabButton {
                     required property int index
                     readonly property int count: index < 5 ? (CardStore.boxCounts[index] ?? 0) : CardStore.learnedCount
-                    text: (index < 5 ? (index + 1) : "\uD83C\uDF93") + " (" + count + ")" // 🎓 Learned (★ is for favorites)
+                    text: BoxNames.code(index + 1) + " (" + count + ")"
                     font.pixelSize: 13
                     leftPadding: 2
                     rightPadding: 2
@@ -124,7 +124,7 @@ Page {
             wrapMode: Text.WordWrap
             opacity: 0.7
             text: page.box > 5
-                  ? qsTr("Learned cards are no longer reviewed. Move one back to box 5 to practise it again.")
+                  ? qsTr("Learned cards are no longer reviewed. Move one back to %1 to practise it again.").arg(BoxNames.name(5))
                   : qsTr("Reviewed every %n day(s). \u2039 moves a card back, \u203A moves it forward; it is then due after that box's interval. Tap a card to edit it; tick the boxes to select several cards.",
                          "", Math.pow(2, page.box - 1))
         }
@@ -137,7 +137,7 @@ Page {
             Button {
                 visible: page.box > 1
                 flat: true
-                text: qsTr("Move all %n card(s) to Box 1", "", page.cards.length)
+                text: qsTr("Move all %n card(s) to %1", "", page.cards.length).arg(BoxNames.name(1))
                 onClicked: resetDialog.open()
             }
             Item { Layout.fillWidth: true }

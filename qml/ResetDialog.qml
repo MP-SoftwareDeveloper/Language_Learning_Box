@@ -13,7 +13,7 @@ Item {
     property int box: 0
 
     function open() { dialog.open() }
-    function boxName(b) { return b > 5 ? qsTr("Learned") : qsTr("Box %1").arg(b) }
+    function boxName(b) { return BoxNames.name(b) }
 
     // CardStore.totalCount / boxCounts make it update when cards change.
     readonly property int count: dialog.visible
@@ -27,7 +27,7 @@ Item {
         x: (root.width - width) / 2
         y: Math.max(8, (root.height - height) / 3)
         modal: true
-        title: root.box > 0 ? qsTr("Move all cards of %1 to Box 1?").arg(root.boxName(root.box))
+        title: root.box > 0 ? qsTr("Move all cards of %1 to %2?").arg(root.boxName(root.box)).arg(BoxNames.name(1))
                             : qsTr("Start “%1” over?").arg(CardStore.currentCollectionName)
         footer: DialogButtonBox {
             Button {
@@ -59,7 +59,7 @@ Item {
                 wrapMode: Text.WordWrap
                 text: root.count === 0
                       ? qsTr("There are no cards to move.")
-                      : qsTr("%n card(s) go back to Box 1. The cards themselves (words, meanings, pictures) are kept.", "", root.count)
+                      : qsTr("%n card(s) go back to %1. The cards themselves (words, meanings, pictures) are kept.", "", root.count).arg(BoxNames.name(1))
             }
             CheckBox {
                 id: includeLearned
@@ -128,7 +128,7 @@ Item {
             const n = root.box > 0 ? CardStore.resetBox(root.box, root.days, clearStats.checked)
                                    : CardStore.resetCollection(includeLearned.checked, root.days, clearStats.checked)
             if (n > 0) {
-                undoBar.text = qsTr("%n card(s) are back in Box 1", "", n)
+                undoBar.text = qsTr("%n card(s) are back in %1", "", n).arg(BoxNames.name(1))
                 undoBar.open()
                 undoTimer.restart()
             }

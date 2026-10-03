@@ -246,7 +246,7 @@ Page {
                             ComboBox {
                                 id: importBox
                                 Layout.preferredWidth: 160
-                                model: [qsTr("Box 1"), qsTr("Box 2"), qsTr("Box 3"), qsTr("Box 4"), qsTr("Box 5"), qsTr("Learned")]
+                                model: BoxNames.all
                             }
                         }
                         HintLabel {

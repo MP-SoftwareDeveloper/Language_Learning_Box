@@ -208,9 +208,12 @@ Page {
                             anchors.fill: parent
                             spacing: 2
                             Label {
-                                text: index < 5 ? qsTr("Box %1").arg(index + 1) : qsTr("Learned")
+                                text: BoxNames.name(index + 1)
                                 color: "white"
                                 opacity: 0.85
+                                Layout.fillWidth: true
+                                elide: Text.ElideRight
+                                font.pixelSize: 12
                             }
                             Label {
                                 text: index < 5 ? (CardStore.boxCounts[index] ?? 0) : CardStore.learnedCount
@@ -229,7 +232,7 @@ Page {
                 Layout.fillWidth: true
                 wrapMode: Text.WordWrap
                 text: CardStore.totalCount === 0
-                      ? qsTr("This learning box is empty. Add words from the Dictionary below, or tap Box 1 and then +.")
+                      ? qsTr("This learning box is empty. Add words from the Dictionary below, or tap %1 and then +.").arg(BoxNames.name(1))
                       : qsTr("%n card(s) due today", "", CardStore.dueCount)
                 font.pixelSize: 16
             }
@@ -641,7 +644,7 @@ Page {
             onTriggered: page.packsRequested()
         }
         MenuItem {
-            text: qsTr("Start over (all cards to Box 1)")
+            text: qsTr("Start over (all cards to %1)").arg(BoxNames.name(1))
             enabled: CardStore.totalCount > 0
             onTriggered: resetDialog.open()
         }

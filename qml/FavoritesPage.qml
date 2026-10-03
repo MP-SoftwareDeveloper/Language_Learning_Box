@@ -28,7 +28,7 @@ Page {
     StackView.onActivating: reload()
     StackView.onDeactivating: Speaker.stop()
 
-    function boxName(b) { return b > 5 ? qsTr("Learned") : qsTr("Box %1").arg(b) }
+    function boxName(b) { return BoxNames.name(b) }
 
     Component { id: editPage; CardEditPage {} }
 

@@ -136,13 +136,13 @@ Page {
                 id: keepProgress
                 Layout.leftMargin: 8
                 visible: page.forLearningBox
-                text: checked ? qsTr("Yes, keep the boxes") : qsTr("No, start in Box 1")
+                text: checked ? qsTr("Yes, keep the boxes") : qsTr("No, start in %1").arg(BoxNames.name(1))
             }
             HintLabel {
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
                 visible: page.forLearningBox
-                text: qsTr("On: the cards stay in their boxes — right for a backup or a new phone. Off: your friend starts every card in Box 1.")
+                text: qsTr("On: the cards stay in their boxes — right for a backup or a new phone. Off: your friend starts every card in %1.").arg(BoxNames.name(1))
             }
 
             // ---- Actions ----

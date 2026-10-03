@@ -13,6 +13,8 @@ qt_add_executable(appLearningBox
     main.cpp
 )
 
+set_source_files_properties(qml/BoxNames.qml PROPERTIES QT_QML_SINGLETON_TYPE TRUE)
+
 qt_add_qml_module(appLearningBox
     URI LearningBox
     SOURCES
@@ -55,6 +57,7 @@ qt_add_qml_module(appLearningBox
         qml/SettingsPage.qml
         qml/ExampleText.qml
         qml/BoxPage.qml
+        qml/BoxNames.qml
         qml/GearIcon.qml
         qml/SendCardsPage.qml
         qml/GetCardsPage.qml

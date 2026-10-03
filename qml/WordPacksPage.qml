@@ -13,7 +13,7 @@ Page {
     Component { id: levelsPage; LevelPacksPage {} }
 
     function addedMessage(n) {
-        return n > 0 ? qsTr("%n word(s) added to Box 1", "", n)
+        return n > 0 ? qsTr("%n word(s) added to %1", "", n).arg(BoxNames.name(1))
                      : qsTr("These words are already in your box")
     }
 
@@ -98,7 +98,7 @@ Page {
             opacity: 0.75
             text: qsTr("A1 words grouped by the course's chapter themes, with Persian meanings and example sentences. "
                        + "%1 of %2 words are in your box. Tip: add one chapter at a time, "
-                       + "new words start in Box 1.").arg(WordPacks.wordsInBox).arg(WordPacks.totalWords)
+                       + "new words start in %3.").arg(WordPacks.wordsInBox).arg(WordPacks.totalWords).arg(BoxNames.name(1))
         }
         Label {
             Layout.leftMargin: 16
