@@ -561,7 +561,7 @@ Page {
                     }
                     SpeakButton {
                         speakText: page.fullText
-                        iconSize: 40 // compact: the photo needs the room
+                        iconSize: 30 // compact: the photo needs the room
                     }
                 }
 
@@ -586,7 +586,7 @@ Page {
                     visible: page.showFull && Translator.meaningLanguage !== "fa"
                     speakText: page.entry(page.fullText).text ?? ""
                     languageTag: Translator.meaningLanguage === "en" ? "en-US" : "de-DE"
-                    iconSize: 40
+                    iconSize: 30
                 }
                 }
                 ScrollView {
@@ -661,7 +661,7 @@ Page {
                         maximumLineCount: 4
                         elide: Text.ElideRight
                     }
-                    SpeakButton { speakText: page.selectedText; visible: page.selected.length > 0; iconSize: 40 }
+                    SpeakButton { speakText: page.selectedText; visible: page.selected.length > 0; iconSize: 30 }
                     ToolButton {
                         objectName: "lensStar"
                         visible: page.selected.length > 0

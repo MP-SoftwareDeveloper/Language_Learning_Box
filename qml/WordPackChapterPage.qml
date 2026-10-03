@@ -101,7 +101,7 @@ Page {
                         text: "✅"
                         ToolTip.text: qsTr("In your box")
                     }
-                    SpeakButton { speakText: row.modelData.front; iconSize: 34 } // compact in long lists
+                    SpeakButton { speakText: row.modelData.front; iconSize: 26 } // compact in long lists
                 }
             }
         }
