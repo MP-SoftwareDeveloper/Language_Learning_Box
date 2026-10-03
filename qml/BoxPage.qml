@@ -6,14 +6,15 @@ import LearningBox
 
 // One Leitner box: every card in it, with buttons to move a card to the previous or next box.
 // Tabs switch between boxes 1-5 and Learned (6). ★ adds a card to Favorite words.
-// Press and hold (or "Select") shows check boxes: select several cards, then delete or star them.
+// Every card has a check box: tick several cards (or "Select all"), then move them one box back or
+// forward, star or delete them.
 Page {
     id: page
     property int box: 1
     title: box > 5 ? qsTr("Learned") : qsTr("Box %1").arg(box)
 
     property var cards: []
-    property var lastMove: null // {id, front, from, to} for Undo
+    property var lastMove: null // {label, to, items: [{id, from}]} for Undo
 
     // Selection mode: {id: true} of the checked cards
     property bool selecting: false
@@ -25,11 +26,13 @@ Page {
         const c = Object.assign({}, checked)
         if (c[id]) delete c[id]; else c[id] = true
         checked = c
+        selecting = Object.keys(c).length > 0 // the selection bar shows while something is ticked
     }
     function selectAll(on) {
         const c = {}
         if (on) for (const card of cards) c[card.id] = true
         checked = c
+        selecting = on && cards.length > 0
     }
     function stopSelecting() { selecting = false; checked = {} }
 
@@ -43,6 +46,7 @@ Page {
         const c = {}
         for (const card of cards) if (checked[card.id]) c[card.id] = true
         if (Object.keys(c).length !== checkedCount) checked = c
+        if (Object.keys(c).length === 0) selecting = false
     }
     onBoxChanged: { stopSelecting(); reload(); list.positionViewAtBeginning() } // another box: from the top
     Component.onCompleted: reload()
@@ -56,11 +60,30 @@ Page {
     function boxName(b) { return b > 5 ? qsTr("Learned") : qsTr("Box %1").arg(b) }
     function move(card, to) {
         const from = card.box, id = card.id, front = card.front // before the list reloads
-        if (CardStore.moveCard(id, to)) {
-            lastMove = { id: id, front: front, from: from, to: to }
-            undoBar.open()
-            undoTimer.restart() // also when a second card is moved while the bar is showing
+        if (CardStore.moveCard(id, to))
+            showUndo(front, to, [{ id: id, from: from }])
+    }
+    function showUndo(label, to, items) {
+        lastMove = { label: label, to: to, items: items }
+        undoBar.open()
+        undoTimer.restart() // also when a second card is moved while the bar is showing
+    }
+    // The ticked cards, one box back (delta -1) or forward (+1)
+    function moveSelected(delta) {
+        const items = []
+        let to = 0
+        for (const card of cards) {
+            if (!checked[card.id]) continue
+            const target = Math.max(1, Math.min(6, card.box + delta))
+            if (target === card.box) continue
+            if (CardStore.moveCard(card.id, target)) {
+                items.push({ id: card.id, from: card.box })
+                to = target
+            }
         }
+        stopSelecting()
+        if (items.length > 0)
+            showUndo(qsTr("%n card(s)", "", items.length), to, items)
     }
     function dueText(card) {
         if (card.box > 5 || !card.dueAt) return ""
@@ -102,7 +125,7 @@ Page {
             opacity: 0.7
             text: page.box > 5
                   ? qsTr("Learned cards are no longer reviewed. Move one back to box 5 to practise it again.")
-                  : qsTr("Reviewed every %n day(s). \u2039 moves a card back, \u203A moves it forward; it is then due after that box's interval. Tap a card to edit it; press and hold to select several.",
+                  : qsTr("Reviewed every %n day(s). \u2039 moves a card back, \u203A moves it forward; it is then due after that box's interval. Tap a card to edit it; tick the boxes to select several cards.",
                          "", Math.pow(2, page.box - 1))
         }
 
@@ -121,12 +144,12 @@ Page {
             Button {
                 objectName: "selectButton"
                 flat: true
-                text: qsTr("Select")
-                onClicked: page.selecting = true
+                text: qsTr("Select all")
+                onClicked: page.selectAll(true)
             }
         }
 
-        // Selection bar: all / count / ★ / delete / done
+        // Selection bar: all / count / move back / move forward / ★ / delete / done
         Pane {
             objectName: "selectionBar"
             Layout.fillWidth: true
@@ -147,6 +170,34 @@ Page {
                     Layout.fillWidth: true
                     text: qsTr("%n selected", "", page.checkedCount)
                     elide: Text.ElideRight
+                }
+                ToolButton {
+                    objectName: "moveSelectedBack"
+                    enabled: page.checkedCount > 0 && page.box > 1
+                    opacity: enabled ? 1 : 0.25
+                    text: "\u2039" // ‹
+                    font.pixelSize: 48
+                    font.bold: true
+                    implicitWidth: 44
+                    implicitHeight: 56
+                    padding: 0
+                    ToolTip.visible: hovered || pressed
+                    ToolTip.text: qsTr("Move selected to %1").arg(page.boxName(page.box - 1))
+                    onClicked: page.moveSelected(-1)
+                }
+                ToolButton {
+                    objectName: "moveSelectedForward"
+                    enabled: page.checkedCount > 0 && page.box < 6
+                    opacity: enabled ? 1 : 0.25
+                    text: "\u203A" // ›
+                    font.pixelSize: 48
+                    font.bold: true
+                    implicitWidth: 44
+                    implicitHeight: 56
+                    padding: 0
+                    ToolTip.visible: hovered || pressed
+                    ToolTip.text: qsTr("Move selected to %1").arg(page.boxName(page.box + 1))
+                    onClicked: page.moveSelected(1)
                 }
                 ToolButton {
                     objectName: "starSelected"
@@ -219,7 +270,6 @@ Page {
                     spacing: 6
                     CheckBox {
                         Layout.alignment: Qt.AlignTop
-                        visible: page.selecting
                         checkable: false
                         checked: page.isChecked(row.modelData.id)
                         onClicked: page.toggle(row.modelData.id)
@@ -238,9 +288,11 @@ Page {
                             enabled: row.modelData.box > 1
                             opacity: enabled ? 1 : 0.25
                             text: "\u2039" // ‹ (◀ is drawn as an emoji on Android)
-                            font.pixelSize: 30
+                            font.pixelSize: 60
                             font.bold: true
-                            implicitWidth: 36
+                            implicitWidth: 50
+                            implicitHeight: 72
+                            padding: 0
                             ToolTip.visible: hovered || pressed
                             ToolTip.text: qsTr("Move to %1").arg(page.boxName(row.modelData.box - 1))
                             onClicked: page.move(row.modelData, row.modelData.box - 1)
@@ -250,9 +302,11 @@ Page {
                             enabled: row.modelData.box < 6
                             opacity: enabled ? 1 : 0.25
                             text: "\u203A" // ›
-                            font.pixelSize: 30
+                            font.pixelSize: 60
                             font.bold: true
-                            implicitWidth: 36
+                            implicitWidth: 50
+                            implicitHeight: 72
+                            padding: 0
                             ToolTip.visible: hovered || pressed
                             ToolTip.text: qsTr("Move to %1").arg(page.boxName(row.modelData.box + 1))
                             onClicked: page.move(row.modelData, row.modelData.box + 1)
@@ -339,7 +393,7 @@ Page {
                 Layout.fillWidth: true
                 color: "white"
                 elide: Text.ElideRight
-                text: page.lastMove ? qsTr("%1 → %2").arg(page.lastMove.front).arg(page.boxName(page.lastMove.to)) : ""
+                text: page.lastMove ? qsTr("%1 → %2").arg(page.lastMove.label).arg(page.boxName(page.lastMove.to)) : ""
             }
             Button {
                 flat: true
@@ -347,7 +401,8 @@ Page {
                 Material.foreground: Material.accent
                 onClicked: {
                     if (page.lastMove)
-                        CardStore.moveCard(page.lastMove.id, page.lastMove.from)
+                        for (const item of page.lastMove.items)
+                            CardStore.moveCard(item.id, item.from)
                     page.lastMove = null
                     undoBar.close()
                 }
