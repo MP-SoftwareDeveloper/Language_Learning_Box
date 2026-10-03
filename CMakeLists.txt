@@ -58,6 +58,7 @@ qt_add_qml_module(appLearningBox
         qml/ExampleText.qml
         qml/BoxPage.qml
         qml/BoxNames.qml
+        qml/SortButton.qml
         qml/GearIcon.qml
         qml/SendCardsPage.qml
         qml/GetCardsPage.qml

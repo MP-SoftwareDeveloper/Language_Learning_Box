@@ -14,7 +14,7 @@ Page {
     function reload() {
         // Keep the scroll position when a star is removed (a new list would jump to the top)
         const y = list.contentY
-        cards = CardStore.favorites()
+        cards = sortButton.apply(CardStore.favorites())
         list.forceLayout()
         list.contentY = Math.max(list.originY, Math.min(y, list.originY + list.contentHeight - list.height))
     }
@@ -32,9 +32,28 @@ Page {
 
     Component { id: editPage; CardEditPage {} }
 
+    // Display order only (as added / A-Z / Z-A)
+    Item {
+        id: sortBar
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.right: parent.right
+        height: page.cards.length > 0 ? sortButton.implicitHeight : 0
+        clip: true
+        SortButton {
+            id: sortButton
+            anchors.right: parent.right
+            anchors.rightMargin: 8
+            onOrderChanged: page.reload()
+        }
+    }
+
     ListView {
         id: list
-        anchors.fill: parent
+        anchors.top: sortBar.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
         clip: true
         model: page.cards
         ScrollBar.vertical: ScrollBar {}

@@ -39,7 +39,7 @@ Page {
     function reload() {
         // A new list resets the ListView to the top: keep the scroll position (star, delete, move)
         const y = list.contentY
-        cards = CardStore.cardsInBox(box)
+        cards = sortButton.apply(CardStore.cardsInBox(box))
         list.forceLayout()
         list.contentY = Math.max(list.originY, Math.min(y, list.originY + list.contentHeight - list.height))
         // Drop checks of cards that left this box
@@ -141,6 +141,7 @@ Page {
                 onClicked: resetDialog.open()
             }
             Item { Layout.fillWidth: true }
+            SortButton { id: sortButton; objectName: "sortButton"; onOrderChanged: page.reload() }
             Button {
                 objectName: "selectButton"
                 flat: true
