@@ -197,6 +197,58 @@ Page {
     // camera is (re)created, leaving the shutter stuck disabled. Toggling this briefly
     // true forces the Loader below to destroy and recreate the whole camera session.
     property bool cameraKick: false
+    // A shot that never completes: on some phones (seen on Xiaomi) the camera is closed by Android
+    // right after the shutter was pressed, the picture is lost and the shutter stays disabled.
+    // A retake after restarting the camera fails the same way, so at the moment of the shot a copy of
+    // the viewfinder picture is kept; if the still capture fails, that copy is recognized instead.
+    property bool shotInFlight: false
+    onModeChanged: if (mode !== "camera") { shotInFlight = false; shotWatchdog.stop() }
+    function startShot(capture) {
+        shotInFlight = true
+        shotWatchdog.restart()
+        const ok = cameraLoader.item ? engine.grabFrame(cameraLoader.item.sink) : false
+        console.log("Lens: viewfinder copy kept =", ok)
+        capture.captureToFile(engine.captureFilePath())
+    }
+    // ---- debug.bat self-test: press the shutter by itself and log what happens ----
+    readonly property bool autoTest: AppMode.lensAutoTest()
+    readonly property int autoTotal: 10
+    property int autoShots: 0
+    property int autoIdle: 0
+    Timer {
+        interval: 1500
+        repeat: true
+        running: page.autoTest && page.autoShots <= page.autoTotal
+        onTriggered: {
+            if (page.autoShots >= page.autoTotal) {
+                if (page.mode === "result" || !page.shotInFlight) {
+                    console.log("Lens: AUTOTEST done, shots =", page.autoShots)
+                    page.autoShots++
+                }
+                return
+            }
+            const cap = cameraLoader.item ? cameraLoader.item.capture : null
+            if (page.mode === "result") {
+                engine.clear()
+                page.fullText = ""
+                page.mode = "camera"
+                return
+            }
+            if (page.mode === "camera" && !page.shotInFlight && !engine.busy && cap && cap.readyForCapture) {
+                page.autoIdle = 0
+                page.autoShots++
+                console.log("Lens: AUTOTEST shot", page.autoShots, "of", page.autoTotal)
+                shutter.clicked()
+            } else if (++page.autoIdle % 8 === 0) {
+                console.log("Lens: AUTOTEST waiting, mode =", page.mode, "inFlight =", page.shotInFlight,
+                            "busy =", engine.busy, "ready =", cap ? cap.readyForCapture : "no capture")
+            }
+        }
+    }
+    function restartCamera() {
+        cameraKick = true
+        kickGap.restart()
+    }
     property int kickCount: 0           // restarts since the viewfinder was shown
     readonly property int maxKicks: 2
     StackView.onRemoved: engine.clear()
@@ -275,23 +327,28 @@ Page {
             active: page.mode === "camera" && engine.available && page.visible
                     && cameraPermission.status === Qt.PermissionStatus.Granted
                     && !page.cameraKick
-            onLoaded: readyWatchdog.restart()
+            onLoaded: { console.log("Lens: camera session created (kick " + page.kickCount + ")"); readyWatchdog.restart() }
             onActiveChanged: if (!active && !page.cameraKick) page.kickCount = 0 // shown again later: start fresh
             sourceComponent: Item {
                 readonly property alias capture: imageCapture
+                readonly property var sink: viewfinder.videoSink
 
                 CaptureSession {
                     camera: Camera {
                         active: true
                         focusMode: Camera.FocusModeAutoNear
-                        onErrorOccurred: (error, message) => status.text = message
+                        onActiveChanged: console.log("Lens: camera active =", active)
+                        onErrorOccurred: (error, message) => { console.log("Lens: camera error", error, message); status.text = message }
                     }
                     imageCapture: ImageCapture {
                         id: imageCapture
+                        onReadyForCaptureChanged: {
+                            console.log("Lens: readyForCapture =", readyForCapture)
+                        }
                         // path is "/data/..." on Android, "C:/..." on Windows
-                        onImageSaved: (id, path) => engine.recognize(Qt.url((path.startsWith("/") ? "file://" : "file:///") + path),
-                                                                     page.shotRotation)
-                        onErrorOccurred: (id, error, message) => status.text = message
+                        onImageSaved: (id, path) => { if (page.mode !== "camera") return; console.log("Lens: image saved"); page.shotInFlight = false; shotWatchdog.stop(); engine.recognize(Qt.url((path.startsWith("/") ? "file://" : "file:///") + path),
+                                                                     page.shotRotation) }
+                        onErrorOccurred: (id, error, message) => { console.log("Lens: capture error", id, error, message); status.text = message }
                     }
                     videoOutput: viewfinder
                 }
@@ -352,9 +409,10 @@ Page {
                 contentItem: Rectangle { radius: width / 2; color: shutter.enabled ? Material.accent : "#9e9e9e"; anchors.margins: 6 }
                 onClicked: {
                     status.text = qsTr("Hold the text flat and well lit")
+                    console.log("Lens: shutter pressed, readyForCapture =", capture.readyForCapture)
                     // Tilt at the moment of the shot; -1 (detect from the picture) without a sensor.
                     page.shotRotation = tilt.available ? tilt.rotation : -1
-                    capture.captureToFile(engine.captureFilePath())
+                    page.startShot(capture)
                 }
             }
             Item { Layout.preferredWidth: 56 }
@@ -369,7 +427,10 @@ Page {
             interval: 4000 + page.kickCount * 4000
             repeat: false
             onTriggered: {
+                if (page.shotInFlight)
+                    return // the shot watchdog handles a picture that is being taken
                 const cap = cameraLoader.item ? cameraLoader.item.capture : null
+                console.log("Lens: watchdog, ready =", cap ? cap.readyForCapture : "no capture", "kicks =", page.kickCount)
                 if (!cap || cap.readyForCapture)
                     return
                 if (page.kickCount >= page.maxKicks) {
@@ -380,6 +441,26 @@ Page {
                 status.text = qsTr("Camera is taking a moment — restarting it…")
                 page.cameraKick = true
                 kickGap.restart()
+            }
+        }
+        // Picture taken but never finished (shutter still disabled): use the viewfinder copy instead.
+        Timer {
+            id: shotWatchdog
+            interval: 3500
+            repeat: false
+            onTriggered: {
+                const cap = cameraLoader.item ? cameraLoader.item.capture : null
+                console.log("Lens: shot watchdog, inFlight =", page.shotInFlight, "ready =", cap ? cap.readyForCapture : "no capture")
+                if (!page.shotInFlight || page.mode !== "camera" || (cap && cap.readyForCapture))
+                    return
+                page.shotInFlight = false
+                if (engine.recognizeGrabbed(page.shotRotation)) {
+                    console.log("Lens: still capture failed, recognizing the viewfinder copy")
+                    status.text = qsTr("Camera hiccup — using the viewfinder picture…")
+                } else {
+                    status.text = qsTr("The picture could not be taken. Please try again.")
+                    page.restartCamera()
+                }
             }
         }
         // Android closes a camera asynchronously: opening it again in the same moment often fails

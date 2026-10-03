@@ -88,6 +88,8 @@ ApplicationWindow {
         anchors.fill: parent
         // Keep buttons clear of the gesture/navigation bar.
         anchors.bottomMargin: parent.SafeArea.margins.bottom
+        // debug.bat self-test: open Lens by itself
+        Component.onCompleted: if (AppMode.lensAutoTest()) push(lensPage)
         initialItem: HomePage {
             onReviewRequested: stack.push(reviewPage)
             onAddRequested: stack.push(editPage)

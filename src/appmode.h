@@ -33,6 +33,10 @@ public:
     QString helpLanguage() const { return m_helpLanguage; }
     void setHelpLanguage(const QString &lang);
 
+    // Debug aid for debug.bat: true while a fresh "lens-autotest" flag file exists in the app's
+    // data folder (then Lens opens by itself and takes test pictures). Expires after 5 minutes.
+    Q_INVOKABLE bool lensAutoTest() const;
+
 signals:
     void changed();
 

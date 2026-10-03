@@ -16,6 +16,8 @@
 #include <QStandardPaths>
 #include <QTransform>
 #include <QUuid>
+#include <QVideoFrame>
+#include <QVideoSink>
 #include <QtConcurrent/QtConcurrentRun>
 
 namespace {
@@ -287,6 +289,29 @@ QVariantList OcrEngine::sentenceAt(int index) const
 QString OcrEngine::cleanWord(const QString &raw) const
 {
     return textselect::cleanWord(raw);
+}
+
+bool OcrEngine::grabFrame(QObject *videoSink)
+{
+    m_grabbedFrame = QImage();
+    auto *sink = qobject_cast<QVideoSink *>(videoSink);
+    if (!sink)
+        return false;
+    m_grabbedFrame = sink->videoFrame().toImage();
+    return !m_grabbedFrame.isNull();
+}
+
+bool OcrEngine::recognizeGrabbed(int rotationHint)
+{
+    if (m_grabbedFrame.isNull() || busy())
+        return false;
+    const QString path = captureFilePath();
+    const bool saved = m_grabbedFrame.save(path, "jpg", 92);
+    m_grabbedFrame = QImage();
+    if (!saved)
+        return false;
+    recognize(QUrl::fromLocalFile(path), rotationHint);
+    return true;
 }
 
 QString OcrEngine::captureFilePath() const

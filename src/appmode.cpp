@@ -2,6 +2,9 @@
 #include "cardstore.h"
 
 #include <QCoreApplication>
+#include <QDateTime>
+#include <QFileInfo>
+#include <QStandardPaths>
 #include <QJSEngine>
 #include <QSettings>
 
@@ -72,4 +75,11 @@ void AppMode::setHelpLanguage(const QString &lang)
     m_helpLanguage = lang;
     QSettings().setValue(QLatin1String(kHelpLangKey), lang);
     emit changed();
+}
+
+bool AppMode::lensAutoTest() const
+{
+    const QFileInfo flag(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)
+                         + QStringLiteral("/lens-autotest"));
+    return flag.exists() && flag.lastModified().secsTo(QDateTime::currentDateTime()) < 300;
 }

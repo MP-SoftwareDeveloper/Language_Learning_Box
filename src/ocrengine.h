@@ -5,6 +5,7 @@
 #include <QFutureWatcher>
 #include <QNetworkReply>
 #include <QPointer>
+#include <QImage>
 #include <QObject>
 #include <QUrl>
 #include <QVariantList>
@@ -60,6 +61,11 @@ public:
     // Path for the camera to save the next capture to (app cache).
     Q_INVOKABLE QString captureFilePath() const;
 
+    // Fallback for cameras whose still capture fails (seen on Xiaomi): keep the current viewfinder frame
+    // (sink = the VideoOutput's videoSink) and, if the capture fails, recognize that copy instead.
+    Q_INVOKABLE bool grabFrame(QObject *videoSink);
+    Q_INVOKABLE bool recognizeGrabbed(int rotationHint = -1);
+
     // Where deu/eng.traineddata are installed (copied from the app resources on first use).
     static QString tessdataDir();
     static QString ensureTessdata(QString *error);
@@ -89,6 +95,7 @@ private:
     OcrResult m_result;
     QVariantList m_words;
     QUrl m_imageUrl;
+    QImage m_grabbedFrame;
     QString m_unavailableReason;
     QString m_pendingDisplayPath;
     QString m_pendingSource;
