@@ -70,10 +70,18 @@ ColumnLayout {
             }
         }
         SpeakButton {
+            id: meaningSpeaker
             Layout.alignment: Qt.AlignTop
             visible: root.meaningSpeakable
             speakText: root.back.split("\n")[0]
             languageTag: root.meaningTag
+        }
+        // No voice for Persian: keep the same space on the right as the speaker button takes for
+        // other meanings, so a Persian line does not touch the screen edge.
+        Item {
+            visible: !root.meaningSpeakable
+            Layout.preferredWidth: meaningSpeaker.implicitWidth
+            Layout.preferredHeight: 1
         }
     }
     // Example sentence
