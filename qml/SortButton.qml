@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Controls.Material
 import QtCore
 
 // Display order of a card list: as added -> A to Z -> Z to A (tap to cycle). Only changes how a list
@@ -9,7 +10,16 @@ Button {
     property string order: store.order        // "none" | "az" | "za"
     flat: true
     focusPolicy: Qt.NoFocus
-    text: order === "az" ? "A → Z" : order === "za" ? "Z → A" : qsTr("Order: added")
+    text: qsTr("Sort") + ": " + (order === "az" ? "A → Z" : order === "za" ? "Z → A" : qsTr("added"))
+    // Bold and in the accent colour so it is easy to see
+    contentItem: Label {
+        text: root.text
+        font.bold: true
+        font.pixelSize: 15
+        color: Material.accent
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
+    }
     onClicked: {
         order = order === "none" ? "az" : order === "az" ? "za" : "none"
         store.order = order

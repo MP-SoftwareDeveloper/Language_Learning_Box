@@ -134,6 +134,7 @@ Page {
             Layout.leftMargin: 8
             Layout.rightMargin: 8
             visible: !page.selecting && page.cards.length > 0
+            SortButton { id: sortButton; objectName: "sortButton"; onOrderChanged: page.reload() }
             Button {
                 visible: page.box > 1
                 flat: true
@@ -141,7 +142,6 @@ Page {
                 onClicked: resetDialog.open()
             }
             Item { Layout.fillWidth: true }
-            SortButton { id: sortButton; objectName: "sortButton"; onOrderChanged: page.reload() }
             Button {
                 objectName: "selectButton"
                 flat: true

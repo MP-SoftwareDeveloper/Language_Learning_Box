@@ -42,8 +42,8 @@ Page {
         clip: true
         SortButton {
             id: sortButton
-            anchors.right: parent.right
-            anchors.rightMargin: 8
+            anchors.left: parent.left
+            anchors.leftMargin: 8
             onOrderChanged: page.reload()
         }
     }
