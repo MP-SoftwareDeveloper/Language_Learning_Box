@@ -218,13 +218,44 @@ Page {
         }
     }
 
+    // Tap anywhere outside the text fields: drop the focus and close the keyboard.
+    function dismissKeyboard(scenePoint) {
+        for (const f of [frontField, backField, exampleField]) {
+            const q = f.mapFromItem(null, scenePoint.x, scenePoint.y)
+            if (q.x >= 0 && q.y >= 0 && q.x <= f.width && q.y <= f.height)
+                return
+        }
+        page.forceActiveFocus()
+        Qt.inputMethod.hide()
+    }
+    // Passive handler on the page (empty area below the content) ...
+    TapHandler {
+        onTapped: (eventPoint) => page.dismissKeyboard(eventPoint.scenePosition)
+    }
+
     ScrollView {
+        id: scroller
         anchors.fill: parent
         contentWidth: availableWidth
+
+        // Swiping up or down also closes the keyboard (its contentItem is the Flickable).
+        Connections {
+            target: scroller.contentItem
+            function onMovementStarted() {
+                page.forceActiveFocus()
+                Qt.inputMethod.hide()
+            }
+        }
 
         ColumnLayout {
             width: parent.width
             spacing: 12
+
+            // ... and inside the scrolled content: the Flickable swallows touches before the
+            // page-level handler sees them, a handler inside the content sees them first.
+            TapHandler {
+                onTapped: (eventPoint) => page.dismissKeyboard(eventPoint.scenePosition)
+            }
 
             Item { Layout.preferredHeight: 8 }
 
