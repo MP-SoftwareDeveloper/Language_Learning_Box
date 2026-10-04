@@ -590,7 +590,7 @@ Page {
                 }
             }
 
-            // Only when the voice for this learning box is missing (speed: on the review card / Settings)
+            // Only when the voice for this learning box is missing
             Label {
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16

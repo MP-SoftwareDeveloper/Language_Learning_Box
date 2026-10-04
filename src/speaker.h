@@ -25,7 +25,6 @@ class Speaker : public QObject
     // Voice for the language of the selected learning box (German, or American English only).
     Q_PROPERTY(bool voiceAvailable READ voiceAvailable NOTIFY stateChanged)
     Q_PROPERTY(QString voiceName READ voiceName NOTIFY stateChanged) // "German" / "American English"
-    Q_PROPERTY(double rate READ rate WRITE setRate NOTIFY rateChanged) // -1.0 .. 1.0
     Q_PROPERTY(QString errorString READ errorString NOTIFY stateChanged)
 
 public:
@@ -39,8 +38,6 @@ public:
     QString voiceName() const;
     // BCP-47 tag of the learning language: "de-DE" or "en-US".
     static QString learningTag();
-    double rate() const;
-    void setRate(double r);
     QString errorString() const;
 
     // languageTag: BCP-47 such as "de-DE", "en-US" or "fa-IR"; empty = the language of the
@@ -53,7 +50,6 @@ public:
 
 signals:
     void stateChanged();
-    void rateChanged();
 
 private:
     explicit Speaker(QObject *parent = nullptr);

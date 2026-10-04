@@ -22,8 +22,6 @@ Speaker::Speaker(QObject *parent)
     // Android initialises its engine asynchronously: locale lists are only
     // meaningful once the first Ready arrives.
     connect(m_tts, &QTextToSpeech::stateChanged, this, &Speaker::onEngineState);
-    connect(m_tts, &QTextToSpeech::rateChanged, this, &Speaker::rateChanged);
-    m_tts->setRate(qBound(-1.0, QSettings().value(QStringLiteral("speech/rate"), 0.0).toDouble(), 1.0));
     connect(m_tts, &QTextToSpeech::errorOccurred, this, [this](auto, const QString &msg) {
         qWarning() << "TTS error:" << msg;
         emit stateChanged();
@@ -109,13 +107,6 @@ bool Speaker::ready() const
 }
 
 bool Speaker::speaking() const { return m_tts->state() == QTextToSpeech::Speaking; }
-double Speaker::rate() const { return m_tts->rate(); }
-void Speaker::setRate(double r)
-{
-    const double v = qBound(-1.0, r, 1.0);
-    m_tts->setRate(v);
-    QSettings().setValue(QStringLiteral("speech/rate"), v); // remembered for the next start
-}
 QString Speaker::errorString() const { return m_tts->errorString(); }
 
 int Speaker::speak(const QString &text, const QString &languageTag)

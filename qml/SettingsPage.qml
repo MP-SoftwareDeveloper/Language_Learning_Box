@@ -43,8 +43,6 @@ Page {
             "ocrHint": "Photos are sent to Azure AI Vision for reading. With the free tier (F0) this never costs anything: 5000 photos a month, after that Azure refuses and the offline reader is used. Also used offline or when the service fails.",
             "howKey": "How to get a free key",
             "test": "Test",
-            "speech": "Speech",
-            "speed": "Speed"
         },
         "fa": {
             "lang": "زبان توضیحات",
@@ -73,8 +71,6 @@ Page {
             "ocrHint": "عکس‌ها برای خواندن به Azure AI Vision فرستاده می‌شوند. با طرح رایگان (F0) هیچ هزینه‌ای ندارد: ۵۰۰۰ عکس در ماه؛ پس از آن Azure نمی‌پذیرد و خواندن آفلاین استفاده می‌شود. در حالت آفلاین یا هنگام خطای سرویس هم همین‌طور.",
             "howKey": "راهنمای گرفتن کلید رایگان",
             "test": "آزمایش",
-            "speech": "گفتار",
-            "speed": "سرعت"
         },
         "de": {
             "lang": "Sprache der Erklärungen",
@@ -103,8 +99,6 @@ Page {
             "ocrHint": "Fotos werden zum Lesen an Azure AI Vision gesendet. Mit dem kostenlosen Tarif (F0) entstehen nie Kosten: 5000 Fotos pro Monat, danach lehnt Azure ab und der Offline-Leser wird verwendet. Er wird auch offline oder bei Dienstfehlern verwendet.",
             "howKey": "So bekommst du einen kostenlosen Schlüssel",
             "test": "Testen",
-            "speech": "Sprache",
-            "speed": "Tempo"
         }
     })
     function tr2(key) { return (tx[lang] && tx[lang][key]) || tx.en[key] }
@@ -355,26 +349,6 @@ Page {
                 }
             }
 
-            // ---------- speech ----------
-            Label {
-                Layout.leftMargin: 16
-                Layout.topMargin: 12
-                text: page.tr2("speech")
-                font.pixelSize: 16
-                font.bold: true
-            }
-            RowLayout {
-                Layout.leftMargin: 16
-                Layout.rightMargin: 16
-                Label { text: page.tr2("speed") }
-                Slider {
-                    Layout.fillWidth: true
-                    from: -1; to: 1; stepSize: 0.1
-                    value: Speaker.rate
-                    onMoved: Speaker.rate = value
-                }
-                SpeakButton { speakText: "Guten Morgen! Wie geht es dir?" }
-            }
             Item { Layout.preferredHeight: 16 }
         }
     }

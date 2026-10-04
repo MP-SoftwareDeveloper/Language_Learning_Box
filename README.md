@@ -63,7 +63,7 @@ A Leitner box for German vocabulary. Qt 6.10+ / C++20 / QML, with no Java. Andro
   word pack first (German → Persian, offline), then `Translator::translateBetween` (online, saved for offline;
   cache keys get a source prefix except German), alternatives, Tatoeba examples, 🔊 for German / English,
   *+ Add* opens the card editor prefilled (with another language than the box's meaning, the editor fills in the
-  box's meaning). Example translations follow the chosen language (`ExampleText.target`). The speed slider left Home (review card and Settings have it).
+  box's meaning). Example translations follow the chosen language (`ExampleText.target`).
 - **Review direction** (*Ask:* on the review card): *German first* (the meaning is the answer), *Meaning first* (the
   meaning's first line is the question — the plural line would give the word away; say the German word, it is read
   aloud with the answer) or *Mixed* (random per card). Stored per learning box (`CardStore::reviewDirection`, QSettings
@@ -75,7 +75,7 @@ A Leitner box for German vocabulary. Qt 6.10+ / C++20 / QML, with no Java. Andro
 - Add / edit / delete / reset cards, search. Saving a word that is already in the box asks: *Update existing card*
   (keeps its box and progress; empty fields keep the old value), *Open existing card* or *Cancel*. Lens *Add N words*
   asks the same for words already in the box (update their meaning / add only new words)
-- German TTS via `QTextToSpeech` (system engine on Android), with auto-speak and a speed slider
+- German TTS via `QTextToSpeech` (system engine on Android), with auto-speak
 - Persian: free-text back side, per-paragraph bidi (RTL renders correctly)
 
 ## Help (? icon)

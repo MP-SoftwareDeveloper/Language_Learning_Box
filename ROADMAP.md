@@ -89,7 +89,7 @@ flowchart TD
 | Card model | `src/card.h`, `src/cardlistmodel.*` | Card struct, list model with search for *All cards* |
 | Review | `src/reviewsession.*`, `qml/ReviewPage.qml` | Due queue, re-ask failed cards once, edit card, move to a box by hand |
 | Box pages | `qml/BoxPage.qml`, `CardStore::cardsInBox / moveCard` | Cards per box, manual ◀ / ▶ moves, Undo |
-| Speech | `src/speaker.*` (`Speaker`), `qml/SpeakButton.qml` | QTextToSpeech, German voice, speed |
+| Speech | `src/speaker.*` (`Speaker`), `qml/SpeakButton.qml` | QTextToSpeech, German voice |
 | Pictures | `src/cardimages.*` | Import, EXIF-rotate, scale to 1024 px, JPEG |
 | Word packs | `src/wordpack.*`, `src/wordpacks.*`, `data/wordpacks/*.tsv` | A1 pack (597 words + Persian example translations), lookup by word / example, add chapter / add words |
 | Example + translation | `qml/ExampleText.qml` | German example with Persian line (pack → saved → online) |
@@ -137,7 +137,7 @@ flowchart TD
 - [x] Learn English too: language per learning box, American voice, English OCR, English → Persian translation and examples 🧪
 - [x] Review direction: German first / Meaning first (say the German word) / Mixed, remembered per learning box 🧪
 - [x] Add / edit / delete / reset / search cards
-- [x] German TTS with speed setting
+- [x] German TTS
 - [x] Persian text (RTL per line)
 - [x] Pictures on cards (gallery or 📷 camera) 🧪
 - [x] Word pack *Netzwerk neu A1* (12 chapters)
@@ -223,6 +223,7 @@ Goal: this roadmap and the app version are visible online after each push.
 ## Changelog
 | Date | Change |
 |---|---|
+| 2026-10-04 | Speech speed control and its test button removed (review card, Settings): TTS always uses the default speed |
 | 2026-09-29 | Dictionary page (last item on Home); speed control removed from Home; fix: choosing Persian / English in Settings did not stick |
 | 2026-09-29 | Meaning language chosen per learning box (fa / en / de, schema v7); 🔊 for English and German meanings, example and Lens translations |
 | 2026-09-29 | Learning English: language per learning box (schema v6), American English voice, English OCR (eng.traineddata), English → Persian translation and Tatoeba examples, flags in the chooser; speech speed on the review card (remembered) |

@@ -412,38 +412,6 @@ Page {
             }
         }
 
-        // Speech speed, on every card: slow for new words, faster when they get easy.
-        // Letting go of the slider plays the German word at the new speed.
-        RowLayout {
-            Layout.fillWidth: true
-            Layout.topMargin: -4
-            Layout.bottomMargin: -8
-            spacing: 4
-            Label { text: "\uD83D\uDC22"; font.pixelSize: 18 } // turtle
-            Slider {
-                id: speedSlider
-                Layout.fillWidth: true
-                from: -1; to: 1; stepSize: 0.1
-                snapMode: Slider.SnapAlways
-                value: Speaker.rate
-                onMoved: Speaker.rate = value
-                onPressedChanged: {
-                    if (!pressed && (page.germanFirst || page.revealed))
-                        Speaker.speak(session.front)
-                }
-            }
-            Label { text: "\uD83D\uDC07"; font.pixelSize: 18 } // hare
-            Label {
-                Layout.preferredWidth: 44
-                horizontalAlignment: Text.AlignRight
-                opacity: 0.7
-                font.pixelSize: 13
-                // -1..1 around the normal speed, shown as a factor 0.5x .. 1x .. 2x (Android's scale)
-                readonly property real factor: speedSlider.value >= 0 ? 1 + speedSlider.value : 1 + speedSlider.value / 2
-                text: factor.toFixed(2).replace(/0$/, "") + "\u00D7"
-            }
-        }
-
         Button {
             Layout.fillWidth: true
             visible: !page.revealed
