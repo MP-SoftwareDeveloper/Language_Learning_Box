@@ -119,6 +119,8 @@ Page {
 
         Label {
             Layout.fillWidth: true
+            Layout.minimumWidth: 0
+            Layout.maximumWidth: page.width - 24 // never wider than the page (wraps instead)
             Layout.margins: 12
             Layout.bottomMargin: 4
             wrapMode: Text.WordWrap
@@ -129,10 +131,16 @@ Page {
                          "", Math.pow(2, page.box - 1))
         }
 
-        RowLayout {
+        // A Flow, not a RowLayout: buttons in a RowLayout cannot shrink, so a long label ("Move all 101
+        // card(s) to New (reg1)", a big system font) made this row wider than the page - and a
+        // ColumnLayout lays everything out at its minimum width when that is wider than the page,
+        // which pushed the whole page (hint, cards, ‹ ›) past the right edge. A Flow wraps instead.
+        Flow {
             Layout.fillWidth: true
+            Layout.minimumWidth: 0
             Layout.leftMargin: 8
             Layout.rightMargin: 8
+            spacing: 0
             visible: !page.selecting && page.cards.length > 0
             SortButton { id: sortButton; objectName: "sortButton"; onOrderChanged: page.reload() }
             Button {
@@ -141,7 +149,6 @@ Page {
                 text: qsTr("Move all %n card(s) to %1", "", page.cards.length).arg(BoxNames.name(1))
                 onClicked: resetDialog.open()
             }
-            Item { Layout.fillWidth: true }
             Button {
                 objectName: "selectButton"
                 flat: true
