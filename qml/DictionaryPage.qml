@@ -48,6 +48,33 @@ Page {
     property string error: ""
     property int requestId: -1
     property var examples: []
+    property int pickedExample: 0    // sentence that goes on the card (-1: none); tap a sentence to change
+    onExamplesChanged: pickedExample = examples.length > 0 ? 0 : -1
+    readonly property string chosenExample: pickedExample >= 0 && pickedExample < examples.length
+                                            ? examples[pickedExample].text : ""
+
+    // Save the looked-up word as a card in the selected learning box, with the chosen sentence.
+    // A word that is already a card is only touched when the user says so (updateExisting).
+    function quickAdd(updateExisting) {
+        const front = learnWord.trim()
+        if (front === "" || result === "")
+            return
+        const id = CardStore.findByFront(front)
+        if (id >= 0 && !updateExisting) {
+            existsDialog.existing = CardStore.card(id)
+            existsDialog.open()
+            return
+        }
+        if (id >= 0) {
+            const c = CardStore.card(id)
+            const ok = CardStore.updateCard(id, c.front, meaningText !== "" ? meaningText : c.back,
+                                            chosenExample !== "" ? chosenExample : (c.example ?? ""), c.image ?? "")
+            toast.show(ok ? qsTr("Card updated") : qsTr("Could not save"))
+        } else {
+            toast.show(CardStore.addCard(front, meaningText, chosenExample) >= 0 ? qsTr("Card added")
+                                                                                 : qsTr("Could not save"))
+        }
+    }
     property int examplesRequest: -1
 
     // The word in the learning language and its meaning, whichever way it was looked up
@@ -123,13 +150,41 @@ Page {
     Component { id: editPage; CardEditPage {} }
     StackView.onDeactivating: Speaker.stop() // leaving the page: stop reading aloud
 
+    // Tap outside the text field or swipe the page: drop the focus and close the keyboard.
+    function dismissKeyboard(scenePoint) {
+        if (scenePoint !== undefined) {
+            const q = field.mapFromItem(null, scenePoint.x, scenePoint.y)
+            if (q.x >= 0 && q.y >= 0 && q.x <= field.width && q.y <= field.height)
+                return
+        }
+        page.forceActiveFocus()
+        Qt.inputMethod.hide()
+    }
+    // Passive handler on the page (empty area below the content) ...
+    TapHandler {
+        onTapped: (eventPoint) => page.dismissKeyboard(eventPoint.scenePosition)
+    }
+
     ScrollView {
+        id: scroller
         anchors.fill: parent
         contentWidth: availableWidth
+
+        // Swiping up or down also closes the keyboard (its contentItem is the Flickable).
+        Connections {
+            target: scroller.contentItem
+            function onMovementStarted() { page.dismissKeyboard() }
+        }
 
         ColumnLayout {
             width: parent.width
             spacing: 8
+
+            // ... and inside the scrolled content: the Flickable swallows touches before the
+            // page-level handler sees them, a handler inside the content sees them first.
+            TapHandler {
+                onTapped: (eventPoint) => page.dismissKeyboard(eventPoint.scenePosition)
+            }
 
             // Direction and swap
             RowLayout {
@@ -228,7 +283,7 @@ Page {
                         page.suggestions = !page.reverse && page.learn === "de" && t.length >= 2 ? WordPacks.suggest(t, 5) : []
                         typing.restart()
                     }
-                    onAccepted: { typing.stop(); page.lookup() }
+                    onAccepted: { typing.stop(); page.lookup(); page.dismissKeyboard() }
                 }
                 SpeakButton {
                     visible: page.from !== "fa"
@@ -346,17 +401,13 @@ Page {
                               : qsTr("Saved translation")
                     }
 
+                    // Like Lens: save straight into the learning box (asks if the word is already a card)
                     Button {
                         Layout.topMargin: 4
                         highlighted: true
                         visible: page.result !== "" && page.learnWord !== ""
                         text: qsTr("+ Add to “%1”").arg(CardStore.currentCollectionName)
-                        // Meaning in another language than the box's: the editor fills in the box's meaning
-                        onClicked: page.StackView.view.push(editPage, {
-                            initialFront: page.learnWord,
-                            initialBack: page.meaning === page.boxMeaning ? page.meaningText : "",
-                            initialExample: page.examples.length > 0 ? page.examples[0].text : ""
-                        })
+                        onClicked: page.quickAdd(false)
                     }
                 }
             }
@@ -369,6 +420,12 @@ Page {
                 text: qsTr("Example sentences")
                 font.bold: true
             }
+            HintLabel {
+                Layout.leftMargin: 16
+                Layout.rightMargin: 16
+                visible: page.examples.length > 0 && page.result !== ""
+                text: qsTr("Tap a sentence to choose the one that goes on the card (tap again for none).")
+            }
             Label {
                 Layout.leftMargin: 16
                 visible: page.examplesRequest >= 0 && page.examples.length === 0
@@ -378,16 +435,38 @@ Page {
             Repeater {
                 model: page.examples
                 delegate: RowLayout {
+                    id: exRow
                     required property var modelData
+                    required property int index
+                    readonly property bool picked: page.pickedExample === index
+                    function toggle() { page.pickedExample = picked ? -1 : index }
                     Layout.fillWidth: true
                     Layout.leftMargin: 16
                     Layout.rightMargin: 8
+                    // choice mark: filled dot = this sentence goes on the card
+                    Rectangle {
+                        Layout.alignment: Qt.AlignTop
+                        Layout.topMargin: 3
+                        implicitWidth: 22; implicitHeight: 22
+                        radius: 11
+                        color: "transparent"
+                        border.width: 2
+                        border.color: exRow.picked ? Material.accent : Qt.alpha(Material.foreground, 0.5)
+                        Rectangle {
+                            anchors.centerIn: parent
+                            width: 10; height: 10; radius: 5
+                            color: Material.accent
+                            visible: exRow.picked
+                        }
+                        TapHandler { onTapped: exRow.toggle() }
+                    }
                     ExampleText {
                         Layout.fillWidth: true
                         example: modelData.text
                         target: page.meaning
                         knownTranslation: page.meaning === page.boxMeaning ? (modelData.translation ?? "") : ""
                         pixelSize: 15
+                        TapHandler { onTapped: exRow.toggle() }
                     }
                     SpeakButton {
                         Layout.alignment: Qt.AlignTop
@@ -397,5 +476,71 @@ Page {
             }
             Item { Layout.preferredHeight: 16 }
         }
+    }
+
+    Dialog {
+        id: existsDialog
+        property var existing: ({})
+        anchors.centerIn: parent
+        width: Math.min(page.width - 32, 400)
+        modal: true
+        title: qsTr("Already in your box")
+        ColumnLayout {
+            anchors.fill: parent
+            spacing: 8
+            Label {
+                Layout.fillWidth: true
+                wrapMode: Text.WordWrap
+                font.bold: true
+                text: existsDialog.existing.front ?? ""
+            }
+            MeaningText {
+                Layout.fillWidth: true
+                text: existsDialog.existing.back ?? ""
+                visible: text !== ""
+            }
+            Label {
+                Layout.fillWidth: true
+                wrapMode: Text.WordWrap
+                opacity: 0.7
+                text: (existsDialog.existing.box ?? 1) > 5
+                      ? BoxNames.name(6)
+                      : qsTr("%1 · reviewed %2×").arg(BoxNames.name(existsDialog.existing.box ?? 1)).arg(existsDialog.existing.reviews ?? 0)
+            }
+            Label {
+                Layout.fillWidth: true
+                Layout.topMargin: 4
+                wrapMode: Text.WordWrap
+                text: qsTr("Update it with this meaning and sentence? Its box and progress are kept.")
+            }
+            Button {
+                Layout.fillWidth: true
+                highlighted: true
+                text: qsTr("Update existing card")
+                onClicked: { existsDialog.close(); page.quickAdd(true) }
+            }
+            Button {
+                Layout.fillWidth: true
+                text: qsTr("Open existing card")
+                onClicked: {
+                    existsDialog.close()
+                    page.StackView.view.push(editPage, { cardId: existsDialog.existing.id })
+                }
+            }
+            Button {
+                Layout.fillWidth: true
+                flat: true
+                text: qsTr("Cancel")
+                onClicked: existsDialog.close()
+            }
+        }
+    }
+
+    ToolTip {
+        id: toast
+        function show(msg) { text = msg; open() }
+        timeout: 2000
+        x: (parent.width - width) / 2
+        y: parent.height / 2
     }
 }
