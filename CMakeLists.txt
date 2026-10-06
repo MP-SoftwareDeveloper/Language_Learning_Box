@@ -21,6 +21,7 @@ qt_add_qml_module(appLearningBox
         src/leitner.h
         src/card.h
         src/cardstore.h        src/cardstore.cpp
+        src/backup.h           src/backup.cpp
         src/cardlistmodel.h    src/cardlistmodel.cpp
         src/reviewsession.h    src/reviewsession.cpp
         src/speaker.h          src/speaker.cpp

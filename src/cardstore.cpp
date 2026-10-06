@@ -101,6 +101,33 @@ void CardStore::fail(const QString &where, const QString &what)
     emit errorOccurred(m_lastError);
 }
 
+bool CardStore::backupTo(const QString &file)
+{
+    if (!m_ready)
+        return false;
+    QFile::remove(file);
+    QString escaped = file;
+    escaped.replace(u'\'', QLatin1String("''"));
+    QSqlQuery q(db());
+    return q.exec(QStringLiteral("VACUUM INTO '%1'").arg(escaped));
+}
+
+void CardStore::closeDatabase()
+{
+    {
+        auto d = db();
+        if (d.isOpen())
+            d.close();
+    }
+    QSqlDatabase::removeDatabase(QLatin1String(kConnection));
+    m_ready = false;
+}
+
+int CardStore::totalAllCards() const
+{
+    return scalar(QStringLiteral("SELECT COUNT(*) FROM cards"));
+}
+
 bool CardStore::open()
 {
     const QString dir = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);

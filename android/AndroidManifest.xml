@@ -3,6 +3,10 @@
     <!-- %%INSERT_PERMISSIONS -->
     <!-- Lens: photograph text. Asked at runtime (QML CameraPermission); the camera is optional hardware. -->
     <uses-permission android:name="android.permission.CAMERA"/>
+    <!-- Backup of the cards in Documents/LearningBox, so an uninstall / reinstall keeps them -->
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="29"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32"/>
     <uses-feature android:name="android.hardware.camera" android:required="false"/>
     <supports-screens android:anyDensity="true" android:largeScreens="true" android:normalScreens="true" android:smallScreens="true"/>
     <!--%%INSERT_FEATURES-->
@@ -12,7 +16,7 @@
             <action android:name="android.intent.action.TTS_SERVICE"/>
         </intent>
     </queries>
-    <application android:allowBackup="true" android:enableOnBackInvokedCallback="false" android:fullBackupOnly="false" android:hardwareAccelerated="true" android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher_round" android:label="-- %%INSERT_APP_NAME%% --" android:name="org.qtproject.qt.android.bindings.QtApplication">
+    <application android:allowBackup="true" android:requestLegacyExternalStorage="true" android:enableOnBackInvokedCallback="false" android:fullBackupOnly="false" android:hardwareAccelerated="true" android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher_round" android:label="-- %%INSERT_APP_NAME%% --" android:name="org.qtproject.qt.android.bindings.QtApplication">
         <activity android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|layoutDirection|locale|fontScale|keyboard|keyboardHidden|navigation|mcc|mnc|density" android:exported="true" android:label="-- %%INSERT_APP_NAME%% --" android:launchMode="singleTop" android:name="org.qtproject.qt.android.bindings.QtActivity" android:screenOrientation="unspecified">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

@@ -75,6 +75,13 @@ public:
     // Pictures: importImage copies+scales a picked image into app storage and returns its
     // file name ("" on error); imageUrl turns a stored name into a URL for QML Image;
     // discardImage deletes a stored picture unless a card still uses it.
+    // Consistent copy of the whole database to `file` (SQLite VACUUM INTO) and the number of cards in all
+    // learning boxes: used by the automatic backup (Backup).
+    bool backupTo(const QString &file);
+    // Closes the database (before its file is replaced by a restored copy; the app restarts after that).
+    void closeDatabase();
+    int totalAllCards() const;
+
     Q_INVOKABLE QString importImage(const QUrl &source);
     Q_INVOKABLE QUrl imageUrl(const QString &name) const;
     Q_INVOKABLE void discardImage(const QString &name);

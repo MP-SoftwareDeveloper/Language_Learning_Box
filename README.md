@@ -294,3 +294,11 @@ Qt Quick, Quick Controls 2, SQL, Concurrent, Network, **Qt Sensors** (optional: 
 ## Next milestones
 2. ~~OCR / Lens~~ (done)
 3. Sentence suggestions: offline Tatoeba German corpus in SQLite
+
+## Automatic backup (Android)
+
+All cards are copied to `Documents/LearningBox/` (database + pictures) a few seconds after every change and when the
+app goes to the background. A new installation finds that copy and offers to bring the cards back (or restores them
+silently when the folder can be read). Android 11+ needs the one-time "Allow access to manage all files" switch
+(asked with an explanation on the first start); Android 10 and older use the normal storage permission. The copy is
+never overwritten until the user has decided about restoring. Code: `src/backup.*`, dialogs in `qml/Main.qml`.

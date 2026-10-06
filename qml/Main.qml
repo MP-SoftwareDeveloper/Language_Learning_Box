@@ -1,3 +1,4 @@
+import QtCore
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -127,10 +128,118 @@ ApplicationWindow {
     }
 
     Component.onCompleted: {
+        if (Backup.restored) AppMode.setupDone = true // cards came back from the backup: no setup wizard
         if (AppMode.setupDone) LevelPacks.installBoxes(false) // A1/A2 levels as their own learning boxes (first start only)
         if (!AppMode.setupDone) stack.push(setupPage, {}, StackView.Immediate)
     }
     Component { id: helpPage; HelpPage {} }
+
+    // ---- Keep the cards safe: one-time permission for the automatic backup (Android) ----
+    Settings {
+        id: backupPrefs
+        category: "backup"
+        property double askAgainAfter: 0   // ms since epoch; "Later" waits two days
+    }
+    Timer {
+        id: backupAsk
+        interval: 2000
+        running: Qt.platform.os === "android" && !Backup.accessGranted && Date.now() > backupPrefs.askAgainAfter
+        onTriggered: backupDialog.open()
+    }
+    // A new installation with a copy of the old cards in Documents: offer to bring them back
+    Connections {
+        target: Backup
+        function onRestoreAvailableChanged() { if (Backup.restoreAvailable) restoreDialog.open() }
+    }
+    Dialog {
+        id: restoreDialog
+        property bool done: false
+        anchors.centerIn: parent
+        width: Math.min(window.width - 32, 400)
+        modal: true
+        closePolicy: Popup.NoAutoClose
+        title: done ? qsTr("Cards restored") : qsTr("Your cards were found")
+        standardButtons: Dialog.NoButton
+        Component.onCompleted: if (Backup.restoreAvailable) open()
+        ColumnLayout {
+            anchors.fill: parent
+            spacing: 12
+            Label {
+                Layout.fillWidth: true
+                wrapMode: Text.WordWrap
+                text: restoreDialog.done
+                      ? qsTr("Your cards are back. The app closes now \u2013 open it again.")
+                      : qsTr("A backup with %n card(s) from an earlier installation was found on this phone. Bring your cards back?", "", Backup.copyCards)
+            }
+            RowLayout {
+                Layout.fillWidth: true
+                Item { Layout.fillWidth: true }
+                Button {
+                    flat: true
+                    visible: !restoreDialog.done
+                    text: qsTr("Start without them")
+                    onClicked: { Backup.keepCurrent(); restoreDialog.close() }
+                }
+                Button {
+                    highlighted: true
+                    text: restoreDialog.done ? qsTr("Close app") : qsTr("Restore my cards")
+                    onClicked: {
+                        if (restoreDialog.done) {
+                            Qt.quit()
+                        } else if (Backup.restoreNow()) {
+                            restoreDialog.done = true
+                        } else {
+                            restoreDialog.close()
+                        }
+                    }
+                }
+            }
+        }
+    }
+    Dialog {
+        id: backupDialog
+        anchors.centerIn: parent
+        width: Math.min(window.width - 32, 400)
+        modal: true
+        title: qsTr("Keep your cards safe")
+        standardButtons: Dialog.NoButton
+        ColumnLayout {
+            anchors.fill: parent
+            spacing: 12
+            Label {
+                Layout.fillWidth: true
+                wrapMode: Text.WordWrap
+                text: qsTr("Allow Learning Box to keep a copy of your cards in your phone's Documents folder. "
+                           + "Then an update or a new installation of the app never loses your cards: they come back by themselves.")
+            }
+            Label {
+                Layout.fillWidth: true
+                wrapMode: Text.WordWrap
+                opacity: 0.7
+                text: qsTr("On the next screen, switch on \u201CAllow access to manage all files\u201D and come back.")
+            }
+            RowLayout {
+                Layout.fillWidth: true
+                Item { Layout.fillWidth: true }
+                Button {
+                    flat: true
+                    text: qsTr("Later")
+                    onClicked: {
+                        backupPrefs.askAgainAfter = Date.now() + 2 * 24 * 3600 * 1000
+                        backupDialog.close()
+                    }
+                }
+                Button {
+                    highlighted: true
+                    text: qsTr("Allow")
+                    onClicked: {
+                        backupDialog.close()
+                        Backup.requestAccess()
+                    }
+                }
+            }
+        }
+    }
 
     // Due counts depend on the date: refresh when the app comes back to the foreground.
     Connections {
