@@ -33,6 +33,21 @@ Page {
     property var exampleSuggestions: [] // [{text, translation}]
     property int examplesRequest: -1
     property bool pickedWord: false
+    // Example sentence chosen from the suggestions (radio buttons, like the Dictionary); -1 = none
+    property int examplePicked: -1
+    property bool exampleAuto: true     // example field is empty or was filled from the suggestions
+    property bool exampleDeselected: false
+    property bool settingExample: false
+    function setExample(t) { settingExample = true; exampleField.text = t; settingExample = false }
+    function pickExample(i) {
+        examplePicked = i
+        exampleDeselected = i < 0
+        const e = i >= 0 ? exampleSuggestions[i] : undefined
+        if (e && e.translation)
+            Translator.remember(e.text, e.translation)
+        setExample(e ? e.text : "")
+        exampleAuto = true
+    }
 
     // Article and plural of a single German noun (Wiktionary, saved for offline use): the article goes in
     // front of the word, "Pl. die Hunde" on its own line at the end of the back.
@@ -97,8 +112,8 @@ Page {
         wordSuggestions = []
         if (backAuto && Translator.meaningLanguage === "fa" && s.back)
             setBack(s.back)
-        if (exampleField.text.trim() === "" && s.example)
-            exampleField.text = s.example
+        if (exampleAuto && s.example)
+            setExample(s.example)
         suggestTimer.restart()
     }
     function fillMeaning() {
@@ -128,11 +143,18 @@ Page {
     function findExamples() {
         exampleSuggestions = []
         examplesRequest = -1
-        if (!isNew || typed.length < 2 || exampleField.text.trim() !== "")
+        examplePicked = -1
+        exampleDeselected = false
+        if (!isNew || !exampleAuto)
+            return
+        setExample("")
+        if (typed.length < 2)
             return
         const persian = Translator.meaningLanguage === "fa"
         exampleSuggestions = CardStore.learningLanguage !== "de" ? []
             : WordPacks.examplesContaining(typed, 3).map(e => ({ text: e.text, translation: persian ? e.translation : "" }))
+        if (exampleSuggestions.length > 0)
+            pickExample(0)
         if (Translator.useOnline)
             examplesRequest = Translator.suggestExamples(typed)
     }
@@ -169,6 +191,8 @@ Page {
                 if (merged.length < 5 && seen.indexOf(e.text.toLowerCase()) < 0)
                     merged.push(e)
             page.exampleSuggestions = merged
+            if (page.examplePicked < 0 && page.exampleAuto && !page.exampleDeselected && merged.length > 0)
+                page.pickExample(0)
         }
     }
 
@@ -259,6 +283,7 @@ Page {
             page.plural = ""; page.grammarFor = ""; page.grammarRequest = -1; page.articleFront = ""
             page.wordSuggestions = []
             page.exampleSuggestions = []
+            page.examplePicked = -1; page.exampleAuto = true; page.exampleDeselected = false
             image = ""
             saved = false
             frontField.forceActiveFocus()
@@ -406,6 +431,7 @@ Page {
                     Layout.minimumHeight: 60
                     wrapMode: TextEdit.Wrap
                     placeholderText: qsTr("Example sentence")
+                    onTextChanged: if (!page.settingExample) page.exampleAuto = text.trim() === ""
                 }
                 SpeakButton { speakText: exampleField.text }
             }
@@ -420,50 +446,57 @@ Page {
                 pixelSize: 15
             }
 
-            // Example sentences with the word: word pack + Tatoeba (online). Tap to use one.
+            // Example sentences with the word: word pack + Tatoeba (online). Choose one with the radio button
+            // (like the Dictionary); tap it again to take it off the card. 🔊 reads it aloud.
             ColumnLayout {
                 Layout.fillWidth: true
                 Layout.leftMargin: 16
-                Layout.rightMargin: 16
-                spacing: 2
-                visible: page.isNew && exampleField.text.trim() === ""
-                         && (page.exampleSuggestions.length > 0 || page.examplesRequest >= 0)
+                Layout.rightMargin: 8
+                spacing: 4
+                visible: page.isNew && (page.exampleSuggestions.length > 0 || page.examplesRequest >= 0)
                 Label {
                     font.pixelSize: 12
                     opacity: 0.6
                     text: page.examplesRequest >= 0 && page.exampleSuggestions.length === 0
-                          ? qsTr("Finding example sentences\u2026") : qsTr("Example suggestions \u2013 tap to use")
+                          ? qsTr("Finding example sentences\u2026") : qsTr("Example sentences \u2013 choose one for the card")
                 }
                 Repeater {
                     model: page.exampleSuggestions
-                    delegate: ItemDelegate {
+                    delegate: RowLayout {
+                        id: exRow
                         required property var modelData
+                        required property int index
+                        readonly property bool picked: page.examplePicked === index
+                                                       && exampleField.text === modelData.text
+                        function toggle() { page.pickExample(picked ? -1 : index) }
                         Layout.fillWidth: true
-                        topPadding: 6
-                        bottomPadding: 6
-                        contentItem: ColumnLayout {
-                            spacing: 1
-                            Label {
-                                Layout.fillWidth: true
-                                text: modelData.text
-                                wrapMode: Text.WordWrap
-                                font.italic: true
+                        // choice mark: filled dot = this sentence goes on the card
+                        Rectangle {
+                            Layout.alignment: Qt.AlignTop
+                            Layout.topMargin: 3
+                            implicitWidth: 22; implicitHeight: 22
+                            radius: 11
+                            color: "transparent"
+                            border.width: 2
+                            border.color: exRow.picked ? Material.accent : Qt.alpha(Material.foreground, 0.5)
+                            Rectangle {
+                                anchors.centerIn: parent
+                                width: 10; height: 10; radius: 5
+                                color: Material.accent
+                                visible: exRow.picked
                             }
-                            Label {
-                                Layout.fillWidth: true
-                                visible: text !== ""
-                                text: modelData.translation
-                                wrapMode: Text.WordWrap
-                                font.pixelSize: 13
-                                opacity: 0.7
-                                horizontalAlignment: Translator.rightToLeft ? Text.AlignRight : Text.AlignLeft
-                            }
+                            TapHandler { onTapped: exRow.toggle() }
                         }
-                        onClicked: {
-                            if (modelData.translation)
-                                Translator.remember(modelData.text, modelData.translation)
-                            exampleField.text = modelData.text
-                            page.exampleSuggestions = []
+                        ExampleText {
+                            Layout.fillWidth: true
+                            example: modelData.text
+                            knownTranslation: modelData.translation ?? ""
+                            pixelSize: 15
+                            TapHandler { onTapped: exRow.toggle() }
+                        }
+                        SpeakButton {
+                            Layout.alignment: Qt.AlignTop
+                            speakText: modelData.text
                         }
                     }
                 }
