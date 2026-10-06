@@ -41,6 +41,7 @@ ColumnLayout {
             font.bold: true
             wrapMode: Text.WordWrap
         }
+        GenderMark { word: root.front }
         SpeakButton { speakText: root.front }
         RowLayout {
             id: actions
@@ -57,7 +58,7 @@ ColumnLayout {
             Layout.fillWidth: true
             spacing: 1
             Repeater {
-                model: root.back.split("\n")
+                model: root.back.replace(/\s*·\s*Pl\./, "\nPl.").split("\n")
                 delegate: Label {
                     required property string modelData
                     required property int index

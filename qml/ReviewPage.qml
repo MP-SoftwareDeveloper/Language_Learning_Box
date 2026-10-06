@@ -327,6 +327,7 @@ Page {
                             font.pixelSize: 28
                             font.bold: true
                         }
+                        GenderMark { word: session.front }
                         SpeakButton { speakText: session.front }
                     }
 

@@ -386,6 +386,7 @@ Page {
                             font.bold: true
                             horizontalAlignment: page.persianText(text) ? Text.AlignRight : Text.AlignLeft
                         }
+                        GenderMark { word: page.reverse ? "" : page.cardFront }
                         SpeakButton {
                             visible: page.from !== "fa"
                             speakText: page.headword || page.query

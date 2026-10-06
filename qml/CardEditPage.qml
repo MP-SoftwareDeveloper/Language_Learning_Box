@@ -315,6 +315,7 @@ Page {
                                                                          : qsTr("German word or sentence")
                     onAccepted: backField.forceActiveFocus()
                 }
+                GenderMark { word: frontField.text }
                 SpeakButton { speakText: frontField.text }
                 StarButton {
                     visible: !page.isNew // a new card can be starred once it is saved
