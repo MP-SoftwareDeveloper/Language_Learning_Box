@@ -246,10 +246,16 @@ QStringList formLines(const Grammar &g)
     } else if (!g.plurals.isEmpty()) {
         lines << pluralLine(g);
     }
-    for (const QString &w : g.masculine)
-        lines << QStringLiteral("Mask. der ") + w;
-    for (const QString &w : g.feminine)
-        lines << QStringLiteral("Fem. die ") + w;
+    if (!g.masculine.isEmpty()) {
+        lines << QStringLiteral("Mask. der ") + g.masculine.first();
+        if (!g.masculinePlural.isEmpty())
+            lines << QStringLiteral("Mask. Pl. ") + g.masculinePlural;
+    }
+    if (!g.feminine.isEmpty()) {
+        lines << QStringLiteral("Fem. die ") + g.feminine.first();
+        if (!g.femininePlural.isEmpty())
+            lines << QStringLiteral("Fem. Pl. ") + g.femininePlural;
+    }
     return lines;
 }
 
@@ -258,7 +264,7 @@ QString encode(const Grammar &g)
     if (!g.valid())
         return QString();
     return QStringList{g.genders.join(u'/'), g.plurals.join(u'|'), g.singularOf, g.masculine.join(u'|'),
-                       g.feminine.join(u'|'), g.lemma}.join(u'\n');
+                       g.feminine.join(u'|'), g.lemma, g.masculinePlural, g.femininePlural}.join(u'\n');
 }
 
 Grammar decode(const QString &text, const QString &lemma)
@@ -276,6 +282,8 @@ Grammar decode(const QString &text, const QString &lemma)
     g.masculine = list(3, u'|');
     g.feminine = list(4, u'|');
     g.lemma = f.value(5).isEmpty() ? lemma : f.value(5);
+    g.masculinePlural = f.value(6);
+    g.femininePlural = f.value(7);
     return g;
 }
 

@@ -17,6 +17,8 @@ struct Grammar
     QString lemma;       // the word as written in the dictionary: "Hund"
     QStringList masculine; // male form of a female noun ("Lehrerin" -> "Lehrer"); usually empty
     QStringList feminine;  // female form of a male noun ("Lehrer" -> "Lehrerin"); usually empty
+    QString masculinePlural; // plural of the first masculine form ("Ärzte"); filled in by a second lookup
+    QString femininePlural;  // plural of the first feminine form ("Lehrerinnen")
     // Set when the looked-up word is the plural form of a noun ("Hunde" -> "Hund"): the gender, lemma,
     // masculine and feminine then describe that singular noun and `plurals` is empty.
     QString singularOf;
@@ -52,7 +54,8 @@ QString pluralLine(const Grammar &g);
 Grammar withSingular(const Grammar &pluralPage, const Grammar &noun);
 
 // Lines for the card's back, each on its own line, label first: "Pl. Hunde" (or "Sg. der Hund" when the word
-// is itself a plural form), then "Mask. der Lehrer" / "Fem. die Lehrerin" when the noun has such a form.
+// is itself a plural form), then "Mask. der Arzt", "Mask. Pl. Ärzte", "Fem. die Ärztin", "Fem. Pl. Ärztinnen"
+// when the noun has such forms.
 QStringList formLines(const Grammar &g);
 
 // For the offline cache: one text with the fields on separate lines ("" = nothing) <-> Grammar.

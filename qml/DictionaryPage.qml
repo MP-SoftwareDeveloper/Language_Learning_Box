@@ -435,6 +435,7 @@ Page {
                     FormLines {
                         Layout.fillWidth: true
                         text: page.cardForms
+                        word: page.cardFront
                         pixelSize: 16
                     }
                     Label {

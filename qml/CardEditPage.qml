@@ -429,6 +429,7 @@ Page {
                 Layout.leftMargin: 20
                 Layout.rightMargin: 8
                 text: backField.text
+                word: page.cardFront
                 pixelSize: 15
             }
 

@@ -10,10 +10,12 @@ RowLayout {
     id: root
     property string line: ""
     property int pixelSize: 16
+    // Word whose article gives the colour mark after the line ("der Hund": blue, "die ...": red, "das ...": green)
+    property string markWord: ""
 
-    readonly property bool isPlural: /^\s*Pl\./.test(line)
+    readonly property bool isPlural: /^\s*((Mask|Fem)\.\s*)?Pl\./.test(line)
     readonly property string spoken: {
-        const t = line.replace(/^\s*(Pl|Sg|Mask|Fem)\.\s*/, "")
+        const t = line.replace(/^\s*((Pl|Sg|Mask|Fem)\.\s*)+/, "")
         return (isPlural ? t.replace(/(^|\/\s*)die\s+/gi, "$1") : t).replace(/\s*\/\s*/g, ", ").trim()
     }
 
@@ -28,6 +30,7 @@ RowLayout {
         font.italic: true
         color: Material.accent
     }
+    GenderMark { word: root.markWord }
     SpeakButton {
         Layout.alignment: Qt.AlignVCenter
         speakText: root.spoken

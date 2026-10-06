@@ -278,10 +278,10 @@ int Translator::lookupGrammar(const QString &word)
         answer({}, QString());
         return id;
     }
-    // Saved answer first (row in the translation cache, language "grammar2"; "-" = looked up, not a noun)
+    // Saved answer first (row in the translation cache, language "grammar3"; "-" = looked up, not a noun)
     QString saved;
     QStringList extra;
-    if (lookup(QStringLiteral("de"), QStringLiteral("grammar2"), w, &saved, &extra)) {
+    if (lookup(QStringLiteral("de"), QStringLiteral("grammar3"), w, &saved, &extra)) {
         answer(saved == QLatin1String("-") ? QVariantMap()
                                            : grammarMap(wiktionary::decode(saved, extra.value(0, w))),
                QString());
@@ -291,14 +291,41 @@ int Translator::lookupGrammar(const QString &word)
         answer({}, QStringLiteral("offline"));
         return id;
     }
-    fetchGrammar(w, true, [=, this](const wiktionary::Grammar &g, const QString &error) {
+    const auto done = [=, this](const wiktionary::Grammar &g, const QString &error) {
         if (error.isEmpty())
-            store(QStringLiteral("de"), QStringLiteral("grammar2"), w,
+            store(QStringLiteral("de"), QStringLiteral("grammar3"), w,
                   g.valid() ? wiktionary::encode(g) : QStringLiteral("-"),
                   g.valid() ? QStringList{g.lemma.isEmpty() ? w : g.lemma} : QStringList());
         else
             qWarning().noquote() << "Wiktionary:" << error;
         emit grammarFound(id, grammarMap(g), error);
+    };
+    fetchGrammar(w, true, [=, this](const wiktionary::Grammar &g, const QString &error) {
+        if (!error.isEmpty() || !g.valid()) {
+            done(g, error);
+            return;
+        }
+        // The male / female forms get their plural from their own pages
+        const auto femalePlural = [=, this](const wiktionary::Grammar &g2) {
+            if (g2.feminine.isEmpty()) {
+                done(g2, QString());
+                return;
+            }
+            fetchGrammar(g2.feminine.first(), false, [=](const wiktionary::Grammar &f, const QString &) {
+                wiktionary::Grammar g3 = g2;
+                g3.femininePlural = f.plurals.join(QStringLiteral(" / "));
+                done(g3, QString());
+            });
+        };
+        if (g.masculine.isEmpty()) {
+            femalePlural(g);
+            return;
+        }
+        fetchGrammar(g.masculine.first(), false, [=](const wiktionary::Grammar &m, const QString &) {
+            wiktionary::Grammar g2 = g;
+            g2.masculinePlural = m.plurals.join(QStringLiteral(" / "));
+            femalePlural(g2);
+        });
     });
     return id;
 }

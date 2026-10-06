@@ -118,6 +118,18 @@ private slots:
         QCOMPARE(wiktionary::formLines(f),
                  (QStringList{QStringLiteral("Pl. Ärztinnen"), QStringLiteral("Mask. der Arzt")}));
     }
+    void pluralsOfTheOtherGender()
+    {
+        wiktionary::Grammar g;
+        g.genders = {QStringLiteral("m")};
+        g.plurals = {QStringLiteral("Lehrer")};
+        g.lemma = QStringLiteral("Lehrer");
+        g.feminine = {QStringLiteral("Lehrerin")};
+        g.femininePlural = QStringLiteral("Lehrerinnen");
+        QCOMPARE(wiktionary::formLines(g),
+                 (QStringList{QStringLiteral("Pl. Lehrer"), QStringLiteral("Fem. die Lehrerin"),
+                              QStringLiteral("Fem. Pl. Lehrerinnen")}));
+    }
     void pluralFormPointsAtItsNoun()
     {
         const wiktionary::Grammar a = wiktionary::parseWikitext(
@@ -150,9 +162,13 @@ private slots:
         g.plurals = {QStringLiteral("Joghurts"), QStringLiteral("Joghurte")};
         g.lemma = QStringLiteral("Joghurt");
         g.feminine = {QStringLiteral("Joghurtin")};
+        g.femininePlural = QStringLiteral("Joghurtinnen");
+        g.masculinePlural = QStringLiteral("Joghurter");
         const QString s = wiktionary::encode(g);
         const wiktionary::Grammar back = wiktionary::decode(s, QStringLiteral("Joghurt"));
         QCOMPARE(back.feminine, g.feminine);
+        QCOMPARE(back.femininePlural, g.femininePlural);
+        QCOMPARE(back.masculinePlural, g.masculinePlural);
         QCOMPARE(back.genders, g.genders);
         QCOMPARE(back.plurals, g.plurals);
         QVERIFY(wiktionary::encode(wiktionary::Grammar{}).isEmpty());

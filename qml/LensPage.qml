@@ -780,6 +780,7 @@ Page {
                         FormLines {
                             Layout.fillWidth: true
                             text: page.pluralOf(modelData)
+                            word: page.frontFor(modelData)
                             pixelSize: 14
                         }
                     }
