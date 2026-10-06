@@ -213,6 +213,10 @@ int WordPacks::addTranslatedWords(const QVariantList &items, const QString &deck
             c.front = word;
         if (!back.isEmpty())
             c.back = back;
+        // Front with the article found for the word ("der Hund"), when the pack does not know it
+        const QString front = m.value(QStringLiteral("front")).toString().trimmed();
+        if (!front.isEmpty())
+            c.front = front;
         cards.append(c);
     }
     return qMax(0, CardStore::instance()->addCards(cards, deck));

@@ -41,6 +41,7 @@ qt_add_qml_module(appLearningBox
         src/ocr/azureread.h    src/ocr/azureread.cpp
         src/translation/googletranslate.h src/translation/googletranslate.cpp
         src/translation/tatoeba.h         src/translation/tatoeba.cpp
+        src/translation/wiktionary.h      src/translation/wiktionary.cpp
         src/deckexchange.h     src/deckexchange.cpp
         src/exchange/deckformats.h src/exchange/deckformats.cpp
     QML_FILES
@@ -245,6 +246,12 @@ if (LEARNINGBOX_BUILD_TESTS AND NOT ANDROID AND NOT IOS)
         target_link_libraries(tst_tatoeba PRIVATE Qt6::Test)
         set_target_properties(tst_tatoeba PROPERTIES WIN32_EXECUTABLE FALSE)
         add_test(NAME tst_tatoeba COMMAND tst_tatoeba)
+
+        qt_add_executable(tst_wiktionary tests/tst_wiktionary.cpp src/translation/wiktionary.cpp)
+        target_include_directories(tst_wiktionary PRIVATE src)
+        target_link_libraries(tst_wiktionary PRIVATE Qt6::Test)
+        set_target_properties(tst_wiktionary PROPERTIES WIN32_EXECUTABLE FALSE)
+        add_test(NAME tst_wiktionary COMMAND tst_wiktionary)
 
         qt_add_executable(tst_azureread tests/tst_azureread.cpp src/ocr/azureread.cpp)
         target_include_directories(tst_azureread PRIVATE src)

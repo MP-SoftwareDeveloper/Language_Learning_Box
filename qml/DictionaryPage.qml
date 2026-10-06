@@ -56,7 +56,7 @@ Page {
     // Save the looked-up word as a card in the selected learning box, with the chosen sentence.
     // A word that is already a card is only touched when the user says so (updateExisting).
     function quickAdd(updateExisting) {
-        const front = learnWord.trim()
+        const front = cardFront.trim()
         if (front === "" || result === "")
             return
         const id = CardStore.findByFront(front)
@@ -67,11 +67,11 @@ Page {
         }
         if (id >= 0) {
             const c = CardStore.card(id)
-            const ok = CardStore.updateCard(id, c.front, meaningText !== "" ? meaningText : c.back,
+            const ok = CardStore.updateCard(id, c.front, cardBack !== "" ? cardBack : c.back,
                                             chosenExample !== "" ? chosenExample : (c.example ?? ""), c.image ?? "")
             toast.show(ok ? qsTr("Card updated") : qsTr("Could not save"))
         } else {
-            toast.show(CardStore.addCard(front, meaningText, chosenExample) >= 0 ? qsTr("Card added")
+            toast.show(CardStore.addCard(front, cardBack, chosenExample) >= 0 ? qsTr("Card added")
                                                                                  : qsTr("Could not save"))
         }
     }
@@ -81,9 +81,42 @@ Page {
     readonly property string learnWord: reverse ? result.split("\n")[0] : (headword || query)
     readonly property string meaningText: reverse ? query : result
 
+    // Article (der / die / das) and plural of a German noun, from Wiktionary (online, saved for offline use).
+    // Single words only: the article goes in front of the word, the plural on its own line on the back.
+    property var grammar: ({})
+    property int grammarRequest: -1
+    property string grammarWord: ""
+    function requestGrammar() {
+        const w = learnWord.trim()
+        if (learn !== "de" || w === "" || w === grammarWord)
+            return
+        grammarWord = w
+        grammar = ({})
+        grammarRequest = -1
+        // Nouns only: an article in front, or a capital letter ("gehen" would find the noun "das Gehen")
+        if (/^(der|die|das)\s/i.test(w) || /^[A-ZÄÖÜ]/.test(w))
+            grammarRequest = Translator.lookupGrammar(w)
+    }
+    onLearnWordChanged: Qt.callLater(requestGrammar)
+    // Word-pack meanings keep the plural on the same line ("Brot · Pl. die Brote"): show it on its own line
+    readonly property string meaningLines: meaningText.replace(/\s*·\s*Pl\./, "\nPl.")
+    // Back of the card: the meaning, then "Pl. die Hunde" on a new line (unless the meaning has it already)
+    readonly property string cardBack: {
+        if (reverse || meaningLines === "" || /Pl\./.test(meaningLines) || (grammar.pluralLine ?? "") === "")
+            return meaningLines
+        return meaningLines + "\n" + grammar.pluralLine
+    }
+    // Front of the card: "der Hund" (article from the word pack or from Wiktionary)
+    readonly property string cardFront: {
+        if (!reverse && /^(der|die|das)\s/i.test(headword))
+            return headword
+        return (grammar.front ?? "") !== "" ? grammar.front : learnWord
+    }
+
     function clearResult() {
         headword = ""; result = ""; alternatives = []; source = ""; error = ""
         requestId = -1; examples = []; examplesRequest = -1
+        grammar = ({}); grammarRequest = -1; grammarWord = ""
     }
     function lookup() {
         clearResult()
@@ -129,6 +162,12 @@ Page {
             }
             if (page.reverse && page.result !== "")
                 page.findExamples(page.result.split("\n")[0])
+        }
+        function onGrammarFound(requestId, grammar) {
+            if (requestId === page.grammarRequest) {
+                page.grammarRequest = -1
+                page.grammar = grammar
+            }
         }
         function onExamplesSuggested(requestId, examples) {
             if (requestId === page.examplesRequest) {
@@ -341,7 +380,7 @@ Page {
                         Layout.fillWidth: true
                         Label {
                             Layout.fillWidth: true
-                            text: page.headword || page.query
+                            text: page.reverse ? (page.headword || page.query) : page.cardFront || page.query
                             wrapMode: Text.WordWrap
                             font.pixelSize: 22
                             font.bold: true
@@ -376,7 +415,7 @@ Page {
                         visible: page.result !== ""
                         MeaningText {
                             Layout.fillWidth: true
-                            text: page.result
+                            text: page.reverse ? page.result : page.cardBack
                             pixelSize: 20
                         }
                         SpeakButton {

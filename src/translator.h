@@ -71,8 +71,14 @@ public:
     // Example sentences with `word` from Tatoeba (online only). Answers through
     // examplesSuggested(id, [{text, translation}], error); translations are also saved.
     Q_INVOKABLE int suggestExamples(const QString &word);
+    // Gender (der / die / das) and plural of a German noun from the German Wiktionary (online only; every
+    // answer is saved, so the word is found offline later). Answers through
+    // grammarFound(id, {front, lemma, plural, pluralLine}, error); the map is empty when the
+    // word is not a (single-word) noun or nothing is known.
+    Q_INVOKABLE int lookupGrammar(const QString &word);
 
 signals:
+    void grammarFound(int requestId, const QVariantMap &grammar, const QString &error);
     void examplesSuggested(int requestId, const QVariantList &examples, const QString &error);
     void settingsChanged();
     void networkChanged();

@@ -13,7 +13,7 @@ Column {
     spacing: 2
 
     Repeater {
-        model: root.text.length > 0 ? root.text.split("\n") : []
+        model: root.text.length > 0 ? root.text.replace(/\s*·\s*Pl\./, "\nPl.").split("\n") : []
         delegate: Label {
             required property string modelData
             required property int index

@@ -3,6 +3,7 @@
 #include "cardstore.h"
 #include "translation/googletranslate.h"
 #include "translation/tatoeba.h"
+#include "translation/wiktionary.h"
 
 #include <QCoreApplication>
 #include <QDir>
@@ -221,6 +222,66 @@ int Translator::suggestExamples(const QString &word)
         if (!error.isEmpty())
             qWarning().noquote() << "Tatoeba:" << error;
         emit examplesSuggested(id, out, error);
+    });
+    return id;
+}
+
+namespace {
+QVariantMap grammarMap(const wiktionary::Grammar &g)
+{
+    if (!g.valid())
+        return {};
+    return {{QStringLiteral("front"), wiktionary::front(g)},
+            {QStringLiteral("lemma"), g.lemma},
+            {QStringLiteral("plural"), wiktionary::pluralText(g)},
+            {QStringLiteral("pluralLine"), wiktionary::pluralLine(g)}};
+}
+} // namespace
+
+int Translator::lookupGrammar(const QString &word)
+{
+    const int id = m_nextId++;
+    const QString w = wiktionary::lemmaOf(word);
+    const auto answer = [=, this](const QVariantMap &map, const QString &error) {
+        QTimer::singleShot(0, this, [=, this] { emit grammarFound(id, map, error); });
+    };
+    if (w.isEmpty()) {
+        answer({}, QString());
+        return id;
+    }
+    // Saved answer first (row in the translation cache, language "grammar"; "-" = looked up, not a noun)
+    QString saved;
+    QStringList extra;
+    if (lookup(QStringLiteral("de"), QStringLiteral("grammar"), w, &saved, &extra)) {
+        answer(saved == QLatin1String("-") ? QVariantMap()
+                                           : grammarMap(wiktionary::decode(saved, extra.value(0, w))),
+               QString());
+        return id;
+    }
+    if (!useOnline()) {
+        answer({}, QStringLiteral("offline"));
+        return id;
+    }
+    QNetworkRequest req(wiktionary::requestUrl(w));
+    req.setHeader(QNetworkRequest::UserAgentHeader, QStringLiteral("LearningBox/1.0 (Qt; German vocabulary app)"));
+    QNetworkReply *reply = m_nam->get(req);
+    connect(reply, &QNetworkReply::finished, this, [=, this] {
+        reply->deleteLater();
+        QString error;
+        wiktionary::Grammar g;
+        const QByteArray body = reply->readAll();
+        if (reply->error() != QNetworkReply::NoError && !body.trimmed().startsWith('{')) {
+            error = reply->errorString();
+        } else {
+            g = wiktionary::parse(body, &error);
+            if (error.isEmpty())
+                store(QStringLiteral("de"), QStringLiteral("grammar"), w,
+                      g.valid() ? wiktionary::encode(g) : QStringLiteral("-"),
+                      g.valid() ? QStringList{g.lemma.isEmpty() ? w : g.lemma} : QStringList());
+        }
+        if (!error.isEmpty())
+            qWarning().noquote() << "Wiktionary:" << error;
+        emit grammarFound(id, grammarMap(g), error);
     });
     return id;
 }

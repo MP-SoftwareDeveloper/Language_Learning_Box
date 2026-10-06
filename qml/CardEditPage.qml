@@ -34,10 +34,38 @@ Page {
     property int examplesRequest: -1
     property bool pickedWord: false
 
-    function setBack(t) { settingBack = true; backField.text = t; settingBack = false }
+    // Article and plural of a single German noun (Wiktionary, saved for offline use): the article goes in
+    // front of the word, "Pl. die Hunde" on its own line at the end of the back.
+    property string plural: ""          // "Pl. die Hunde"
+    property string grammarFor: ""      // word the plural belongs to
+    property int grammarRequest: -1
+    property bool settingFront: false
+    function withoutPlural(t) { return t.replace(/\n?Pl\.[^\n]*$/, "") }
+    function setBack(t) {
+        t = t.replace(/\s*·\s*Pl\./, "\nPl.")   // word-pack meanings keep the plural on the same line
+        if (t.trim() !== "" && plural !== "" && !/Pl\./.test(t))
+            t += "\n" + plural
+        settingBack = true; backField.text = t; settingBack = false
+    }
+    function requestGrammar() {
+        const m = /^(?:(der|die|das)\s+)?(\S+)$/i.exec(typed)
+        const w = m ? m[2] : ""
+        if (w === grammarFor)
+            return
+        grammarFor = w
+        grammarRequest = -1
+        if (plural !== "") {
+            plural = ""
+            if (backAuto)
+                setBack(withoutPlural(backField.text))
+        }
+        // Nouns only: an article in front, or a capital letter ("gehen" would find the noun "das Gehen")
+        if (w !== "" && CardStore.learningLanguage === "de" && (m[1] || /^[A-ZÄÖÜ]/.test(w)))
+            grammarRequest = Translator.lookupGrammar(w)
+    }
 
     onTypedChanged: {
-        if (!isNew || !AppMode.full) // Simple app: no suggestions
+        if (!isNew || !AppMode.full || settingFront) // Simple app: no suggestions
             return
         if (pickedWord) {
             pickedWord = false
@@ -51,7 +79,7 @@ Page {
     Timer {
         id: suggestTimer
         interval: 700 // wait until typing pauses
-        onTriggered: { page.fillMeaning(); page.findExamples() }
+        onTriggered: { page.requestGrammar(); page.fillMeaning(); page.findExamples() }
     }
 
     function pickWord(s) {
@@ -101,6 +129,22 @@ Page {
     }
     Connections {
         target: Translator
+        function onGrammarFound(requestId, grammar) {
+            if (requestId !== page.grammarRequest)
+                return
+            page.grammarRequest = -1
+            if (!page.isNew || (grammar.front ?? "") === "")
+                return
+            // Article in front of the word, unless the user typed one
+            if (!/^(der|die|das)\s/i.test(page.typed)) {
+                page.settingFront = true
+                frontField.text = grammar.front
+                page.settingFront = false
+            }
+            page.plural = grammar.pluralLine ?? ""
+            if (page.backAuto && backField.text.trim() !== "")
+                page.setBack(page.withoutPlural(backField.text))
+        }
         function onTranslated(requestId, text, alternatives) {
             if (requestId !== page.meaningRequest)
                 return
@@ -208,6 +252,7 @@ Page {
             savedHint.show(frontField.text.trim())
             frontField.clear(); backField.clear(); exampleField.clear()
             page.backAuto = true
+            page.plural = ""; page.grammarFor = ""; page.grammarRequest = -1
             page.wordSuggestions = []
             page.exampleSuggestions = []
             image = ""

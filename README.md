@@ -64,6 +64,7 @@ A Leitner box for German vocabulary. Qt 6.10+ / C++20 / QML, with no Java. Andro
   cache keys get a source prefix except German), alternatives, Tatoeba examples, 🔊 for German / English,
   *+ Add* opens the card editor prefilled (with another language than the box's meaning, the editor fills in the
   box's meaning). Example translations follow the chosen language (`ExampleText.target`).
+  For German nouns the result also shows the **gender** (maskulin / feminin / neutral) and the **plural** ("maskulin · Pl. die Hunde"), looked up online in the German Wiktionary (`src/translation/wiktionary.*`, `Translator::lookupGrammar`, saved in the translation cache for offline use, `tst_wiktionary`); *+ Add* puts that line on the card's back and the article on its front.
 - **Review direction** (*Ask:* on the review card): *German first* (the meaning is the answer), *Meaning first* (the
   meaning's first line is the question — the plural line would give the word away; say the German word, it is read
   aloud with the answer) or *Mixed* (random per card). Stored per learning box (`CardStore::reviewDirection`, QSettings

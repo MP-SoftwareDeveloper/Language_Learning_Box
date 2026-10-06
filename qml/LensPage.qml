@@ -28,7 +28,7 @@ Page {
     property var requests: ({})        // Translator request id -> key
     property string fullText: ""
     property bool showFull: true
-    readonly property bool anyPending: selectedList.some(w => entry(w).pending === true)
+    readonly property bool anyPending: grammarPending || selectedList.some(w => entry(w).pending === true)
                                        || (selected.length > 1 && entry(selectedText).pending === true)
 
     function norm(t) { return (t ?? "").trim().replace(/\s+/g, " ") }
@@ -42,6 +42,20 @@ Page {
         tr = next
         requests[Translator.translate(k)] = k
     }
+    // Article and plural of German nouns (Wiktionary): word -> {front, pluralLine, pending}
+    property var gram: ({})
+    property var gramRequests: ({})
+    function requestGrammar(w) {
+        if (CardStore.learningLanguage !== "de" || gram[w] !== undefined || WordPacks.lookup(w).front !== undefined
+                && /^(der|die|das)\s/i.test(WordPacks.lookup(w).front))
+            return
+        if (!/^[A-ZÄÖÜ]/.test(w)) return // nouns only
+        const next = Object.assign({}, gram)
+        next[w] = { pending: true }
+        gram = next
+        gramRequests[Translator.lookupGrammar(w)] = w
+    }
+    readonly property bool grammarPending: selectedList.some(w => gram[w]?.pending === true)
     function resetTranslations() {
         tr = ({}); requests = ({})
         if (fullText !== "") request(fullText)
@@ -69,18 +83,30 @@ Page {
     // Back side for a word card. Persian: the word pack's curated meaning wins when it has one.
     function backFor(w) {
         const known = WordPacks.lookup(w)
-        if (Translator.meaningLanguage === "fa" && known.back) return known.back
+        if (Translator.meaningLanguage === "fa" && known.back) {
+            let b = known.back.replace(/\s*·\s*Pl\./, "\nPl.") // plural on its own line
+            if (!/Pl\./.test(b) && gram[w]?.pluralLine) b += "\n" + gram[w].pluralLine
+            return b
+        }
         const e = entry(w)
         let back = e.text ?? ""
         if (back !== "" && e.alternatives && e.alternatives.length > 0)
             back += (Translator.rightToLeft ? "، " : ", ") + e.alternatives.join(Translator.rightToLeft ? "، " : ", ")
-        const grammar = known.back ? known.back.split("\n")[1] : undefined // pack's German grammar note
-        if (back !== "" && grammar) back += "\n" + grammar
+        if (back !== "" && !/Pl\./.test(back)) {
+            // pack's plural note, else the plural found online - on its own line
+            const note = known.back ? known.back.split("\n")[1] : undefined
+            const plural = note ?? gram[w]?.pluralLine
+            if (plural) back += "\n" + plural
+        }
         return back // English with no translation: left empty for the user to fill in
     }
 
     // Card front a word would get (the pack's "das Brot" for "Brot").
-    function frontFor(w) { return WordPacks.lookup(w).front ?? w }
+    function frontFor(w) {
+        const f = WordPacks.lookup(w).front
+        if (f !== undefined && /^(der|die|das)\s/i.test(f)) return f
+        return gram[w]?.front ?? f ?? w
+    }
 
     // "Add N words": new words are added; words already in the box are updated only when
     // the user says so (updateExisting), keeping their box and progress.
@@ -95,7 +121,7 @@ Page {
             existsDialog.open()
             return
         }
-        const added = WordPacks.addTranslatedWords(fresh.map(w => ({ word: w, back: backFor(w) })), qsTr("Lens"))
+        const added = WordPacks.addTranslatedWords(fresh.map(w => ({ word: w, front: frontFor(w), back: backFor(w) })), qsTr("Lens"))
         let updated = 0
         if (updateExisting === true) {
             for (const e of existing) {
@@ -135,7 +161,7 @@ Page {
         for (const w of selectedList) {
             let id = CardStore.findByFront(frontFor(w))
             if (id < 0 && on) {
-                added += WordPacks.addTranslatedWords([{ word: w, back: backFor(w) }], qsTr("Lens"))
+                added += WordPacks.addTranslatedWords([{ word: w, front: frontFor(w), back: backFor(w) }], qsTr("Lens"))
                 id = CardStore.findByFront(frontFor(w))
             }
             if (id >= 0 && CardStore.setFavorite(id, on))
@@ -150,6 +176,16 @@ Page {
 
     Connections {
         target: Translator
+        function onGrammarFound(requestId, grammar, error) {
+            const w = page.gramRequests[requestId]
+            if (w === undefined) return
+            delete page.gramRequests[requestId]
+            const next = Object.assign({}, page.gram)
+            if (error) { delete next[w]; page.gram = next; return } // retried on the next selection
+            next[w] = { front: grammar.front ?? "", pluralLine: grammar.pluralLine ?? "", pending: false }
+            if (!next[w].front) next[w].front = undefined
+            page.gram = next
+        }
         function onTranslated(requestId, text, alternatives, source, error) {
             const k = page.requests[requestId]
             if (k === undefined) return
@@ -160,7 +196,7 @@ Page {
         }
         function onSettingsChanged() { page.resetTranslations() }
     }
-    onSelectedListChanged: { for (const w of selectedList) request(w); refreshStar() }
+    onSelectedListChanged: { for (const w of selectedList) { request(w); requestGrammar(w) } refreshStar() }
     onSelectedTextChanged: if (selected.length > 1) request(selectedText)
 
     OcrEngine {
@@ -759,7 +795,7 @@ Page {
                             const single = page.selected.length === 1
                                     ? engine.cleanWord(engine.words[page.selected[0]].text) : ""
                             const known = single !== "" ? WordPacks.lookup(single) : ({})
-                            const front = known.front ?? (single !== "" ? single : page.selectedText)
+                            const front = single !== "" ? page.frontFor(single) : page.selectedText
                             const back = single !== "" ? page.backFor(single) : (page.entry(page.selectedText).text ?? "")
                             page.StackView.view.push(editPage, {
                                 initialFront: front,
