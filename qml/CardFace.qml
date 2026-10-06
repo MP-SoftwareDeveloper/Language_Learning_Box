@@ -58,7 +58,7 @@ ColumnLayout {
             Layout.fillWidth: true
             spacing: 1
             Repeater {
-                model: root.back.replace(/\s*·\s*Pl\./, "\nPl.").split("\n")
+                model: root.back.replace(/\s*·\s*Pl\./, "\nPl.").split("\n").filter(l => !/^\s*(Pl|Sg|Mask|Fem)\./.test(l))
                 delegate: Label {
                     required property string modelData
                     required property int index
@@ -68,6 +68,13 @@ ColumnLayout {
                     font.pixelSize: index === 0 ? 15 : 12
                     opacity: index === 0 ? 0.9 : 0.65
                 }
+            }
+            // "Pl. Hunde", "Fem. die Lehrerin", ...: each with 🔊 and its gender colour
+            FormLines {
+                Layout.fillWidth: true
+                text: root.back.replace(/\s*·\s*Pl\./, "\nPl.")
+                word: root.front
+                pixelSize: 13
             }
         }
         SpeakButton {

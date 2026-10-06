@@ -13,6 +13,11 @@ Page {
     // Meanings in English or German can be heard (American / German voice); Persian has no voice.
     readonly property bool meaningSpeakable: Translator.meaningLanguage !== "fa"
                                              && !/[\u0600-\u06FF]/.test(primaryMeaning.split("\n")[0])
+    // The meaning's lines: plain lines (translation, notes) and grammar lines ("Pl. ...", "Fem. ...", with 🔊)
+    readonly property var meaningAll: primaryMeaning.replace(/\s*\u00b7\s*Pl\./, "\nPl.").split("\n")
+    readonly property string meaningBodyText: (germanFirst ? meaningAll : meaningAll.slice(1))
+                                              .filter(l => !/^\s*(Pl|Sg|Mask|Fem)\./.test(l)).join("\n")
+    readonly property string meaningFormsText: meaningAll.filter(l => /^\s*(Pl|Sg|Mask|Fem)\./.test(l)).join("\n")
     readonly property string meaningTag: Translator.meaningLanguage === "en" ? "en-US" : "de-DE"
     property bool autoSpeak: true
 
@@ -373,12 +378,10 @@ Page {
                     RowLayout {
                         Layout.fillWidth: true
                         // Meaning first: the full meaning (with the plural line) once the answer is shown
-                        visible: page.revealed && page.primaryMeaning.length > 0
-                                 && (page.germanFirst || page.primaryMeaning.indexOf("\n") > 0)
+                        visible: page.revealed && page.primaryMeaning.length > 0 && page.meaningBodyText !== ""
                         MeaningText {
                             Layout.fillWidth: true
-                            text: page.germanFirst ? page.primaryMeaning
-                                                   : page.primaryMeaning.split("\n").slice(1).join("\n")
+                            text: page.meaningBodyText
                             center: true
                             pixelSize: 22
                         }
@@ -391,6 +394,13 @@ Page {
                             iconSize: 19
                             tint: "#e53935" // translation: red
                         }
+                    }
+                    FormLines {
+                        Layout.fillWidth: true
+                        visible: page.revealed && page.meaningFormsText !== ""
+                        text: page.meaningFormsText
+                        word: session.front
+                        pixelSize: 17
                     }
                     Label {
                         Layout.fillWidth: true

@@ -42,12 +42,11 @@ Page {
         tr = next
         requests[Translator.translate(k)] = k
     }
-    // Article and plural of German nouns (Wiktionary): word -> {front, pluralLine, pending}
+    // Article and plural of German nouns (Wiktionary): word -> {front, forms, pending}
     property var gram: ({})
     property var gramRequests: ({})
     function requestGrammar(w) {
-        if (CardStore.learningLanguage !== "de" || gram[w] !== undefined || WordPacks.lookup(w).front !== undefined
-                && /^(der|die|das)\s/i.test(WordPacks.lookup(w).front))
+        if (CardStore.learningLanguage !== "de" || gram[w] !== undefined)
             return
         if (!/^[A-ZÄÖÜ]/.test(w)) return // nouns only
         const next = Object.assign({}, gram)
@@ -107,7 +106,8 @@ Page {
         const b = known.back ? known.back.replace(/\s*·\s*Pl\./, "\nPl.") : ""
         const m = /Pl\.[^\n]*/.exec(b)
         const online = gram[w]?.forms ?? ""
-        return m ? m[0] + "\n" + online.split("\n").filter(l => !/^Pl\./.test(l)).join("\n") : online
+        if (online !== "") return online                 // Wiktionary: plural, male / female forms
+        return m ? m[0] : ""                             // offline: the word pack's plural
     }
     // Card front a word would get (the pack's "das Brot" for "Brot").
     function frontFor(w) {
