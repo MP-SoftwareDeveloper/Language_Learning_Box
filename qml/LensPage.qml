@@ -631,6 +631,7 @@ Page {
                     speakText: page.entry(page.fullText).text ?? ""
                     languageTag: Translator.meaningLanguage === "en" ? "en-US" : "de-DE"
                     iconSize: 19
+                    tint: "#e53935" // translation: red
                 }
                 }
                 ScrollView {

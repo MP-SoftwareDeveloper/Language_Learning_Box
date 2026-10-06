@@ -409,6 +409,8 @@ Page {
                     visible: Translator.meaningLanguage !== "fa" && !/[\u0600-\u06FF]/.test(backField.text)
                     speakText: backField.text.split("\n")[0]
                     languageTag: Translator.meaningLanguage === "en" ? "en-US" : "de-DE"
+                    iconSize: 19
+                    tint: "#e53935" // translation: red
                 }
             }
             Label {

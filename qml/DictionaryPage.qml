@@ -428,6 +428,8 @@ Page {
                             visible: page.to !== "fa" && !page.persianText(page.result)
                             speakText: page.result.split("\n")[0]
                             languageTag: page.tag(page.to)
+                            iconSize: 19
+                            tint: "#e53935" // translation: red
                         }
                     }
                     FormLines {

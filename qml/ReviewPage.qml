@@ -301,6 +301,8 @@ Page {
                             visible: page.meaningSpeakable
                             speakText: page.primaryMeaning.split("\n")[0]
                             languageTag: page.meaningTag
+                            iconSize: 19
+                            tint: "#e53935" // translation: red
                         }
                     }
                     Label {
@@ -386,6 +388,8 @@ Page {
                             visible: page.meaningSpeakable && page.germanFirst
                             speakText: page.primaryMeaning.split("\n")[0]
                             languageTag: page.meaningTag
+                            iconSize: 19
+                            tint: "#e53935" // translation: red
                         }
                     }
                     Label {

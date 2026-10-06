@@ -76,6 +76,8 @@ ColumnLayout {
             visible: root.meaningSpeakable
             speakText: root.back.split("\n")[0]
             languageTag: root.meaningTag
+            iconSize: 19
+            tint: "#e53935" // translation: red
         }
         // No voice for Persian: keep the same space on the right as the speaker button takes for
         // other meanings, so a Persian line does not touch the screen edge.
