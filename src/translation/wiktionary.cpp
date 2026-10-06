@@ -171,7 +171,7 @@ QString pluralText(const Grammar &g)
 
 QString pluralLine(const Grammar &g)
 {
-    return g.plurals.isEmpty() ? QString() : QStringLiteral("Pl. ") + pluralText(g);
+    return g.plurals.isEmpty() ? QString() : QStringLiteral("Pl. ") + g.plurals.join(QStringLiteral(" / "));
 }
 
 QString encode(const Grammar &g)

@@ -38,7 +38,7 @@ private slots:
         QCOMPARE(g.lemma, QStringLiteral("Hund"));
         QCOMPARE(wiktionary::front(g), QStringLiteral("der Hund"));
         QCOMPARE(wiktionary::pluralText(g), QStringLiteral("die Hunde"));
-        QCOMPARE(wiktionary::pluralLine(g), QStringLiteral("Pl. die Hunde"));
+        QCOMPARE(wiktionary::pluralLine(g), QStringLiteral("Pl. Hunde"));
     }
     void twoGendersAndPlurals()
     {
@@ -49,7 +49,7 @@ private slots:
         QCOMPARE(g.genders, (QStringList{QStringLiteral("m"), QStringLiteral("n")}));
         QCOMPARE(g.plurals, (QStringList{QStringLiteral("Joghurts"), QStringLiteral("Joghurte")}));
         QCOMPARE(wiktionary::front(g), QStringLiteral("der Joghurt"));
-        QCOMPARE(wiktionary::pluralLine(g), QStringLiteral("Pl. die Joghurts / Joghurte"));
+        QCOMPARE(wiktionary::pluralLine(g), QStringLiteral("Pl. Joghurts / Joghurte"));
     }
     void noPlural()
     {
@@ -90,7 +90,7 @@ private slots:
         QVERIFY(err.isEmpty());
         QCOMPARE(g.lemma, QStringLiteral("Haus")); // from the page title when the table has no singular
         QCOMPARE(wiktionary::front(g), QStringLiteral("das Haus"));
-        QCOMPARE(wiktionary::pluralLine(g), QStringLiteral("Pl. die Häuser"));
+        QCOMPARE(wiktionary::pluralLine(g), QStringLiteral("Pl. Häuser"));
     }
     void missingPageAndErrors()
     {

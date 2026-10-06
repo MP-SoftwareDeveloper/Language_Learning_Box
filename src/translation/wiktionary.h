@@ -40,7 +40,7 @@ QString article(const QString &gender);    // "m" -> "der", "f" -> "die", "n" ->
 QString front(const Grammar &g);
 // "die Hunde" / "die Hunde / Hündinnen"; "" when there is no plural.
 QString pluralText(const Grammar &g);
-// "Pl. die Hunde" - the plural line that goes on its own line on the card's back; "" without a plural.
+// "Pl. Hunde" - the plural line (no article) that goes on its own line on the card's back; "" without a plural.
 QString pluralLine(const Grammar &g);
 
 // For the offline cache: "m|Hunde" / "m/n|Joghurts|Joghurte" / "" (nothing) <-> Grammar.
