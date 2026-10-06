@@ -1,6 +1,8 @@
 #pragma once
 
 #include <QHash>
+#include <functional>
+#include "translation/wiktionary.h"
 #include <QObject>
 #include <QStringList>
 #include <QVariantList>
@@ -73,7 +75,7 @@ public:
     Q_INVOKABLE int suggestExamples(const QString &word);
     // Gender (der / die / das) and plural of a German noun from the German Wiktionary (online only; every
     // answer is saved, so the word is found offline later). Answers through
-    // grammarFound(id, {front, lemma, plural, pluralLine}, error); the map is empty when the
+    // grammarFound(id, {front, lemma, plural, pluralLine, forms}, error); the map is empty when the
     // word is not a (single-word) noun or nothing is known.
     Q_INVOKABLE int lookupGrammar(const QString &word);
 
@@ -88,6 +90,8 @@ signals:
                     const QString &source, const QString &error);
 
 private:
+    void fetchGrammar(const QString &word, bool followSingular,
+                      std::function<void(const wiktionary::Grammar &, const QString &)> finished);
     explicit Translator(QObject *parent = nullptr);
     void onReply(QNetworkReply *reply, int id, const QString &text, const QString &source, const QString &target);
     void answerOffline(int id, const QString &text, const QString &source, const QString &target,

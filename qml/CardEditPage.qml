@@ -51,7 +51,7 @@ Page {
 
     // Article and plural of a single German noun (Wiktionary, saved for offline use): the article goes in
     // front of the word, "Pl. die Hunde" on its own line at the end of the back.
-    property string plural: ""          // "Pl. die Hunde"
+    property string plural: ""          // grammar lines: "Pl. Hunde" (or "Sg. der Hund"), "Mask. ...", "Fem. ..."
     property string grammarFor: ""      // word the plural belongs to
     property int grammarRequest: -1
     property string articleFront: ""    // "der Hund": applied when the card is saved, never typed into the field
@@ -63,10 +63,10 @@ Page {
             return articleFront
         return frontField.text
     }
-    function withoutPlural(t) { return t.replace(/\n?Pl\.[^\n]*$/, "") }
+    function withoutPlural(t) { return t.replace(/(\n?(Pl|Sg|Mask|Fem)\.[^\n]*)+$/, "") }
     function setBack(t) {
         t = t.replace(/\s*·\s*Pl\./, "\nPl.")   // word-pack meanings keep the plural on the same line
-        if (t.trim() !== "" && plural !== "" && !/Pl\./.test(t))
+        if (t.trim() !== "" && plural !== "" && !/(^|\n)(Pl|Sg|Mask|Fem)\./.test(t))
             t += "\n" + plural
         settingBack = true; backField.text = t; settingBack = false
     }
@@ -164,10 +164,10 @@ Page {
             if (requestId !== page.grammarRequest)
                 return
             page.grammarRequest = -1
-            if (!page.isNew || (grammar.front ?? "") === "")
+            if (!page.isNew || ((grammar.front ?? "") === "" && (grammar.forms ?? "") === ""))
                 return
-            page.articleFront = grammar.front
-            page.plural = grammar.pluralLine ?? ""
+            page.articleFront = grammar.front ?? ""
+            page.plural = grammar.forms ?? ""
             if (page.backAuto && backField.text.trim() !== "")
                 page.setBack(page.withoutPlural(backField.text))
         }
@@ -421,12 +421,12 @@ Page {
                                                : qsTr("Meaning filled in automatically \u2013 edit it if you like")
             }
 
-            // Plural line of the back ("Pl. Hunde") with 🔊
-            PluralLine {
+            // Grammar lines of the back ("Pl. Hunde", "Fem. die Lehrerin", ...) with 🔊
+            FormLines {
                 Layout.fillWidth: true
                 Layout.leftMargin: 20
                 Layout.rightMargin: 8
-                line: /Pl\.[^\n]*/.exec(backField.text)?.[0] ?? ""
+                text: backField.text
                 pixelSize: 15
             }
 

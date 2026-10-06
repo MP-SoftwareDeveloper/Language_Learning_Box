@@ -234,9 +234,38 @@ QVariantMap grammarMap(const wiktionary::Grammar &g)
     return {{QStringLiteral("front"), wiktionary::front(g)},
             {QStringLiteral("lemma"), g.lemma},
             {QStringLiteral("plural"), wiktionary::pluralText(g)},
-            {QStringLiteral("pluralLine"), wiktionary::pluralLine(g)}};
+            {QStringLiteral("pluralLine"), wiktionary::pluralLine(g)},
+            // "Pl. Hunde" / "Sg. der Hund", "Mask. ...", "Fem. ...": one line each
+            {QStringLiteral("forms"), wiktionary::formLines(g).join(QLatin1Char('\n'))}};
 }
 } // namespace
+
+// One Wiktionary page; finished(grammar, error). A word that is a plural form ("Hunde") is followed to its
+// noun ("Hund"): the answer then describes the noun and has singularOf set.
+void Translator::fetchGrammar(const QString &word, bool followSingular,
+                              std::function<void(const wiktionary::Grammar &, const QString &)> finished)
+{
+    QNetworkRequest req(wiktionary::requestUrl(word));
+    req.setHeader(QNetworkRequest::UserAgentHeader, QStringLiteral("LearningBox/1.0 (Qt; German vocabulary app)"));
+    QNetworkReply *reply = m_nam->get(req);
+    connect(reply, &QNetworkReply::finished, this, [=, this] {
+        reply->deleteLater();
+        QString error;
+        wiktionary::Grammar g;
+        const QByteArray body = reply->readAll();
+        if (reply->error() != QNetworkReply::NoError && !body.trimmed().startsWith('{'))
+            error = reply->errorString();
+        else
+            g = wiktionary::parse(body, &error);
+        if (!error.isEmpty() || g.singularOf.isEmpty() || !followSingular) {
+            finished(g, error);
+            return;
+        }
+        fetchGrammar(g.singularOf, false, [=](const wiktionary::Grammar &noun, const QString &err) {
+            finished(noun.valid() ? wiktionary::withSingular(g, noun) : wiktionary::Grammar{}, err);
+        });
+    });
+}
 
 int Translator::lookupGrammar(const QString &word)
 {
@@ -249,10 +278,10 @@ int Translator::lookupGrammar(const QString &word)
         answer({}, QString());
         return id;
     }
-    // Saved answer first (row in the translation cache, language "grammar"; "-" = looked up, not a noun)
+    // Saved answer first (row in the translation cache, language "grammar2"; "-" = looked up, not a noun)
     QString saved;
     QStringList extra;
-    if (lookup(QStringLiteral("de"), QStringLiteral("grammar"), w, &saved, &extra)) {
+    if (lookup(QStringLiteral("de"), QStringLiteral("grammar2"), w, &saved, &extra)) {
         answer(saved == QLatin1String("-") ? QVariantMap()
                                            : grammarMap(wiktionary::decode(saved, extra.value(0, w))),
                QString());
@@ -262,24 +291,12 @@ int Translator::lookupGrammar(const QString &word)
         answer({}, QStringLiteral("offline"));
         return id;
     }
-    QNetworkRequest req(wiktionary::requestUrl(w));
-    req.setHeader(QNetworkRequest::UserAgentHeader, QStringLiteral("LearningBox/1.0 (Qt; German vocabulary app)"));
-    QNetworkReply *reply = m_nam->get(req);
-    connect(reply, &QNetworkReply::finished, this, [=, this] {
-        reply->deleteLater();
-        QString error;
-        wiktionary::Grammar g;
-        const QByteArray body = reply->readAll();
-        if (reply->error() != QNetworkReply::NoError && !body.trimmed().startsWith('{')) {
-            error = reply->errorString();
-        } else {
-            g = wiktionary::parse(body, &error);
-            if (error.isEmpty())
-                store(QStringLiteral("de"), QStringLiteral("grammar"), w,
-                      g.valid() ? wiktionary::encode(g) : QStringLiteral("-"),
-                      g.valid() ? QStringList{g.lemma.isEmpty() ? w : g.lemma} : QStringList());
-        }
-        if (!error.isEmpty())
+    fetchGrammar(w, true, [=, this](const wiktionary::Grammar &g, const QString &error) {
+        if (error.isEmpty())
+            store(QStringLiteral("de"), QStringLiteral("grammar2"), w,
+                  g.valid() ? wiktionary::encode(g) : QStringLiteral("-"),
+                  g.valid() ? QStringList{g.lemma.isEmpty() ? w : g.lemma} : QStringList());
+        else
             qWarning().noquote() << "Wiktionary:" << error;
         emit grammarFound(id, grammarMap(g), error);
     });

@@ -102,9 +102,9 @@ Page {
     readonly property string meaningLines: meaningText.replace(/\s*·\s*Pl\./, "\nPl.")
     // Back of the card: the meaning, then "Pl. die Hunde" on a new line (unless the meaning has it already)
     readonly property string cardBack: {
-        if (reverse || meaningLines === "" || /Pl\./.test(meaningLines) || (grammar.pluralLine ?? "") === "")
+        if (reverse || meaningLines === "" || /(^|\n)(Pl|Sg|Mask|Fem)\./.test(meaningLines) || (grammar.forms ?? "") === "")
             return meaningLines
-        return meaningLines + "\n" + grammar.pluralLine
+        return meaningLines + "\n" + grammar.forms
     }
     // Front of the card: "der Hund" (article from the word pack or from Wiktionary)
     readonly property string cardFront: {
@@ -114,8 +114,8 @@ Page {
     }
 
     // "Pl. Hunde" on its own line (with 🔊) and the rest of the back without it
-    readonly property string cardPlural: reverse ? "" : (/Pl\.[^\n]*/.exec(cardBack)?.[0] ?? "")
-    readonly property string cardBody: reverse ? result : cardBack.replace(/\n?Pl\.[^\n]*$/, "")
+    readonly property string cardForms: reverse ? "" : cardBack
+    readonly property string cardBody: reverse ? result : cardBack.split("\n").filter(l => !/^\s*(Pl|Sg|Mask|Fem)\./.test(l)).join("\n")
 
     function clearResult() {
         headword = ""; result = ""; alternatives = []; source = ""; error = ""
@@ -430,9 +430,9 @@ Page {
                             languageTag: page.tag(page.to)
                         }
                     }
-                    PluralLine {
+                    FormLines {
                         Layout.fillWidth: true
-                        line: page.cardPlural
+                        text: page.cardForms
                         pixelSize: 16
                     }
                     Label {

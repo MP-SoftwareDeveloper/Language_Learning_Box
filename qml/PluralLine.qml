@@ -4,16 +4,18 @@ import QtQuick.Layouts
 import QtQuick.Controls.Material
 import LearningBox
 
-// The plural of a German noun ("Pl. Hunde") on its own line with 🔊. Only the plural word(s) are read
-// aloud: no "Pl.", no article, several forms separated by a pause.
+// One grammar line of a German noun with 🔊: "Pl. Hunde", "Sg. der Hund", "Mask. der Arzt", "Fem. die Ärztin".
+// Only the word(s) are read aloud: no label; a plural without its article, several forms separated by a pause.
 RowLayout {
     id: root
     property string line: ""
     property int pixelSize: 16
 
-    readonly property string spoken: line.replace(/^\s*Pl\.\s*/i, "")
-                                         .replace(/(^|\/\s*)die\s+/gi, "$1")
-                                         .replace(/\s*\/\s*/g, ", ").trim()
+    readonly property bool isPlural: /^\s*Pl\./.test(line)
+    readonly property string spoken: {
+        const t = line.replace(/^\s*(Pl|Sg|Mask|Fem)\.\s*/, "")
+        return (isPlural ? t.replace(/(^|\/\s*)die\s+/gi, "$1") : t).replace(/\s*\/\s*/g, ", ").trim()
+    }
 
     visible: spoken !== ""
     spacing: 4

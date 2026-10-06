@@ -85,28 +85,29 @@ Page {
         const known = WordPacks.lookup(w)
         if (Translator.meaningLanguage === "fa" && known.back) {
             let b = known.back.replace(/\s*·\s*Pl\./, "\nPl.") // plural on its own line
-            if (!/Pl\./.test(b) && gram[w]?.pluralLine) b += "\n" + gram[w].pluralLine
+            if (!/(^|\n)(Pl|Sg|Mask|Fem)\./.test(b) && gram[w]?.forms) b += "\n" + gram[w].forms
             return b
         }
         const e = entry(w)
         let back = e.text ?? ""
         if (back !== "" && e.alternatives && e.alternatives.length > 0)
             back += (Translator.rightToLeft ? "، " : ", ") + e.alternatives.join(Translator.rightToLeft ? "، " : ", ")
-        if (back !== "" && !/Pl\./.test(back)) {
-            // pack's plural note, else the plural found online - on its own line
+        if (back !== "" && !/(^|\n)(Pl|Sg|Mask|Fem)\./.test(back)) {
+            // pack's plural note, else the grammar lines found online - each on its own line
             const note = known.back ? known.back.split("\n")[1] : undefined
-            const plural = note ?? gram[w]?.pluralLine
-            if (plural) back += "\n" + plural
+            const forms = note ?? gram[w]?.forms
+            if (forms) back += "\n" + forms
         }
         return back // English with no translation: left empty for the user to fill in
     }
 
-    // "Pl. Hunde" for a word: the word pack's note, else the plural found online ("" = none)
+    // Grammar lines for a word ("Pl. Hunde", ...): the word pack's plural note, else what was found online
     function pluralOf(w) {
         const known = WordPacks.lookup(w)
         const b = known.back ? known.back.replace(/\s*·\s*Pl\./, "\nPl.") : ""
         const m = /Pl\.[^\n]*/.exec(b)
-        return m ? m[0] : (gram[w]?.pluralLine ?? "")
+        const online = gram[w]?.forms ?? ""
+        return m ? m[0] + "\n" + online.split("\n").filter(l => !/^Pl\./.test(l)).join("\n") : online
     }
     // Card front a word would get (the pack's "das Brot" for "Brot").
     function frontFor(w) {
@@ -189,7 +190,7 @@ Page {
             delete page.gramRequests[requestId]
             const next = Object.assign({}, page.gram)
             if (error) { delete next[w]; page.gram = next; return } // retried on the next selection
-            next[w] = { front: grammar.front ?? "", pluralLine: grammar.pluralLine ?? "", pending: false }
+            next[w] = { front: grammar.front ?? "", forms: grammar.forms ?? "", pending: false }
             if (!next[w].front) next[w].front = undefined
             page.gram = next
         }
@@ -775,9 +776,9 @@ Page {
                                 opacity: meaning !== "" ? 1 : 0.55
                             }
                         }
-                        PluralLine {
+                        FormLines {
                             Layout.fillWidth: true
-                            line: page.pluralOf(modelData)
+                            text: page.pluralOf(modelData)
                             pixelSize: 14
                         }
                     }
