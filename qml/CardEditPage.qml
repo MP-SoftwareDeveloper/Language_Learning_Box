@@ -39,7 +39,15 @@ Page {
     property string plural: ""          // "Pl. die Hunde"
     property string grammarFor: ""      // word the plural belongs to
     property int grammarRequest: -1
-    property bool settingFront: false
+    property string articleFront: ""    // "der Hund": applied when the card is saved, never typed into the field
+    // Front of the card as it will be saved: the article is added for a single noun typed without one
+    readonly property string cardFront: {
+        const t = frontField.text.trim()
+        if (isNew && articleFront !== "" && !/^(der|die|das)\s/i.test(t)
+                && articleFront.replace(/^(der|die|das)\s+/i, "").toLowerCase() === t.toLowerCase())
+            return articleFront
+        return frontField.text
+    }
     function withoutPlural(t) { return t.replace(/\n?Pl\.[^\n]*$/, "") }
     function setBack(t) {
         t = t.replace(/\s*·\s*Pl\./, "\nPl.")   // word-pack meanings keep the plural on the same line
@@ -54,6 +62,7 @@ Page {
             return
         grammarFor = w
         grammarRequest = -1
+        articleFront = ""
         if (plural !== "") {
             plural = ""
             if (backAuto)
@@ -65,7 +74,7 @@ Page {
     }
 
     onTypedChanged: {
-        if (!isNew || !AppMode.full || settingFront) // Simple app: no suggestions
+        if (!isNew || !AppMode.full) // Simple app: no suggestions
             return
         if (pickedWord) {
             pickedWord = false
@@ -135,12 +144,7 @@ Page {
             page.grammarRequest = -1
             if (!page.isNew || (grammar.front ?? "") === "")
                 return
-            // Article in front of the word, unless the user typed one
-            if (!/^(der|die|das)\s/i.test(page.typed)) {
-                page.settingFront = true
-                frontField.text = grammar.front
-                page.settingFront = false
-            }
+            page.articleFront = grammar.front
             page.plural = grammar.pluralLine ?? ""
             if (page.backAuto && backField.text.trim() !== "")
                 page.setBack(page.withoutPlural(backField.text))
@@ -171,7 +175,7 @@ Page {
     title: isNew ? qsTr("Add card") : qsTr("Edit card")
 
     readonly property int duplicateId: {
-        const id = CardStore.findByFront(frontField.text)
+        const id = CardStore.findByFront(cardFront)
         return id === cardId ? -1 : id
     }
 
@@ -216,13 +220,13 @@ Page {
         }
         let ok
         if (isNew) {
-            const newId = CardStore.addCard(frontField.text, backField.text, exampleField.text, image)
+            const newId = CardStore.addCard(cardFront, backField.text, exampleField.text, image)
             ok = newId >= 0
             // Chosen box other than 1: move it there, scheduled with that box's interval.
             if (ok && boxChoice.currentIndex > 0)
                 CardStore.moveCard(newId, boxChoice.currentIndex + 1)
         } else {
-            ok = CardStore.updateCard(cardId, frontField.text, backField.text, exampleField.text, image)
+            ok = CardStore.updateCard(cardId, cardFront, backField.text, exampleField.text, image)
             // Box changed by hand: move it there, scheduled with that box's interval.
             if (ok && boxChoice.currentIndex + 1 !== Math.min(6, original.box ?? 1))
                 CardStore.moveCard(cardId, boxChoice.currentIndex + 1)
@@ -238,7 +242,7 @@ Page {
         const e = duplicateDialog.existing
         const newImage = image !== "" ? image : (e.image ?? "")
         const ok = CardStore.updateCard(e.id,
-                                        frontField.text,
+                                        cardFront,
                                         backField.text.trim() !== "" ? backField.text : (e.back ?? ""),
                                         exampleField.text.trim() !== "" ? exampleField.text : (e.example ?? ""),
                                         newImage)
@@ -249,10 +253,10 @@ Page {
     function finishSave() {
         saved = true
         if (isNew && addAnother.checked) {
-            savedHint.show(frontField.text.trim())
+            savedHint.show(cardFront.trim())
             frontField.clear(); backField.clear(); exampleField.clear()
             page.backAuto = true
-            page.plural = ""; page.grammarFor = ""; page.grammarRequest = -1
+            page.plural = ""; page.grammarFor = ""; page.grammarRequest = -1; page.articleFront = ""
             page.wordSuggestions = []
             page.exampleSuggestions = []
             image = ""
@@ -315,12 +319,18 @@ Page {
                                                                          : qsTr("German word or sentence")
                     onAccepted: backField.forceActiveFocus()
                 }
-                GenderMark { word: frontField.text }
+                GenderMark { word: page.cardFront }
                 SpeakButton { speakText: frontField.text }
                 StarButton {
                     visible: !page.isNew // a new card can be starred once it is saved
                     cardId: page.isNew ? -1 : page.cardId
                 }
+            }
+            Label {
+                Layout.leftMargin: 16
+                visible: page.isNew && page.cardFront.trim() !== frontField.text.trim()
+                opacity: 0.7
+                text: qsTr("Saved as: %1").arg(page.cardFront.trim())
             }
             Label {
                 Layout.leftMargin: 16
