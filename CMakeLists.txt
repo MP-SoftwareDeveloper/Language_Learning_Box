@@ -141,6 +141,12 @@ qt_add_resources(appLearningBox "ocrdata"
     FILES data/tessdata/deu.traineddata data/tessdata/eng.traineddata
 )
 
+# Android versionCode: grows with every configure (minutes since 1970), so a newer build always counts as an
+# update of an installed one. Install it over the old app and the cards stay; they are lost only when the app is
+# uninstalled first (Android asks for that when the new APK is signed with a different key).
+string(TIMESTAMP LB_NOW_SECONDS "%s" UTC)
+math(EXPR LB_ANDROID_VERSION_CODE "${LB_NOW_SECONDS} / 60")
+
 set_target_properties(appLearningBox PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER se.morteza.learningbox
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
@@ -150,7 +156,7 @@ set_target_properties(appLearningBox PROPERTIES
     QT_ANDROID_PACKAGE_NAME se.morteza.learningbox
     QT_ANDROID_APP_NAME "Learning Box"
     QT_ANDROID_VERSION_NAME ${PROJECT_VERSION}
-    QT_ANDROID_VERSION_CODE 1
+    QT_ANDROID_VERSION_CODE ${LB_ANDROID_VERSION_CODE}
 )
 
 # Custom AndroidManifest.xml (needed so TTS can see the system TTS engine on Android 11+).
