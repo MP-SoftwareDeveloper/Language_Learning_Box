@@ -66,8 +66,11 @@ Page {
     function withoutPlural(t) { return t.replace(/(\n?(Pl|Sg|Mask|Fem)\.[^\n]*)+$/, "") }
     function setBack(t) {
         t = t.replace(/\s*·\s*Pl\./, "\nPl.")   // word-pack meanings keep the plural on the same line
-        if (t.trim() !== "" && plural !== "" && !/(^|\n)(Pl|Sg|Mask|Fem)\./.test(t))
-            t += "\n" + plural
+        if (plural !== "") {
+            t = withoutPlural(t)   // the online forms (Mask./Fem./Pl.) replace the word pack's plural
+            if (t.trim() !== "")
+                t += "\n" + plural
+        }
         settingBack = true; backField.text = t; settingBack = false
     }
     function requestGrammar() {
@@ -83,6 +86,10 @@ Page {
             if (backAuto)
                 setBack(withoutPlural(backField.text))
         }
+        // The word pack knows the article offline
+        const known = CardStore.learningLanguage === "de" && w !== "" ? WordPacks.lookup(w) : ({})
+        if (known.front && /^(der|die|das)\s/i.test(known.front))
+            articleFront = known.front
         // Nouns only: an article in front, or a capital letter ("gehen" would find the noun "das Gehen")
         if (w !== "" && CardStore.learningLanguage === "de" && (m[1] || /^[A-ZÄÖÜ]/.test(w)))
             grammarRequest = Translator.lookupGrammar(w)
@@ -108,7 +115,7 @@ Page {
 
     function pickWord(s) {
         pickedWord = true
-        frontField.text = s.front
+        frontField.text = s.word ?? s.front   // the word only: the article is shown below ("Saved as")
         wordSuggestions = []
         if (backAuto && Translator.meaningLanguage === "fa" && s.back)
             setBack(s.back)
@@ -365,24 +372,16 @@ Page {
                                  : qsTr("Another card already has this word.")
             }
 
-            // Matching words from the word pack: tap to fill in word, meaning and example
-            Flow {
+            // Suggestions while typing, like a search box: word pack (with meaning) and Wiktionary.
+            // Tap one to fill in word, meaning and example.
+            WordSuggestions {
                 Layout.fillWidth: true
-                Layout.leftMargin: 12
-                Layout.rightMargin: 12
-                spacing: 4
-                visible: page.isNew && page.wordSuggestions.length > 0
-                Repeater {
-                    model: page.wordSuggestions
-                    delegate: Button {
-                        required property var modelData
-                        flat: true
-                        font.capitalization: Font.MixedCase
-                        font.pixelSize: 15
-                        text: modelData.front
-                        onClicked: page.pickWord(modelData)
-                    }
-                }
+                Layout.leftMargin: 16
+                Layout.rightMargin: 16
+                enabled: page.isNew && AppMode.full
+                text: page.isNew && AppMode.full ? frontField.text : ""
+                language: CardStore.learningLanguage
+                onPicked: (entry) => page.pickWord(entry)
             }
 
             // Persian, English or anything else. Qt resolves bidi direction per paragraph.

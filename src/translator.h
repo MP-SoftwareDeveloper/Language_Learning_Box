@@ -79,7 +79,12 @@ public:
     // word is not a (single-word) noun or nothing is known.
     Q_INVOKABLE int lookupGrammar(const QString &word);
 
+    // Word suggestions while typing, like a search box: Wiktionary's prefix search in `language` ("de", "en",
+    // "fa"; online only). Answers through wordsSuggested(id, words, error).
+    Q_INVOKABLE int suggestWords(const QString &prefix, const QString &language);
+
 signals:
+    void wordsSuggested(int requestId, const QStringList &words, const QString &error);
     void grammarFound(int requestId, const QVariantMap &grammar, const QString &error);
     void examplesSuggested(int requestId, const QVariantList &examples, const QString &error);
     void settingsChanged();

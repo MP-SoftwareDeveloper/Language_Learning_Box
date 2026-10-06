@@ -1,4 +1,6 @@
 #include "translator.h"
+
+#include <QSharedPointer>
 #include "appmode.h"
 #include "cardstore.h"
 #include "translation/googletranslate.h"
@@ -265,6 +267,42 @@ void Translator::fetchGrammar(const QString &word, bool followSingular,
             finished(noun.valid() ? wiktionary::withSingular(g, noun) : wiktionary::Grammar{}, err);
         });
     });
+}
+
+int Translator::suggestWords(const QString &prefix, const QString &language)
+{
+    const int id = m_nextId++;
+    const QString p = prefix.trimmed();
+    const QStringList variants = wiktionary::suggestVariants(p);
+    if (variants.isEmpty() || !useOnline() || !(language == QLatin1String("de") || language == QLatin1String("en")
+                                                 || language == QLatin1String("fa"))) {
+        QTimer::singleShot(0, this, [=, this] { emit wordsSuggested(id, {}, QString()); });
+        return id;
+    }
+    struct State
+    {
+        int pending = 0;
+        QList<QStringList> lists;
+        QString error;
+    };
+    auto state = QSharedPointer<State>::create();
+    state->pending = int(variants.size());
+    state->lists.resize(variants.size());
+    for (int i = 0; i < variants.size(); ++i) {
+        QNetworkRequest req(wiktionary::suggestUrl(language, variants.at(i)));
+        req.setHeader(QNetworkRequest::UserAgentHeader, QStringLiteral("LearningBox/1.0 (Qt; German vocabulary app)"));
+        QNetworkReply *reply = m_nam->get(req);
+        connect(reply, &QNetworkReply::finished, this, [=, this] {
+            reply->deleteLater();
+            if (reply->error() == QNetworkReply::NoError)
+                state->lists[i] = wiktionary::parseSuggestions(reply->readAll());
+            else
+                state->error = reply->errorString();
+            if (--state->pending == 0)
+                emit wordsSuggested(id, wiktionary::mergeSuggestions(state->lists, p), state->error);
+        });
+    }
+    return id;
 }
 
 int Translator::lookupGrammar(const QString &word)

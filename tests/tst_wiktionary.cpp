@@ -155,6 +155,23 @@ private slots:
         QCOMPARE(back.lemma, QStringLiteral("Hund"));
         QCOMPARE(wiktionary::formLines(back), wiktionary::formLines(g));
     }
+    void suggestions()
+    {
+        const QUrl u = wiktionary::suggestUrl(QStringLiteral("de"), QStringLiteral(" hau "));
+        QCOMPARE(u.host(), QStringLiteral("de.wiktionary.org"));
+        QCOMPARE(QUrlQuery(u).queryItemValue(QStringLiteral("action")), QStringLiteral("opensearch"));
+        QCOMPARE(QUrlQuery(u).queryItemValue(QStringLiteral("search")), QStringLiteral("hau"));
+        QCOMPARE(wiktionary::suggestVariants(QStringLiteral("hau")), (QStringList{QStringLiteral("hau"), QStringLiteral("Hau")}));
+        QCOMPARE(wiktionary::suggestVariants(QStringLiteral("Hau")), (QStringList{QStringLiteral("Hau"), QStringLiteral("hau")}));
+        const QStringList a = wiktionary::parseSuggestions(
+            R"(["hau",["Haus","Hausaufgabe","Kategorie:Haus","a/b"],[],[]])");
+        QCOMPARE(a, (QStringList{QStringLiteral("Haus"), QStringLiteral("Hausaufgabe")}));
+        QVERIFY(wiktionary::parseSuggestions("<html>").isEmpty());
+        const QStringList merged = wiktionary::mergeSuggestions(
+            {{QStringLiteral("hau"), QStringLiteral("Haut")}, {QStringLiteral("Haus"), QStringLiteral("Haut"), QStringLiteral("Bau")}},
+            QStringLiteral("hau"), 3);
+        QCOMPARE(merged, (QStringList{QStringLiteral("hau"), QStringLiteral("Haut"), QStringLiteral("Haus")}));
+    }
     void cacheRoundTrip()
     {
         wiktionary::Grammar g;

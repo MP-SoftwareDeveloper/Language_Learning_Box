@@ -4,6 +4,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QRegularExpression>
+#include <QSet>
 #include <QUrlQuery>
 
 namespace wiktionary {
@@ -124,6 +125,68 @@ QString lemmaOf(const QString &front)
     while (!w.isEmpty() && !w.front().isLetterOrNumber())
         w.remove(0, 1);
     return w;
+}
+
+QUrl suggestUrl(const QString &language, const QString &prefix, int limit)
+{
+    QUrl url(QStringLiteral("https://%1.wiktionary.org/w/api.php").arg(language));
+    QUrlQuery q;
+    q.addQueryItem(QStringLiteral("action"), QStringLiteral("opensearch"));
+    q.addQueryItem(QStringLiteral("format"), QStringLiteral("json"));
+    q.addQueryItem(QStringLiteral("namespace"), QStringLiteral("0"));
+    q.addQueryItem(QStringLiteral("limit"), QString::number(limit));
+    q.addQueryItem(QStringLiteral("search"), prefix.trimmed());
+    url.setQuery(q);
+    return url;
+}
+
+QStringList suggestVariants(const QString &prefix)
+{
+    const QString p = prefix.trimmed();
+    QStringList out;
+    if (p.isEmpty())
+        return out;
+    out << p;
+    const QString upper = p.at(0).toUpper() + p.mid(1);
+    const QString lower = p.at(0).toLower() + p.mid(1);
+    for (const QString &v : {upper, lower})
+        if (!out.contains(v))
+            out << v;
+    return out;
+}
+
+QStringList parseSuggestions(const QByteArray &json)
+{
+    QStringList out;
+    const QJsonDocument doc = QJsonDocument::fromJson(json);
+    if (!doc.isArray() || doc.array().size() < 2)
+        return out;
+    for (const QJsonValue &v : doc.array().at(1).toArray()) {
+        const QString t = v.toString().trimmed();
+        if (!t.isEmpty() && !t.contains(u':') && !t.contains(u'/') && !out.contains(t))
+            out << t;
+    }
+    return out;
+}
+
+QStringList mergeSuggestions(const QList<QStringList> &lists, const QString &prefix, int max)
+{
+    // Words that really start with what was typed (ignoring case) first, each spelling once
+    const QString p = prefix.trimmed().toCaseFolded();
+    QStringList out;
+    QSet<QString> seen;
+    for (int pass = 0; pass < 2; ++pass)
+        for (const QStringList &l : lists)
+            for (const QString &w : l) {
+                const bool starts = w.toCaseFolded().startsWith(p);
+                if ((pass == 0) != starts || seen.contains(w))
+                    continue;
+                seen.insert(w);
+                out << w;
+                if (out.size() >= max)
+                    return out;
+            }
+    return out;
 }
 
 QUrl requestUrl(const QString &word)

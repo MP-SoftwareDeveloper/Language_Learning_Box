@@ -77,6 +77,7 @@ qt_add_qml_module(appLearningBox
         qml/GenderMark.qml
         qml/PluralLine.qml
         qml/FormLines.qml
+        qml/WordSuggestions.qml
         qml/CameraShotPage.qml
         qml/EditIcon.qml
         qml/HelpIcon.qml

@@ -34,6 +34,14 @@ QString lemmaOf(const QString &front);
 // Wiktionary API request for the page of `word` (first letter capitalised: nouns are).
 QUrl requestUrl(const QString &word);
 
+// Word suggestions while typing ("hau" -> Haus, Hausaufgabe, ...): Wiktionary's prefix search in the given
+// language ("de", "en", "fa"). Titles are case-sensitive there, so the caller asks for each spelling of the
+// first letter (suggestVariants) and merges the answers (mergeSuggestions).
+QUrl suggestUrl(const QString &language, const QString &prefix, int limit = 8);
+QStringList suggestVariants(const QString &prefix);
+QStringList parseSuggestions(const QByteArray &json);
+QStringList mergeSuggestions(const QList<QStringList> &lists, const QString &prefix, int max = 8);
+
 // Reads the answer of requestUrl(). A page without a noun table gives an invalid Grammar and no
 // error; a body that is not the expected JSON sets *error.
 Grammar parse(const QByteArray &json, QString *error = nullptr);

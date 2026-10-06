@@ -102,9 +102,10 @@ Page {
     readonly property string meaningLines: meaningText.replace(/\s*·\s*Pl\./, "\nPl.")
     // Back of the card: the meaning, then "Pl. die Hunde" on a new line (unless the meaning has it already)
     readonly property string cardBack: {
-        if (reverse || meaningLines === "" || /(^|\n)(Pl|Sg|Mask|Fem)\./.test(meaningLines) || (grammar.forms ?? "") === "")
+        if (reverse || meaningLines === "" || (grammar.forms ?? "") === "")
             return meaningLines
-        return meaningLines + "\n" + grammar.forms
+        // the online forms (Mask./Fem./Pl.) replace the word pack's plural
+        return meaningLines.replace(/(\n?(Pl|Sg|Mask|Fem)\.[^\n]*)+$/, "") + "\n" + grammar.forms
     }
     // Front of the card: "der Hund" (article from the word pack or from Wiktionary)
     readonly property string cardFront: {
@@ -322,8 +323,6 @@ Page {
                     inputMethodHints: Qt.ImhNoPredictiveText
                     horizontalAlignment: page.persianText(text) ? TextInput.AlignRight : TextInput.AlignLeft
                     onTextEdited: {
-                        const t = text.trim()
-                        page.suggestions = !page.reverse && page.learn === "de" && t.length >= 2 ? WordPacks.suggest(t, 5) : []
                         typing.restart()
                     }
                     onAccepted: { typing.stop(); page.lookup(); page.dismissKeyboard() }
@@ -335,26 +334,19 @@ Page {
                 }
             }
 
-            // Word pack suggestions
-            Flow {
+            // Suggestions while typing (word pack + Wiktionary), like a search box
+            WordSuggestions {
+                id: wordSuggestions
                 Layout.fillWidth: true
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
-                spacing: 6
-                visible: page.suggestions.length > 0
-                Repeater {
-                    model: page.suggestions
-                    delegate: Button {
-                        required property var modelData
-                        flat: true
-                        font.pixelSize: 13
-                        text: modelData.front
-                        onClicked: {
-                            field.text = modelData.front
-                            typing.stop()
-                            page.lookup()
-                        }
-                    }
+                text: field.text
+                language: page.from
+                onPicked: (entry) => {
+                    field.text = entry.word
+                    typing.stop()
+                    page.lookup()
+                    page.dismissKeyboard()
                 }
             }
 
