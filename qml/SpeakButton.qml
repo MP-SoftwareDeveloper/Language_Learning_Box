@@ -8,8 +8,8 @@ ToolButton {
     id: root
     property string speakText: ""
     property string languageTag: "" // "" = learning language
-    // Size of the speaker symbol in pixels (3x the old 20). Padding keeps the button clear of the edges.
-    property int iconSize: 36
+    // Size of the speaker symbol in pixels (20% smaller than before). Padding keeps the button clear of the edges.
+    property int iconSize: 29
     padding: 6
 
     // Only the button that started the current speech shows ⏹ (Speaker.utterance is the latest request).

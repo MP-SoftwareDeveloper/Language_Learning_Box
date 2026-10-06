@@ -101,6 +101,13 @@ Page {
         return back // English with no translation: left empty for the user to fill in
     }
 
+    // "Pl. Hunde" for a word: the word pack's note, else the plural found online ("" = none)
+    function pluralOf(w) {
+        const known = WordPacks.lookup(w)
+        const b = known.back ? known.back.replace(/\s*·\s*Pl\./, "\nPl.") : ""
+        const m = /Pl\.[^\n]*/.exec(b)
+        return m ? m[0] : (gram[w]?.pluralLine ?? "")
+    }
     // Card front a word would get (the pack's "das Brot" for "Brot").
     function frontFor(w) {
         const f = WordPacks.lookup(w).front
@@ -597,7 +604,7 @@ Page {
                     }
                     SpeakButton {
                         speakText: page.fullText
-                        iconSize: 24 // compact: the photo needs the room
+                        iconSize: 19 // compact: the photo needs the room
                     }
                 }
 
@@ -622,7 +629,7 @@ Page {
                     visible: page.showFull && Translator.meaningLanguage !== "fa"
                     speakText: page.entry(page.fullText).text ?? ""
                     languageTag: Translator.meaningLanguage === "en" ? "en-US" : "de-DE"
-                    iconSize: 24
+                    iconSize: 19
                 }
                 }
                 ScrollView {
@@ -697,7 +704,7 @@ Page {
                         maximumLineCount: 4
                         elide: Text.ElideRight
                     }
-                    SpeakButton { speakText: page.selectedText; visible: page.selected.length > 0; iconSize: 24 }
+                    SpeakButton { speakText: page.selectedText; visible: page.selected.length > 0; iconSize: 19 }
                     ToolButton {
                         objectName: "lensStar"
                         visible: page.selected.length > 0
@@ -745,23 +752,33 @@ Page {
                     clip: true
                     interactive: contentHeight > height
                     model: page.selectedList
-                    delegate: RowLayout {
+                    delegate: ColumnLayout {
                         required property string modelData
                         width: wordList.width
-                        spacing: 8
-                        Label {
-                            text: modelData
-                            font.bold: true
-                            font.pixelSize: 15
-                        }
-                        Label {
+                        spacing: 0
+                        RowLayout {
                             Layout.fillWidth: true
-                            horizontalAlignment: Text.AlignRight
-                            elide: Text.ElideRight
-                            font.pixelSize: 15
-                            readonly property string meaning: page.meaningOf(modelData)
-                            text: meaning !== "" ? meaning : page.sourceLabel(modelData)
-                            opacity: meaning !== "" ? 1 : 0.55
+                            spacing: 8
+                            Label {
+                                text: page.frontFor(modelData)
+                                font.bold: true
+                                font.pixelSize: 15
+                            }
+                            GenderMark { word: page.frontFor(modelData) }
+                            Label {
+                                Layout.fillWidth: true
+                                horizontalAlignment: Text.AlignRight
+                                elide: Text.ElideRight
+                                font.pixelSize: 15
+                                readonly property string meaning: page.meaningOf(modelData)
+                                text: meaning !== "" ? meaning : page.sourceLabel(modelData)
+                                opacity: meaning !== "" ? 1 : 0.55
+                            }
+                        }
+                        PluralLine {
+                            Layout.fillWidth: true
+                            line: page.pluralOf(modelData)
+                            pixelSize: 14
                         }
                     }
                 }

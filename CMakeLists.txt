@@ -74,6 +74,7 @@ qt_add_qml_module(appLearningBox
         qml/StarButton.qml
         qml/CardFace.qml
         qml/GenderMark.qml
+        qml/PluralLine.qml
         qml/CameraShotPage.qml
         qml/EditIcon.qml
         qml/HelpIcon.qml

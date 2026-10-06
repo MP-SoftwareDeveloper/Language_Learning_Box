@@ -113,6 +113,10 @@ Page {
         return (grammar.front ?? "") !== "" ? grammar.front : learnWord
     }
 
+    // "Pl. Hunde" on its own line (with 🔊) and the rest of the back without it
+    readonly property string cardPlural: reverse ? "" : (/Pl\.[^\n]*/.exec(cardBack)?.[0] ?? "")
+    readonly property string cardBody: reverse ? result : cardBack.replace(/\n?Pl\.[^\n]*$/, "")
+
     function clearResult() {
         headword = ""; result = ""; alternatives = []; source = ""; error = ""
         requestId = -1; examples = []; examplesRequest = -1
@@ -416,7 +420,7 @@ Page {
                         visible: page.result !== ""
                         MeaningText {
                             Layout.fillWidth: true
-                            text: page.reverse ? page.result : page.cardBack
+                            text: page.cardBody
                             pixelSize: 20
                         }
                         SpeakButton {
@@ -425,6 +429,11 @@ Page {
                             speakText: page.result.split("\n")[0]
                             languageTag: page.tag(page.to)
                         }
+                    }
+                    PluralLine {
+                        Layout.fillWidth: true
+                        line: page.cardPlural
+                        pixelSize: 16
                     }
                     Label {
                         Layout.fillWidth: true

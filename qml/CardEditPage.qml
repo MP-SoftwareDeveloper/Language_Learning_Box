@@ -421,6 +421,15 @@ Page {
                                                : qsTr("Meaning filled in automatically \u2013 edit it if you like")
             }
 
+            // Plural line of the back ("Pl. Hunde") with 🔊
+            PluralLine {
+                Layout.fillWidth: true
+                Layout.leftMargin: 20
+                Layout.rightMargin: 8
+                line: /Pl\.[^\n]*/.exec(backField.text)?.[0] ?? ""
+                pixelSize: 15
+            }
+
             RowLayout {
                 Layout.fillWidth: true
                 Layout.leftMargin: 16
