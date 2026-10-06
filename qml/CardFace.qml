@@ -15,10 +15,38 @@ ColumnLayout {
     readonly property string front: card.front ?? ""
     readonly property string back: card.back ?? ""
     readonly property string example: card.example ?? ""
-    readonly property bool meaningSpeakable: Translator.meaningLanguage !== "fa" && !/[؀-ۿ]/.test(back)
+    readonly property bool meaningSpeakable: back !== "" && Translator.meaningLanguage !== "fa" && !/[؀-ۿ]/.test(back)
     readonly property string meaningTag: Translator.meaningLanguage === "en" ? "en-US" : "de-DE"
 
     spacing: 2
+
+    // Grammar lines (plural, male / female forms) for cards that have none stored yet: looked up in
+    // Wiktionary when the card is shown (saved on the phone after the first time); display only.
+    readonly property string backText: back.replace(/\s*\u00b7\s*Pl\./, "\nPl.")
+    readonly property bool hasForms: /(^|\n)\s*(Pl|Sg|Mask|Fem)\./.test(backText)
+    property var grammar: ({})
+    property int grammarRequest: -1
+    readonly property string formsText: hasForms ? backText : (grammar.forms ?? "")
+    readonly property string markWord: /^(der|die|das)\s/i.test(front) ? front : (grammar.front ?? "")
+    function lookupForms() {
+        grammar = ({})
+        grammarRequest = -1
+        const w = front.trim()
+        if (hasForms || CardStore.learningLanguage !== "de" || !/^((der|die|das)\s+)?[A-Z\u00C4\u00D6\u00DC]\S*$/.test(w))
+            return
+        grammarRequest = Translator.lookupGrammar(w)
+    }
+    onFrontChanged: Qt.callLater(lookupForms)
+    Component.onCompleted: Qt.callLater(lookupForms)
+    Connections {
+        target: Translator
+        function onGrammarFound(requestId, grammar) {
+            if (requestId === root.grammarRequest) {
+                root.grammarRequest = -1
+                root.grammar = grammar
+            }
+        }
+    }
 
     // Front
     RowLayout {
@@ -41,7 +69,7 @@ ColumnLayout {
             font.bold: true
             wrapMode: Text.WordWrap
         }
-        GenderMark { word: root.front }
+        GenderMark { word: root.markWord }
         SpeakButton { speakText: root.front }
         RowLayout {
             id: actions
@@ -52,7 +80,7 @@ ColumnLayout {
     // layout loop inside this row)
     RowLayout {
         Layout.fillWidth: true
-        visible: root.back !== ""
+        visible: root.back !== "" || root.formsText !== ""
         spacing: 4
         ColumnLayout {
             Layout.fillWidth: true
@@ -72,8 +100,8 @@ ColumnLayout {
             // "Pl. Hunde", "Fem. die Lehrerin", ...: each with 🔊 and its gender colour
             FormLines {
                 Layout.fillWidth: true
-                text: root.back.replace(/\s*·\s*Pl\./, "\nPl.")
-                word: root.front
+                text: root.formsText
+                word: root.markWord
                 pixelSize: 13
             }
         }
