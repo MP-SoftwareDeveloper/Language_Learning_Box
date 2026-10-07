@@ -5,9 +5,10 @@ import QtQuick.Layouts
 import QtQuick.Controls.Material
 import LearningBox
 
-// Dictionary: look up a word or sentence in both directions between the learning language of the
-// selected learning box and a second language: the box's meaning language by default, or any other
-// one picked at the top (e.g. Deutsch ↔ فارسی or Deutsch ↔ English; remembered per learning language).
+// Dictionary: look up a word or sentence between any two languages (Deutsch, English, فارسی), picked in
+// two combo boxes at the top: the input language and the output language (remembered). The default is the
+// learning language of the selected box and its meaning language. Cards can be added when one of the two
+// languages is the learning language.
 // Word pack (German → Persian, offline), saved translations, online translation (Full app),
 // example sentences, 🔊 for German / English, and "Add to learning box".
 Page {
@@ -16,25 +17,59 @@ Page {
 
     readonly property string learn: CardStore.learningLanguage   // "de" / "en"
     readonly property string boxMeaning: Translator.meaningLanguage // "fa" / "en" / "de"
-    // Second language of the dictionary: never the learning language
-    readonly property var otherLanguages: ["fa", "en", "de"].filter(c => c !== learn)
-    readonly property string chosen: learn === "en" ? prefs.otherForEnglish : prefs.otherForGerman
-    readonly property string meaning: otherLanguages.indexOf(chosen) >= 0 ? chosen : boxMeaning
-    function choose(c) {
-        if (learn === "en") prefs.otherForEnglish = c
-        else prefs.otherForGerman = c
-        if (reverse) { reverse = false; field.text = "" }   // the typed text was in the old language
+    readonly property var languages: [
+        { code: "de", name: "Deutsch" }, { code: "en", name: "English" }, { code: "fa", name: "فارسی" }
+    ]
+    // Input and output language: the saved choice when it is valid, else the box's languages
+    readonly property bool savedPairValid: prefs.fromLang !== prefs.toLang
+                                           && languages.some(l => l.code === prefs.fromLang)
+                                           && languages.some(l => l.code === prefs.toLang)
+    readonly property string from: savedPairValid ? prefs.fromLang : learn
+    readonly property string to: savedPairValid ? prefs.toLang
+                                 : (boxMeaning !== learn ? boxMeaning : (learn === "en" ? "de" : "en"))
+    function setPair(f, t) {
+        prefs.fromLang = f
+        prefs.toLang = t
+    }
+    // Input language picked: when it is the output language, the two swap. The typed text was in the old language.
+    function setFrom(c) {
+        if (c === from)
+            return
+        setPair(c, c === to ? from : to)
+        field.text = ""
+        lookup()
+    }
+    function setTo(c) {
+        if (c === to)
+            return
+        if (c === from) {
+            setPair(to, from)
+            field.text = ""
+        } else {
+            setPair(from, c)
+        }
+        lookup()
+    }
+    function swap() {
+        // Look the answer up the other way (first line: the meaning without grammar notes)
+        const answer = result.split("\n")[0].split(/[،,]/)[0].trim()
+        setPair(to, from)
+        if (answer !== "")
+            field.text = answer
         lookup()
     }
     Settings {
         id: prefs
         category: "dictionary"
-        property string otherForGerman: ""
-        property string otherForEnglish: ""
+        property string fromLang: ""
+        property string toLang: ""
     }
-    property bool reverse: false                                 // false: learn → meaning
-    readonly property string from: reverse ? meaning : learn
-    readonly property string to: reverse ? learn : meaning
+    // learn → other language (the card's front is the typed word) / other language → learn (the front is the answer)
+    // / free: neither is the learning language (no cards, no grammar block)
+    readonly property bool reverse: from !== learn && to === learn
+    readonly property bool free: from !== learn && to !== learn
+    // The language the meaning (card back) is in
+    readonly property string meaning: reverse ? from : to
 
     function langName(c) { return c === "fa" ? "فارسی" : c === "de" ? "Deutsch" : "English" }
     function tag(c) { return c === "en" ? "en-US" : c === "de" ? "de-DE" : "" }
@@ -73,14 +108,14 @@ Page {
     }
 
     // The word in the learning language and its meaning, whichever way it was looked up
-    readonly property string learnWord: reverse ? result.split("\n")[0] : (headword || query)
+    readonly property string learnWord: free ? "" : reverse ? result.split("\n")[0] : (headword || query)
     readonly property string meaningText: reverse ? query : result
 
     // Word-pack meanings keep the plural on the same line ("Brot · Pl. die Brote"): show it on its own line
     readonly property string meaningLines: meaningText.replace(/\s*·\s*Pl\./, "\nPlural")
     // Back of the card: the meaning, then "Pl. die Hunde" on a new line (unless the meaning has it already)
     readonly property string cardBack: {
-        if (reverse || meaningLines === "" || wordInfo.forms === "")
+        if (reverse || free || meaningLines === "" || wordInfo.forms === "")
             return meaningLines
         // the online forms (Mask./Fem./Pl.) replace the word pack's plural
         return meaningLines.replace(/(\n?(Pl\.|Plural|Sg\.|Singular|Mask\.|Fem\.)[^\n]*)+$/, "") + "\n" + wordInfo.forms
@@ -107,7 +142,7 @@ Page {
         if (query === "")
             return
         // Offline first: the German word pack with its curated Persian meaning
-        if (!reverse && learn === "de" && meaning === "fa") {
+        if (from === learn && learn === "de" && to === "fa") {
             const known = WordPacks.lookup(query)
             if (known.back) {
                 headword = known.front
@@ -146,10 +181,10 @@ Page {
     // Article, forms, example sentences and the capital letter: the same WordLookup as in Add card
     WordLookup {
         id: wordInfo
-        word: page.reverse ? page.result.split("\n")[0] : page.query
+        word: page.free ? "" : page.reverse ? page.result.split("\n")[0] : page.query
         meaning: page.meaning
         onCapitalise: (text) => {
-            if (page.reverse)
+            if (page.reverse || page.free)
                 return
             field.text = text
             typing.stop()
@@ -201,30 +236,29 @@ Page {
                 onTapped: (eventPoint) => page.dismissKeyboard(eventPoint.scenePosition)
             }
 
-            // Direction and swap
+            // Input language -> output language
             RowLayout {
-                Layout.alignment: Qt.AlignHCenter
+                Layout.fillWidth: true
                 Layout.topMargin: 8
+                Layout.leftMargin: 16
+                Layout.rightMargin: 16
                 spacing: 8
-                Pane {
-                    padding: 8
-                    leftPadding: 16
-                    rightPadding: 16
-                    background: Rectangle {
-                        radius: height / 2
-                        color: "transparent"
-                        border.width: 1
-                        border.color: Material.accentColor
-                    }
-                    contentItem: DirectionLabel {
-                        from: page.langName(page.from)
-                        to: page.langName(page.to)
-                        pixelSize: 15
-                        bold: true
-                        color: Material.foreground
+                ColumnLayout {
+                    Layout.fillWidth: true
+                    Layout.preferredWidth: 1
+                    spacing: 0
+                    Label { text: qsTr("From"); font.pixelSize: 12; opacity: 0.6 }
+                    ComboBox {
+                        objectName: "fromLanguage"
+                        Layout.fillWidth: true
+                        model: page.languages
+                        textRole: "name"
+                        currentIndex: page.languages.findIndex(l => l.code === page.from)
+                        onActivated: (i) => page.setFrom(page.languages[i].code)
                     }
                 }
                 RoundButton {
+                    Layout.alignment: Qt.AlignBottom
                     objectName: "swapButton"
                     // Swap arrows drawn (a "⇄" character can be missing from the phone's fonts)
                     contentItem: Canvas {
@@ -248,36 +282,20 @@ Page {
                     }
                     ToolTip.visible: hovered
                     ToolTip.text: qsTr("Swap languages")
-                    onClicked: {
-                        // Look the answer up the other way (first line: the meaning without grammar notes)
-                        const answer = page.result.split("\n")[0].split(/[،,]/)[0].trim()
-                        page.reverse = !page.reverse
-                        if (answer !== "")
-                            field.text = answer
-                        page.lookup()
-                    }
+                    onClicked: page.swap()
                 }
-            }
-
-            // Second language: Persian / English / German (not the learning language)
-            RowLayout {
-                objectName: "languageChooser"
-                Layout.alignment: Qt.AlignHCenter
-                spacing: 4
-                Label {
-                    text: qsTr("With:")
-                    opacity: 0.7
-                }
-                Repeater {
-                    model: page.otherLanguages
-                    delegate: Button {
-                        required property string modelData
-                        checkable: false
-                        flat: modelData !== page.meaning
-                        highlighted: modelData === page.meaning
-                        font.pixelSize: 14
-                        text: page.langName(modelData)
-                        onClicked: if (modelData !== page.meaning) page.choose(modelData)
+                ColumnLayout {
+                    Layout.fillWidth: true
+                    Layout.preferredWidth: 1
+                    spacing: 0
+                    Label { text: qsTr("To"); font.pixelSize: 12; opacity: 0.6 }
+                    ComboBox {
+                        objectName: "toLanguage"
+                        Layout.fillWidth: true
+                        model: page.languages
+                        textRole: "name"
+                        currentIndex: page.languages.findIndex(l => l.code === page.to)
+                        onActivated: (i) => page.setTo(page.languages[i].code)
                     }
                 }
             }
