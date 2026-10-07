@@ -47,11 +47,7 @@ Page {
     property string source: ""       // "pack", "online", "saved"
     property string error: ""
     property int requestId: -1
-    property var examples: []
-    property int pickedExample: 0    // sentence that goes on the card (-1: none); tap a sentence to change
-    onExamplesChanged: pickedExample = examples.length > 0 ? 0 : -1
-    readonly property string chosenExample: pickedExample >= 0 && pickedExample < examples.length
-                                            ? examples[pickedExample].text : ""
+    readonly property string chosenExample: wordInfo.chosen // sentence that goes on the card (radio button)
 
     // Save the looked-up word as a card in the selected learning box, with the chosen sentence.
     // A word that is already a card is only touched when the user says so (updateExisting).
@@ -75,43 +71,25 @@ Page {
                                                                                  : qsTr("Could not save"))
         }
     }
-    property int examplesRequest: -1
 
     // The word in the learning language and its meaning, whichever way it was looked up
     readonly property string learnWord: reverse ? result.split("\n")[0] : (headword || query)
     readonly property string meaningText: reverse ? query : result
 
-    // Article (der / die / das) and plural of a German noun, from Wiktionary (online, saved for offline use).
-    // Single words only: the article goes in front of the word, the plural on its own line on the back.
-    property var grammar: ({})
-    property int grammarRequest: -1
-    property string grammarWord: ""
-    function requestGrammar() {
-        const w = learnWord.trim()
-        if (learn !== "de" || w === "" || w === grammarWord)
-            return
-        grammarWord = w
-        grammar = ({})
-        grammarRequest = -1
-        // Nouns only: an article in front, or a capital letter ("gehen" would find the noun "das Gehen")
-        if (/^(der|die|das)\s/i.test(w) || /^[A-ZÄÖÜ]/.test(w))
-            grammarRequest = Translator.lookupGrammar(w)
-    }
-    onLearnWordChanged: Qt.callLater(requestGrammar)
     // Word-pack meanings keep the plural on the same line ("Brot · Pl. die Brote"): show it on its own line
     readonly property string meaningLines: meaningText.replace(/\s*·\s*Pl\./, "\nPl.")
     // Back of the card: the meaning, then "Pl. die Hunde" on a new line (unless the meaning has it already)
     readonly property string cardBack: {
-        if (reverse || meaningLines === "" || (grammar.forms ?? "") === "")
+        if (reverse || meaningLines === "" || wordInfo.forms === "")
             return meaningLines
         // the online forms (Mask./Fem./Pl.) replace the word pack's plural
-        return meaningLines.replace(/(\n?(Pl|Sg|Mask|Fem)\.[^\n]*)+$/, "") + "\n" + grammar.forms
+        return meaningLines.replace(/(\n?(Pl|Sg|Mask|Fem)\.[^\n]*)+$/, "") + "\n" + wordInfo.forms
     }
     // Front of the card: "der Hund" (article from the word pack or from Wiktionary)
     readonly property string cardFront: {
         if (!reverse && /^(der|die|das)\s/i.test(headword))
             return headword
-        return (grammar.front ?? "") !== "" ? grammar.front : learnWord
+        return wordInfo.front !== "" ? wordInfo.front : learnWord
     }
 
     // "Pl. Hunde" on its own line (with 🔊) and the rest of the back without it
@@ -120,8 +98,7 @@ Page {
 
     function clearResult() {
         headword = ""; result = ""; alternatives = []; source = ""; error = ""
-        requestId = -1; examples = []; examplesRequest = -1
-        grammar = ({}); grammarRequest = -1; grammarWord = ""
+        requestId = -1
     }
     function lookup() {
         clearResult()
@@ -139,13 +116,7 @@ Page {
             }
         }
         requestId = Translator.translateBetween(query, from, to) // online, else saved
-        if (!reverse)
-            findExamples(query)
-    }
-    function findExamples(word) {
-        if (word.trim() === "" || word.split(" ").length > 3)
-            return
-        examplesRequest = Translator.suggestExamples(word) // learning-language sentences
+        wordInfo.refreshNow() // article, forms and example sentences of the word
     }
 
     Connections {
@@ -165,26 +136,26 @@ Page {
                     page.source = source
                 }
             }
-            if (page.reverse && page.result !== "")
-                page.findExamples(page.result.split("\n")[0])
-        }
-        function onGrammarFound(requestId, grammar) {
-            if (requestId === page.grammarRequest) {
-                page.grammarRequest = -1
-                page.grammar = grammar
-            }
-        }
-        function onExamplesSuggested(requestId, examples) {
-            if (requestId === page.examplesRequest) {
-                page.examples = examples
-                page.examplesRequest = -1
-            }
         }
         function onSettingsChanged() { Qt.callLater(page.lookup) } // another learning box / meaning language
     }
 
     // German words from the word pack while typing
     property var suggestions: []
+
+    // Article, forms, example sentences and the capital letter: the same WordLookup as in Add card
+    WordLookup {
+        id: wordInfo
+        word: page.reverse ? page.result.split("\n")[0] : page.query
+        meaning: page.meaning
+        onCapitalise: (text) => {
+            if (page.reverse)
+                return
+            field.text = text
+            typing.stop()
+            page.lookup() // translate the word with its capital letter ("kellner" is a verb for the translator)
+        }
+    }
     Timer {
         id: typing
         interval: 600
@@ -424,12 +395,6 @@ Page {
                             tint: "#e53935" // translation: red
                         }
                     }
-                    FormLines {
-                        Layout.fillWidth: true
-                        text: page.cardForms
-                        word: page.cardFront
-                        pixelSize: 16
-                    }
                     Label {
                         Layout.fillWidth: true
                         visible: page.alternatives.length > 0
@@ -456,67 +421,12 @@ Page {
                 }
             }
 
-            // ---- Example sentences (learning language, with translation) ----
-            Label {
+            // ---- Forms and example sentences: the same block as in Add card ----
+            WordDetails {
+                Layout.fillWidth: true
                 Layout.leftMargin: 16
-                Layout.topMargin: 4
-                visible: page.examples.length > 0 || page.examplesRequest >= 0
-                text: qsTr("Example sentences")
-                font.bold: true
-            }
-            HintLabel {
-                Layout.leftMargin: 16
-                Layout.rightMargin: 16
-                visible: page.examples.length > 0 && page.result !== ""
-                text: qsTr("Tap a sentence to choose the one that goes on the card (tap again for none).")
-            }
-            Label {
-                Layout.leftMargin: 16
-                visible: page.examplesRequest >= 0 && page.examples.length === 0
-                opacity: 0.6
-                text: qsTr("Searching…")
-            }
-            Repeater {
-                model: page.examples
-                delegate: RowLayout {
-                    id: exRow
-                    required property var modelData
-                    required property int index
-                    readonly property bool picked: page.pickedExample === index
-                    function toggle() { page.pickedExample = picked ? -1 : index }
-                    Layout.fillWidth: true
-                    Layout.leftMargin: 16
-                    Layout.rightMargin: 8
-                    // choice mark: filled dot = this sentence goes on the card
-                    Rectangle {
-                        Layout.alignment: Qt.AlignTop
-                        Layout.topMargin: 3
-                        implicitWidth: 22; implicitHeight: 22
-                        radius: 11
-                        color: "transparent"
-                        border.width: 2
-                        border.color: exRow.picked ? Material.accent : Qt.alpha(Material.foreground, 0.5)
-                        Rectangle {
-                            anchors.centerIn: parent
-                            width: 10; height: 10; radius: 5
-                            color: Material.accent
-                            visible: exRow.picked
-                        }
-                        TapHandler { onTapped: exRow.toggle() }
-                    }
-                    ExampleText {
-                        Layout.fillWidth: true
-                        example: modelData.text
-                        target: page.meaning
-                        knownTranslation: page.meaning === page.boxMeaning ? (modelData.translation ?? "") : ""
-                        pixelSize: 15
-                        TapHandler { onTapped: exRow.toggle() }
-                    }
-                    SpeakButton {
-                        Layout.alignment: Qt.AlignTop
-                        speakText: modelData.text
-                    }
-                }
+                Layout.rightMargin: 8
+                info: wordInfo
             }
             Item { Layout.preferredHeight: 16 }
         }

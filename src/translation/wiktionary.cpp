@@ -209,8 +209,11 @@ Grammar parseWikitext(const QString &wikitext)
 {
     Grammar g;
     const QString table = nounTable(wikitext);
-    if (table.isEmpty()) {
-        g.singularOf = singularTarget(wikitext);
+    // A plural form of a noun wins over a noun of the same spelling on the page ("Mauern": plural of "Mauer",
+    // but also "das Mauern", the activity)
+    const QString target = singularTarget(wikitext);
+    if (table.isEmpty() || !target.isEmpty()) {
+        g.singularOf = target;
         return g;
     }
     g.masculine = linkedWords(wikitext, QStringLiteral("M\u00e4nnliche Wortformen"));
@@ -238,6 +241,33 @@ Grammar parseWikitext(const QString &wikitext)
     if (s.hasMatch())
         g.lemma = cleaned(s.captured(1));
     return g;
+}
+
+QUrl existsUrl(const QString &title)
+{
+    QUrl url(QStringLiteral("https://de.wiktionary.org/w/api.php"));
+    QUrlQuery q;
+    q.addQueryItem(QStringLiteral("action"), QStringLiteral("query"));
+    q.addQueryItem(QStringLiteral("prop"), QStringLiteral("info"));
+    q.addQueryItem(QStringLiteral("format"), QStringLiteral("json"));
+    q.addQueryItem(QStringLiteral("formatversion"), QStringLiteral("2"));
+    q.addQueryItem(QStringLiteral("titles"), title.trimmed());
+    url.setQuery(q);
+    return url;
+}
+
+bool pageExists(const QByteArray &json, QString *error)
+{
+    const QJsonDocument doc = QJsonDocument::fromJson(json);
+    if (!doc.isObject()) {
+        if (error)
+            *error = QStringLiteral("Wiktionary: unexpected answer");
+        return false;
+    }
+    const QJsonArray pages = doc.object().value(QStringLiteral("query")).toObject().value(QStringLiteral("pages")).toArray();
+    if (pages.isEmpty())
+        return false;
+    return !pages.first().toObject().value(QStringLiteral("missing")).toBool();
 }
 
 Grammar parse(const QByteArray &json, QString *error)

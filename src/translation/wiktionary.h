@@ -34,6 +34,11 @@ QString lemmaOf(const QString &front);
 // Wiktionary API request for the page of `word` (first letter capitalised: nouns are).
 QUrl requestUrl(const QString &word);
 
+// Does a page with exactly this title exist (case-sensitive, no redirects)? For a word typed in lowercase:
+// "gehen" has a page (a verb), "kellner" has none (a noun typed without its capital letter).
+QUrl existsUrl(const QString &title);
+bool pageExists(const QByteArray &json, QString *error = nullptr);
+
 // Word suggestions while typing ("hau" -> Haus, Hausaufgabe, ...): Wiktionary's prefix search in the given
 // language ("de", "en", "fa"). Titles are case-sensitive there, so the caller asks for each spelling of the
 // first letter (suggestVariants) and merges the answers (mergeSuggestions).

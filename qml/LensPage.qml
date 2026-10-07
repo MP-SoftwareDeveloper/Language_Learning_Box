@@ -48,7 +48,7 @@ Page {
     function requestGrammar(w) {
         if (CardStore.learningLanguage !== "de" || gram[w] !== undefined)
             return
-        if (!/^[A-ZÄÖÜ]/.test(w)) return // nouns only
+        if (w.length < 2) return // nouns only: Translator.lookupGrammar skips lowercase words that are no nouns
         const next = Object.assign({}, gram)
         next[w] = { pending: true }
         gram = next
@@ -811,16 +811,14 @@ Page {
                         enabled: page.selected.length > 0 && !page.anyPending
                         text: qsTr("Create card")
                         onClicked: {
-                            // A single word: pack article/example + its translation. Several words: the phrase translation.
+                            // The word goes into Add card like a typed one: that page finds article, forms,
+                            // meaning and example sentences itself, exactly as in the Dictionary. A sentence keeps
+                            // its translation from here.
                             const single = page.selected.length === 1
                                     ? engine.cleanWord(engine.words[page.selected[0]].text) : ""
-                            const known = single !== "" ? WordPacks.lookup(single) : ({})
-                            const front = single !== "" ? page.frontFor(single) : page.selectedText
-                            const back = single !== "" ? page.backFor(single) : (page.entry(page.selectedText).text ?? "")
                             page.StackView.view.push(editPage, {
-                                initialFront: front,
-                                initialBack: back,
-                                initialExample: known.example ?? ""
+                                initialFront: single !== "" ? single : page.selectedText,
+                                initialBack: single !== "" ? "" : (page.entry(page.selectedText).text ?? "")
                             })
                             page.selected = [] // fresh start when coming back
                         }

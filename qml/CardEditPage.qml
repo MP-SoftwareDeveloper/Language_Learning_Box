@@ -30,31 +30,16 @@ Page {
     property int meaningRequest: -1
     property string meaningFor: ""
     property var wordSuggestions: []
-    property var exampleSuggestions: [] // [{text, translation}]
-    property int examplesRequest: -1
     property bool pickedWord: false
-    // Example sentence chosen from the suggestions (radio buttons, like the Dictionary); -1 = none
-    property int examplePicked: -1
     property bool exampleAuto: true     // example field is empty or was filled from the suggestions
-    property bool exampleDeselected: false
     property bool settingExample: false
     function setExample(t) { settingExample = true; exampleField.text = t; settingExample = false }
-    function pickExample(i) {
-        examplePicked = i
-        exampleDeselected = i < 0
-        const e = i >= 0 ? exampleSuggestions[i] : undefined
-        if (e && e.translation)
-            Translator.remember(e.text, e.translation)
-        setExample(e ? e.text : "")
-        exampleAuto = true
-    }
 
     // Article and plural of a single German noun (Wiktionary, saved for offline use): the article goes in
     // front of the word, "Pl. die Hunde" on its own line at the end of the back.
-    property string plural: ""          // grammar lines: "Pl. Hunde" (or "Sg. der Hund"), "Mask. ...", "Fem. ..."
-    property string grammarFor: ""      // word the plural belongs to
-    property int grammarRequest: -1
-    property string articleFront: ""    // "der Hund": applied when the card is saved, never typed into the field
+    // From the shared WordLookup (the same as in the Dictionary): article and forms of the word in the box
+    readonly property string plural: wordInfo.forms        // grammar lines: "Pl. Hunde" (or "Sg. der Hund"), "Mask. ...", "Fem. ..."
+    readonly property string articleFront: wordInfo.front  // "der Hund": applied when the card is saved, never typed into the field
     // Front of the card as it will be saved: the article is added for a single noun typed without one
     readonly property string cardFront: {
         const t = frontField.text.trim()
@@ -66,33 +51,12 @@ Page {
     function withoutPlural(t) { return t.replace(/(\n?(Pl|Sg|Mask|Fem)\.[^\n]*)+$/, "") }
     function setBack(t) {
         t = t.replace(/\s*·\s*Pl\./, "\nPl.")   // word-pack meanings keep the plural on the same line
-        if (plural !== "") {
+        const forms = wordInfo.forms   // read from the lookup itself: `plural` may not have followed yet
+        if (forms !== "") {
             t = withoutPlural(t)   // the online forms (Mask./Fem./Pl.) replace the word pack's plural
-            if (t.trim() !== "")
-                t += "\n" + plural
+            t = t.trim() !== "" ? t + "\n" + forms : forms   // also without a meaning yet: the lines get their 🔊
         }
         settingBack = true; backField.text = t; settingBack = false
-    }
-    function requestGrammar() {
-        const m = /^(?:(der|die|das)\s+)?(\S+)$/i.exec(typed)
-        const w = m ? m[2] : ""
-        if (w === grammarFor)
-            return
-        grammarFor = w
-        grammarRequest = -1
-        articleFront = ""
-        if (plural !== "") {
-            plural = ""
-            if (backAuto)
-                setBack(withoutPlural(backField.text))
-        }
-        // The word pack knows the article offline
-        const known = CardStore.learningLanguage === "de" && w !== "" ? WordPacks.lookup(w) : ({})
-        if (known.front && /^(der|die|das)\s/i.test(known.front))
-            articleFront = known.front
-        // Nouns only: an article in front, or a capital letter ("gehen" would find the noun "das Gehen")
-        if (w !== "" && CardStore.learningLanguage === "de" && (m[1] || /^[A-ZÄÖÜ]/.test(w)))
-            grammarRequest = Translator.lookupGrammar(w)
     }
 
     onTypedChanged: {
@@ -110,7 +74,7 @@ Page {
     Timer {
         id: suggestTimer
         interval: 700 // wait until typing pauses
-        onTriggered: { page.requestGrammar(); page.fillMeaning(); page.findExamples() }
+        onTriggered: page.fillMeaning()
     }
 
     function pickWord(s) {
@@ -147,37 +111,8 @@ Page {
             meaningRequest = Translator.translate(w)
         }
     }
-    function findExamples() {
-        exampleSuggestions = []
-        examplesRequest = -1
-        examplePicked = -1
-        exampleDeselected = false
-        if (!isNew || !exampleAuto)
-            return
-        setExample("")
-        if (typed.length < 2)
-            return
-        const persian = Translator.meaningLanguage === "fa"
-        exampleSuggestions = CardStore.learningLanguage !== "de" ? []
-            : WordPacks.examplesContaining(typed, 3).map(e => ({ text: e.text, translation: persian ? e.translation : "" }))
-        if (exampleSuggestions.length > 0)
-            pickExample(0)
-        if (Translator.useOnline)
-            examplesRequest = Translator.suggestExamples(typed)
-    }
     Connections {
         target: Translator
-        function onGrammarFound(requestId, grammar) {
-            if (requestId !== page.grammarRequest)
-                return
-            page.grammarRequest = -1
-            if (!page.isNew || ((grammar.front ?? "") === "" && (grammar.forms ?? "") === ""))
-                return
-            page.articleFront = grammar.front ?? ""
-            page.plural = grammar.forms ?? ""
-            if (page.backAuto && backField.text.trim() !== "")
-                page.setBack(page.withoutPlural(backField.text))
-        }
         function onTranslated(requestId, text, alternatives) {
             if (requestId !== page.meaningRequest)
                 return
@@ -188,18 +123,32 @@ Page {
                 page.setBack(more.length > 0 ? text + sep + more.join(sep) : text)
             }
         }
-        function onExamplesSuggested(requestId, examples) {
-            if (requestId !== page.examplesRequest)
-                return
-            page.examplesRequest = -1
-            const merged = page.exampleSuggestions.slice()
-            const seen = merged.map(e => e.text.toLowerCase())
-            for (const e of examples)
-                if (merged.length < 5 && seen.indexOf(e.text.toLowerCase()) < 0)
-                    merged.push(e)
-            page.exampleSuggestions = merged
-            if (page.examplePicked < 0 && page.exampleAuto && !page.exampleDeselected && merged.length > 0)
-                page.pickExample(0)
+    }
+
+    // Article, forms, example sentences and the capital letter of the word in the box: one implementation for
+    // Add card, the Dictionary and Lens (which opens this page with the word)
+    WordLookup {
+        id: wordInfo
+        word: page.typed
+        active: page.isNew && AppMode.full
+        autoPick: page.exampleAuto
+        onCapitalise: (text) => {
+            const pos = frontField.cursorPosition
+            frontField.text = text
+            frontField.cursorPosition = Math.min(pos, text.length)
+        }
+        onExampleChosen: (text, byUser) => {
+            if (byUser || page.exampleAuto) {
+                page.setExample(text)
+                page.exampleAuto = true
+            }
+        }
+    }
+    Connections {
+        target: wordInfo
+        function onFormsChanged() {
+            if (page.isNew && page.backAuto)
+                page.setBack(page.withoutPlural(backField.text))
         }
     }
 
@@ -287,10 +236,8 @@ Page {
             savedHint.show(cardFront.trim())
             frontField.clear(); backField.clear(); exampleField.clear()
             page.backAuto = true
-            page.plural = ""; page.grammarFor = ""; page.grammarRequest = -1; page.articleFront = ""
             page.wordSuggestions = []
-            page.exampleSuggestions = []
-            page.examplePicked = -1; page.exampleAuto = true; page.exampleDeselected = false
+            page.exampleAuto = true
             image = ""
             saved = false
             frontField.forceActiveFocus()
@@ -384,6 +331,16 @@ Page {
                 onPicked: (entry) => page.pickWord(entry)
             }
 
+            // Singular masculine / feminine, plural and example sentences (radio buttons): the same block as
+            // in the Dictionary, whether the word was typed here or picked in Lens
+            WordDetails {
+                Layout.fillWidth: true
+                Layout.leftMargin: 16
+                Layout.rightMargin: 8
+                visible: page.isNew
+                info: wordInfo
+            }
+
             // Persian, English or anything else. Qt resolves bidi direction per paragraph.
             RowLayout {
                 Layout.fillWidth: true
@@ -427,7 +384,7 @@ Page {
                 Layout.fillWidth: true
                 Layout.leftMargin: 20
                 Layout.rightMargin: 8
-                text: backField.text
+                text: page.isNew ? "" : backField.text // new cards: the forms are in the block under the word
                 word: page.cardFront
                 pixelSize: 15
             }
@@ -455,62 +412,6 @@ Page {
                 example: exampleField.text
                 showGerman: false
                 pixelSize: 15
-            }
-
-            // Example sentences with the word: word pack + Tatoeba (online). Choose one with the radio button
-            // (like the Dictionary); tap it again to take it off the card. 🔊 reads it aloud.
-            ColumnLayout {
-                Layout.fillWidth: true
-                Layout.leftMargin: 16
-                Layout.rightMargin: 8
-                spacing: 4
-                visible: page.isNew && (page.exampleSuggestions.length > 0 || page.examplesRequest >= 0)
-                Label {
-                    font.pixelSize: 12
-                    opacity: 0.6
-                    text: page.examplesRequest >= 0 && page.exampleSuggestions.length === 0
-                          ? qsTr("Finding example sentences\u2026") : qsTr("Example sentences \u2013 choose one for the card")
-                }
-                Repeater {
-                    model: page.exampleSuggestions
-                    delegate: RowLayout {
-                        id: exRow
-                        required property var modelData
-                        required property int index
-                        readonly property bool picked: page.examplePicked === index
-                                                       && exampleField.text === modelData.text
-                        function toggle() { page.pickExample(picked ? -1 : index) }
-                        Layout.fillWidth: true
-                        // choice mark: filled dot = this sentence goes on the card
-                        Rectangle {
-                            Layout.alignment: Qt.AlignTop
-                            Layout.topMargin: 3
-                            implicitWidth: 22; implicitHeight: 22
-                            radius: 11
-                            color: "transparent"
-                            border.width: 2
-                            border.color: exRow.picked ? Material.accent : Qt.alpha(Material.foreground, 0.5)
-                            Rectangle {
-                                anchors.centerIn: parent
-                                width: 10; height: 10; radius: 5
-                                color: Material.accent
-                                visible: exRow.picked
-                            }
-                            TapHandler { onTapped: exRow.toggle() }
-                        }
-                        ExampleText {
-                            Layout.fillWidth: true
-                            example: modelData.text
-                            knownTranslation: modelData.translation ?? ""
-                            pixelSize: 15
-                            TapHandler { onTapped: exRow.toggle() }
-                        }
-                        SpeakButton {
-                            Layout.alignment: Qt.AlignTop
-                            speakText: modelData.text
-                        }
-                    }
-                }
             }
 
             // ---- Picture ----

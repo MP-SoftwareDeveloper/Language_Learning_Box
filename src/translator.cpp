@@ -316,10 +316,10 @@ int Translator::lookupGrammar(const QString &word)
         answer({}, QString());
         return id;
     }
-    // Saved answer first (row in the translation cache, language "grammar3"; "-" = looked up, not a noun)
+    // Saved answer first (row in the translation cache, language "grammar4"; "-" = looked up, not a noun)
     QString saved;
     QStringList extra;
-    if (lookup(QStringLiteral("de"), QStringLiteral("grammar3"), w, &saved, &extra)) {
+    if (lookup(QStringLiteral("de"), QStringLiteral("grammar4"), w, &saved, &extra)) {
         answer(saved == QLatin1String("-") ? QVariantMap()
                                            : grammarMap(wiktionary::decode(saved, extra.value(0, w))),
                QString());
@@ -331,13 +331,14 @@ int Translator::lookupGrammar(const QString &word)
     }
     const auto done = [=, this](const wiktionary::Grammar &g, const QString &error) {
         if (error.isEmpty())
-            store(QStringLiteral("de"), QStringLiteral("grammar3"), w,
+            store(QStringLiteral("de"), QStringLiteral("grammar4"), w,
                   g.valid() ? wiktionary::encode(g) : QStringLiteral("-"),
                   g.valid() ? QStringList{g.lemma.isEmpty() ? w : g.lemma} : QStringList());
         else
             qWarning().noquote() << "Wiktionary:" << error;
         emit grammarFound(id, grammarMap(g), error);
     };
+    const auto proceed = [=, this] {
     fetchGrammar(w, true, [=, this](const wiktionary::Grammar &g, const QString &error) {
         if (!error.isEmpty() || !g.valid()) {
             done(g, error);
@@ -365,6 +366,34 @@ int Translator::lookupGrammar(const QString &word)
             femalePlural(g2);
         });
     });
+    };
+    // A word typed in lowercase (Lens often reads it that way) without an article: "kellner" is a noun without
+    // its capital letter, but "gehen" or "gut" are not ("das Gehen", "das Gut" would be wrong). Wiktionary
+    // titles are case-sensitive, so a page with the lowercase title means: not a noun.
+    const bool hadArticle = word.simplified().contains(QLatin1Char(' '));
+    if (!hadArticle && w.at(0).isLower()) {
+        QNetworkRequest req(wiktionary::existsUrl(w));
+        req.setHeader(QNetworkRequest::UserAgentHeader, QStringLiteral("LearningBox/1.0 (Qt; German vocabulary app)"));
+        QNetworkReply *reply = m_nam->get(req);
+        connect(reply, &QNetworkReply::finished, this, [=, this] {
+            reply->deleteLater();
+            const QByteArray body = reply->readAll();
+            QString error;
+            if (reply->error() != QNetworkReply::NoError && !body.trimmed().startsWith('{')) {
+                done({}, reply->errorString());
+                return;
+            }
+            const bool exists = wiktionary::pageExists(body, &error);
+            if (!error.isEmpty())
+                done({}, error);
+            else if (exists)
+                done({}, QString()); // saved as "not a noun"
+            else
+                proceed();
+        });
+        return id;
+    }
+    proceed();
     return id;
 }
 

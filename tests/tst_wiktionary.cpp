@@ -139,6 +139,10 @@ private slots:
         const wiktionary::Grammar b = wiktionary::parseWikitext(
             QStringLiteral("Hunde ist die Nominativ-Plural-Form des Substantivs [[Hund]]\n"));
         QCOMPARE(b.singularOf, QStringLiteral("Hund"));
+        // a page with its own noun table and a plural-form entry ("Mauern"): the plural form wins
+        const wiktionary::Grammar both = wiktionary::parseWikitext(QStringLiteral(
+            "{{Grundformverweis Dekl|Mauer}}\n{{Deutsch Substantiv Übersicht\n|Genus=n\n|Nominativ Singular=Mauern\n}}\n"));
+        QCOMPARE(both.singularOf, QStringLiteral("Mauer"));
         // adjectives and verbs (lower case targets) are not nouns
         QVERIFY(!wiktionary::parseWikitext(QStringLiteral("{{Grundformverweis Dekl|schön}}")).valid());
 
@@ -155,6 +159,19 @@ private slots:
         QCOMPARE(back.lemma, QStringLiteral("Hund"));
         QCOMPARE(wiktionary::formLines(back), wiktionary::formLines(g));
     }
+    void lowercasePageCheck()
+    {
+        const QUrl u = wiktionary::existsUrl(QStringLiteral(" kellner "));
+        QVERIFY(u.toString().contains(QStringLiteral("titles=kellner")));
+        QVERIFY(u.toString().contains(QStringLiteral("prop=info")));
+        QString error;
+        QVERIFY(wiktionary::pageExists(R"({"query":{"pages":[{"title":"gehen","pageid":1}]}})", &error));
+        QVERIFY(!wiktionary::pageExists(R"({"query":{"pages":[{"title":"kellner","missing":true}]}})", &error));
+        QVERIFY(error.isEmpty());
+        QVERIFY(!wiktionary::pageExists("<html>", &error));
+        QVERIFY(!error.isEmpty());
+    }
+
     void suggestions()
     {
         const QUrl u = wiktionary::suggestUrl(QStringLiteral("de"), QStringLiteral(" hau "));

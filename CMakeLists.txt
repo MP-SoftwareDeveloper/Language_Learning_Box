@@ -78,6 +78,8 @@ qt_add_qml_module(appLearningBox
         qml/PluralLine.qml
         qml/FormLines.qml
         qml/WordSuggestions.qml
+        qml/WordLookup.qml
+        qml/WordDetails.qml
         qml/CameraShotPage.qml
         qml/EditIcon.qml
         qml/HelpIcon.qml
