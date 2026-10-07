@@ -2,7 +2,7 @@ import QtQuick
 import LearningBox
 
 // Everything the app can tell about the word (or sentence) that stands in a text box: its article, the
-// singular masculine / feminine forms, the plural(s) and example sentences to choose from.
+// singular forms of each gender, the plural(s) and example sentences to choose from.
 // ONE implementation for all three ways a word gets into the app: typed in the Dictionary, typed in Add card,
 // or picked in Lens (Lens opens Add card with the word). Show the result with WordDetails.
 //
@@ -38,31 +38,45 @@ Item {
     property string packFront: ""
     property string packForms: ""
     readonly property string front: packFront !== "" ? packFront : wikiFront          // "der Kellner"
-    readonly property string forms: wikiForms !== "" ? wikiForms : packForms          // "Pl. ...", "Fem. die ..."
+    readonly property string forms: wikiForms !== "" ? wikiForms : packForms          // "Plural ...", "Singular die ..."
     readonly property bool isNoun: front !== "" || wikiForms !== ""
 
-    // Rows of the unified layout: [{kind, text, mark}] - masc / fem / neut singular, plural, plural of each gender
+    // Rows of the unified layout: [{kind, text, mark}] - singular of each gender, plural, plural of each gender.
+    // `mark` is the article that gives the colour mark (der blue, die red, das green): the gender is never written.
+    // The lines come in the card's order: own plural, then per other gender "Singular der ..." and its "Plural ...".
+    // Old cards: "Pl. ...", "Sg. ...", "Mask. der ...", "Mask. Pl. ...", "Fem. ...".
     readonly property var rows: {
-        const lines = forms.split("\n")
-        const get = re => {
-            for (const l of lines) {
-                const m = re.exec(l)
-                if (m)
-                    return m[1].trim()
-            }
-            return ""
-        }
-        const own = front !== "" ? front : get(/^\s*(?:Sg\.|Singular)\s+(.+)$/)
-        const g = (/^(der|die|das)\s/i.exec(own) ?? ["", ""])[1].toLowerCase()
+        const article = t => (/^(der|die|das)\s/i.exec(t) ?? ["", ""])[1].toLowerCase()
         const noDie = t => t.replace(/(^|\/\s*)die\s+/gi, "$1") // plurals are shown without "die"
+        const canon = forms.split("\n").map(l => l.trim()).filter(l => l !== "").map(l =>
+            l.replace(/^(?:Mask|Fem)\.\s+(?:Pl\.|Plural)\s+/, "Plural ")
+             .replace(/^(?:Mask|Fem)\.\s+/, "Singular ")
+             .replace(/^Pl\.\s+/, "Plural ").replace(/^Sg\.\s+/, "Singular "))
+        let ownSg = front, ownPl = "", cur = ""
+        const sg = ({}), pl = ({})
+        for (const l of canon) {
+            const m = /^(Singular|Plural)\s+(.+)$/.exec(l)
+            if (!m)
+                continue
+            if (m[1] === "Singular") {
+                if (ownSg === "") { ownSg = m[2]; cur = "own"; continue } // the word is a plural form: its singular
+                cur = article(m[2])
+                sg[cur] = m[2]
+            } else if (cur === "" || cur === "own") {
+                ownPl = m[2]
+            } else {
+                pl[cur] = m[2]
+            }
+        }
+        const g = article(ownSg)
         const out = []
-        const add = (kind, text, mark) => { if (text !== "") out.push({ kind: kind, text: text, mark: mark }) }
-        add("masc", g === "der" ? own : get(/^\s*Mask\.\s+(der\s.+)$/), "der ")
-        add("fem", g === "die" ? own : get(/^\s*Fem\.\s+(die\s.+)$/), "die ")
-        add("neut", g === "das" ? own : "", "das ")
-        add("plural", noDie(get(/^\s*(?:Pl\.|Plural)\s+(.+)$/)), own)
-        add("pluralMasc", noDie(get(/^\s*Mask\.\s+(?:Pl\.|Plural)\s+(.+)$/)), "der ")
-        add("pluralFem", noDie(get(/^\s*Fem\.\s+(?:Pl\.|Plural)\s+(.+)$/)), "die ")
+        const add = (kind, text, mark) => { if (text) out.push({ kind: kind, text: text, mark: mark }) }
+        add("singular", g === "der" ? ownSg : (sg["der"] ?? ""), "der ")
+        add("singular", g === "die" ? ownSg : (sg["die"] ?? ""), "die ")
+        add("singular", g === "das" ? ownSg : (sg["das"] ?? ""), "das ")
+        add("plural", noDie(ownPl), g !== "" ? g + " " : "")
+        add("plural", noDie(pl["der"] ?? ""), "der ")
+        add("plural", noDie(pl["die"] ?? ""), "die ")
         return out
     }
 

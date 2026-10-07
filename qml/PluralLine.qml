@@ -4,7 +4,7 @@ import QtQuick.Layouts
 import QtQuick.Controls.Material
 import LearningBox
 
-// One grammar line of a German noun with 🔊: "Pl. Hunde", "Sg. der Hund", "Mask. der Arzt", "Fem. die Ärztin".
+// One grammar line of a German noun with 🔊: "Plural Hunde", "Singular der Hund", "Singular die Ärztin" (the colour mark shows the gender).
 // Only the word(s) are read aloud: no label; a plural without its article, several forms separated by a pause.
 RowLayout {
     id: root
@@ -20,7 +20,11 @@ RowLayout {
     }
 
     // Shown with the full word: old cards store "Pl. Hunde" / "Sg. der Hund"
-    readonly property string shown: line.replace(/^(\s*(?:(?:Mask|Fem)\.\s+)?)Pl\./, "$1Plural").replace(/^(\s*)Sg\./, "$1Singular")
+    readonly property string shown: line
+        .replace(/^\s*(?:Mask|Fem)\.\s+(?:Pl\.|Plural)\s*/, "Plural ")
+        .replace(/^\s*(?:Mask|Fem)\.\s+/, "Singular ")
+        .replace(/^\s*Pl\.\s*/, "Plural ")
+        .replace(/^\s*Sg\.\s*/, "Singular ")
 
     visible: spoken !== ""
     spacing: 4

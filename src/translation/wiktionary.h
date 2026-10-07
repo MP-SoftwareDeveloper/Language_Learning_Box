@@ -67,7 +67,7 @@ QString pluralLine(const Grammar &g);
 Grammar withSingular(const Grammar &pluralPage, const Grammar &noun);
 
 // Lines for the card's back, each on its own line, label first: "Pl. Hunde" (or "Sg. der Hund" when the word
-// is itself a plural form), then "Mask. der Arzt", "Mask. Pl. Ärzte", "Fem. die Ärztin", "Fem. Pl. Ärztinnen"
+// is itself a plural form), then "Singular der Arzt", "Plural Ärzte", "Singular die Ärztin", "Plural Ärztinnen" (no gender word: the card shows the gender by colour)
 // when the noun has such forms.
 QStringList formLines(const Grammar &g);
 

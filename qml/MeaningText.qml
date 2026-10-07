@@ -18,7 +18,10 @@ Column {
             required property string modelData
             required property int index
             width: root.width
-            text: modelData.replace(/^(\s*(?:(?:Mask|Fem)\.\s+)?)Pl\./, "$1Plural").replace(/^(\s*)Sg\./, "$1Singular") // old cards: "Pl. ..."
+            // old cards: "Pl. ...", "Sg. ...", "Mask. ...", "Fem. ..." are shown without the gender word
+            text: modelData.replace(/^\s*(?:Mask|Fem)\.\s+(?:Pl\.|Plural)\s*/, "Plural ")
+                           .replace(/^\s*(?:Mask|Fem)\.\s+/, "Singular ")
+                           .replace(/^\s*Pl\.\s*/, "Plural ").replace(/^\s*Sg\.\s*/, "Singular ")
             wrapMode: Text.WordWrap
             font.pixelSize: index === 0 ? root.pixelSize : Math.round(root.pixelSize * 0.8)
             opacity: index === 0 ? 1.0 : 0.7

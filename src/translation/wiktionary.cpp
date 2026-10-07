@@ -340,14 +340,14 @@ QStringList formLines(const Grammar &g)
         lines << pluralLine(g);
     }
     if (!g.masculine.isEmpty()) {
-        lines << QStringLiteral("Mask. der ") + g.masculine.first();
+        lines << QStringLiteral("Singular der ") + g.masculine.first();
         if (!g.masculinePlural.isEmpty())
-            lines << QStringLiteral("Mask. Plural ") + g.masculinePlural;
+            lines << QStringLiteral("Plural ") + g.masculinePlural;
     }
     if (!g.feminine.isEmpty()) {
-        lines << QStringLiteral("Fem. die ") + g.feminine.first();
+        lines << QStringLiteral("Singular die ") + g.feminine.first();
         if (!g.femininePlural.isEmpty())
-            lines << QStringLiteral("Fem. Plural ") + g.femininePlural;
+            lines << QStringLiteral("Plural ") + g.femininePlural;
     }
     return lines;
 }

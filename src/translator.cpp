@@ -237,7 +237,7 @@ QVariantMap grammarMap(const wiktionary::Grammar &g)
             {QStringLiteral("lemma"), g.lemma},
             {QStringLiteral("plural"), wiktionary::pluralText(g)},
             {QStringLiteral("pluralLine"), wiktionary::pluralLine(g)},
-            // "Pl. Hunde" / "Sg. der Hund", "Mask. ...", "Fem. ...": one line each
+            // "Plural Hunde" / "Singular der Hund", "Singular die Lehrerin" + "Plural Lehrerinnen": one line each
             {QStringLiteral("forms"), wiktionary::formLines(g).join(QLatin1Char('\n'))}};
 }
 } // namespace

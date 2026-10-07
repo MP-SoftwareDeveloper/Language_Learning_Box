@@ -109,14 +109,14 @@ private slots:
         QCOMPARE(g.feminine, QStringList{QStringLiteral("Lehrerin")});
         QVERIFY(g.masculine.isEmpty());
         QCOMPARE(wiktionary::formLines(g),
-                 (QStringList{QStringLiteral("Plural Lehrer"), QStringLiteral("Fem. die Lehrerin")}));
+                 (QStringList{QStringLiteral("Plural Lehrer"), QStringLiteral("Singular die Lehrerin")}));
         const QString wt2 = QStringLiteral(
             "{{Deutsch Substantiv Übersicht\n|Genus=f\n|Nominativ Singular=Ärztin\n|Nominativ Plural=Ärztinnen\n}}\n"
             "{{Männliche Wortformen}}\n:[1] [[Arzt]]\n");
         const wiktionary::Grammar f = wiktionary::parseWikitext(wt2);
         QCOMPARE(f.masculine, QStringList{QStringLiteral("Arzt")});
         QCOMPARE(wiktionary::formLines(f),
-                 (QStringList{QStringLiteral("Plural Ärztinnen"), QStringLiteral("Mask. der Arzt")}));
+                 (QStringList{QStringLiteral("Plural Ärztinnen"), QStringLiteral("Singular der Arzt")}));
     }
     void pluralsOfTheOtherGender()
     {
@@ -127,8 +127,8 @@ private slots:
         g.feminine = {QStringLiteral("Lehrerin")};
         g.femininePlural = QStringLiteral("Lehrerinnen");
         QCOMPARE(wiktionary::formLines(g),
-                 (QStringList{QStringLiteral("Plural Lehrer"), QStringLiteral("Fem. die Lehrerin"),
-                              QStringLiteral("Fem. Plural Lehrerinnen")}));
+                 (QStringList{QStringLiteral("Plural Lehrer"), QStringLiteral("Singular die Lehrerin"),
+                              QStringLiteral("Plural Lehrerinnen")}));
     }
     void pluralFormPointsAtItsNoun()
     {

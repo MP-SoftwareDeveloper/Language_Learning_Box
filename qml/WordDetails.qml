@@ -5,7 +5,7 @@ import QtQuick.Controls.Material
 import LearningBox
 
 // The same block under the text box in the Dictionary and in Add card (and so for words picked in Lens):
-//   - singular masculine / feminine (/ neuter) and the plural forms, each with 🔊
+//   - the singular forms of each gender and the plural forms, each with 🔊 and the gender colour
 //   - example sentences with a radio button: the chosen one goes on the card (tap it again for none)
 // It only shows what the WordLookup `info` found. Set Layout margins where it is used.
 ColumnLayout {
@@ -14,20 +14,11 @@ ColumnLayout {
     property int pixelSize: 16
     spacing: 4
 
-    function labelFor(kind) {
-        switch (kind) {
-        case "masc": return qsTr("Singular · masculine")
-        case "fem": return qsTr("Singular · feminine")
-        case "neut": return qsTr("Singular · neuter")
-        case "plural": return qsTr("Plural")
-        case "pluralMasc": return qsTr("Plural · masculine")
-        case "pluralFem": return qsTr("Plural · feminine")
-        }
-        return ""
-    }
+    // Only "Singular" / "Plural": the gender is shown by the colour mark, never as text
+    function labelFor(kind) { return kind === "plural" ? qsTr("Plural") : qsTr("Singular") }
     // Plurals are read without "die", several forms with a pause
     function spokenOf(row) {
-        return row.kind.indexOf("plural") === 0
+        return row.kind === "plural"
                 ? row.text.replace(/(^|\/\s*)die\s+/gi, "$1").replace(/\s*\/\s*/g, ", ").trim() : row.text
     }
 
