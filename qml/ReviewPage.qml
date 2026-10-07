@@ -17,7 +17,34 @@ Page {
     readonly property var meaningAll: primaryMeaning.replace(/\s*\u00b7\s*Pl\./, "\nPl.").split("\n")
     readonly property string meaningBodyText: (germanFirst ? meaningAll : meaningAll.slice(1))
                                               .filter(l => !/^\s*(Pl|Sg|Mask|Fem)\./.test(l)).join("\n")
-    readonly property string meaningFormsText: meaningAll.filter(l => /^\s*(Pl|Sg|Mask|Fem)\./.test(l)).join("\n")
+    // Plural, masculine and feminine forms: looked up in Wiktionary for the shown card (saved on the phone
+    // after the first time, so it works offline later); the forms stored in the card are the fallback.
+    property var grammar: ({})
+    property int grammarRequest: -1
+    readonly property string meaningFormsText: (grammar.forms ?? "") !== "" ? grammar.forms
+                                               : meaningAll.filter(l => /^\s*(Pl|Sg|Mask|Fem)\./.test(l)).join("\n")
+    readonly property string markWord: /^(der|die|das)\s/i.test(session.front) ? session.front : (grammar.front ?? "")
+    function lookupForms() {
+        grammar = ({})
+        grammarRequest = -1
+        const w = (session.front ?? "").trim()
+        if (!session.hasCard || CardStore.learningLanguage !== "de" || !/^((der|die|das)\s+)?[A-Z\u00C4\u00D6\u00DC]\S*$/.test(w))
+            return
+        grammarRequest = Translator.lookupGrammar(w)
+    }
+    Connections {
+        target: session
+        function onCurrentChanged() { Qt.callLater(page.lookupForms) }
+    }
+    Connections {
+        target: Translator
+        function onGrammarFound(requestId, grammar) {
+            if (requestId === page.grammarRequest) {
+                page.grammarRequest = -1
+                page.grammar = grammar
+            }
+        }
+    }
     readonly property string meaningTag: Translator.meaningLanguage === "en" ? "en-US" : "de-DE"
     property bool autoSpeak: true
 
@@ -134,7 +161,7 @@ Page {
             page.ensureQuestion()
         }
     }
-    Component.onCompleted: session.start()
+    Component.onCompleted: { session.start(); Qt.callLater(lookupForms) }
     StackView.onRemoved: Speaker.stop()
 
     // ---- Card ----
@@ -399,7 +426,7 @@ Page {
                         Layout.fillWidth: true
                         visible: page.revealed && page.meaningFormsText !== ""
                         text: page.meaningFormsText
-                        word: session.front
+                        word: page.markWord
                         pixelSize: 17
                     }
                     Label {
