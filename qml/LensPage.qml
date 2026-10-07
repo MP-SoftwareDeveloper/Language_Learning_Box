@@ -8,8 +8,8 @@ import QtMultimedia
 import LearningBox
 
 // "Lens": take a photo (or pick one), recognize the German text, show it translated
-// (Persian or English, see Settings), tap words or press-and-hold for a whole sentence,
-// and add the selection to the box with its translation.
+// (Persian or English, see Settings), tap words or press-and-hold for a whole sentence
+// and see their meaning; "Create card" opens Add card with the selection.
 Page {
     id: page
     title: qsTr("Lens")
@@ -57,7 +57,6 @@ Page {
     readonly property bool grammarPending: selectedList.some(w => gram[w]?.pending === true)
     function resetTranslations() {
         tr = ({}); requests = ({})
-        if (fullText !== "") request(fullText)
         for (const w of selectedList) request(w)
         if (selected.length > 1) request(selectedText)
     }
@@ -79,107 +78,11 @@ Page {
         if (!Translator.useOnline) return qsTr("offline · no saved translation")
         return e.error ? qsTr("no connection · no saved translation") : qsTr("no translation")
     }
-    // Back side for a word card. Persian: the word pack's curated meaning wins when it has one.
-    function backFor(w) {
-        const known = WordPacks.lookup(w)
-        if (Translator.meaningLanguage === "fa" && known.back) {
-            let b = known.back.replace(/\s*·\s*Pl\./, "\nPlural") // plural on its own line
-            if (!/(^|\n)(Pl\.|Plural|Sg\.|Singular|Mask\.|Fem\.)/.test(b) && gram[w]?.forms) b += "\n" + gram[w].forms
-            return b
-        }
-        const e = entry(w)
-        let back = e.text ?? ""
-        if (back !== "" && e.alternatives && e.alternatives.length > 0)
-            back += (Translator.rightToLeft ? "، " : ", ") + e.alternatives.join(Translator.rightToLeft ? "، " : ", ")
-        if (back !== "" && !/(^|\n)(Pl\.|Plural|Sg\.|Singular|Mask\.|Fem\.)/.test(back)) {
-            // pack's plural note, else the grammar lines found online - each on its own line
-            const note = known.back ? known.back.split("\n")[1] : undefined
-            const forms = note ?? gram[w]?.forms
-            if (forms) back += "\n" + forms
-        }
-        return back // English with no translation: left empty for the user to fill in
-    }
-
-    // Grammar lines for a word ("Pl. Hunde", ...): the word pack's plural note, else what was found online
-    function pluralOf(w) {
-        const known = WordPacks.lookup(w)
-        const b = known.back ? known.back.replace(/\s*·\s*Pl\./, "\nPlural") : ""
-        const m = /(?:Pl\.|Plural)[^\n]*/.exec(b)
-        const online = gram[w]?.forms ?? ""
-        if (online !== "") return online                 // Wiktionary: plural, male / female forms
-        return m ? m[0] : ""                             // offline: the word pack's plural
-    }
     // Card front a word would get (the pack's "das Brot" for "Brot").
     function frontFor(w) {
         const f = WordPacks.lookup(w).front
         if (f !== undefined && /^(der|die|das)\s/i.test(f)) return f
         return gram[w]?.front ?? f ?? w
-    }
-
-    // "Add N words": new words are added; words already in the box are updated only when
-    // the user says so (updateExisting), keeping their box and progress.
-    function addSelectedWords(updateExisting) {
-        const fresh = [], existing = []
-        for (const w of selectedList) {
-            const id = CardStore.findByFront(frontFor(w))
-            if (id >= 0) existing.push({ id: id, word: w }); else fresh.push(w)
-        }
-        if (existing.length > 0 && updateExisting === false) {
-            existsDialog.words = existing.map(e => frontFor(e.word))
-            existsDialog.open()
-            return
-        }
-        const added = WordPacks.addTranslatedWords(fresh.map(w => ({ word: w, front: frontFor(w), back: backFor(w) })), qsTr("Lens"))
-        let updated = 0
-        if (updateExisting === true) {
-            for (const e of existing) {
-                const c = CardStore.card(e.id)
-                const back = backFor(e.word)
-                const example = WordPacks.lookup(e.word).example ?? ""
-                if (CardStore.updateCard(e.id, c.front, back !== "" ? back : c.back,
-                                         (c.example ?? "") !== "" ? c.example : example, c.image ?? ""))
-                    ++updated
-            }
-        }
-        const msgs = []
-        if (added > 0) msgs.push(qsTr("%n card(s) added", "", added))
-        if (updated > 0) msgs.push(qsTr("%n updated", "", updated))
-        toast.show(msgs.length > 0 ? msgs.join(" · ") : qsTr("Already in your box"))
-        selected = []
-    }
-
-    // ★ Favorite words: every selected word becomes a starred card (new words are added to the
-    // learning box first, like "Add N words"). All already starred: the stars are removed.
-    property bool selectionStarred: false
-    function refreshStar() {
-        let all = selectedList.length > 0
-        for (const w of selectedList) {
-            const id = CardStore.findByFront(frontFor(w))
-            if (id < 0 || !CardStore.isFavorite(id)) { all = false; break }
-        }
-        selectionStarred = all
-    }
-    Connections {
-        target: CardStore
-        function onFavoritesChanged() { page.refreshStar() }
-    }
-    function starSelectedWords() {
-        const on = !selectionStarred
-        let added = 0, starred = 0
-        for (const w of selectedList) {
-            let id = CardStore.findByFront(frontFor(w))
-            if (id < 0 && on) {
-                added += WordPacks.addTranslatedWords([{ word: w, front: frontFor(w), back: backFor(w) }], qsTr("Lens"))
-                id = CardStore.findByFront(frontFor(w))
-            }
-            if (id >= 0 && CardStore.setFavorite(id, on))
-                ++starred
-        }
-        if (!on)
-            toast.show(qsTr("Removed from Favorite words"))
-        else
-            toast.show(qsTr("%n word(s) in Favorite words", "", starred)
-                       + (added > 0 ? " · " + qsTr("%n card(s) added", "", added) : ""))
     }
 
     Connections {
@@ -204,7 +107,7 @@ Page {
         }
         function onSettingsChanged() { page.resetTranslations() }
     }
-    onSelectedListChanged: { for (const w of selectedList) { request(w); requestGrammar(w) } refreshStar() }
+    onSelectedListChanged: { for (const w of selectedList) { request(w); requestGrammar(w) } }
     onSelectedTextChanged: if (selected.length > 1) request(selectedText)
 
     OcrEngine {
@@ -222,6 +125,8 @@ Page {
             }
         }
     }
+
+    Component { id: editPage; CardEditPage {} }
 
     CameraPermission { id: cameraPermission }
 
@@ -299,7 +204,6 @@ Page {
     // Leaving Lens (back, or on to the card editor): stop reading aloud
     StackView.onDeactivating: Speaker.stop()
 
-    Component { id: editPage; CardEditPage {} }
 
     function isSelected(i) { return selected.indexOf(i) >= 0 }
     function toggle(i) {
@@ -580,83 +484,6 @@ Page {
             }
         }
 
-        // ---------- translation of the whole text ----------
-        Pane {
-            Layout.fillWidth: true
-            visible: page.fullText !== ""
-            padding: 0
-            Material.elevation: 2
-
-            ColumnLayout {
-                anchors.fill: parent
-                spacing: 0
-
-                // The recognized text itself, read aloud in the learning language
-                RowLayout {
-                    objectName: "originalRow"
-                    Layout.fillWidth: true
-                    spacing: 0
-                    Label {
-                        Layout.fillWidth: true
-                        leftPadding: 16
-                        font.pixelSize: 13
-                        elide: Text.ElideRight
-                        text: qsTr("Text in the photo · %1").arg(CardStore.learningLanguage === "en" ? "English" : "Deutsch")
-                    }
-                    SpeakButton {
-                        speakText: page.fullText
-                        iconSize: 19 // compact: the photo needs the room
-                    }
-                }
-
-                RowLayout {
-                    Layout.fillWidth: true
-                    spacing: 0
-                ItemDelegate {
-                    Layout.fillWidth: true
-                    topPadding: 6; bottomPadding: 6
-                    text: (page.showFull ? "\u2212  " : "+  ")
-                          + qsTr("Translation · %1").arg(Translator.meaningLanguage === "fa" ? "فارسی"
-                                                         : Translator.meaningLanguage === "de" ? "Deutsch" : "English")
-                          + "  (" + page.sourceLabel(page.fullText) + ")"
-                    font.pixelSize: 13
-                    onClicked: {
-                        page.showFull = !page.showFull
-                        page.request(page.fullText) // retries if it failed before
-                    }
-                }
-                // English / German translation read aloud (no Persian voice)
-                SpeakButton {
-                    visible: page.showFull && Translator.meaningLanguage !== "fa"
-                    speakText: page.entry(page.fullText).text ?? ""
-                    languageTag: Translator.meaningLanguage === "en" ? "en-US" : "de-DE"
-                    iconSize: 19
-                    tint: "#e53935" // translation: red
-                }
-                }
-                ScrollView {
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: Math.min(fullLabel.implicitHeight + 12, page.height * 0.28)
-                    visible: page.showFull
-                    contentWidth: availableWidth
-                    Label {
-                        id: fullLabel
-                        width: parent.width
-                        leftPadding: 12; rightPadding: 12; bottomPadding: 8
-                        wrapMode: Text.WordWrap
-                        font.pixelSize: 15
-                        horizontalAlignment: Translator.rightToLeft ? Text.AlignRight : Text.AlignLeft
-                        text: page.entry(page.fullText).text
-                              || (page.entry(page.fullText).pending ? "…"
-                                  : Translator.useOnline
-                                    ? qsTr("Could not reach the translation service (%1). Saved translations are used when available.").arg(page.entry(page.fullText).error || "?")
-                                    : qsTr("No translation available offline for this text. Switch on online translation in Settings or pick single words."))
-                        opacity: page.entry(page.fullText).text ? 1 : 0.6
-                    }
-                }
-            }
-        }
-
         // Which reader was used (only worth saying when online recognition is switched on)
         Label {
             Layout.fillWidth: true
@@ -707,28 +534,6 @@ Page {
                         elide: Text.ElideRight
                     }
                     SpeakButton { speakText: page.selectedText; visible: page.selected.length > 0; iconSize: 19 }
-                    ToolButton {
-                        objectName: "lensStar"
-                        visible: page.selected.length > 0
-                        enabled: !page.anyPending
-                        focusPolicy: Qt.NoFocus
-                        contentItem: Item {
-                            implicitWidth: 24
-                            implicitHeight: 24
-                            StarIcon {
-                                anchors.centerIn: parent
-                                width: 24
-                                height: 24
-                                filled: page.selectionStarred
-                                color: page.selectionStarred ? "#F5B301" : Material.foreground
-                                opacity: parent.parent.enabled ? (page.selectionStarred ? 1 : 0.6) : 0.3
-                            }
-                        }
-                        ToolTip.visible: hovered || pressed
-                        ToolTip.text: page.selectionStarred ? qsTr("Remove from Favorite words")
-                                                            : qsTr("Add to Favorite words")
-                        onClicked: page.starSelectedWords()
-                    }
                 }
 
                 // Several words / a sentence: its translation as a whole
@@ -745,7 +550,7 @@ Page {
                     opacity: page.entry(page.selectedText).text ? 1 : 0.6
                 }
 
-                // Each selected word with its own translation (this becomes the card's back)
+                // Each selected word with its translation
                 ListView {
                     id: wordList
                     Layout.fillWidth: true
@@ -777,12 +582,6 @@ Page {
                                 opacity: meaning !== "" ? 1 : 0.55
                             }
                         }
-                        FormLines {
-                            Layout.fillWidth: true
-                            text: page.pluralOf(modelData)
-                            word: page.frontFor(modelData)
-                            pixelSize: 14
-                        }
                     }
                 }
 
@@ -800,12 +599,6 @@ Page {
                         }
                     }
                     Item { Layout.fillWidth: true }
-                    Button {
-                        visible: page.selectedList.length > 1
-                        enabled: !page.anyPending
-                        text: qsTr("Add %n word(s)", "", page.selectedList.length)
-                        onClicked: page.addSelectedWords(false)
-                    }
                     Button {
                         highlighted: true
                         enabled: page.selected.length > 0 && !page.anyPending
@@ -847,62 +640,5 @@ Page {
                                                    : qsTr("Choose a photo with German text")
         nameFilters: [qsTr("Images (*.jpg *.jpeg *.png *.webp *.bmp)")]
         onAccepted: engine.recognize(selectedFile)
-    }
-
-    Dialog {
-        id: existsDialog
-        property var words: []
-        anchors.centerIn: parent
-        width: Math.min(page.width - 32, 400)
-        modal: true
-        title: qsTr("Already in your box")
-        ColumnLayout {
-            anchors.fill: parent
-            spacing: 8
-            Label {
-                Layout.fillWidth: true
-                wrapMode: Text.WordWrap
-                text: qsTr("%n of the selected words are already cards:", "", existsDialog.words.length)
-            }
-            Label {
-                Layout.fillWidth: true
-                wrapMode: Text.WordWrap
-                font.bold: true
-                maximumLineCount: 4
-                elide: Text.ElideRight
-                text: existsDialog.words.join(", ")
-            }
-            Label {
-                Layout.fillWidth: true
-                wrapMode: Text.WordWrap
-                opacity: 0.8
-                text: qsTr("Update their meaning with the new translation? Their box and progress are kept.")
-            }
-            Button {
-                Layout.fillWidth: true
-                highlighted: true
-                text: qsTr("Update them")
-                onClicked: { existsDialog.close(); page.addSelectedWords(true) }
-            }
-            Button {
-                Layout.fillWidth: true
-                text: qsTr("Keep them, add only new words")
-                onClicked: { existsDialog.close(); page.addSelectedWords("skip") }
-            }
-            Button {
-                Layout.fillWidth: true
-                flat: true
-                text: qsTr("Cancel")
-                onClicked: existsDialog.close()
-            }
-        }
-    }
-
-    ToolTip {
-        id: toast
-        function show(msg) { text = msg; open() }
-        timeout: 2000
-        x: (parent.width - width) / 2
-        y: parent.height / 2
     }
 }
