@@ -13,12 +13,12 @@ Column {
     spacing: 2
 
     Repeater {
-        model: root.text.length > 0 ? root.text.replace(/\s*·\s*Pl\./, "\nPl.").split("\n") : []
+        model: root.text.length > 0 ? root.text.replace(/\s*·\s*Pl\./, "\nPlural").split("\n") : []
         delegate: Label {
             required property string modelData
             required property int index
             width: root.width
-            text: modelData
+            text: modelData.replace(/^(\s*(?:(?:Mask|Fem)\.\s+)?)Pl\./, "$1Plural").replace(/^(\s*)Sg\./, "$1Singular") // old cards: "Pl. ..."
             wrapMode: Text.WordWrap
             font.pixelSize: index === 0 ? root.pixelSize : Math.round(root.pixelSize * 0.8)
             opacity: index === 0 ? 1.0 : 0.7

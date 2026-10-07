@@ -77,13 +77,13 @@ Page {
     readonly property string meaningText: reverse ? query : result
 
     // Word-pack meanings keep the plural on the same line ("Brot · Pl. die Brote"): show it on its own line
-    readonly property string meaningLines: meaningText.replace(/\s*·\s*Pl\./, "\nPl.")
+    readonly property string meaningLines: meaningText.replace(/\s*·\s*Pl\./, "\nPlural")
     // Back of the card: the meaning, then "Pl. die Hunde" on a new line (unless the meaning has it already)
     readonly property string cardBack: {
         if (reverse || meaningLines === "" || wordInfo.forms === "")
             return meaningLines
         // the online forms (Mask./Fem./Pl.) replace the word pack's plural
-        return meaningLines.replace(/(\n?(Pl|Sg|Mask|Fem)\.[^\n]*)+$/, "") + "\n" + wordInfo.forms
+        return meaningLines.replace(/(\n?(Pl\.|Plural|Sg\.|Singular|Mask\.|Fem\.)[^\n]*)+$/, "") + "\n" + wordInfo.forms
     }
     // Front of the card: "der Hund" (article from the word pack or from Wiktionary)
     readonly property string cardFront: {
@@ -94,7 +94,7 @@ Page {
 
     // "Pl. Hunde" on its own line (with 🔊) and the rest of the back without it
     readonly property string cardForms: reverse ? "" : cardBack
-    readonly property string cardBody: reverse ? result : cardBack.split("\n").filter(l => !/^\s*(Pl|Sg|Mask|Fem)\./.test(l)).join("\n")
+    readonly property string cardBody: reverse ? result : cardBack.split("\n").filter(l => !/^\s*(Pl\.|Plural|Sg\.|Singular|Mask\.|Fem\.)/.test(l)).join("\n")
 
     function clearResult() {
         headword = ""; result = ""; alternatives = []; source = ""; error = ""

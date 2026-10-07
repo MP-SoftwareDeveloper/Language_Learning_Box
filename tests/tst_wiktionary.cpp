@@ -38,7 +38,7 @@ private slots:
         QCOMPARE(g.lemma, QStringLiteral("Hund"));
         QCOMPARE(wiktionary::front(g), QStringLiteral("der Hund"));
         QCOMPARE(wiktionary::pluralText(g), QStringLiteral("die Hunde"));
-        QCOMPARE(wiktionary::pluralLine(g), QStringLiteral("Pl. Hunde"));
+        QCOMPARE(wiktionary::pluralLine(g), QStringLiteral("Plural Hunde"));
     }
     void twoGendersAndPlurals()
     {
@@ -49,7 +49,7 @@ private slots:
         QCOMPARE(g.genders, (QStringList{QStringLiteral("m"), QStringLiteral("n")}));
         QCOMPARE(g.plurals, (QStringList{QStringLiteral("Joghurts"), QStringLiteral("Joghurte")}));
         QCOMPARE(wiktionary::front(g), QStringLiteral("der Joghurt"));
-        QCOMPARE(wiktionary::pluralLine(g), QStringLiteral("Pl. Joghurts / Joghurte"));
+        QCOMPARE(wiktionary::pluralLine(g), QStringLiteral("Plural Joghurts / Joghurte"));
     }
     void noPlural()
     {
@@ -90,7 +90,7 @@ private slots:
         QVERIFY(err.isEmpty());
         QCOMPARE(g.lemma, QStringLiteral("Haus")); // from the page title when the table has no singular
         QCOMPARE(wiktionary::front(g), QStringLiteral("das Haus"));
-        QCOMPARE(wiktionary::pluralLine(g), QStringLiteral("Pl. Häuser"));
+        QCOMPARE(wiktionary::pluralLine(g), QStringLiteral("Plural Häuser"));
     }
     void missingPageAndErrors()
     {
@@ -109,14 +109,14 @@ private slots:
         QCOMPARE(g.feminine, QStringList{QStringLiteral("Lehrerin")});
         QVERIFY(g.masculine.isEmpty());
         QCOMPARE(wiktionary::formLines(g),
-                 (QStringList{QStringLiteral("Pl. Lehrer"), QStringLiteral("Fem. die Lehrerin")}));
+                 (QStringList{QStringLiteral("Plural Lehrer"), QStringLiteral("Fem. die Lehrerin")}));
         const QString wt2 = QStringLiteral(
             "{{Deutsch Substantiv Übersicht\n|Genus=f\n|Nominativ Singular=Ärztin\n|Nominativ Plural=Ärztinnen\n}}\n"
             "{{Männliche Wortformen}}\n:[1] [[Arzt]]\n");
         const wiktionary::Grammar f = wiktionary::parseWikitext(wt2);
         QCOMPARE(f.masculine, QStringList{QStringLiteral("Arzt")});
         QCOMPARE(wiktionary::formLines(f),
-                 (QStringList{QStringLiteral("Pl. Ärztinnen"), QStringLiteral("Mask. der Arzt")}));
+                 (QStringList{QStringLiteral("Plural Ärztinnen"), QStringLiteral("Mask. der Arzt")}));
     }
     void pluralsOfTheOtherGender()
     {
@@ -127,8 +127,8 @@ private slots:
         g.feminine = {QStringLiteral("Lehrerin")};
         g.femininePlural = QStringLiteral("Lehrerinnen");
         QCOMPARE(wiktionary::formLines(g),
-                 (QStringList{QStringLiteral("Pl. Lehrer"), QStringLiteral("Fem. die Lehrerin"),
-                              QStringLiteral("Fem. Pl. Lehrerinnen")}));
+                 (QStringList{QStringLiteral("Plural Lehrer"), QStringLiteral("Fem. die Lehrerin"),
+                              QStringLiteral("Fem. Plural Lehrerinnen")}));
     }
     void pluralFormPointsAtItsNoun()
     {
@@ -153,7 +153,7 @@ private slots:
         const wiktionary::Grammar g = wiktionary::withSingular(a, noun);
         QVERIFY(g.plurals.isEmpty());
         QVERIFY(wiktionary::front(g).isEmpty()); // the typed word stays as typed
-        QCOMPARE(wiktionary::formLines(g), QStringList{QStringLiteral("Sg. der Hund")});
+        QCOMPARE(wiktionary::formLines(g), QStringList{QStringLiteral("Singular der Hund")});
         const wiktionary::Grammar back = wiktionary::decode(wiktionary::encode(g), QStringLiteral("x"));
         QCOMPARE(back.singularOf, QStringLiteral("Hund"));
         QCOMPARE(back.lemma, QStringLiteral("Hund"));

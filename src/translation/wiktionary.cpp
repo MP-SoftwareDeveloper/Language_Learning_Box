@@ -317,7 +317,7 @@ QString pluralText(const Grammar &g)
 
 QString pluralLine(const Grammar &g)
 {
-    return g.plurals.isEmpty() ? QString() : QStringLiteral("Pl. ") + g.plurals.join(QStringLiteral(" / "));
+    return g.plurals.isEmpty() ? QString() : QStringLiteral("Plural ") + g.plurals.join(QStringLiteral(" / "));
 }
 
 Grammar withSingular(const Grammar &pluralPage, const Grammar &noun)
@@ -335,19 +335,19 @@ QStringList formLines(const Grammar &g)
     QStringList lines;
     if (!g.singularOf.isEmpty()) {
         const QString art = g.genders.isEmpty() ? QString() : article(g.genders.first()) + QLatin1Char(' ');
-        lines << QStringLiteral("Sg. ") + art + g.lemma;
+        lines << QStringLiteral("Singular ") + art + g.lemma;
     } else if (!g.plurals.isEmpty()) {
         lines << pluralLine(g);
     }
     if (!g.masculine.isEmpty()) {
         lines << QStringLiteral("Mask. der ") + g.masculine.first();
         if (!g.masculinePlural.isEmpty())
-            lines << QStringLiteral("Mask. Pl. ") + g.masculinePlural;
+            lines << QStringLiteral("Mask. Plural ") + g.masculinePlural;
     }
     if (!g.feminine.isEmpty()) {
         lines << QStringLiteral("Fem. die ") + g.feminine.first();
         if (!g.femininePlural.isEmpty())
-            lines << QStringLiteral("Fem. Pl. ") + g.femininePlural;
+            lines << QStringLiteral("Fem. Plural ") + g.femininePlural;
     }
     return lines;
 }

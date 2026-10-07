@@ -52,7 +52,7 @@ Item {
             }
             return ""
         }
-        const own = front !== "" ? front : get(/^\s*Sg\.\s+(.+)$/)
+        const own = front !== "" ? front : get(/^\s*(?:Sg\.|Singular)\s+(.+)$/)
         const g = (/^(der|die|das)\s/i.exec(own) ?? ["", ""])[1].toLowerCase()
         const noDie = t => t.replace(/(^|\/\s*)die\s+/gi, "$1") // plurals are shown without "die"
         const out = []
@@ -60,9 +60,9 @@ Item {
         add("masc", g === "der" ? own : get(/^\s*Mask\.\s+(der\s.+)$/), "der ")
         add("fem", g === "die" ? own : get(/^\s*Fem\.\s+(die\s.+)$/), "die ")
         add("neut", g === "das" ? own : "", "das ")
-        add("plural", noDie(get(/^\s*Pl\.\s+(.+)$/)), own)
-        add("pluralMasc", noDie(get(/^\s*Mask\.\s+Pl\.\s+(.+)$/)), "der ")
-        add("pluralFem", noDie(get(/^\s*Fem\.\s+Pl\.\s+(.+)$/)), "die ")
+        add("plural", noDie(get(/^\s*(?:Pl\.|Plural)\s+(.+)$/)), own)
+        add("pluralMasc", noDie(get(/^\s*Mask\.\s+(?:Pl\.|Plural)\s+(.+)$/)), "der ")
+        add("pluralFem", noDie(get(/^\s*Fem\.\s+(?:Pl\.|Plural)\s+(.+)$/)), "die ")
         return out
     }
 
@@ -79,7 +79,9 @@ Item {
         if (known.front && /^(der|die|das)\s/i.test(known.front))
             packFront = known.front
         packForms = (known.back ?? "").replace(/\s*·\s*Pl\./, "\nPl.").split("\n")
-                        .filter(l => /^\s*Pl\./.test(l)).join("\n").replace(/(^|\/\s*|\.\s+)die\s+/gi, "$1")
+                        .filter(l => /^\s*Pl\./.test(l))
+                        .map(l => l.replace(/^\s*Pl\.\s*/, "Plural ").replace(/(^|\/\s*|Plural\s+)die\s+/gi, "$1"))
+                        .join("\n")
         applyCapital()
         if (w.length >= 2)
             grammarRequest = Translator.lookupGrammar(w) // lowercase words: only nouns get an article

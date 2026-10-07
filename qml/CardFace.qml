@@ -22,8 +22,8 @@ ColumnLayout {
 
     // Grammar lines (plural, male / female forms) for cards that have none stored yet: looked up in
     // Wiktionary when the card is shown (saved on the phone after the first time); display only.
-    readonly property string backText: back.replace(/\s*\u00b7\s*Pl\./, "\nPl.")
-    readonly property bool hasForms: /(^|\n)\s*(Pl|Sg|Mask|Fem)\./.test(backText)
+    readonly property string backText: back.replace(/\s*\u00b7\s*Pl\./, "\nPlural")
+    readonly property bool hasForms: /(^|\n)\s*(Pl\.|Plural|Sg\.|Singular|Mask\.|Fem\.)/.test(backText)
     property var grammar: ({})
     property int grammarRequest: -1
     readonly property string formsText: hasForms ? backText : (grammar.forms ?? "")
@@ -86,7 +86,7 @@ ColumnLayout {
             Layout.fillWidth: true
             spacing: 1
             Repeater {
-                model: root.back.replace(/\s*·\s*Pl\./, "\nPl.").split("\n").filter(l => !/^\s*(Pl|Sg|Mask|Fem)\./.test(l))
+                model: root.back.replace(/\s*·\s*Pl\./, "\nPlural").split("\n").filter(l => !/^\s*(Pl\.|Plural|Sg\.|Singular|Mask\.|Fem\.)/.test(l))
                 delegate: Label {
                     required property string modelData
                     required property int index

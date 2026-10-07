@@ -14,15 +14,15 @@ Page {
     readonly property bool meaningSpeakable: Translator.meaningLanguage !== "fa"
                                              && !/[\u0600-\u06FF]/.test(primaryMeaning.split("\n")[0])
     // The meaning's lines: plain lines (translation, notes) and grammar lines ("Pl. ...", "Fem. ...", with 🔊)
-    readonly property var meaningAll: primaryMeaning.replace(/\s*\u00b7\s*Pl\./, "\nPl.").split("\n")
+    readonly property var meaningAll: primaryMeaning.replace(/\s*\u00b7\s*Pl\./, "\nPlural").split("\n")
     readonly property string meaningBodyText: (germanFirst ? meaningAll : meaningAll.slice(1))
-                                              .filter(l => !/^\s*(Pl|Sg|Mask|Fem)\./.test(l)).join("\n")
+                                              .filter(l => !/^\s*(Pl\.|Plural|Sg\.|Singular|Mask\.|Fem\.)/.test(l)).join("\n")
     // Plural, masculine and feminine forms: looked up in Wiktionary for the shown card (saved on the phone
     // after the first time, so it works offline later); the forms stored in the card are the fallback.
     property var grammar: ({})
     property int grammarRequest: -1
     readonly property string meaningFormsText: (grammar.forms ?? "") !== "" ? grammar.forms
-                                               : meaningAll.filter(l => /^\s*(Pl|Sg|Mask|Fem)\./.test(l)).join("\n")
+                                               : meaningAll.filter(l => /^\s*(Pl\.|Plural|Sg\.|Singular|Mask\.|Fem\.)/.test(l)).join("\n")
     readonly property string markWord: /^(der|die|das)\s/i.test(session.front) ? session.front : (grammar.front ?? "")
     function lookupForms() {
         grammar = ({})

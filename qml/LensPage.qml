@@ -83,15 +83,15 @@ Page {
     function backFor(w) {
         const known = WordPacks.lookup(w)
         if (Translator.meaningLanguage === "fa" && known.back) {
-            let b = known.back.replace(/\s*·\s*Pl\./, "\nPl.") // plural on its own line
-            if (!/(^|\n)(Pl|Sg|Mask|Fem)\./.test(b) && gram[w]?.forms) b += "\n" + gram[w].forms
+            let b = known.back.replace(/\s*·\s*Pl\./, "\nPlural") // plural on its own line
+            if (!/(^|\n)(Pl\.|Plural|Sg\.|Singular|Mask\.|Fem\.)/.test(b) && gram[w]?.forms) b += "\n" + gram[w].forms
             return b
         }
         const e = entry(w)
         let back = e.text ?? ""
         if (back !== "" && e.alternatives && e.alternatives.length > 0)
             back += (Translator.rightToLeft ? "، " : ", ") + e.alternatives.join(Translator.rightToLeft ? "، " : ", ")
-        if (back !== "" && !/(^|\n)(Pl|Sg|Mask|Fem)\./.test(back)) {
+        if (back !== "" && !/(^|\n)(Pl\.|Plural|Sg\.|Singular|Mask\.|Fem\.)/.test(back)) {
             // pack's plural note, else the grammar lines found online - each on its own line
             const note = known.back ? known.back.split("\n")[1] : undefined
             const forms = note ?? gram[w]?.forms
@@ -103,8 +103,8 @@ Page {
     // Grammar lines for a word ("Pl. Hunde", ...): the word pack's plural note, else what was found online
     function pluralOf(w) {
         const known = WordPacks.lookup(w)
-        const b = known.back ? known.back.replace(/\s*·\s*Pl\./, "\nPl.") : ""
-        const m = /Pl\.[^\n]*/.exec(b)
+        const b = known.back ? known.back.replace(/\s*·\s*Pl\./, "\nPlural") : ""
+        const m = /(?:Pl\.|Plural)[^\n]*/.exec(b)
         const online = gram[w]?.forms ?? ""
         if (online !== "") return online                 // Wiktionary: plural, male / female forms
         return m ? m[0] : ""                             // offline: the word pack's plural

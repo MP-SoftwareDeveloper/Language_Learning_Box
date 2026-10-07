@@ -48,9 +48,9 @@ Page {
             return articleFront
         return frontField.text
     }
-    function withoutPlural(t) { return t.replace(/(\n?(Pl|Sg|Mask|Fem)\.[^\n]*)+$/, "") }
+    function withoutPlural(t) { return t.replace(/(\n?(Pl\.|Plural|Sg\.|Singular|Mask\.|Fem\.)[^\n]*)+$/, "") }
     function setBack(t) {
-        t = t.replace(/\s*·\s*Pl\./, "\nPl.")   // word-pack meanings keep the plural on the same line
+        t = t.replace(/\s*·\s*Pl\./, "\nPlural")   // word-pack meanings keep the plural on the same line
         const forms = wordInfo.forms   // read from the lookup itself: `plural` may not have followed yet
         if (forms !== "") {
             t = withoutPlural(t)   // the online forms (Mask./Fem./Pl.) replace the word pack's plural
