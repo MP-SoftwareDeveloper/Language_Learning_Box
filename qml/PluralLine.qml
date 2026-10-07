@@ -27,15 +27,23 @@ RowLayout {
         .replace(/^\s*Sg\.\s*/, "Singular ")
 
     visible: spoken !== ""
-    spacing: 4
+    spacing: 6
 
+    // Same look as the rows of the Dictionary (WordDetails): small dim label, then the word in bold
+    readonly property bool hasLabel: /^(Plural|Singular)\s/.test(shown)
+    Label {
+        visible: root.hasLabel
+        Layout.preferredWidth: 128
+        text: root.hasLabel ? root.shown.split(" ")[0] : ""
+        font.pixelSize: 13
+        opacity: 0.6
+    }
     Label {
         Layout.fillWidth: true
-        text: root.shown
+        text: root.hasLabel ? root.shown.replace(/^\S+\s+/, "") : root.shown
         wrapMode: Text.WordWrap
-        font.pixelSize: root.pixelSize
-        font.italic: true
-        color: Material.accent
+        font.pixelSize: root.pixelSize + 1
+        font.bold: true
     }
     GenderMark { word: root.markWord }
     SpeakButton {
