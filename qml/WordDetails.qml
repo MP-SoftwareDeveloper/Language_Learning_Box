@@ -22,6 +22,12 @@ ColumnLayout {
                 ? row.text.replace(/(^|\/\s*)die\s+/gi, "$1").replace(/\s*\/\s*/g, ", ").trim() : row.text
     }
 
+    TextMetrics {
+        id: labelWidth
+        font.pixelSize: 13
+        text: "Singular:        " // 8 spaces
+    }
+
     // ---- forms ----
     ColumnLayout {
         Layout.fillWidth: true
@@ -34,9 +40,8 @@ ColumnLayout {
                 Layout.fillWidth: true
                 spacing: 6
                 Label {
-                    Layout.preferredWidth: 128
-                    text: root.labelFor(modelData.kind)
-                    wrapMode: Text.WordWrap
+                    Layout.preferredWidth: labelWidth.advanceWidth // "Singular:" + 8 spaces
+                    text: root.labelFor(modelData.kind) + ":"
                     font.pixelSize: 13
                     opacity: 0.6
                 }

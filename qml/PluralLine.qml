@@ -29,12 +29,19 @@ RowLayout {
     visible: spoken !== ""
     spacing: 6
 
+    TextMetrics {
+        id: labelWidth
+        font.pixelSize: 13
+        text: "Singular:        " // 8 spaces
+    }
+
     // Same look as the rows of the Dictionary (WordDetails): small dim label, then the word in bold
     readonly property bool hasLabel: /^(Plural|Singular)\s/.test(shown)
     Label {
         visible: root.hasLabel
-        Layout.preferredWidth: 128
-        text: root.hasLabel ? root.shown.split(" ")[0] : ""
+        // "Singular:" + 8 spaces wide, so the words of all lines start at the same place
+        Layout.preferredWidth: labelWidth.advanceWidth
+        text: root.hasLabel ? root.shown.split(" ")[0] + ":" : ""
         font.pixelSize: 13
         opacity: 0.6
     }
