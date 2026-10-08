@@ -200,6 +200,18 @@ Item {
             if (requestId !== root.grammarRequest)
                 return
             root.grammarRequest = -1
+            // Wiktionary says the word is the plural form of another noun ("Reis" = plural of "Real"), but the
+            // word pack knows it as a singular noun, or it was typed with "der" / "das": it is the singular noun
+            // (rice), not that plural. The pack's forms are used then.
+            const pluralOfOther = (grammar.front ?? "") === "" && (grammar.lemma ?? "") !== ""
+                                  && grammar.lemma.toLowerCase() !== root.bare.toLowerCase()
+            const typedSingular = root.parts && /^(der|das)$/i.test(root.parts[1] ?? "")
+            if (pluralOfOther && (root.packFront !== "" || typedSingular)) {
+                root.wikiFront = ""
+                root.wikiForms = ""
+                root.applyCapital()
+                return
+            }
             root.wikiFront = grammar.front ?? ""
             root.wikiForms = grammar.forms ?? ""
             root.applyCapital()

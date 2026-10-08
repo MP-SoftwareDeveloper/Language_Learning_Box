@@ -312,6 +312,14 @@ int Translator::lookupGrammar(const QString &word)
     const auto answer = [=, this](const QVariantMap &map, const QString &error) {
         QTimer::singleShot(0, this, [=, this] { emit grammarFound(id, map, error); });
     };
+    // Typed with "der" / "das" ("der Reis"): a singular noun. A page that says the word is the plural form of
+    // another noun ("Reis" = plural of "Real") is then the wrong entry: no grammar, not the other noun's forms.
+    const QString first = word.simplified().section(QLatin1Char(' '), 0, 0).toLower();
+    const bool singularTyped = word.simplified().contains(QLatin1Char(' '))
+                               && (first == QLatin1String("der") || first == QLatin1String("das"));
+    const auto view = [=](const wiktionary::Grammar &g) {
+        return singularTyped && !g.singularOf.isEmpty() ? QVariantMap() : grammarMap(g);
+    };
     if (w.isEmpty()) {
         answer({}, QString());
         return id;
@@ -321,7 +329,7 @@ int Translator::lookupGrammar(const QString &word)
     QStringList extra;
     if (lookup(QStringLiteral("de"), QStringLiteral("grammar4"), w, &saved, &extra)) {
         answer(saved == QLatin1String("-") ? QVariantMap()
-                                           : grammarMap(wiktionary::decode(saved, extra.value(0, w))),
+                                           : view(wiktionary::decode(saved, extra.value(0, w))),
                QString());
         return id;
     }
@@ -336,7 +344,7 @@ int Translator::lookupGrammar(const QString &word)
                   g.valid() ? QStringList{g.lemma.isEmpty() ? w : g.lemma} : QStringList());
         else
             qWarning().noquote() << "Wiktionary:" << error;
-        emit grammarFound(id, grammarMap(g), error);
+        emit grammarFound(id, view(g), error);
     };
     const auto proceed = [=, this] {
     fetchGrammar(w, true, [=, this](const wiktionary::Grammar &g, const QString &error) {

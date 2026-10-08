@@ -29,7 +29,10 @@ private slots:
                                           " updated_at INTEGER NOT NULL, deck TEXT NOT NULL DEFAULT '',"
                                           " image TEXT NOT NULL DEFAULT '')")));
             QVERIFY(q.exec(QStringLiteral("INSERT INTO cards (front, back, box, due_at, created_at, updated_at)"
-                                          " VALUES ('das Haus', 'house', 3, 0, 0, 0), ('gehen', 'go', 1, 0, 0, 0)")));
+                                          " VALUES ('das Haus', 'house', 3, 0, 0, 0), ('gehen', 'go', 1, 0, 0, 0),"
+                                          " ('der Reis', 'rice\nSingular der Real\nPlural Reais\nPlural -', 1, 0, 0, 0),"
+                                          " ('der Lehrer', 'teacher\nPlural Lehrer\nSingular die Lehrerin\nPlural Lehrerinnen', 1, 0, 0, 0),"
+                                          " ('die Mauern', 'walls\nSingular die Mauer', 1, 0, 0, 0)")));
             QVERIFY(q.exec(QStringLiteral("PRAGMA user_version = 3")));
             db.close();
         }
@@ -38,9 +41,19 @@ private slots:
         auto *s = CardStore::instance();
         QVERIFY2(s->ready(), qPrintable(s->lastError()));
         QCOMPARE(s->collections().size(), 1);
-        QCOMPARE(s->totalCount(), 2);                 // nothing lost
+        QCOMPARE(s->totalCount(), 5);                 // nothing lost
         QCOMPARE(s->boxCounts().at(2).toInt(), 1);    // progress kept
         QCOMPARE(s->currentCollectionName(), QStringLiteral("My learning box"));
+        // Another noun's forms on an old card are removed, real counterparts and plural fronts are kept
+        QCOMPARE(s->card(s->findByFront(QStringLiteral("der Reis"))).value(QStringLiteral("back")).toString(),
+                 QStringLiteral("rice"));
+        QCOMPARE(s->card(s->findByFront(QStringLiteral("der Lehrer"))).value(QStringLiteral("back")).toString(),
+                 QStringLiteral("teacher\nPlural Lehrer\nSingular die Lehrerin\nPlural Lehrerinnen"));
+        QCOMPARE(s->card(s->findByFront(QStringLiteral("die Mauern"))).value(QStringLiteral("back")).toString(),
+                 QStringLiteral("walls\nSingular die Mauer"));
+        // ... and never saved again
+        const int id = s->addCard(QStringLiteral("der Reis2"), QStringLiteral("rice\nSingular der Real"), QString());
+        QCOMPARE(s->card(id).value(QStringLiteral("back")).toString(), QStringLiteral("rice"));
     }
 };
 

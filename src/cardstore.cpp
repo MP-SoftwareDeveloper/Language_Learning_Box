@@ -7,6 +7,7 @@
 #include <QFile>
 #include <QJSEngine>
 #include <QQmlEngine>
+#include <QRegularExpression>
 #include <QSqlDatabase>
 #include <QTemporaryFile>
 #include <QSqlError>
@@ -21,7 +22,7 @@
 namespace {
 
 constexpr auto kConnection = "learningbox";
-constexpr int kSchemaVersion = 8;
+constexpr int kSchemaVersion = 9;
 constexpr auto kCurrentKey = "learningbox/current"; // QSettings: selected learning box
 
 QSqlDatabase db() { return QSqlDatabase::database(QLatin1String(kConnection)); }
@@ -31,6 +32,37 @@ qint64 nowSecs() { return QDateTime::currentSecsSinceEpoch(); }
 // QSqlQuery binds a null QString as SQL NULL, which violates the NOT NULL text columns.
 // Always bind text through this so "" stays "".
 QString text(const QString &s) { return s.isNull() ? QStringLiteral("") : s; }
+
+// A noun card "der Reis" / "das Haus" whose back holds a "Singular der ..." / "Singular das ..." line (also the old
+// "Mask. der ..." form) with the card's own article: that is another noun's form that got mixed in (Wiktionary has
+// "Reis" as the plural of "Real" too). A male / female counterpart always has the other article ("der Lehrer" ->
+// "die Lehrerin"), so such a line is wrong. It is removed with the plural line(s) that follow it.
+// Cards with "die" in front are left alone: "die Mauern" is a plural and rightly has "Singular die Mauer".
+QString withoutWrongForms(const QString &front, const QString &back)
+{
+    const QString own = front.simplified().section(QLatin1Char(' '), 0, 0).toLower();
+    if (own != QLatin1String("der") && own != QLatin1String("das"))
+        return back;
+    static const QRegularExpression singular(
+        QStringLiteral(R"(^\s*(?:(?:Singular|Sg\.)\s+|Mask\.\s+|Fem\.\s+)(der|die|das)\s+\S)"),
+        QRegularExpression::CaseInsensitiveOption);
+    static const QRegularExpression plural(QStringLiteral(R"(^\s*(?:(?:Mask|Fem)\.\s+)?(?:Pl\.|Plural)(?:\s|$))"));
+    const QStringList lines = back.split(QLatin1Char('\n'));
+    QStringList kept;
+    bool dropping = false;
+    for (const QString &line : lines) {
+        const QRegularExpressionMatch m = singular.match(line);
+        if (m.hasMatch() && m.captured(1).toLower() == own) {
+            dropping = true;
+            continue;
+        }
+        if (dropping && plural.match(line).hasMatch())
+            continue;
+        dropping = false;
+        kept << line;
+    }
+    return kept.join(QLatin1Char('\n')).trimmed();
+}
 
 // Due dates are day-aligned (local midnight) so a card reviewed late in the
 // evening is due again at the start of the target day, not 24 h later.
@@ -211,6 +243,7 @@ bool CardStore::migrate()
         // v7: meaning language of each learning box ("" = not chosen: default).
         steps << QStringLiteral("ALTER TABLE collections ADD COLUMN meaning TEXT NOT NULL DEFAULT ''");
     }
+    // v9 has no schema change: wrong forms stored on old cards are removed after the upgrade (withoutWrongForms)
     if (version < 8) {
         // v8: favorites (★); the value is the time it was starred (0 = not a favorite)
         steps << QStringLiteral("ALTER TABLE cards ADD COLUMN favorite INTEGER NOT NULL DEFAULT 0");
@@ -225,7 +258,27 @@ bool CardStore::migrate()
             return false;
         }
     }
-    return d.commit();
+    if (!d.commit())
+        return false;
+    if (version < 9) {
+        // Cards saved before: remove another noun's forms ("der Reis" with "Singular der Real")
+        QSqlQuery all(d), upd(d);
+        upd.prepare(QStringLiteral("UPDATE cards SET back = ? WHERE id = ?"));
+        QList<QPair<int, QString>> fixes;
+        all.exec(QStringLiteral("SELECT id, front, back FROM cards"));
+        while (all.next()) {
+            const QString back = all.value(2).toString();
+            const QString clean = withoutWrongForms(all.value(1).toString(), back);
+            if (clean != back.trimmed())
+                fixes << qMakePair(all.value(0).toInt(), clean);
+        }
+        for (const auto &f : std::as_const(fixes)) {
+            upd.addBindValue(text(f.second));
+            upd.addBindValue(f.first);
+            upd.exec();
+        }
+    }
+    return true;
 }
 
 int CardStore::scalar(const QString &sql) const
@@ -372,7 +425,7 @@ int CardStore::addCardToDeck(const QString &front, const QString &back, const QS
                              " collection_id) VALUES (?, ?, ?, ?, ?, 1, ?, ?, ?, ?)"));
     const qint64 now = nowSecs();
     q.addBindValue(f);
-    q.addBindValue(text(back.trimmed()));
+    q.addBindValue(text(withoutWrongForms(f, back.trimmed())));
     q.addBindValue(text(example.trimmed()));
     q.addBindValue(text(deck));
     q.addBindValue(text(image));
@@ -398,7 +451,7 @@ bool CardStore::updateCard(int id, const QString &front, const QString &back, co
     QSqlQuery q(db());
     q.prepare(QStringLiteral("UPDATE cards SET front = ?, back = ?, example = ?, image = ?, updated_at = ? WHERE id = ?"));
     q.addBindValue(f);
-    q.addBindValue(text(back.trimmed()));
+    q.addBindValue(text(withoutWrongForms(f, back.trimmed())));
     q.addBindValue(text(example.trimmed()));
     q.addBindValue(text(image));
     q.addBindValue(nowSecs());
