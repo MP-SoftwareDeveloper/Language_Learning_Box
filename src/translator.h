@@ -4,18 +4,22 @@
 #include <functional>
 #include "translation/wiktionary.h"
 #include <QObject>
+#include <QSet>
 #include <QStringList>
 #include <QVariantList>
 #include <QtQml/qqmlregistration.h>
 
 class QNetworkAccessManager;
+class QNetworkRequest;
 class QNetworkReply;
+class QUrl;
 class QQmlEngine;
 class QJSEngine;
 
 // German -> Persian/English translation for Lens and the card editor.
 //
-//  * Online (setting on + network reachable): Google's public translate endpoint.
+//  * Online (setting on + network reachable): Azure Translator when the user entered their own key in
+//    Settings (optional), otherwise - or when Azure refuses - Google's public translate endpoint, then MyMemory.
 //    Every result is saved, so the same word/sentence also works offline later.
 //  * Offline: saved translations only (QML adds the word pack's Persian meanings on top).
 //
@@ -37,6 +41,11 @@ class Translator : public QObject
     // the learning language (CardStore::meaningLanguage). targetLanguage is the same, writable.
     Q_PROPERTY(QString meaningLanguage READ meaningLanguage NOTIFY settingsChanged)
     Q_PROPERTY(int savedCount READ savedCount NOTIFY savedCountChanged)
+    // Optional Azure Translator (own free key, 2 million characters a month). Empty key = not used.
+    Q_PROPERTY(QString azureKey READ azureKey WRITE setAzureKey NOTIFY azureChanged)
+    Q_PROPERTY(QString azureRegion READ azureRegion WRITE setAzureRegion NOTIFY azureChanged)
+    Q_PROPERTY(bool azureConfigured READ azureConfigured NOTIFY azureChanged)
+    Q_PROPERTY(bool azureTesting READ azureTesting NOTIFY azureChanged)
 
 public:
     static Translator *create(QQmlEngine *, QJSEngine *);
@@ -56,6 +65,14 @@ public:
     QString sourceLanguage() const;
     QString meaningLanguage() const;
     int savedCount() const;
+    QString azureKey() const { return m_azureKey; }
+    void setAzureKey(const QString &key);
+    QString azureRegion() const { return m_azureRegion; }
+    void setAzureRegion(const QString &region);
+    bool azureConfigured() const { return !m_azureKey.isEmpty(); }
+    bool azureTesting() const { return m_azureTesting; }
+    // Translates a test word with the entered key; answers through azureTested(ok, message).
+    Q_INVOKABLE void testAzure();
 
     // Starts a translation of `text` (in the learning language) into the meaning language. Returns a request id;
     // the answer arrives through translated(id, ...). Offline misses answer with empty text.
@@ -90,6 +107,8 @@ signals:
     void settingsChanged();
     void networkChanged();
     void savedCountChanged();
+    void azureChanged();
+    void azureTested(bool ok, const QString &message);
     // source: "online", "saved" or "" (nothing found). error: why online failed, if it did.
     void translated(int requestId, const QString &text, const QStringList &alternatives,
                     const QString &source, const QString &error);
@@ -103,6 +122,13 @@ private:
     void guessSingular(const QString &plural, const wiktionary::Grammar &original, QStringList candidates,
                        std::function<void(const wiktionary::Grammar &, const QString &)> finished);
     explicit Translator(QObject *parent = nullptr);
+    // Google, then MyMemory (the way it always was); Azure comes first when a key is set.
+    void requestFree(int id, const QString &text, const QString &source, const QString &target);
+    void requestAzure(int id, const QString &text, const QString &source, const QString &target);
+    // Other translations of a single word (Azure dictionary) before the answer goes out.
+    void azureAlternatives(int id, const QString &text, const QString &source, const QString &target,
+                           const QString &main);
+    QNetworkRequest azureRequest(const QUrl &url) const;
     void requestGoogle(int id, const QString &text, const QString &source, const QString &target);
     void onReply(QNetworkReply *reply, int id, const QString &text, const QString &source, const QString &target);
     // Fallback when Google refuses (429 etc.): MyMemory, free and without a key.
@@ -124,5 +150,10 @@ private:
     bool m_onlineEnabled = true;
     bool m_cacheOk = false;
     qint64 m_googleBlockedUntil = 0; // ms since epoch; after a 429 Google is skipped for a while
+    qint64 m_azureBlockedUntil = 0;  // same for Azure (wrong key, monthly quota used up)
+    QString m_azureKey;
+    QString m_azureRegion;
+    bool m_azureTesting = false;
+    QSet<QString> m_azureNoDictionary; // "de>fa" pairs the Azure dictionary does not know
     int m_nextId = 1;
 };

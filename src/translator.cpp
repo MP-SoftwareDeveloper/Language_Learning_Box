@@ -3,6 +3,7 @@
 #include <QSharedPointer>
 #include "appmode.h"
 #include "cardstore.h"
+#include "translation/azuretranslate.h"
 #include "translation/googletranslate.h"
 #include "translation/mymemory.h"
 #include "translation/tatoeba.h"
@@ -29,6 +30,7 @@ namespace {
 constexpr auto kConnection = "translations";
 constexpr int kTimeoutMs = 8000;
 constexpr qint64 kGoogleCooldownMs = 10 * 60 * 1000; // Google said 429: use the fallback for 10 minutes
+constexpr qint64 kAzureCooldownMs = 10 * 60 * 1000;  // Azure refused (bad key, monthly quota): skip it for a while
 
 QSqlDatabase db() { return QSqlDatabase::database(QLatin1String(kConnection)); }
 QString key(const QString &source, const QString &text)
@@ -70,6 +72,8 @@ Translator::Translator(QObject *parent)
     });
     QSettings settings;
     m_onlineEnabled = settings.value(QStringLiteral("translation/online"), true).toBool();
+    m_azureKey = settings.value(QStringLiteral("translation/azureKey")).toString().trimmed();
+    m_azureRegion = settings.value(QStringLiteral("translation/azureRegion")).toString().trimmed();
 
     m_nam->setTransferTimeout(kTimeoutMs);
 
@@ -152,11 +156,140 @@ int Translator::translateBetween(const QString &text, const QString &source, con
         return id;
     }
 
-    if (QDateTime::currentMSecsSinceEpoch() < m_googleBlockedUntil)
-        requestMyMemory(id, t, source, target, QStringLiteral("Google limit reached (429)"));
+    if (azureConfigured() && QDateTime::currentMSecsSinceEpoch() >= m_azureBlockedUntil)
+        requestAzure(id, t, source, target);
     else
-        requestGoogle(id, t, source, target);
+        requestFree(id, t, source, target);
     return id;
+}
+
+void Translator::requestFree(int id, const QString &text, const QString &source, const QString &target)
+{
+    if (QDateTime::currentMSecsSinceEpoch() < m_googleBlockedUntil)
+        requestMyMemory(id, text, source, target, QStringLiteral("Google limit reached (429)"));
+    else
+        requestGoogle(id, text, source, target);
+}
+
+void Translator::setAzureKey(const QString &key)
+{
+    const QString k = key.trimmed();
+    if (k == m_azureKey)
+        return;
+    m_azureKey = k;
+    m_azureBlockedUntil = 0; // a new key deserves a new try
+    QSettings().setValue(QStringLiteral("translation/azureKey"), k);
+    emit azureChanged();
+}
+
+void Translator::setAzureRegion(const QString &region)
+{
+    const QString r = region.trimmed().toLower();
+    if (r == m_azureRegion)
+        return;
+    m_azureRegion = r;
+    m_azureBlockedUntil = 0;
+    QSettings().setValue(QStringLiteral("translation/azureRegion"), r);
+    emit azureChanged();
+}
+
+QNetworkRequest Translator::azureRequest(const QUrl &url) const
+{
+    QNetworkRequest req(url);
+    req.setHeader(QNetworkRequest::ContentTypeHeader, QStringLiteral("application/json; charset=UTF-8"));
+    req.setRawHeader(AzureTranslate::kKeyHeader, m_azureKey.toUtf8());
+    if (!m_azureRegion.isEmpty()) // needed for regional resources; the global endpoint wants it with the key
+        req.setRawHeader(AzureTranslate::kRegionHeader, m_azureRegion.toUtf8());
+    return req;
+}
+
+void Translator::requestAzure(int id, const QString &text, const QString &source, const QString &target)
+{
+    QNetworkReply *reply = m_nam->post(azureRequest(AzureTranslate::translateUrl(source, target)),
+                                       AzureTranslate::requestBody(text));
+    connect(reply, &QNetworkReply::finished, this, [=, this] {
+        reply->deleteLater();
+        const QByteArray body = reply->readAll();
+        QString error;
+        if (reply->error() != QNetworkReply::NoError) {
+            const int http = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+            if (http == 401 || http == 403 || http == 429) // wrong key or this month's quota used up
+                m_azureBlockedUntil = QDateTime::currentMSecsSinceEpoch() + kAzureCooldownMs;
+            const QString detail = AzureTranslate::errorMessage(body);
+            error = QStringLiteral("Azure ") + errorText(reply)
+                    + (detail.isEmpty() ? QString() : QStringLiteral(" (") + detail + QLatin1Char(')'));
+        } else {
+            const auto r = AzureTranslate::parseTranslation(body);
+            if (r.error.isEmpty()) {
+                if (AzureTranslate::isSingleWord(text)
+                    && !m_azureNoDictionary.contains(source + u'>' + target))
+                    azureAlternatives(id, text, source, target, r.text);
+                else {
+                    store(source, target, text, r.text, {});
+                    emit translated(id, r.text, {}, QStringLiteral("online"), {});
+                }
+                return;
+            }
+            error = QStringLiteral("Azure: ") + r.error;
+        }
+        qWarning().noquote() << "Azure translation failed:" << error;
+        requestFree(id, text, source, target); // Google, then MyMemory, as without a key
+    });
+}
+
+void Translator::azureAlternatives(int id, const QString &text, const QString &source, const QString &target,
+                                   const QString &main)
+{
+    QNetworkReply *reply = m_nam->post(azureRequest(AzureTranslate::lookupUrl(source, target)),
+                                       AzureTranslate::requestBody(text));
+    connect(reply, &QNetworkReply::finished, this, [=, this] {
+        reply->deleteLater();
+        QStringList alternatives;
+        if (reply->error() == QNetworkReply::NoError) {
+            alternatives = AzureTranslate::parseLookup(reply->readAll(), main);
+        } else if (reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt() == 400) {
+            m_azureNoDictionary.insert(source + u'>' + target); // no dictionary for this pair: don't ask again
+        }
+        // The translation itself is already good; the dictionary is only a bonus.
+        store(source, target, text, main, alternatives);
+        emit translated(id, main, alternatives, QStringLiteral("online"), {});
+    });
+}
+
+void Translator::testAzure()
+{
+    if (m_azureTesting)
+        return;
+    if (m_azureKey.isEmpty()) {
+        emit azureTested(false, tr("Enter the key first (Azure portal \u2192 your Translator resource \u2192 Keys and Endpoint)."));
+        return;
+    }
+    m_azureTesting = true;
+    emit azureChanged();
+    QNetworkReply *reply = m_nam->post(azureRequest(AzureTranslate::translateUrl(QStringLiteral("de"), QStringLiteral("en"))),
+                                       AzureTranslate::requestBody(QStringLiteral("Hallo")));
+    connect(reply, &QNetworkReply::finished, this, [=, this] {
+        reply->deleteLater();
+        const QByteArray body = reply->readAll();
+        bool ok = false;
+        QString message;
+        if (reply->error() == QNetworkReply::NoError) {
+            const auto r = AzureTranslate::parseTranslation(body);
+            ok = r.error.isEmpty();
+            message = ok ? tr("The key works (Hallo \u2192 %1).").arg(r.text) : r.error;
+        } else {
+            const int http = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+            const QString detail = AzureTranslate::errorMessage(body);
+            message = detail.isEmpty() ? errorText(reply) : detail;
+            if (http == 401 || http == 403)
+                message += tr(" Check the key and the region (Location in Keys and Endpoint).");
+        }
+        if (ok)
+            m_azureBlockedUntil = 0;
+        m_azureTesting = false;
+        emit azureChanged();
+        emit azureTested(ok, message);
+    });
 }
 
 QString Translator::errorText(QNetworkReply *reply)

@@ -223,6 +223,7 @@ Goal: this roadmap and the app version are visible online after each push.
 ## Changelog
 | Date | Change |
 |---|---|
+| 2026-10-09 | Translation: optional Azure Translator (Settings → *Azure Translator*: own free key + region, *Test* button). With a key Azure is asked first (word translations also get alternatives from its dictionary), without a key or when Azure refuses (wrong key, monthly quota) the app uses Google and MyMemory as before; Azure is skipped for 10 minutes after a refusal |
 | 2026-10-09 | Translation: when Google answers 429 (too many requests) the app falls back to MyMemory (free, no key) and skips Google for 10 minutes; readable error texts; Lens says *translation failed* instead of *no connection* |
 | 2026-10-06 | Dictionary: gender (maskulin / feminin / neutral), article and plural of German nouns from the German Wiktionary (online, saved for offline use); saved on the card's back with *+ Add*; `src/translation/wiktionary.*`, `tst_wiktionary` |
 | 2026-10-04 | Speech speed control and its test button removed (review card, Settings): TTS always uses the default speed |

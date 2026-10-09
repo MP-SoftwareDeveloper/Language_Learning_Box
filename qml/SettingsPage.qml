@@ -43,6 +43,9 @@ Page {
             "ocrHint": "Photos are sent to Azure AI Vision for reading. With the free tier (F0) this never costs anything: 5000 photos a month, after that Azure refuses and the offline reader is used. Also used offline or when the service fails.",
             "howKey": "How to get a free key",
             "test": "Test",
+            "azure": "Azure Translator (optional)",
+            "azureHint": "With your own free Azure key, translations go through Azure first (2 million characters a month; after that Azure refuses and nothing is charged). Without a key, Google and MyMemory are used as before.",
+            "azureOn": "Azure is used first; Google and MyMemory are the fallback.",
         },
         "fa": {
             "lang": "زبان توضیحات",
@@ -71,6 +74,9 @@ Page {
             "ocrHint": "عکس‌ها برای خواندن به Azure AI Vision فرستاده می‌شوند. با طرح رایگان (F0) هیچ هزینه‌ای ندارد: ۵۰۰۰ عکس در ماه؛ پس از آن Azure نمی‌پذیرد و خواندن آفلاین استفاده می‌شود. در حالت آفلاین یا هنگام خطای سرویس هم همین‌طور.",
             "howKey": "راهنمای گرفتن کلید رایگان",
             "test": "آزمایش",
+            "azure": "Azure Translator (اختیاری)",
+            "azureHint": "اگر کلید رایگان Azure خودتان را وارد کنید، ترجمه‌ها ابتدا با Azure انجام می‌شوند (۲ میلیون نویسه در ماه؛ پس از آن Azure نمی‌پذیرد و هزینه‌ای گرفته نمی‌شود). بدون کلید، مثل قبل از Google و MyMemory استفاده می‌شود.",
+            "azureOn": "ابتدا از Azure استفاده می‌شود؛ Google و MyMemory جایگزین هستند.",
         },
         "de": {
             "lang": "Sprache der Erklärungen",
@@ -99,6 +105,9 @@ Page {
             "ocrHint": "Fotos werden zum Lesen an Azure AI Vision gesendet. Mit dem kostenlosen Tarif (F0) entstehen nie Kosten: 5000 Fotos pro Monat, danach lehnt Azure ab und der Offline-Leser wird verwendet. Er wird auch offline oder bei Dienstfehlern verwendet.",
             "howKey": "So bekommst du einen kostenlosen Schlüssel",
             "test": "Testen",
+            "azure": "Azure Translator (optional)",
+            "azureHint": "Mit deinem eigenen kostenlosen Azure-Schlüssel wird zuerst Azure verwendet (2 Millionen Zeichen pro Monat; danach lehnt Azure ab, es entstehen keine Kosten). Ohne Schlüssel werden Google und MyMemory wie bisher verwendet.",
+            "azureOn": "Azure wird zuerst verwendet; Google und MyMemory sind der Ersatz.",
         }
     })
     function tr2(key) { return (tx[lang] && tx[lang][key]) || tx.en[key] }
@@ -248,6 +257,97 @@ Page {
                     enabled: Translator.savedCount > 0
                     text: page.tr2("clear")
                     onClicked: Translator.clearSaved()
+                }
+            }
+
+            // ---------- Azure Translator (optional key) ----------
+            Label {
+                Layout.leftMargin: 16
+                Layout.topMargin: 12
+                visible: AppMode.full
+                text: page.tr2("azure")
+                font.pixelSize: 16
+                font.bold: true
+            }
+            Label {
+                Layout.leftMargin: 16
+                Layout.rightMargin: 16
+                Layout.fillWidth: true
+                wrapMode: Text.WordWrap
+                opacity: 0.7
+                visible: AppMode.full
+                horizontalAlignment: page.hAlign
+                text: Translator.azureConfigured ? page.tr2("azureOn") : page.tr2("azureHint")
+            }
+            RowLayout {
+                Layout.leftMargin: 16
+                Layout.rightMargin: 16
+                Layout.fillWidth: true
+                visible: AppMode.full
+                TextField {
+                    id: azureKeyField
+                    Layout.fillWidth: true
+                    placeholderText: qsTr("Key (KEY 1)")
+                    text: Translator.azureKey
+                    echoMode: showAzureKey.checked ? TextInput.Normal : TextInput.Password
+                    inputMethodHints: Qt.ImhNoPredictiveText | Qt.ImhNoAutoUppercase | Qt.ImhSensitiveData
+                    onEditingFinished: Translator.azureKey = text
+                }
+                ToolButton {
+                    id: showAzureKey
+                    checkable: true
+                    text: checked ? "\u25CE" : "\u25C9"
+                    ToolTip.visible: pressed
+                    ToolTip.text: checked ? qsTr("Hide key") : qsTr("Show key")
+                }
+            }
+            TextField {
+                id: azureRegionField
+                Layout.fillWidth: true
+                Layout.leftMargin: 16
+                Layout.rightMargin: 16
+                visible: AppMode.full
+                placeholderText: qsTr("Location / region, e.g. swedencentral")
+                text: Translator.azureRegion
+                inputMethodHints: Qt.ImhNoPredictiveText | Qt.ImhNoAutoUppercase | Qt.ImhLatinOnly
+                onEditingFinished: Translator.azureRegion = text
+            }
+            RowLayout {
+                Layout.leftMargin: 16
+                Layout.rightMargin: 16
+                Layout.fillWidth: true
+                visible: AppMode.full
+                Button {
+                    text: Translator.azureTesting ? qsTr("Testing\u2026") : page.tr2("test")
+                    enabled: !Translator.azureTesting && azureKeyField.text.trim() !== ""
+                    onClicked: {
+                        Translator.azureKey = azureKeyField.text
+                        Translator.azureRegion = azureRegionField.text
+                        azureResult.text = ""
+                        Translator.testAzure()
+                    }
+                }
+                Button {
+                    flat: true
+                    text: page.tr2("howKey")
+                    onClicked: Qt.openUrlExternally("https://portal.azure.com/#create/Microsoft.CognitiveServicesTextTranslation")
+                }
+            }
+            Label {
+                id: azureResult
+                Layout.leftMargin: 16
+                Layout.rightMargin: 16
+                Layout.fillWidth: true
+                visible: AppMode.full && text !== ""
+                wrapMode: Text.WordWrap
+                property bool ok: false
+                color: ok ? Material.color(Material.Green) : Material.color(Material.Red)
+                Connections {
+                    target: Translator
+                    function onAzureTested(ok, message) {
+                        azureResult.ok = ok
+                        azureResult.text = (ok ? "\u2713 " : "\u2717 ") + message
+                    }
                 }
             }
 
