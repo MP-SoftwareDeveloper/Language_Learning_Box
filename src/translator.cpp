@@ -219,7 +219,7 @@ void Translator::requestMyMemory(int id, const QString &text, const QString &sou
         if (reply->error() != QNetworkReply::NoError) {
             error = QStringLiteral("MyMemory ") + errorText(reply);
         } else {
-            const auto r = MyMemory::parse(reply->readAll(), text);
+            const auto r = MyMemory::parse(reply->readAll(), text, target);
             if (r.error.isEmpty()) {
                 store(source, target, text, r.text, r.alternatives); // offline later, like Google's answers
                 emit translated(id, r.text, r.alternatives, QStringLiteral("online"), {});
@@ -577,6 +577,11 @@ bool Translator::lookup(const QString &source, const QString &target, const QStr
     if (!q.exec() || !q.next())
         return false;
     *translation = q.value(0).toString();
+    // An answer saved earlier in a wrong script (Chinese for an English meaning, from the fallback translator) is
+    // not used; looking the word up again online replaces it.
+    if ((target == QLatin1String("en") || target == QLatin1String("de"))
+            && !MyMemory::plausibleFor(*translation, target))
+        return false;
     const QString alts = q.value(1).toString();
     *alternatives = alts.isEmpty() ? QStringList() : alts.split(QLatin1Char('\n'));
     return true;

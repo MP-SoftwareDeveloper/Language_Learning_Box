@@ -36,7 +36,28 @@ QUrl requestUrl(const QString &text, const QString &source, const QString &targe
     return url;
 }
 
-Result parse(const QByteArray &json, const QString &sourceText, int maxAlternatives)
+bool plausibleFor(const QString &text, const QString &target)
+{
+    bool arabic = false;
+    for (const QChar ch : text) {
+        const char32_t u = ch.unicode();
+        const bool cjk = (u >= 0x2E80 && u <= 0x9FFF) || (u >= 0xAC00 && u <= 0xD7AF) || (u >= 0xF900 && u <= 0xFAFF);
+        const bool cyrillic = u >= 0x0400 && u <= 0x052F;
+        const bool otherScript = (u >= 0x0590 && u <= 0x05FF) /*Hebrew*/ || (u >= 0x0900 && u <= 0x0DFF) /*Indic*/
+                                 || (u >= 0x0E00 && u <= 0x0EFF) /*Thai, Lao*/ || (u >= 0x1000 && u <= 0x109F);
+        const bool arabicScript = (u >= 0x0600 && u <= 0x06FF) || (u >= 0x0750 && u <= 0x077F) || (u >= 0xFB50 && u <= 0xFEFF);
+        if (cjk || cyrillic || otherScript)
+            return false;
+        if (arabicScript) {
+            if (target != QLatin1String("fa"))
+                return false;
+            arabic = true;
+        }
+    }
+    return target != QLatin1String("fa") || arabic;
+}
+
+Result parse(const QByteArray &json, const QString &sourceText, const QString &target, int maxAlternatives)
 {
     Result r;
     QJsonParseError err;
@@ -59,40 +80,47 @@ Result parse(const QByteArray &json, const QString &sourceText, int maxAlternati
     }
 
     const QJsonObject data = root.value(QStringLiteral("responseData")).toObject();
-    r.text = decodeEntities(data.value(QStringLiteral("translatedText")).toString());
-    if (r.text.isEmpty() || r.text.startsWith(QLatin1String("MYMEMORY WARNING"), Qt::CaseInsensitive)
-        || r.text.startsWith(QLatin1String("PLEASE SELECT"), Qt::CaseInsensitive)) {
-        r.error = r.text.isEmpty() ? QStringLiteral("empty translation") : QStringLiteral("MyMemory daily limit reached");
-        r.text.clear();
+    const QString first = decodeEntities(data.value(QStringLiteral("translatedText")).toString());
+    if (first.isEmpty() || first.startsWith(QLatin1String("MYMEMORY WARNING"), Qt::CaseInsensitive)
+        || first.startsWith(QLatin1String("PLEASE SELECT"), Qt::CaseInsensitive)) {
+        r.error = first.isEmpty() ? QStringLiteral("empty translation") : QStringLiteral("MyMemory daily limit reached");
         return r;
     }
     const QString asked = sourceText.simplified().toCaseFolded();
-    const double match = data.value(QStringLiteral("match")).toVariant().toDouble();
-    if (r.text.toCaseFolded() == asked && match < 0.9) {
-        r.text.clear();
-        r.error = QStringLiteral("no translation");
-        return r;
-    }
 
-    // Other translations of exactly the same text (translation memory entries), best first.
-    const QString mainFolded = r.text.toCaseFolded();
+    // Candidates, best first: the main answer, then the translation memory entries for exactly this text.
+    struct Candidate { QString text; double match; };
+    QList<Candidate> candidates;
+    candidates.append({first, data.value(QStringLiteral("match")).toVariant().toDouble()});
     for (const QJsonValue &v : root.value(QStringLiteral("matches")).toArray()) {
-        if (r.alternatives.size() >= maxAlternatives)
-            break;
         const QJsonObject m = v.toObject();
         if (m.value(QStringLiteral("segment")).toString().simplified().toCaseFolded() != asked)
             continue;
-        if (m.value(QStringLiteral("match")).toVariant().toDouble() < 0.5)
-            continue;
+        const double match = m.value(QStringLiteral("match")).toVariant().toDouble();
         const QString t = decodeEntities(m.value(QStringLiteral("translation")).toString());
-        if (t.isEmpty() || t.toCaseFolded() == mainFolded || t.toCaseFolded() == asked)
+        if (!t.isEmpty() && match >= 0.5)
+            candidates.append({t, match});
+    }
+
+    QStringList good; // plausible, not just the source repeated, each once
+    for (const Candidate &cand : std::as_const(candidates)) {
+        const QString folded = cand.text.toCaseFolded();
+        if (!plausibleFor(cand.text, target))
+            continue;
+        if (folded == asked && cand.match < 0.9) // "don't know": the source comes back unchanged
             continue;
         bool dup = false;
-        for (const QString &a : std::as_const(r.alternatives))
-            dup = dup || a.toCaseFolded() == t.toCaseFolded();
+        for (const QString &g : std::as_const(good))
+            dup = dup || g.toCaseFolded() == folded;
         if (!dup)
-            r.alternatives.append(t);
+            good.append(cand.text);
     }
+    if (good.isEmpty()) {
+        r.error = QStringLiteral("no translation");
+        return r;
+    }
+    r.text = good.first();
+    r.alternatives = good.mid(1, maxAlternatives);
     return r;
 }
 
