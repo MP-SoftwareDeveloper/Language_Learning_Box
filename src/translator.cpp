@@ -244,7 +244,7 @@ QVariantMap grammarMap(const wiktionary::Grammar &g)
 
 // One Wiktionary page; finished(grammar, error). A word that is a plural form ("Hunde") is followed to its
 // noun ("Hund"): the answer then describes the noun and has singularOf set.
-void Translator::fetchGrammar(const QString &word, bool followSingular,
+void Translator::fetchGrammar(const QString &word, bool followSingular, const QString &article,
                               std::function<void(const wiktionary::Grammar &, const QString &)> finished)
 {
     QNetworkRequest req(wiktionary::requestUrl(word));
@@ -258,12 +258,12 @@ void Translator::fetchGrammar(const QString &word, bool followSingular,
         if (reply->error() != QNetworkReply::NoError && !body.trimmed().startsWith('{'))
             error = reply->errorString();
         else
-            g = wiktionary::parse(body, &error);
+            g = wiktionary::parse(body, &error, article);
         if (!error.isEmpty() || g.singularOf.isEmpty() || !followSingular) {
             finished(g, error);
             return;
         }
-        fetchGrammar(g.singularOf, false, [=](const wiktionary::Grammar &noun, const QString &err) {
+        fetchGrammar(g.singularOf, false, QString(), [=](const wiktionary::Grammar &noun, const QString &err) {
             finished(noun.valid() ? wiktionary::withSingular(g, noun) : wiktionary::Grammar{}, err);
         });
     });
@@ -315,8 +315,12 @@ int Translator::lookupGrammar(const QString &word)
     // Typed with "der" / "das" ("der Reis"): a singular noun. A page that says the word is the plural form of
     // another noun ("Reis" = plural of "Real") is then the wrong entry: no grammar, not the other noun's forms.
     const QString first = word.simplified().section(QLatin1Char(' '), 0, 0).toLower();
-    const bool singularTyped = word.simplified().contains(QLatin1Char(' '))
-                               && (first == QLatin1String("der") || first == QLatin1String("das"));
+    const bool hasArticle = word.simplified().contains(QLatin1Char(' '))
+                            && (first == QLatin1String("der") || first == QLatin1String("die") || first == QLatin1String("das"));
+    // The article picks the right entry on a page with several ("der Reis" / "die Reise"), see wiktionary::parse
+    const QString hint = hasArticle ? first : QString();
+    const QString cacheKey = hasArticle ? first + QLatin1Char(' ') + w : w;
+    const bool singularTyped = hasArticle && first != QLatin1String("die");
     const auto view = [=](const wiktionary::Grammar &g) {
         return singularTyped && !g.singularOf.isEmpty() ? QVariantMap() : grammarMap(g);
     };
@@ -324,10 +328,10 @@ int Translator::lookupGrammar(const QString &word)
         answer({}, QString());
         return id;
     }
-    // Saved answer first (row in the translation cache, language "grammar4"; "-" = looked up, not a noun)
+    // Saved answer first (row in the translation cache, language "grammar6"; "-" = looked up, not a noun)
     QString saved;
     QStringList extra;
-    if (lookup(QStringLiteral("de"), QStringLiteral("grammar4"), w, &saved, &extra)) {
+    if (lookup(QStringLiteral("de"), QStringLiteral("grammar6"), cacheKey, &saved, &extra)) {
         answer(saved == QLatin1String("-") ? QVariantMap()
                                            : view(wiktionary::decode(saved, extra.value(0, w))),
                QString());
@@ -339,7 +343,7 @@ int Translator::lookupGrammar(const QString &word)
     }
     const auto done = [=, this](const wiktionary::Grammar &g, const QString &error) {
         if (error.isEmpty())
-            store(QStringLiteral("de"), QStringLiteral("grammar4"), w,
+            store(QStringLiteral("de"), QStringLiteral("grammar6"), cacheKey,
                   g.valid() ? wiktionary::encode(g) : QStringLiteral("-"),
                   g.valid() ? QStringList{g.lemma.isEmpty() ? w : g.lemma} : QStringList());
         else
@@ -347,7 +351,7 @@ int Translator::lookupGrammar(const QString &word)
         emit grammarFound(id, view(g), error);
     };
     const auto proceed = [=, this] {
-    fetchGrammar(w, true, [=, this](const wiktionary::Grammar &g, const QString &error) {
+    fetchGrammar(w, true, hint, [=, this](const wiktionary::Grammar &g, const QString &error) {
         if (!error.isEmpty() || !g.valid()) {
             done(g, error);
             return;
@@ -358,7 +362,7 @@ int Translator::lookupGrammar(const QString &word)
                 done(g2, QString());
                 return;
             }
-            fetchGrammar(g2.feminine.first(), false, [=](const wiktionary::Grammar &f, const QString &) {
+            fetchGrammar(g2.feminine.first(), false, QString(), [=](const wiktionary::Grammar &f, const QString &) {
                 wiktionary::Grammar g3 = g2;
                 g3.femininePlural = f.plurals.join(QStringLiteral(" / "));
                 done(g3, QString());
@@ -368,7 +372,7 @@ int Translator::lookupGrammar(const QString &word)
             femalePlural(g);
             return;
         }
-        fetchGrammar(g.masculine.first(), false, [=](const wiktionary::Grammar &m, const QString &) {
+        fetchGrammar(g.masculine.first(), false, QString(), [=](const wiktionary::Grammar &m, const QString &) {
             wiktionary::Grammar g2 = g;
             g2.masculinePlural = m.plurals.join(QStringLiteral(" / "));
             femalePlural(g2);

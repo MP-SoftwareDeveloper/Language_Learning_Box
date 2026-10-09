@@ -22,7 +22,7 @@
 namespace {
 
 constexpr auto kConnection = "learningbox";
-constexpr int kSchemaVersion = 9;
+constexpr int kSchemaVersion = 10;
 constexpr auto kCurrentKey = "learningbox/current"; // QSettings: selected learning box
 
 QSqlDatabase db() { return QSqlDatabase::database(QLatin1String(kConnection)); }
@@ -37,12 +37,20 @@ QString text(const QString &s) { return s.isNull() ? QStringLiteral("") : s; }
 // "Mask. der ..." form) with the card's own article: that is another noun's form that got mixed in (Wiktionary has
 // "Reis" as the plural of "Real" too). A male / female counterpart always has the other article ("der Lehrer" ->
 // "die Lehrerin"), so such a line is wrong. It is removed with the plural line(s) that follow it.
-// Cards with "die" in front are left alone: "die Mauern" is a plural and rightly has "Singular die Mauer".
+// Cards with "die" in front keep "Singular die ..." lines: "die Mauern" is a plural and rightly has "Singular die Mauer".
 QString withoutWrongForms(const QString &front, const QString &back)
 {
     const QString own = front.simplified().section(QLatin1Char(' '), 0, 0).toLower();
-    if (own != QLatin1String("der") && own != QLatin1String("das"))
-        return back;
+    // "Singular Reis" with no article: a plural-form entry whose noun is unknown, never a real form
+    static const QRegularExpression noArticle(QStringLiteral(R"(^\s*(?:Singular|Sg\.)\s+(?!(?:der|die|das)\s)\S)"),
+                                              QRegularExpression::CaseInsensitiveOption);
+    if (own != QLatin1String("der") && own != QLatin1String("das")) {
+        QStringList kept;
+        for (const QString &line : back.split(QLatin1Char('\n')))
+            if (!noArticle.match(line).hasMatch())
+                kept << line;
+        return kept.join(QLatin1Char('\n')).trimmed();
+    }
     static const QRegularExpression singular(
         QStringLiteral(R"(^\s*(?:(?:Singular|Sg\.)\s+|Mask\.\s+|Fem\.\s+)(der|die|das)\s+\S)"),
         QRegularExpression::CaseInsensitiveOption);
@@ -52,6 +60,8 @@ QString withoutWrongForms(const QString &front, const QString &back)
     bool dropping = false;
     for (const QString &line : lines) {
         const QRegularExpressionMatch m = singular.match(line);
+        if (noArticle.match(line).hasMatch())
+            continue;
         if (m.hasMatch() && m.captured(1).toLower() == own) {
             dropping = true;
             continue;
@@ -243,7 +253,7 @@ bool CardStore::migrate()
         // v7: meaning language of each learning box ("" = not chosen: default).
         steps << QStringLiteral("ALTER TABLE collections ADD COLUMN meaning TEXT NOT NULL DEFAULT ''");
     }
-    // v9 has no schema change: wrong forms stored on old cards are removed after the upgrade (withoutWrongForms)
+    // v9, v10 have no schema change: wrong forms stored on old cards are removed after the upgrade (withoutWrongForms)
     if (version < 8) {
         // v8: favorites (★); the value is the time it was starred (0 = not a favorite)
         steps << QStringLiteral("ALTER TABLE cards ADD COLUMN favorite INTEGER NOT NULL DEFAULT 0");
@@ -260,7 +270,7 @@ bool CardStore::migrate()
     }
     if (!d.commit())
         return false;
-    if (version < 9) {
+    if (version < 10) {
         // Cards saved before: remove another noun's forms ("der Reis" with "Singular der Real")
         QSqlQuery all(d), upd(d);
         upd.prepare(QStringLiteral("UPDATE cards SET back = ? WHERE id = ?"));

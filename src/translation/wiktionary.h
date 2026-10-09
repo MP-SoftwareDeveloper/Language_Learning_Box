@@ -49,10 +49,13 @@ QStringList mergeSuggestions(const QList<QStringList> &lists, const QString &pre
 
 // Reads the answer of requestUrl(). A page without a noun table gives an invalid Grammar and no
 // error; a body that is not the expected JSON sets *error.
-Grammar parse(const QByteArray &json, QString *error = nullptr);
+// `article` ("der" / "die" / "das", or "") is the article the word comes with: a page can hold several entries
+// for one spelling ("Reis": der Reis = rice, das Reis = twig, and the plural of "Real"; "Reise": die Reise and
+// the plural of "Reis"). The entry that fits the article is the one meant.
+Grammar parse(const QByteArray &json, QString *error = nullptr, const QString &article = QString());
 
-// The noun table ("{{Deutsch Substantiv Übersicht ...}}") of a page's wikitext.
-Grammar parseWikitext(const QString &wikitext);
+// The noun table ("{{Deutsch Substantiv Übersicht ...}}") of a page's wikitext (see parse() for `article`).
+Grammar parseWikitext(const QString &wikitext, const QString &article = QString());
 
 QString article(const QString &gender);    // "m" -> "der", "f" -> "die", "n" -> "das"
 

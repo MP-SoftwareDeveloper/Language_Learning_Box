@@ -95,7 +95,7 @@ signals:
                     const QString &source, const QString &error);
 
 private:
-    void fetchGrammar(const QString &word, bool followSingular,
+    void fetchGrammar(const QString &word, bool followSingular, const QString &article,
                       std::function<void(const wiktionary::Grammar &, const QString &)> finished);
     explicit Translator(QObject *parent = nullptr);
     void onReply(QNetworkReply *reply, int id, const QString &text, const QString &source, const QString &target);

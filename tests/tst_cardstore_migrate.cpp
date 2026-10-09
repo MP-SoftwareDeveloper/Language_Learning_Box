@@ -32,7 +32,8 @@ private slots:
                                           " VALUES ('das Haus', 'house', 3, 0, 0, 0), ('gehen', 'go', 1, 0, 0, 0),"
                                           " ('der Reis', 'rice\nSingular der Real\nPlural Reais\nPlural -', 1, 0, 0, 0),"
                                           " ('der Lehrer', 'teacher\nPlural Lehrer\nSingular die Lehrerin\nPlural Lehrerinnen', 1, 0, 0, 0),"
-                                          " ('die Mauern', 'walls\nSingular die Mauer', 1, 0, 0, 0)")));
+                                          " ('die Mauern', 'walls\nSingular die Mauer', 1, 0, 0, 0),"
+                                          " ('die Reise', 'trip\nSingular Reis', 1, 0, 0, 0)")));
             QVERIFY(q.exec(QStringLiteral("PRAGMA user_version = 3")));
             db.close();
         }
@@ -41,7 +42,7 @@ private slots:
         auto *s = CardStore::instance();
         QVERIFY2(s->ready(), qPrintable(s->lastError()));
         QCOMPARE(s->collections().size(), 1);
-        QCOMPARE(s->totalCount(), 5);                 // nothing lost
+        QCOMPARE(s->totalCount(), 6);                 // nothing lost
         QCOMPARE(s->boxCounts().at(2).toInt(), 1);    // progress kept
         QCOMPARE(s->currentCollectionName(), QStringLiteral("My learning box"));
         // Another noun's forms on an old card are removed, real counterparts and plural fronts are kept
@@ -51,6 +52,8 @@ private slots:
                  QStringLiteral("teacher\nPlural Lehrer\nSingular die Lehrerin\nPlural Lehrerinnen"));
         QCOMPARE(s->card(s->findByFront(QStringLiteral("die Mauern"))).value(QStringLiteral("back")).toString(),
                  QStringLiteral("walls\nSingular die Mauer"));
+        QCOMPARE(s->card(s->findByFront(QStringLiteral("die Reise"))).value(QStringLiteral("back")).toString(),
+                 QStringLiteral("trip"));
         // ... and never saved again
         const int id = s->addCard(QStringLiteral("der Reis2"), QStringLiteral("rice\nSingular der Real"), QString());
         QCOMPARE(s->card(id).value(QStringLiteral("back")).toString(), QStringLiteral("rice"));

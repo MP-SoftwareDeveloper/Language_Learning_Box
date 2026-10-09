@@ -143,6 +143,36 @@ private slots:
         const wiktionary::Grammar both = wiktionary::parseWikitext(QStringLiteral(
             "{{Grundformverweis Dekl|Mauer}}\n{{Deutsch Substantiv Übersicht\n|Genus=n\n|Nominativ Singular=Mauern\n}}\n"));
         QCOMPARE(both.singularOf, QStringLiteral("Mauer"));
+        // ... but a noun with a plural of its own wins: "Reise" (Reisen) is also the plural of "Reis"
+        const wiktionary::Grammar reise = wiktionary::parseWikitext(QStringLiteral(
+            "{{Grundformverweis Dekl|Reis}}\n{{Deutsch Substantiv Übersicht\n|Genus=f\n|Nominativ Singular=Reise\n"
+            "|Nominativ Plural=Reisen\n}}\n"));
+        QVERIFY(reise.singularOf.isEmpty());
+        QCOMPARE(reise.plurals, QStringList{QStringLiteral("Reisen")});
+        QCOMPARE(wiktionary::front(reise), QStringLiteral("die Reise"));
+        // Several entries on one page ("Reis": der Reis = rice, das Reis = twig, plural of "Real"): the article decides
+        const QString reisPage = QStringLiteral(
+            "{{Grundformverweis Dekl|Real}}\n"
+            "{{Deutsch Substantiv Übersicht\n|Genus=m\n|Nominativ Singular=Reis\n|Nominativ Plural=—\n}}\n"
+            "{{Deutsch Substantiv Übersicht\n|Genus=n\n|Nominativ Singular=Reis\n|Nominativ Plural=Reiser\n}}\n");
+        const wiktionary::Grammar derReis = wiktionary::parseWikitext(reisPage, QStringLiteral("der"));
+        QVERIFY(derReis.singularOf.isEmpty());
+        QCOMPARE(wiktionary::front(derReis), QStringLiteral("der Reis"));
+        const wiktionary::Grammar dasReis = wiktionary::parseWikitext(reisPage, QStringLiteral("das"));
+        QCOMPARE(wiktionary::front(dasReis), QStringLiteral("das Reis"));
+        QCOMPARE(dasReis.plurals, QStringList{QStringLiteral("Reiser")});
+        // "die" has no entry of its own here: it is the plural form of "Real"
+        QCOMPARE(wiktionary::parseWikitext(reisPage, QStringLiteral("die")).singularOf, QStringLiteral("Real"));
+        // "die Reise" (noun, f) next to the plural form of "Reis": the article picks the noun, even without a plural
+        const wiktionary::Grammar dieReise = wiktionary::parseWikitext(QStringLiteral(
+            "{{Grundformverweis Dekl|Reis}}\n{{Deutsch Substantiv Übersicht\n|Genus=f\n|Nominativ Singular=Reise\n"
+            "|Nominativ Plural=—\n}}\n"), QStringLiteral("die"));
+        QVERIFY(dieReise.singularOf.isEmpty());
+        QCOMPARE(wiktionary::front(dieReise), QStringLiteral("die Reise"));
+        // "die Mauern": the only entry is neuter, so "die" means the plural of "Mauer"
+        QCOMPARE(wiktionary::parseWikitext(QStringLiteral(
+            "{{Grundformverweis Dekl|Mauer}}\n{{Deutsch Substantiv Übersicht\n|Genus=n\n|Nominativ Singular=Mauern\n}}\n"),
+            QStringLiteral("die")).singularOf, QStringLiteral("Mauer"));
         // adjectives and verbs (lower case targets) are not nouns
         QVERIFY(!wiktionary::parseWikitext(QStringLiteral("{{Grundformverweis Dekl|schön}}")).valid());
 

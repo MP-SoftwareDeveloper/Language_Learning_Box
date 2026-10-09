@@ -38,27 +38,64 @@ QString cleaned(QString v)
     return v;
 }
 
-// The text of the first "{{Deutsch ... Übersicht" template (braces balanced), "" if none.
-QString nounTable(const QString &wikitext)
+// The text of every "{{Deutsch ... Übersicht" template (braces balanced), in page order: one per entry.
+QStringList nounTables(const QString &wikitext)
 {
     static const QRegularExpression start(QStringLiteral(R"(\{\{Deutsch (?:Substantiv|Toponym|Eigenname|Nachname|Vorname) Übersicht)"));
-    const QRegularExpressionMatch m = start.match(wikitext);
-    if (!m.hasMatch())
-        return QString();
-    int depth = 0;
-    const int from = int(m.capturedStart());
-    for (int i = from; i + 1 < wikitext.size(); ++i) {
-        if (wikitext.at(i) == u'{' && wikitext.at(i + 1) == u'{') {
-            ++depth;
-            ++i;
-        } else if (wikitext.at(i) == u'}' && wikitext.at(i + 1) == u'}') {
-            --depth;
-            ++i;
-            if (depth == 0)
-                return wikitext.mid(from, i + 1 - from);
+    QStringList out;
+    int pos = 0;
+    for (;;) {
+        const QRegularExpressionMatch m = start.match(wikitext, pos);
+        if (!m.hasMatch())
+            return out;
+        int depth = 0;
+        const int from = int(m.capturedStart());
+        int end = -1;
+        for (int i = from; i + 1 < wikitext.size(); ++i) {
+            if (wikitext.at(i) == u'{' && wikitext.at(i + 1) == u'{') {
+                ++depth;
+                ++i;
+            } else if (wikitext.at(i) == u'}' && wikitext.at(i + 1) == u'}') {
+                --depth;
+                ++i;
+                if (depth == 0) {
+                    end = i + 1;
+                    break;
+                }
+            }
         }
+        if (end < 0) { // unbalanced: use the rest
+            out << wikitext.mid(from);
+            return out;
+        }
+        out << wikitext.mid(from, end - from);
+        pos = end;
     }
-    return wikitext.mid(from); // unbalanced: use the rest
+}
+
+// "m" / "f" / "n" of a noun table ("Genus=m", "Genus 2=f", ...)
+QStringList tableGenders(const QString &table)
+{
+    static const QRegularExpression genus(QStringLiteral(R"(^\s*\|\s*Genus(?:\s*\d)?\s*=\s*([^\n|]*))"),
+                                          QRegularExpression::MultilineOption);
+    QStringList out;
+    for (auto it = genus.globalMatch(table); it.hasNext();) {
+        const QString v = cleaned(it.next().captured(1)).toLower();
+        if ((v == QLatin1String("m") || v == QLatin1String("f") || v == QLatin1String("n")) && !out.contains(v))
+            out << v;
+    }
+    return out;
+}
+
+// Does the table have a plural of its own ("Nominativ Plural=Reisen"; "—" means none)?
+bool tableHasPlural(const QString &table)
+{
+    static const QRegularExpression plural(QStringLiteral(R"(^\s*\|\s*Nominativ Plural(?:\s*\d)?\*{0,2}\s*=\s*([^\n|]*))"),
+                                           QRegularExpression::MultilineOption);
+    for (auto it = plural.globalMatch(table); it.hasNext();)
+        if (!cleaned(it.next().captured(1)).isEmpty())
+            return true;
+    return false;
 }
 
 // Words linked in the section that follows a heading template such as "{{Weibliche Wortformen}}"
@@ -205,13 +242,32 @@ QUrl requestUrl(const QString &word)
     return url;
 }
 
-Grammar parseWikitext(const QString &wikitext)
+Grammar parseWikitext(const QString &wikitext, const QString &articleHint)
 {
     Grammar g;
-    const QString table = nounTable(wikitext);
+    const QStringList tables = nounTables(wikitext);
+    QString table = tables.value(0);
     // A plural form of a noun wins over a noun of the same spelling on the page ("Mauern": plural of "Mauer",
-    // but also "das Mauern", the activity)
-    const QString target = singularTarget(wikitext);
+    // but also "das Mauern", the activity) - unless that noun has a plural of its own: "Reise" is also the plural
+    // of "Reis", but "die Reise" (plural "Reisen") is a countable noun, so the noun wins.
+    QString target = singularTarget(wikitext);
+    // With the article the word comes with, the entry of that gender is the word ("der Reis" -> the rice entry,
+    // "die Reise" -> the noun, not the plural of "Reis"); "die" with no such entry is a plural ("die Mauern").
+    const QString gender = articleHint.trimmed().toLower() == QLatin1String("der") ? QStringLiteral("m")
+                         : articleHint.trimmed().toLower() == QLatin1String("die") ? QStringLiteral("f")
+                         : articleHint.trimmed().toLower() == QLatin1String("das") ? QStringLiteral("n") : QString();
+    bool entryFound = false;
+    if (!gender.isEmpty())
+        for (const QString &t : tables)
+            if (tableGenders(t).contains(gender)) {
+                table = t;
+                entryFound = true;
+                break;
+            }
+    if (entryFound)
+        target.clear();
+    else if (gender.isEmpty() && !target.isEmpty() && !table.isEmpty() && tableHasPlural(table))
+        target.clear(); // no article: a noun with a plural of its own wins
     if (table.isEmpty() || !target.isEmpty()) {
         g.singularOf = target;
         return g;
@@ -270,7 +326,7 @@ bool pageExists(const QByteArray &json, QString *error)
     return !pages.first().toObject().value(QStringLiteral("missing")).toBool();
 }
 
-Grammar parse(const QByteArray &json, QString *error)
+Grammar parse(const QByteArray &json, QString *error, const QString &article)
 {
     const QJsonDocument doc = QJsonDocument::fromJson(json);
     if (!doc.isObject()) {
@@ -287,7 +343,7 @@ Grammar parse(const QByteArray &json, QString *error)
     const QString content = page.value(QStringLiteral("revisions")).toArray().first().toObject()
                                 .value(QStringLiteral("slots")).toObject().value(QStringLiteral("main")).toObject()
                                 .value(QStringLiteral("content")).toString();
-    Grammar g = parseWikitext(content);
+    Grammar g = parseWikitext(content, article);
     if (g.valid() && g.singularOf.isEmpty() && g.lemma.isEmpty())
         g.lemma = page.value(QStringLiteral("title")).toString();
     return g;
