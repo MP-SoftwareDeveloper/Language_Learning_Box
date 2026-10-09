@@ -223,6 +223,7 @@ Goal: this roadmap and the app version are visible online after each push.
 ## Changelog
 | Date | Change |
 |---|---|
+| 2026-10-09 | Translation: when Google answers 429 (too many requests) the app falls back to MyMemory (free, no key) and skips Google for 10 minutes; readable error texts; Lens says *translation failed* instead of *no connection* |
 | 2026-10-06 | Dictionary: gender (maskulin / feminin / neutral), article and plural of German nouns from the German Wiktionary (online, saved for offline use); saved on the card's back with *+ Add*; `src/translation/wiktionary.*`, `tst_wiktionary` |
 | 2026-10-04 | Speech speed control and its test button removed (review card, Settings): TTS always uses the default speed |
 | 2026-09-29 | Dictionary page (last item on Home); speed control removed from Home; fix: choosing Persian / English in Settings did not stick |

@@ -76,7 +76,7 @@ Page {
         if (e.source === "online") return qsTr("online")
         if (e.source === "saved") return qsTr("saved")
         if (!Translator.useOnline) return qsTr("offline · no saved translation")
-        return e.error ? qsTr("no connection · no saved translation") : qsTr("no translation")
+        return e.error ? qsTr("translation failed · no saved translation") : qsTr("no translation")
     }
     // Card front a word would get (the pack's "das Brot" for "Brot").
     function frontFor(w) {

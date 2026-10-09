@@ -98,7 +98,12 @@ private:
     void fetchGrammar(const QString &word, bool followSingular, const QString &article,
                       std::function<void(const wiktionary::Grammar &, const QString &)> finished);
     explicit Translator(QObject *parent = nullptr);
+    void requestGoogle(int id, const QString &text, const QString &source, const QString &target);
     void onReply(QNetworkReply *reply, int id, const QString &text, const QString &source, const QString &target);
+    // Fallback when Google refuses (429 etc.): MyMemory, free and without a key.
+    void requestMyMemory(int id, const QString &text, const QString &source, const QString &target,
+                         const QString &googleError);
+    static QString errorText(QNetworkReply *reply); // short, readable ("Google limit reached (429)")
     void answerOffline(int id, const QString &text, const QString &source, const QString &target,
                        const QString &error);
     bool openCache();
@@ -113,5 +118,6 @@ private:
     QString m_lastSource;
     bool m_onlineEnabled = true;
     bool m_cacheOk = false;
+    qint64 m_googleBlockedUntil = 0; // ms since epoch; after a 429 Google is skipped for a while
     int m_nextId = 1;
 };

@@ -215,7 +215,7 @@ src/cardimages.*      picture import: EXIF rotate, scale to 1024 px, save JPEG (
 src/ocr/              Tesseract wrapper (ocr.*), word selection helpers (textselect.*, unit-tested)
 src/ocrengine.*       QML `OcrEngine`: async recognition, word boxes, sentence selection
 src/translator.*      QML singleton `Translator`: settings, online/offline, SQLite cache of translations
-src/translation/      Google endpoint URL/body + response parser (pure, unit-tested)
+src/translation/      Google endpoint URL/body + response parser, MyMemory fallback parser (pure, unit-tested)
 3rdparty/             build_ocr_android.cmd (downloads Tesseract, Leptonica, cpu_features at pinned versions);
                       android_openssl/ (KDAB prebuilt libssl_3/libcrypto_3 for HTTPS on Android)
 data/tessdata/        German OCR model (deu.traineddata, tessdata_fast)
@@ -257,6 +257,7 @@ Everything the app and its build need, with links. Items marked *committed* are 
 | What | Link |
 |---|---|
 | Translation (Google endpoint, no key) | [translate.google.com](https://translate.google.com) |
+| Translation fallback when Google answers 429 (MyMemory, no key, ~5000 characters a day) | [mymemory.translated.net](https://mymemory.translated.net) · [API docs](https://mangoo.translated.net/mymemory/api) |
 | Example sentences (Tatoeba API, no key) | [tatoeba.org](https://tatoeba.org) · [API docs](https://api.tatoeba.org/) |
 | Handwriting recognition: Azure AI Vision, free F0 tier (endpoint + key in Settings) | [Create resource](https://portal.azure.com/#create/Microsoft.CognitiveServicesComputerVision) · [Read OCR docs](https://learn.microsoft.com/azure/ai-services/computer-vision/overview-ocr) |
 

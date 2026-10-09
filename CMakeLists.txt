@@ -41,6 +41,7 @@ qt_add_qml_module(appLearningBox
         src/cloudocr.h         src/cloudocr.cpp
         src/ocr/azureread.h    src/ocr/azureread.cpp
         src/translation/googletranslate.h src/translation/googletranslate.cpp
+        src/translation/mymemory.h        src/translation/mymemory.cpp
         src/translation/tatoeba.h         src/translation/tatoeba.cpp
         src/translation/wiktionary.h      src/translation/wiktionary.cpp
         src/deckexchange.h     src/deckexchange.cpp
@@ -302,6 +303,13 @@ if (LEARNINGBOX_BUILD_TESTS AND NOT ANDROID AND NOT IOS)
         target_link_libraries(tst_googletranslate PRIVATE Qt6::Test)
         set_target_properties(tst_googletranslate PROPERTIES WIN32_EXECUTABLE FALSE)
         add_test(NAME tst_googletranslate COMMAND tst_googletranslate)
+
+        qt_add_executable(tst_mymemory tests/tst_mymemory.cpp
+            src/translation/mymemory.cpp)
+        target_include_directories(tst_mymemory PRIVATE src)
+        target_link_libraries(tst_mymemory PRIVATE Qt6::Test)
+        set_target_properties(tst_mymemory PROPERTIES WIN32_EXECUTABLE FALSE)
+        add_test(NAME tst_mymemory COMMAND tst_mymemory)
 
         qt_add_executable(tst_cardstore tests/tst_cardstore.cpp
             src/cardstore.cpp src/cardstore.h src/cardimages.cpp)

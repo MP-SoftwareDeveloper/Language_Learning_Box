@@ -4,10 +4,12 @@
 #include "appmode.h"
 #include "cardstore.h"
 #include "translation/googletranslate.h"
+#include "translation/mymemory.h"
 #include "translation/tatoeba.h"
 #include "translation/wiktionary.h"
 
 #include <QCoreApplication>
+#include <QDateTime>
 #include <QDir>
 #include <QJSEngine>
 #include <QNetworkAccessManager>
@@ -26,6 +28,7 @@
 namespace {
 constexpr auto kConnection = "translations";
 constexpr int kTimeoutMs = 8000;
+constexpr qint64 kGoogleCooldownMs = 10 * 60 * 1000; // Google said 429: use the fallback for 10 minutes
 
 QSqlDatabase db() { return QSqlDatabase::database(QLatin1String(kConnection)); }
 QString key(const QString &source, const QString &text)
@@ -149,12 +152,30 @@ int Translator::translateBetween(const QString &text, const QString &source, con
         return id;
     }
 
+    if (QDateTime::currentMSecsSinceEpoch() < m_googleBlockedUntil)
+        requestMyMemory(id, t, source, target, QStringLiteral("Google limit reached (429)"));
+    else
+        requestGoogle(id, t, source, target);
+    return id;
+}
+
+QString Translator::errorText(QNetworkReply *reply)
+{
+    const int http = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+    if (http == 429)
+        return QStringLiteral("limit reached (429)");
+    if (http >= 400)
+        return QStringLiteral("HTTP %1").arg(http);
+    return reply->errorString();
+}
+
+void Translator::requestGoogle(int id, const QString &text, const QString &source, const QString &target)
+{
     QNetworkRequest req(GoogleTranslate::requestUrl(source, target));
     req.setHeader(QNetworkRequest::ContentTypeHeader, QStringLiteral("application/x-www-form-urlencoded;charset=UTF-8"));
     req.setHeader(QNetworkRequest::UserAgentHeader, QStringLiteral("Mozilla/5.0 (LearningBox)"));
-    QNetworkReply *reply = m_nam->post(req, GoogleTranslate::requestBody(t));
-    connect(reply, &QNetworkReply::finished, this, [=, this] { onReply(reply, id, t, source, target); });
-    return id;
+    QNetworkReply *reply = m_nam->post(req, GoogleTranslate::requestBody(text));
+    connect(reply, &QNetworkReply::finished, this, [=, this] { onReply(reply, id, text, source, target); });
 }
 
 void Translator::onReply(QNetworkReply *reply, int id, const QString &text, const QString &source,
@@ -163,7 +184,10 @@ void Translator::onReply(QNetworkReply *reply, int id, const QString &text, cons
     reply->deleteLater();
     QString error;
     if (reply->error() != QNetworkReply::NoError) {
-        error = reply->errorString();
+        const int http = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+        error = QStringLiteral("Google ") + errorText(reply);
+        if (http == 429 || http == 403) // blocked for now: don't hit it again for every word
+            m_googleBlockedUntil = QDateTime::currentMSecsSinceEpoch() + kGoogleCooldownMs;
     } else {
         const auto r = GoogleTranslate::parse(reply->readAll());
         if (r.error.isEmpty()) {
@@ -173,10 +197,39 @@ void Translator::onReply(QNetworkReply *reply, int id, const QString &text, cons
             emit translated(id, r.text, r.alternatives, QStringLiteral("online"), {});
             return;
         }
-        error = r.error;
+        error = QStringLiteral("Google: ") + r.error;
     }
     qWarning().noquote() << "Translation online failed:" << error;
-    answerOffline(id, text, source, target, error);
+    requestMyMemory(id, text, source, target, error);
+}
+
+void Translator::requestMyMemory(int id, const QString &text, const QString &source, const QString &target,
+                                 const QString &googleError)
+{
+    if (!MyMemory::fits(text)) { // long text: the free fallback only takes short lines
+        answerOffline(id, text, source, target, googleError);
+        return;
+    }
+    QNetworkRequest req(MyMemory::requestUrl(text, source, target));
+    req.setHeader(QNetworkRequest::UserAgentHeader, QStringLiteral("LearningBox/1.0 (Qt; German vocabulary app)"));
+    QNetworkReply *reply = m_nam->get(req);
+    connect(reply, &QNetworkReply::finished, this, [=, this] {
+        reply->deleteLater();
+        QString error;
+        if (reply->error() != QNetworkReply::NoError) {
+            error = QStringLiteral("MyMemory ") + errorText(reply);
+        } else {
+            const auto r = MyMemory::parse(reply->readAll(), text);
+            if (r.error.isEmpty()) {
+                store(source, target, text, r.text, r.alternatives); // offline later, like Google's answers
+                emit translated(id, r.text, r.alternatives, QStringLiteral("online"), {});
+                return;
+            }
+            error = QStringLiteral("MyMemory: ") + r.error;
+        }
+        qWarning().noquote() << "Translation fallback failed:" << error;
+        answerOffline(id, text, source, target, googleError + QStringLiteral("; ") + error);
+    });
 }
 
 void Translator::remember(const QString &text, const QString &translation)
