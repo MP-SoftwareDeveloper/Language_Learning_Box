@@ -287,6 +287,17 @@ Page {
                     width: parent.width
                     spacing: 16
 
+                    // The box (reg) this card is in
+                    Label {
+                        objectName: "cardBox"
+                        Layout.fillWidth: true
+                        visible: session.hasCard
+                        horizontalAlignment: Text.AlignHCenter
+                        font.pixelSize: 13
+                        color: Material.accentColor
+                        text: qsTr("In %1").arg(BoxNames.name(session.box))
+                    }
+
                     // Mix: which way this card is asked
                     Pane {
                         Layout.alignment: Qt.AlignHCenter

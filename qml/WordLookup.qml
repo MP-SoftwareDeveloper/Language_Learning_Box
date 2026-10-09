@@ -97,11 +97,12 @@ Item {
                         .map(l => l.replace(/^\s*Pl\.\s*/, "Plural ").replace(/(^|\/\s*|Plural\s+)die\s+/gi, "$1"))
                         .join("\n")
         applyCapital()
-        if (w.length >= 2)
+        if (w.length >= 2) {
             // The article typed (or the pack's) picks the right entry on a page with several: der Reis / die Reise
             const art = parts && parts[1] ? parts[1].toLowerCase()
                       : (packFront !== "" ? packFront.split(" ")[0].toLowerCase() : "")
             grammarRequest = Translator.lookupGrammar(art !== "" ? art + " " + w : w) // lowercase words: only nouns get an article
+        }
     }
 
     // The text with a capital first letter, or "" when it is fine as it is. A single word only gets the capital
