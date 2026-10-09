@@ -86,9 +86,16 @@ Page {
 
     // Save the looked-up word as a card in the selected learning box, with the chosen sentence.
     // A word that is already a card is only touched when the user says so (updateExisting).
+    // Also works without a translation (nothing found, offline, Google blocked): the card is saved with an
+    // empty meaning, to be filled in later. Looked up from the meaning side with no German found, the card
+    // editor opens with what was typed as the meaning.
     function quickAdd(updateExisting) {
         const front = cardFront.trim()
-        if (front === "" || result === "")
+        if (front === "" && reverse && query !== "") {
+            page.StackView.view.push(editPage, { initialBack: query })
+            return
+        }
+        if (front === "")
             return
         const id = CardStore.findByFront(front)
         if (id >= 0 && !updateExisting) {
@@ -102,8 +109,9 @@ Page {
                                             chosenExample !== "" ? chosenExample : (c.example ?? ""), c.image ?? "")
             toast.show(ok ? qsTr("Card updated") : qsTr("Could not save"))
         } else {
-            toast.show(CardStore.addCard(front, cardBack, chosenExample) >= 0 ? qsTr("Card added")
-                                                                                 : qsTr("Could not save"))
+            toast.show(CardStore.addCard(front, cardBack, chosenExample) >= 0
+                       ? (cardBack === "" ? qsTr("Card added without a meaning") : qsTr("Card added"))
+                       : qsTr("Could not save"))
         }
     }
 
@@ -432,8 +440,12 @@ Page {
                     Button {
                         Layout.topMargin: 4
                         highlighted: true
-                        visible: page.result !== "" && page.learnWord !== ""
-                        text: qsTr("+ Add to “%1”").arg(CardStore.currentCollectionName)
+                        // also when nothing was found: the card is saved without a meaning (or, looked up from the
+                        // meaning side, the editor opens with it)
+                        visible: !page.free && page.requestId < 0
+                                 && (page.learnWord !== "" || (page.reverse && page.query !== ""))
+                        text: page.result !== "" ? qsTr("+ Add to “%1”").arg(CardStore.currentCollectionName)
+                                                 : qsTr("+ Add without translation to “%1”").arg(CardStore.currentCollectionName)
                         onClicked: page.quickAdd(false)
                     }
                 }
