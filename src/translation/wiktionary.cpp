@@ -164,6 +164,48 @@ QString lemmaOf(const QString &front)
     return w;
 }
 
+QStringList singularCandidates(const QString &plural)
+{
+    const QString p = plural.trimmed();
+    QStringList out;
+    if (p.size() < 4 || !p.at(0).isUpper())
+        return out;
+    const auto add = [&](const QString &s) {
+        if (s.size() >= 3 && s != p && !out.contains(s))
+            out << s;
+    };
+    // The stem as it is, and with the last umlaut undone ("Händ" -> "Hand", "Häus" -> "Haus")
+    const auto stem = [&](int cut) {
+        const QString s = p.chopped(cut);
+        add(s);
+        for (int i = int(s.size()) - 1; i > 0; --i) {
+            const QChar c = s.at(i);
+            const QChar r = c == u'\u00e4' ? u'a' : c == u'\u00f6' ? u'o' : c == u'\u00fc' ? u'u' : QChar();
+            if (!r.isNull()) {
+                QString t = s;
+                t[i] = r;
+                add(t);
+                break;
+            }
+        }
+    };
+    if (p.endsWith(QStringLiteral("nen")))
+        stem(3);                       // Lehrerinnen -> Lehrerin
+    if (p.endsWith(QStringLiteral("en"))) {
+        stem(2);                       // Frauen -> Frau, Studenten -> Student
+        stem(1);                       // Namen -> Name
+    }
+    if (p.endsWith(u'n'))
+        stem(1);                       // Nudeln -> Nudel
+    if (p.endsWith(QStringLiteral("er")))
+        stem(2);                       // Kinder -> Kind, Bücher -> Buch
+    if (p.endsWith(u'e'))
+        stem(1);                       // Hände -> Hand, Hunde -> Hund
+    if (p.endsWith(u's'))
+        stem(1);                       // Autos -> Auto
+    return out.mid(0, 5);
+}
+
 QUrl suggestUrl(const QString &language, const QString &prefix, int limit)
 {
     QUrl url(QStringLiteral("https://%1.wiktionary.org/w/api.php").arg(language));

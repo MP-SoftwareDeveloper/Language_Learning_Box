@@ -130,6 +130,19 @@ private slots:
                  (QStringList{QStringLiteral("Plural Lehrer"), QStringLiteral("Singular die Lehrerin"),
                               QStringLiteral("Plural Lehrerinnen")}));
     }
+    void singularGuesses()
+    {
+        QCOMPARE(wiktionary::singularCandidates(QStringLiteral("Nudeln")).value(0), QStringLiteral("Nudel"));
+        QCOMPARE(wiktionary::singularCandidates(QStringLiteral("Frauen")).value(0), QStringLiteral("Frau"));
+        QCOMPARE(wiktionary::singularCandidates(QStringLiteral("Lehrerinnen")).value(0), QStringLiteral("Lehrerin"));
+        QVERIFY(wiktionary::singularCandidates(QStringLiteral("Kinder")).contains(QStringLiteral("Kind")));
+        QVERIFY(wiktionary::singularCandidates(QStringLiteral("B\u00fccher")).contains(QStringLiteral("Buch")));
+        QVERIFY(wiktionary::singularCandidates(QStringLiteral("H\u00e4nde")).contains(QStringLiteral("Hand")));
+        QVERIFY(wiktionary::singularCandidates(QStringLiteral("H\u00e4user")).contains(QStringLiteral("Haus")));
+        QVERIFY(wiktionary::singularCandidates(QStringLiteral("Autos")).contains(QStringLiteral("Auto")));
+        QVERIFY(wiktionary::singularCandidates(QStringLiteral("gehen")).isEmpty()); // not capitalised: not a noun
+        QVERIFY(wiktionary::singularCandidates(QStringLiteral("Hund")).isEmpty());
+    }
     void pluralFormPointsAtItsNoun()
     {
         const wiktionary::Grammar a = wiktionary::parseWikitext(

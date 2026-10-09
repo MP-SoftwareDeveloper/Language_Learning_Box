@@ -39,6 +39,11 @@ QUrl requestUrl(const QString &word);
 QUrl existsUrl(const QString &title);
 bool pageExists(const QByteArray &json, QString *error = nullptr);
 
+// Possible singulars of a plural noun, most likely first ("Nudeln" -> "Nudel", "Frauen" -> "Frau", "Hände" ->
+// "Hand", "Kinder" -> "Kind", "Lehrerinnen" -> "Lehrerin"). Only guesses: each one is checked against Wiktionary
+// (its plural must be the word that was looked up). Empty for words that are not capitalised (not nouns).
+QStringList singularCandidates(const QString &plural);
+
 // Word suggestions while typing ("hau" -> Haus, Hausaufgabe, ...): Wiktionary's prefix search in the given
 // language ("de", "en", "fa"). Titles are case-sensitive there, so the caller asks for each spelling of the
 // first letter (suggestVariants) and merges the answers (mergeSuggestions).

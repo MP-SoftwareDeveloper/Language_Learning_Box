@@ -381,10 +381,10 @@ int Translator::lookupGrammar(const QString &word)
         answer({}, QString());
         return id;
     }
-    // Saved answer first (row in the translation cache, language "grammar6"; "-" = looked up, not a noun)
+    // Saved answer first (row in the translation cache, language "grammar7"; "-" = looked up, not a noun)
     QString saved;
     QStringList extra;
-    if (lookup(QStringLiteral("de"), QStringLiteral("grammar6"), cacheKey, &saved, &extra)) {
+    if (lookup(QStringLiteral("de"), QStringLiteral("grammar7"), cacheKey, &saved, &extra)) {
         answer(saved == QLatin1String("-") ? QVariantMap()
                                            : view(wiktionary::decode(saved, extra.value(0, w))),
                QString());
@@ -396,7 +396,7 @@ int Translator::lookupGrammar(const QString &word)
     }
     const auto done = [=, this](const wiktionary::Grammar &g, const QString &error) {
         if (error.isEmpty())
-            store(QStringLiteral("de"), QStringLiteral("grammar6"), cacheKey,
+            store(QStringLiteral("de"), QStringLiteral("grammar7"), cacheKey,
                   g.valid() ? wiktionary::encode(g) : QStringLiteral("-"),
                   g.valid() ? QStringList{g.lemma.isEmpty() ? w : g.lemma} : QStringList());
         else
@@ -405,6 +405,17 @@ int Translator::lookupGrammar(const QString &word)
     };
     const auto proceed = [=, this] {
     fetchGrammar(w, true, hint, [=, this](const wiktionary::Grammar &g, const QString &error) {
+        // No entry, or only a plural-only entry whose "lemma" is the word itself: "Nudeln" may be the plural of
+        // "Nudel" without Wiktionary's page saying so in a form we read. Guess the singular and check it.
+        const bool pluralOnly = g.valid() && g.singularOf.isEmpty() && g.lemma.compare(w, Qt::CaseInsensitive) == 0
+                                && g.plurals.contains(w, Qt::CaseInsensitive);
+        if (error.isEmpty() && hint.isEmpty() && (!g.valid() || pluralOnly)) {
+            const QStringList guesses = wiktionary::singularCandidates(w);
+            if (!guesses.isEmpty()) {
+                guessSingular(w, g, guesses, done);
+                return;
+            }
+        }
         if (!error.isEmpty() || !g.valid()) {
             done(g, error);
             return;
@@ -460,6 +471,31 @@ int Translator::lookupGrammar(const QString &word)
     }
     proceed();
     return id;
+}
+
+void Translator::guessSingular(const QString &plural, const wiktionary::Grammar &original,
+                               QStringList candidates,
+                               std::function<void(const wiktionary::Grammar &, const QString &)> finished)
+{
+    if (candidates.isEmpty()) {
+        finished(original, QString());
+        return;
+    }
+    const QString candidate = candidates.takeFirst();
+    fetchGrammar(candidate, false, QString(), [=, this](const wiktionary::Grammar &noun, const QString &error) {
+        if (!error.isEmpty()) { // no connection: not "no singular", so nothing is saved
+            finished(original, error);
+            return;
+        }
+        if (noun.valid() && noun.singularOf.isEmpty() && !noun.genders.isEmpty()
+                && noun.plurals.contains(plural, Qt::CaseInsensitive)) {
+            wiktionary::Grammar page;
+            page.singularOf = candidate;
+            finished(wiktionary::withSingular(page, noun), QString());
+            return;
+        }
+        guessSingular(plural, original, candidates, finished);
+    });
 }
 
 void Translator::answerOffline(int id, const QString &text, const QString &source, const QString &target,

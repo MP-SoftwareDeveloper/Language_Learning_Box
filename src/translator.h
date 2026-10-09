@@ -97,6 +97,11 @@ signals:
 private:
     void fetchGrammar(const QString &word, bool followSingular, const QString &article,
                       std::function<void(const wiktionary::Grammar &, const QString &)> finished);
+    // Wiktionary has no usable entry for a plural noun ("Nudeln"): try the likely singulars one after the other
+    // (wiktionary::singularCandidates) and take the first noun whose plural is the word. `original` is the answer
+    // when none fits.
+    void guessSingular(const QString &plural, const wiktionary::Grammar &original, QStringList candidates,
+                       std::function<void(const wiktionary::Grammar &, const QString &)> finished);
     explicit Translator(QObject *parent = nullptr);
     void requestGoogle(int id, const QString &text, const QString &source, const QString &target);
     void onReply(QNetworkReply *reply, int id, const QString &text, const QString &source, const QString &target);
