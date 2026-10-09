@@ -6,7 +6,7 @@ import LearningBox
 
 // The same block under the text box in the Dictionary and in Add card (and so for words picked in Lens):
 //   - the singular forms of each gender and the plural forms, each with 🔊 and the gender colour
-//   - example sentences with a radio button: the chosen one goes on the card (tap it again for none)
+//   - example sentences with a check box: the ticked ones go on the card (one or several, or none)
 // It only shows what the WordLookup `info` found. Set Layout margins where it is used.
 ColumnLayout {
     id: root
@@ -70,7 +70,7 @@ ColumnLayout {
         font.pixelSize: 12
         opacity: 0.6
         text: root.info && root.info.examplesRequest >= 0 && root.info.examples.length === 0
-              ? qsTr("Finding example sentences…") : qsTr("Example sentences – choose one for the card")
+              ? qsTr("Finding example sentences…") : qsTr("Example sentences – tick one or more for the card")
     }
     Repeater {
         model: root.info ? root.info.examples : []
@@ -78,25 +78,16 @@ ColumnLayout {
             id: exRow
             required property var modelData
             required property int index
-            readonly property bool picked: root.info !== null && root.info.picked === index
+            readonly property bool picked: root.info !== null && root.info.isPicked(index)
             function toggle() { root.info.toggle(index) }
             Layout.fillWidth: true
-            // radio button: filled dot = this sentence goes on the card
-            Rectangle {
+            // check box: ticked = this sentence goes on the card (any number of them)
+            CheckBox {
                 Layout.alignment: Qt.AlignTop
-                Layout.topMargin: 3
-                implicitWidth: 22; implicitHeight: 22
-                radius: 11
-                color: "transparent"
-                border.width: 2
-                border.color: exRow.picked ? Material.accent : Qt.alpha(Material.foreground, 0.5)
-                Rectangle {
-                    anchors.centerIn: parent
-                    width: 10; height: 10; radius: 5
-                    color: Material.accent
-                    visible: exRow.picked
-                }
-                TapHandler { onTapped: exRow.toggle() }
+                padding: 0
+                topPadding: 2
+                checked: exRow.picked
+                onToggled: exRow.toggle()
             }
             ExampleText {
                 Layout.fillWidth: true

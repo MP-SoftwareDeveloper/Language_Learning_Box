@@ -130,20 +130,30 @@ Item {
     // ---- example sentences: word pack (offline) + Tatoeba (online) ----
     property var examples: []           // [{text, translation}]
     property int examplesRequest: -1
-    property int picked: -1             // index of the sentence that goes on the card, -1 = none
+    property var picked: []             // indices of the sentences that go on the card (several allowed), [] = none
     property bool deselected: false
     property string examplesFor: ""
-    readonly property string chosen: picked >= 0 && picked < examples.length ? examples[picked].text : ""
+    // The chosen sentences, one per line: the card keeps them all in its example field
+    readonly property string chosen: picked.filter(i => i < examples.length).map(i => examples[i].text).join("\n")
 
-    function pick(i, byUser) {
-        picked = i
-        deselected = i < 0
-        const e = i >= 0 ? examples[i] : undefined
-        if (e && e.translation && meaning === Translator.meaningLanguage)
-            Translator.remember(e.text, e.translation)
-        exampleChosen(e ? e.text : "", byUser === true)
+    function isPicked(i) { return picked.indexOf(i) >= 0 }
+
+    // Choose these sentences (ascending indices); byUser: ticked by hand, false: chosen automatically
+    function pickAll(list, byUser) {
+        const fresh = list.filter(i => picked.indexOf(i) < 0)
+        picked = list
+        deselected = list.length === 0
+        for (const i of fresh) {
+            const e = examples[i]
+            if (e && e.translation && meaning === Translator.meaningLanguage)
+                Translator.remember(e.text, e.translation)
+        }
+        exampleChosen(chosen, byUser === true)
     }
-    function toggle(i) { pick(picked === i ? -1 : i, true) }
+    // CheckBox: tick / untick one sentence
+    function toggle(i) {
+        pickAll(isPicked(i) ? picked.filter(k => k !== i) : picked.concat([i]).sort((a, b) => a - b), true)
+    }
 
     function findExamples(force) {
         const t = word.trim()
@@ -154,7 +164,7 @@ Item {
         examplesFor = key
         examples = []
         examplesRequest = -1
-        picked = -1
+        picked = []
         deselected = false
         if (autoPick)
             exampleChosen("", false)
@@ -164,7 +174,7 @@ Item {
         examples = lang !== "de" ? []
                  : WordPacks.examplesContaining(q, 3).map(e => ({ text: e.text, translation: persian ? e.translation : "" }))
         if (examples.length > 0 && autoPick)
-            pick(0, false)
+            pickAll([0], false) // the first one is ticked to start with; tick more or untick it
         if (Translator.useOnline)
             examplesRequest = Translator.suggestExamples(q)
     }
@@ -230,8 +240,8 @@ Item {
                 if (merged.length < 5 && seen.indexOf(e.text.toLowerCase()) < 0)
                     merged.push(e)
             root.examples = merged
-            if (root.picked < 0 && root.autoPick && !root.deselected && merged.length > 0)
-                root.pick(0, false)
+            if (root.picked.length === 0 && root.autoPick && !root.deselected && merged.length > 0)
+                root.pickAll([0], false)
         }
     }
 }

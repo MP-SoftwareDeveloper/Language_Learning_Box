@@ -331,7 +331,7 @@ Page {
                 onPicked: (entry) => page.pickWord(entry)
             }
 
-            // Singular masculine / feminine, plural and example sentences (radio buttons): the same block as
+            // Singular masculine / feminine, plural and example sentences (check boxes): the same block as
             // in the Dictionary, whether the word was typed here or picked in Lens
             WordDetails {
                 Layout.fillWidth: true
@@ -398,19 +398,20 @@ Page {
                     Layout.fillWidth: true
                     Layout.minimumHeight: 60
                     wrapMode: TextEdit.Wrap
-                    placeholderText: qsTr("Example sentence")
+                    placeholderText: qsTr("Example sentences (one per line)")
                     onTextChanged: if (!page.settingExample) page.exampleAuto = text.trim() === ""
                 }
                 SpeakButton { speakText: exampleField.text }
             }
-            // Persian translation of the example (when Persian is selected in Settings)
-            ExampleText {
+            // Translation of the example sentences (one per line), in the language selected in Settings
+            ExampleList {
                 Layout.fillWidth: true
                 Layout.leftMargin: 20
                 Layout.rightMargin: 56
                 Layout.topMargin: -8
-                example: exampleField.text
+                text: exampleField.text
                 showGerman: false
+                speak: false
                 pixelSize: 15
             }
 

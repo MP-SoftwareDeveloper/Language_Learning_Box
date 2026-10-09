@@ -82,7 +82,7 @@ Page {
     property string source: ""       // "pack", "online", "saved"
     property string error: ""
     property int requestId: -1
-    readonly property string chosenExample: wordInfo.chosen // sentence that goes on the card (radio button)
+    readonly property string chosenExample: wordInfo.chosen // sentences that go on the card, one per line (check boxes)
 
     // Save the looked-up word as a card in the selected learning box, with the chosen sentence.
     // A word that is already a card is only touched when the user says so (updateExisting).

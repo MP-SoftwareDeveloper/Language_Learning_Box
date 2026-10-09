@@ -122,23 +122,12 @@ ColumnLayout {
             Layout.preferredHeight: 1
         }
     }
-    // Example sentence
-    RowLayout {
+    // Example sentences (one or several, one per line)
+    ExampleList {
         Layout.fillWidth: true
-        visible: root.example !== ""
-        spacing: 4
-        Label {
-            Layout.fillWidth: true
-            text: root.example
-            wrapMode: Text.WordWrap
-            font.italic: true
-            font.pixelSize: 14
-            opacity: 0.85
-        }
-        SpeakButton {
-            Layout.alignment: Qt.AlignTop
-            speakText: root.example
-        }
+        text: root.example
+        translated: false
+        pixelSize: 14
     }
     Label {
         visible: text !== ""

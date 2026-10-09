@@ -58,6 +58,7 @@ qt_add_qml_module(appLearningBox
         qml/LensPage.qml
         qml/SettingsPage.qml
         qml/ExampleText.qml
+        qml/ExampleList.qml
         qml/BoxPage.qml
         qml/BoxNames.qml
         qml/SortButton.qml

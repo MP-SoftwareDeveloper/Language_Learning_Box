@@ -17,12 +17,14 @@ Page {
     readonly property var meaningAll: primaryMeaning.replace(/\s*\u00b7\s*Pl\./, "\nPlural").split("\n")
     readonly property string meaningBodyText: (germanFirst ? meaningAll : meaningAll.slice(1))
                                               .filter(l => !/^\s*(Pl\.|Plural|Sg\.|Singular|Mask\.|Fem\.)/.test(l)).join("\n")
-    // Plural, masculine and feminine forms: looked up in Wiktionary for the shown card (saved on the phone
-    // after the first time, so it works offline later); the forms stored in the card are the fallback.
+    // Plural, masculine and feminine forms: the ones stored in the card; a card without any gets them looked up in
+    // Wiktionary (saved on the phone after the first time, so it works offline later).
     property var grammar: ({})
     property int grammarRequest: -1
-    readonly property string meaningFormsText: (grammar.forms ?? "") !== "" ? grammar.forms
-                                               : meaningAll.filter(l => /^\s*(Pl\.|Plural|Sg\.|Singular|Mask\.|Fem\.)/.test(l)).join("\n")
+    // The forms saved on the card come first, so a line you deleted in Edit stays deleted ("Singular die Herrin"
+    // on "der Herr" = Mr.); only a card without any gets the looked-up forms.
+    readonly property string storedFormsText: meaningAll.filter(l => /^\s*(Pl\.|Plural|Sg\.|Singular|Mask\.|Fem\.)/.test(l)).join("\n")
+    readonly property string meaningFormsText: storedFormsText !== "" ? storedFormsText : (grammar.forms ?? "")
     readonly property string markWord: /^(der|die|das)\s/i.test(session.front) ? session.front : (grammar.front ?? "")
     function lookupForms() {
         grammar = ({})
@@ -448,18 +450,11 @@ Page {
                         text: qsTr("translating\u2026")
                     }
 
-                    RowLayout {
+                    ExampleList {
                         Layout.fillWidth: true
                         visible: page.revealed && session.example.length > 0
-                        ExampleText {
-                            Layout.fillWidth: true
-                            example: session.example
-                            pixelSize: 17
-                        }
-                        SpeakButton {
-                            Layout.alignment: Qt.AlignTop
-                            speakText: session.example
-                        }
+                        text: session.example
+                        pixelSize: 17
                     }
                 }
             }
