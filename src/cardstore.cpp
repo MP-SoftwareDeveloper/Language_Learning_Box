@@ -18,6 +18,8 @@
 #include <QDebug>
 #include <QUrl>
 #include <QUuid>
+#include <QVideoFrame>
+#include <QVideoSink>
 
 namespace {
 
@@ -1119,6 +1121,28 @@ QString CardStore::importCameraShot(const QString &path, int rotation)
     if (name.isEmpty())
         fail(QStringLiteral("importCameraShot"), error);
     return name;
+}
+
+bool CardStore::grabFrame(QObject *videoSink)
+{
+    m_grabbedFrame = QImage();
+    auto *sink = qobject_cast<QVideoSink *>(videoSink);
+    if (!sink)
+        return false;
+    m_grabbedFrame = sink->videoFrame().toImage();
+    return !m_grabbedFrame.isNull();
+}
+
+QString CardStore::importGrabbedShot(int rotation)
+{
+    if (m_grabbedFrame.isNull())
+        return {};
+    const QString path = cameraFilePath();
+    const bool saved = m_grabbedFrame.save(path, "jpg", 92);
+    m_grabbedFrame = QImage();
+    if (!saved)
+        return {};
+    return importCameraShot(path, rotation);
 }
 
 QUrl CardStore::imageUrl(const QString &name) const

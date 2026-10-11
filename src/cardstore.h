@@ -2,6 +2,7 @@
 
 #include "card.h"
 
+#include <QImage>
 #include <QList>
 #include <QSet>
 #include <QStringList>
@@ -89,6 +90,10 @@ public:
     // like importImage (turned by `rotation` for landscape shots) and deletes the temporary file.
     Q_INVOKABLE QString cameraFilePath() const;
     Q_INVOKABLE QString importCameraShot(const QString &path, int rotation = 0);
+    // Fallback when the still capture hangs (seen on some phones): keep a copy of the viewfinder picture
+    // (grabFrame, at the moment of the shot) and store that instead (importGrabbedShot, "" = none/failed).
+    Q_INVOKABLE bool grabFrame(QObject *videoSink);
+    Q_INVOKABLE QString importGrabbedShot(int rotation = 0);
     Q_INVOKABLE bool removeCard(int id);
     // Several cards at once (box page selection); returns how many were deleted
     Q_INVOKABLE int removeCards(const QVariantList &ids);
@@ -179,6 +184,7 @@ private:
     bool m_ready = false;
     QString m_lastError;
     QString m_imageDir;
+    QImage m_grabbedFrame;
     int m_collection = 1;
     bool m_canUndoReset = false;
 };

@@ -22,7 +22,7 @@ Page {
     readonly property string selectedText: engine.joinSelected(selected)
     readonly property var selectedList: selectedWords()
     // Nothing selected (new photo, or after Create card): the example box below starts empty again
-    onSelectedChanged: if (selected.length === 0) exampleBox.clear()
+    onSelectedChanged: if (selected.length === 0) { exampleBox.clear(); writingExample = false }
 
     // ---------- translations ----------
     // key (German text) -> {text, alternatives, source, pending}
@@ -217,6 +217,52 @@ Page {
     // Press-and-hold: the sentence replaces the current selection.
     function selectSentence(i) {
         selected = engine.sentenceAt(i)
+    }
+    // While the example box has the focus, the words tapped in the photo are written into it (with their
+    // punctuation, in the order tapped) instead of being selected for the card. Tapping outside the box
+    // (leaveExample) ends this and the taps select words again.
+    // A plain flag, not just the box's focus: Android keeps the focus on the box when something else is tapped.
+    // On when the box is tapped, off when something else is tapped (leaveExample) or "Done" is pressed.
+    property bool writingExample: false
+    function addToExample(text) {
+        Qt.inputMethod.commit() // finish a word the keyboard is still composing
+        const t = exampleBox.text.replace(/\s+$/, "")
+        exampleBox.text = t === "" ? text : t + " " + text
+        exampleBox.cursorPosition = exampleBox.length
+    }
+    function tapWord(i) {
+        if (writingExample)
+            addToExample(engine.words[i].text)
+        else
+            toggle(i)
+    }
+    function holdWord(i) {
+        if (writingExample)
+            addToExample(engine.joinSelected(engine.sentenceAt(i)))
+        else
+            selectSentence(i)
+    }
+    function leaveExample(scenePoint) {
+        // Tapping the box or its letter keys keeps writing
+        for (const f of [exampleBox, exampleKeys]) {
+            const q = f.mapFromItem(null, scenePoint.x, scenePoint.y)
+            if (q.x >= 0 && q.y >= 0 && q.x <= f.width && q.y <= f.height)
+                return
+        }
+        // Tapping the photo adds words. The photo item can be taller than the visible area (it is clipped by the
+        // Flickable), so a point on the selection bar may lie "inside" it: the visible part counts only.
+        const v = flick.mapFromItem(null, scenePoint.x, scenePoint.y)
+        const p = content.mapFromItem(null, scenePoint.x, scenePoint.y)
+        if (v.x >= 0 && v.y >= 0 && v.x <= flick.width && v.y <= flick.height
+                && p.x >= 0 && p.y >= 0 && p.x <= content.width && p.y <= content.height)
+            return
+        endWriting()
+    }
+    function endWriting() {
+        writingExample = false
+        exampleBox.focus = false
+        page.forceActiveFocus()
+        Qt.inputMethod.hide()
     }
     function selectedWords() {
         const list = []
@@ -429,14 +475,32 @@ Page {
         spacing: 0
         visible: engine.available && page.mode === "result"
 
+        // Tap on the white area anywhere on the page (not the box, its letter keys or the photo)
+        TapHandler {
+            enabled: page.writingExample
+            onTapped: (eventPoint) => page.leaveExample(eventPoint.scenePosition)
+        }
+
         Flickable {
             id: flick
             Layout.fillWidth: true
             Layout.fillHeight: true
             clip: true
             contentWidth: content.width
-            contentHeight: content.height
+            contentHeight: Math.max(content.height, flick.height)
             boundsBehavior: Flickable.StopAtBounds
+
+            // The blank part of the Flickable (below a short photo): a tap there also ends writing the example.
+            // Inside the Flickable because it swallows touches before the handlers outside it.
+            Item {
+                z: -1
+                width: Math.max(flick.contentWidth, flick.width)
+                height: flick.contentHeight
+                TapHandler {
+                    enabled: page.writingExample
+                    onTapped: (eventPoint) => page.leaveExample(eventPoint.scenePosition)
+                }
+            }
 
             QtObject { id: zoom; property real value: 1 }
 
@@ -471,8 +535,8 @@ Page {
                         border.color: "#00796B"
 
                         TapHandler {
-                            onTapped: page.toggle(box.modelData.index)
-                            onLongPressed: page.selectSentence(box.modelData.index)
+                            onTapped: page.tapWord(box.modelData.index)
+                            onLongPressed: page.holdWord(box.modelData.index)
                         }
                     }
                 }
@@ -513,6 +577,7 @@ Page {
 
         // ---------- selection bar ----------
         Pane {
+            id: selectionBar
             Layout.fillWidth: true
             Material.elevation: 6
             padding: 12
@@ -587,7 +652,23 @@ Page {
                     }
                 }
 
-                // Optional example sentence for the card: empty, the user types or copies a sentence from the photo
+                RowLayout {
+                    Layout.fillWidth: true
+                    visible: page.writingExample
+                    Label {
+                        Layout.fillWidth: true
+                        font.pixelSize: 12
+                        opacity: 0.7
+                        wrapMode: Text.WordWrap
+                        text: qsTr("Tap words in the photo to add them to the example.")
+                    }
+                    Button {
+                        flat: true
+                        text: qsTr("Done")
+                        onClicked: page.endWriting()
+                    }
+                }
+                // Optional example sentence for the card: empty, the user types, or taps words in the photo
                 RowLayout {
                     Layout.fillWidth: true
                     visible: page.selected.length > 0
@@ -596,7 +677,10 @@ Page {
                         Layout.fillWidth: true
                         Layout.maximumHeight: page.height * 0.18
                         wrapMode: TextEdit.Wrap
-                        placeholderText: qsTr("Example sentence from the photo (optional) \u2013 tap to write")
+                        placeholderText: qsTr("Example sentence (optional) \u2013 tap here, then tap words in the photo")
+                        onActiveFocusChanged: if (activeFocus) page.writingExample = true
+                        // tapping the box again (it may still have the focus) starts writing again
+                        TapHandler { onTapped: page.writingExample = true }
                     }
                     SpeakButton {
                         Layout.alignment: Qt.AlignTop
@@ -605,6 +689,7 @@ Page {
                     }
                 }
                 GermanKeys {
+                    id: exampleKeys
                     Layout.fillWidth: true
                     target: exampleBox
                 }
@@ -643,6 +728,20 @@ Page {
                     }
                 }
             }
+        }
+    }
+
+    // A tap anywhere on the selection bar (word list, buttons, empty space) outside the example box ends
+    // writing into the box. A "spy" on top of the bar: it sees the press first and passes it on, so the
+    // word list (a Flickable) and the buttons still get their taps.
+    MouseArea {
+        parent: selectionBar
+        anchors.fill: parent
+        z: 1000
+        enabled: page.writingExample
+        onPressed: (mouse) => {
+            page.leaveExample(mapToItem(null, mouse.x, mouse.y))
+            mouse.accepted = false
         }
     }
 

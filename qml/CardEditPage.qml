@@ -425,18 +425,6 @@ Page {
                 Layout.rightMargin: 16
                 target: exampleField
             }
-            // Translation of the example sentences (one per line), in the language selected in Settings
-            ExampleList {
-                Layout.fillWidth: true
-                Layout.leftMargin: 20
-                Layout.rightMargin: 56
-                Layout.topMargin: -8
-                text: exampleField.text
-                showGerman: false
-                speak: false
-                pixelSize: 15
-            }
-
             // ---- Picture ----
             Image {
                 id: preview
