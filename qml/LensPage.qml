@@ -29,8 +29,27 @@ Page {
         if (selected.length !== 1 || engine.words.length === 0)
             return ""
         const word = engine.cleanWord(engine.words[selected[0]].text)
-        const s = norm(engine.joinSelected(engine.sentenceAt(selected[0])))
-        return word !== "" && s.length > word.length && s.length <= 250 ? s : ""
+        const range = engine.sentenceAt(selected[0])   // word indices of the whole sentence
+        const pos = range.indexOf(selected[0])
+        if (word === "" || pos < 0)
+            return ""
+        // A simple example, not the whole long line: a short sentence is kept; a long one is cut down to
+        // the part between commas around the word, and to at most maxWords words.
+        const maxWords = 10
+        const endsPart = i => /[,;:]$/.test(engine.words[range[i]].text)
+        let a = 0, b = range.length - 1
+        if (range.length > maxWords) {
+            a = pos; b = pos
+            while (a > 0 && !endsPart(a - 1)) --a
+            while (b < range.length - 1 && !endsPart(b)) ++b
+            if (b - a + 1 < 3) { a = 0; b = range.length - 1 } // too little around the word: take a window
+            if (b - a + 1 > maxWords) {
+                a = Math.max(a, Math.min(pos - 4, b - maxWords + 1))
+                b = a + maxWords - 1
+            }
+        }
+        const s = norm(engine.joinSelected(range.slice(a, b + 1))).replace(/[,;:]+$/, "")
+        return s.length > word.length ? s : ""
     }
 
     // ---------- translations ----------
