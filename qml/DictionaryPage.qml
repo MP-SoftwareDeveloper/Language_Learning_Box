@@ -83,6 +83,16 @@ Page {
     property string error: ""
     property int requestId: -1
     readonly property string chosenExample: wordInfo.chosen // sentences that go on the card, one per line (check boxes)
+    // Sentences typed by the user in the box above "Add", one per line
+    readonly property string ownExample: ownExampleField.text.split("\n").map(l => l.trim()).filter(l => l !== "").join("\n")
+    // What goes on the card: the ticked suggestions, then the user's own sentences (no duplicates)
+    readonly property string cardExample: {
+        const lines = chosenExample !== "" ? chosenExample.split("\n") : []
+        for (const l of ownExample.split("\n"))
+            if (l !== "" && lines.indexOf(l) < 0)
+                lines.push(l)
+        return lines.join("\n")
+    }
 
     // Save the looked-up word as a card in the selected learning box, with the chosen sentence.
     // A word that is already a card is only touched when the user says so (updateExisting).
@@ -92,7 +102,7 @@ Page {
     function quickAdd(updateExisting) {
         const front = cardFront.trim()
         if (front === "" && reverse && query !== "") {
-            page.StackView.view.push(editPage, { initialBack: query })
+            page.StackView.view.push(editPage, { initialBack: query, initialExample: cardExample })
             return
         }
         if (front === "")
@@ -106,12 +116,16 @@ Page {
         if (id >= 0) {
             const c = CardStore.card(id)
             const ok = CardStore.updateCard(id, c.front, cardBack !== "" ? cardBack : c.back,
-                                            chosenExample !== "" ? chosenExample : (c.example ?? ""), c.image ?? "")
+                                            cardExample !== "" ? cardExample : (c.example ?? ""), c.image ?? "")
             toast.show(ok ? qsTr("Card updated") : qsTr("Could not save"))
+            if (ok)
+                ownExampleField.clear()
         } else {
-            toast.show(CardStore.addCard(front, cardBack, chosenExample) >= 0
-                       ? (cardBack === "" ? qsTr("Card added without a meaning") : qsTr("Card added"))
-                       : qsTr("Could not save"))
+            const added = CardStore.addCard(front, cardBack, cardExample) >= 0
+            toast.show(added ? (cardBack === "" ? qsTr("Card added without a meaning") : qsTr("Card added"))
+                             : qsTr("Could not save"))
+            if (added)
+                ownExampleField.clear()
         }
     }
 
@@ -139,12 +153,18 @@ Page {
     readonly property string cardForms: reverse ? "" : cardBack
     readonly property string cardBody: reverse ? result : cardBack.split("\n").filter(l => !/^\s*(Pl\.|Plural|Sg\.|Singular|Mask\.|Fem\.)/.test(l)).join("\n")
 
+    // The "Add to learning box" button (and the own-example box) is shown
+    readonly property bool canAdd: !free && requestId < 0
+                                   && (learnWord !== "" || (reverse && query !== ""))
+
     function clearResult() {
         headword = ""; result = ""; alternatives = []; source = ""; error = ""
         requestId = -1
     }
     function lookup() {
         clearResult()
+        if (field.text.trim() !== query)
+            ownExampleField.clear() // a different word: the typed sentences belonged to the old one
         query = field.text.trim()
         suggestions = []
         if (query === "")
@@ -211,9 +231,11 @@ Page {
     // Tap outside the text field or swipe the page: drop the focus and close the keyboard.
     function dismissKeyboard(scenePoint) {
         if (scenePoint !== undefined) {
-            const q = field.mapFromItem(null, scenePoint.x, scenePoint.y)
-            if (q.x >= 0 && q.y >= 0 && q.x <= field.width && q.y <= field.height)
-                return
+            for (const f of [field, ownExampleField]) {
+                const q = f.mapFromItem(null, scenePoint.x, scenePoint.y)
+                if (q.x >= 0 && q.y >= 0 && q.x <= f.width && q.y <= f.height)
+                    return
+            }
         }
         page.forceActiveFocus()
         Qt.inputMethod.hide()
@@ -436,14 +458,33 @@ Page {
                               : qsTr("Saved translation")
                     }
 
+                    // Own example sentences for the card (in addition to the ticked suggestions below)
+                    RowLayout {
+                        Layout.fillWidth: true
+                        Layout.topMargin: 4
+                        visible: page.canAdd
+                        TextArea {
+                            id: ownExampleField
+                            Layout.fillWidth: true
+                            Layout.minimumHeight: 60
+                            wrapMode: TextEdit.Wrap
+                            placeholderText: qsTr("Your own example sentences (one per line)")
+                        }
+                        SpeakButton {
+                            Layout.alignment: Qt.AlignTop
+                            visible: page.learn !== "fa"
+                            speakText: ownExampleField.text
+                            languageTag: page.tag(page.learn)
+                        }
+                    }
+
                     // Like Lens: save straight into the learning box (asks if the word is already a card)
                     Button {
                         Layout.topMargin: 4
                         highlighted: true
                         // also when nothing was found: the card is saved without a meaning (or, looked up from the
                         // meaning side, the editor opens with it)
-                        visible: !page.free && page.requestId < 0
-                                 && (page.learnWord !== "" || (page.reverse && page.query !== ""))
+                        visible: page.canAdd
                         text: page.result !== "" ? qsTr("+ Add to “%1”").arg(CardStore.currentCollectionName)
                                                  : qsTr("+ Add without translation to “%1”").arg(CardStore.currentCollectionName)
                         onClicked: page.quickAdd(false)
