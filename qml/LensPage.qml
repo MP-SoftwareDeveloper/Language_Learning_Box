@@ -21,6 +21,8 @@ Page {
     readonly property alias ocr: engine
     readonly property string selectedText: engine.joinSelected(selected)
     readonly property var selectedList: selectedWords()
+    // Nothing selected (new photo, or after Create card): the example box below starts empty again
+    onSelectedChanged: if (selected.length === 0) exampleBox.clear()
 
     // ---------- translations ----------
     // key (German text) -> {text, alternatives, source, pending}
@@ -585,6 +587,28 @@ Page {
                     }
                 }
 
+                // Optional example sentence for the card: empty, the user types or copies a sentence from the photo
+                RowLayout {
+                    Layout.fillWidth: true
+                    visible: page.selected.length > 0
+                    TextArea {
+                        id: exampleBox
+                        Layout.fillWidth: true
+                        Layout.maximumHeight: page.height * 0.18
+                        wrapMode: TextEdit.Wrap
+                        placeholderText: qsTr("Example sentence from the photo (optional) \u2013 tap to write")
+                    }
+                    SpeakButton {
+                        Layout.alignment: Qt.AlignTop
+                        speakText: exampleBox.text
+                        iconSize: 19
+                    }
+                }
+                GermanKeys {
+                    Layout.fillWidth: true
+                    target: exampleBox
+                }
+
                 RowLayout {
                     Layout.fillWidth: true
                     spacing: 8
@@ -611,7 +635,8 @@ Page {
                                     ? engine.cleanWord(engine.words[page.selected[0]].text) : ""
                             page.StackView.view.push(editPage, {
                                 initialFront: single !== "" ? single : page.selectedText,
-                                initialBack: single !== "" ? "" : (page.entry(page.selectedText).text ?? "")
+                                initialBack: single !== "" ? "" : (page.entry(page.selectedText).text ?? ""),
+                                initialExample: exampleBox.text.trim()
                             })
                             page.selected = [] // fresh start when coming back
                         }
