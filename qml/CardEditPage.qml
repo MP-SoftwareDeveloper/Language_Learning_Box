@@ -234,13 +234,17 @@ Page {
         saved = true
         if (isNew && addAnother.checked) {
             savedHint.show(cardFront.trim())
+            Qt.inputMethod.reset() // a word the keyboard is still composing would stay (and keep its lookup)
             frontField.clear(); backField.clear(); exampleField.clear()
             page.backAuto = true
             page.wordSuggestions = []
             page.exampleAuto = true
             image = ""
             saved = false
+            suggestTimer.stop()
+            wordInfo.refreshNow() // forms and example sentences of the saved word go away with the empty box
             frontField.forceActiveFocus()
+            Qt.inputMethod.reset() // the keyboard starts the new word from an empty field
         } else {
             page.StackView.view.pop()
         }
