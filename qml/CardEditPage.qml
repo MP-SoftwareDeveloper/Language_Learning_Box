@@ -18,8 +18,6 @@ Page {
     property string initialFront: ""
     property string initialBack: ""
     property string initialExample: ""
-    // false: an empty example box stays empty (suggestions can still be ticked below)
-    property bool autoExample: true
     // Box a new card starts in (1..5, 6 = Learned); e.g. preset by the Box page's "+"
     property int initialBox: 1
 
@@ -141,10 +139,8 @@ Page {
         }
         onExampleChosen: (text, byUser) => {
             if (byUser || page.exampleAuto) {
-                // A sentence handed in by Lens (from the photo) stays first; ticked suggestions follow it
-                const own = page.initialExample.trim()
-                page.setExample(own !== "" && text !== "" ? own + "\n" + text : (text !== "" ? text : own))
-                page.exampleAuto = own === ""
+                page.setExample(text)
+                page.exampleAuto = true
             }
         }
     }
@@ -175,8 +171,6 @@ Page {
             frontField.text = initialFront
             backField.text = initialBack
             exampleField.text = initialExample
-            if (!autoExample)
-                exampleAuto = false
             addAnother.checked = false
             backField.forceActiveFocus()
         } else {
@@ -244,7 +238,6 @@ Page {
             page.backAuto = true
             page.wordSuggestions = []
             page.exampleAuto = true
-            page.initialExample = "" // the photo's sentence belonged to the saved card
             image = ""
             saved = false
             frontField.forceActiveFocus()

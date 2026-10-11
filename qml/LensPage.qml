@@ -21,36 +21,6 @@ Page {
     readonly property alias ocr: engine
     readonly property string selectedText: engine.joinSelected(selected)
     readonly property var selectedList: selectedWords()
-    // One word selected: the sentence of the photo that contains it, as an example for the card
-    // (ticked by default; unticked: the card's example box starts empty for the user's own sentence)
-    property bool useImageExample: true
-    onSelectedChanged: useImageExample = true
-    readonly property string imageExample: {
-        if (selected.length !== 1 || engine.words.length === 0)
-            return ""
-        const word = engine.cleanWord(engine.words[selected[0]].text)
-        const range = engine.sentenceAt(selected[0])   // word indices of the whole sentence
-        const pos = range.indexOf(selected[0])
-        if (word === "" || pos < 0)
-            return ""
-        // A simple example, not the whole long line: a short sentence is kept; a long one is cut down to
-        // the part between commas around the word, and to at most maxWords words.
-        const maxWords = 10
-        const endsPart = i => /[,;:]$/.test(engine.words[range[i]].text)
-        let a = 0, b = range.length - 1
-        if (range.length > maxWords) {
-            a = pos; b = pos
-            while (a > 0 && !endsPart(a - 1)) --a
-            while (b < range.length - 1 && !endsPart(b)) ++b
-            if (b - a + 1 < 3) { a = 0; b = range.length - 1 } // too little around the word: take a window
-            if (b - a + 1 > maxWords) {
-                a = Math.max(a, Math.min(pos - 4, b - maxWords + 1))
-                b = a + maxWords - 1
-            }
-        }
-        const s = norm(engine.joinSelected(range.slice(a, b + 1))).replace(/[,;:]+$/, "")
-        return s.length > word.length ? s : ""
-    }
 
     // ---------- translations ----------
     // key (German text) -> {text, alternatives, source, pending}
@@ -615,48 +585,6 @@ Page {
                     }
                 }
 
-                // Example from the photo: the sentence around the selected word (goes on the card)
-                RowLayout {
-                    Layout.fillWidth: true
-                    visible: page.imageExample !== ""
-                    CheckBox {
-                        id: exampleBox
-                        Layout.alignment: Qt.AlignTop
-                        padding: 0
-                        topPadding: 2
-                        checked: page.useImageExample
-                        onToggled: page.useImageExample = checked
-                        // a tap on the box breaks the binding above: follow the page property explicitly
-                        Connections {
-                            target: page
-                            function onUseImageExampleChanged() { exampleBox.checked = page.useImageExample }
-                        }
-                    }
-                    ColumnLayout {
-                        Layout.fillWidth: true
-                        spacing: 0
-                        Label {
-                            text: qsTr("Example from the photo – untick to write your own")
-                            font.pixelSize: 12
-                            opacity: 0.6
-                        }
-                        Label {
-                            Layout.fillWidth: true
-                            text: page.imageExample
-                            wrapMode: Text.WordWrap
-                            maximumLineCount: 3
-                            elide: Text.ElideRight
-                            font.pixelSize: 15
-                            TapHandler { onTapped: page.useImageExample = !page.useImageExample }
-                        }
-                    }
-                    SpeakButton {
-                        Layout.alignment: Qt.AlignTop
-                        speakText: page.imageExample
-                        iconSize: 19
-                    }
-                }
-
                 RowLayout {
                     Layout.fillWidth: true
                     spacing: 8
@@ -677,16 +605,13 @@ Page {
                         text: qsTr("Create card")
                         onClicked: {
                             // The word goes into Add card like a typed one: that page finds article, forms,
-                            // meaning and example sentences itself, exactly as in the Dictionary, and keeps the
-                            // sentence from the photo as the first example. A sentence keeps its translation from here.
+                            // meaning and example sentences itself, exactly as in the Dictionary. A sentence keeps
+                            // its translation from here.
                             const single = page.selected.length === 1
                                     ? engine.cleanWord(engine.words[page.selected[0]].text) : ""
                             page.StackView.view.push(editPage, {
                                 initialFront: single !== "" ? single : page.selectedText,
-                                initialBack: single !== "" ? "" : (page.entry(page.selectedText).text ?? ""),
-                                initialExample: single !== "" && page.useImageExample ? page.imageExample : "",
-                                // photo sentence unticked: leave the example box empty (no suggestion filled in)
-                                autoExample: !(single !== "" && page.imageExample !== "" && !page.useImageExample)
+                                initialBack: single !== "" ? "" : (page.entry(page.selectedText).text ?? "")
                             })
                             page.selected = [] // fresh start when coming back
                         }
