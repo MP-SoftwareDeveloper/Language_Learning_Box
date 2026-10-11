@@ -18,6 +18,8 @@ Page {
     property string initialFront: ""
     property string initialBack: ""
     property string initialExample: ""
+    // false: an empty example box stays empty (suggestions can still be ticked below)
+    property bool autoExample: true
     // Box a new card starts in (1..5, 6 = Learned); e.g. preset by the Box page's "+"
     property int initialBox: 1
 
@@ -173,6 +175,8 @@ Page {
             frontField.text = initialFront
             backField.text = initialBack
             exampleField.text = initialExample
+            if (!autoExample)
+                exampleAuto = false
             addAnother.checked = false
             backField.forceActiveFocus()
         } else {

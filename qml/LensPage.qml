@@ -22,9 +22,9 @@ Page {
     readonly property string selectedText: engine.joinSelected(selected)
     readonly property var selectedList: selectedWords()
     // One word selected: the sentence of the photo that contains it, as an example for the card
-    // (only when the user ticks the check box; a new selection starts unticked)
-    property bool useImageExample: false
-    onSelectedChanged: useImageExample = false
+    // (ticked by default; unticked: the card's example box starts empty for the user's own sentence)
+    property bool useImageExample: true
+    onSelectedChanged: useImageExample = true
     readonly property string imageExample: {
         if (selected.length !== 1 || engine.words.length === 0)
             return ""
@@ -617,7 +617,7 @@ Page {
                         Layout.fillWidth: true
                         spacing: 0
                         Label {
-                            text: qsTr("Example from the photo – tick to put it on the card")
+                            text: qsTr("Example from the photo – untick to write your own")
                             font.pixelSize: 12
                             opacity: 0.6
                         }
@@ -665,7 +665,9 @@ Page {
                             page.StackView.view.push(editPage, {
                                 initialFront: single !== "" ? single : page.selectedText,
                                 initialBack: single !== "" ? "" : (page.entry(page.selectedText).text ?? ""),
-                                initialExample: single !== "" && page.useImageExample ? page.imageExample : ""
+                                initialExample: single !== "" && page.useImageExample ? page.imageExample : "",
+                                // photo sentence unticked: leave the example box empty (no suggestion filled in)
+                                autoExample: !(single !== "" && page.imageExample !== "" && !page.useImageExample)
                             })
                             page.selected = [] // fresh start when coming back
                         }
