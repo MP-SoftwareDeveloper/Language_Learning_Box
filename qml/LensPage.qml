@@ -21,6 +21,14 @@ Page {
     readonly property alias ocr: engine
     readonly property string selectedText: engine.joinSelected(selected)
     readonly property var selectedList: selectedWords()
+    // One word selected: the sentence of the photo that contains it, as an example for the card
+    readonly property string imageExample: {
+        if (selected.length !== 1 || engine.words.length === 0)
+            return ""
+        const word = engine.cleanWord(engine.words[selected[0]].text)
+        const s = norm(engine.joinSelected(engine.sentenceAt(selected[0])))
+        return word !== "" && s.length > word.length && s.length <= 250 ? s : ""
+    }
 
     // ---------- translations ----------
     // key (German text) -> {text, alternatives, source, pending}
@@ -585,6 +593,34 @@ Page {
                     }
                 }
 
+                // Example from the photo: the sentence around the selected word (goes on the card)
+                RowLayout {
+                    Layout.fillWidth: true
+                    visible: page.imageExample !== ""
+                    ColumnLayout {
+                        Layout.fillWidth: true
+                        spacing: 0
+                        Label {
+                            text: qsTr("Example from the photo")
+                            font.pixelSize: 12
+                            opacity: 0.6
+                        }
+                        Label {
+                            Layout.fillWidth: true
+                            text: page.imageExample
+                            wrapMode: Text.WordWrap
+                            maximumLineCount: 3
+                            elide: Text.ElideRight
+                            font.pixelSize: 15
+                        }
+                    }
+                    SpeakButton {
+                        Layout.alignment: Qt.AlignTop
+                        speakText: page.imageExample
+                        iconSize: 19
+                    }
+                }
+
                 RowLayout {
                     Layout.fillWidth: true
                     spacing: 8
@@ -605,13 +641,14 @@ Page {
                         text: qsTr("Create card")
                         onClicked: {
                             // The word goes into Add card like a typed one: that page finds article, forms,
-                            // meaning and example sentences itself, exactly as in the Dictionary. A sentence keeps
-                            // its translation from here.
+                            // meaning and example sentences itself, exactly as in the Dictionary, and keeps the
+                            // sentence from the photo as the first example. A sentence keeps its translation from here.
                             const single = page.selected.length === 1
                                     ? engine.cleanWord(engine.words[page.selected[0]].text) : ""
                             page.StackView.view.push(editPage, {
                                 initialFront: single !== "" ? single : page.selectedText,
-                                initialBack: single !== "" ? "" : (page.entry(page.selectedText).text ?? "")
+                                initialBack: single !== "" ? "" : (page.entry(page.selectedText).text ?? ""),
+                                initialExample: single !== "" ? page.imageExample : ""
                             })
                             page.selected = [] // fresh start when coming back
                         }

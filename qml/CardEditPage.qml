@@ -139,8 +139,10 @@ Page {
         }
         onExampleChosen: (text, byUser) => {
             if (byUser || page.exampleAuto) {
-                page.setExample(text)
-                page.exampleAuto = true
+                // A sentence handed in by Lens (from the photo) stays first; ticked suggestions follow it
+                const own = page.initialExample.trim()
+                page.setExample(own !== "" && text !== "" ? own + "\n" + text : (text !== "" ? text : own))
+                page.exampleAuto = own === ""
             }
         }
     }
@@ -238,6 +240,7 @@ Page {
             page.backAuto = true
             page.wordSuggestions = []
             page.exampleAuto = true
+            page.initialExample = "" // the photo's sentence belonged to the saved card
             image = ""
             saved = false
             frontField.forceActiveFocus()
