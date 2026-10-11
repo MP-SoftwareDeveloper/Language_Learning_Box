@@ -22,6 +22,9 @@ Page {
     readonly property string selectedText: engine.joinSelected(selected)
     readonly property var selectedList: selectedWords()
     // One word selected: the sentence of the photo that contains it, as an example for the card
+    // (only when the user ticks the check box; a new selection starts unticked)
+    property bool useImageExample: false
+    onSelectedChanged: useImageExample = false
     readonly property string imageExample: {
         if (selected.length !== 1 || engine.words.length === 0)
             return ""
@@ -597,11 +600,24 @@ Page {
                 RowLayout {
                     Layout.fillWidth: true
                     visible: page.imageExample !== ""
+                    CheckBox {
+                        id: exampleBox
+                        Layout.alignment: Qt.AlignTop
+                        padding: 0
+                        topPadding: 2
+                        checked: page.useImageExample
+                        onToggled: page.useImageExample = checked
+                        // a tap on the box breaks the binding above: follow the page property explicitly
+                        Connections {
+                            target: page
+                            function onUseImageExampleChanged() { exampleBox.checked = page.useImageExample }
+                        }
+                    }
                     ColumnLayout {
                         Layout.fillWidth: true
                         spacing: 0
                         Label {
-                            text: qsTr("Example from the photo")
+                            text: qsTr("Example from the photo – tick to put it on the card")
                             font.pixelSize: 12
                             opacity: 0.6
                         }
@@ -612,6 +628,7 @@ Page {
                             maximumLineCount: 3
                             elide: Text.ElideRight
                             font.pixelSize: 15
+                            TapHandler { onTapped: page.useImageExample = !page.useImageExample }
                         }
                     }
                     SpeakButton {
@@ -648,7 +665,7 @@ Page {
                             page.StackView.view.push(editPage, {
                                 initialFront: single !== "" ? single : page.selectedText,
                                 initialBack: single !== "" ? "" : (page.entry(page.selectedText).text ?? ""),
-                                initialExample: single !== "" ? page.imageExample : ""
+                                initialExample: single !== "" && page.useImageExample ? page.imageExample : ""
                             })
                             page.selected = [] // fresh start when coming back
                         }
