@@ -248,7 +248,7 @@ Page {
 
     // Tap anywhere outside the text fields: drop the focus and close the keyboard.
     function dismissKeyboard(scenePoint) {
-        for (const f of [frontField, backField, exampleField]) {
+        for (const f of [frontField, backField, exampleField, keysFront, keysBack, keysExample]) {
             const q = f.mapFromItem(null, scenePoint.x, scenePoint.y)
             if (q.x >= 0 && q.y >= 0 && q.x <= f.width && q.y <= f.height)
                 return
@@ -304,6 +304,13 @@ Page {
                     visible: !page.isNew // a new card can be starred once it is saved
                     cardId: page.isNew ? -1 : page.cardId
                 }
+            }
+            GermanKeys {
+                id: keysFront
+                Layout.fillWidth: true
+                Layout.leftMargin: 16
+                Layout.rightMargin: 16
+                target: frontField
             }
             Label {
                 Layout.leftMargin: 16
@@ -369,6 +376,14 @@ Page {
                     tint: "#e53935" // translation: red
                 }
             }
+            GermanKeys {
+                id: keysBack
+                Layout.fillWidth: true
+                Layout.leftMargin: 16
+                Layout.rightMargin: 16
+                target: backField
+                forLanguage: Translator.meaningLanguage === "de"
+            }
             Label {
                 Layout.leftMargin: 20
                 Layout.topMargin: -8
@@ -402,6 +417,13 @@ Page {
                     onTextChanged: if (!page.settingExample) page.exampleAuto = text.trim() === ""
                 }
                 SpeakButton { speakText: exampleField.text }
+            }
+            GermanKeys {
+                id: keysExample
+                Layout.fillWidth: true
+                Layout.leftMargin: 16
+                Layout.rightMargin: 16
+                target: exampleField
             }
             // Translation of the example sentences (one per line), in the language selected in Settings
             ExampleList {

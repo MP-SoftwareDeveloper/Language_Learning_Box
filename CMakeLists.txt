@@ -14,6 +14,7 @@ qt_add_executable(appLearningBox
 )
 
 set_source_files_properties(qml/BoxNames.qml PROPERTIES QT_QML_SINGLETON_TYPE TRUE)
+set_source_files_properties(qml/KeyboardPrefs.qml PROPERTIES QT_QML_SINGLETON_TYPE TRUE)
 
 qt_add_qml_module(appLearningBox
     URI LearningBox
@@ -73,6 +74,8 @@ qt_add_qml_module(appLearningBox
         qml/HintLabel.qml
         qml/DirectionLabel.qml
         qml/DictionaryPage.qml
+        qml/GermanKeys.qml
+        qml/KeyboardPrefs.qml
         qml/FavoritesPage.qml
         qml/StarIcon.qml
         qml/StarButton.qml

@@ -231,7 +231,7 @@ Page {
     // Tap outside the text field or swipe the page: drop the focus and close the keyboard.
     function dismissKeyboard(scenePoint) {
         if (scenePoint !== undefined) {
-            for (const f of [field, ownExampleField]) {
+            for (const f of [field, ownExampleField, keysField, keysOwn]) {
                 const q = f.mapFromItem(null, scenePoint.x, scenePoint.y)
                 if (q.x >= 0 && q.y >= 0 && q.x <= f.width && q.y <= f.height)
                     return
@@ -351,6 +351,17 @@ Page {
                     speakText: field.text
                     languageTag: page.tag(page.from)
                 }
+            }
+
+            // ä ö ü ß under the box (Settings → Keyboard), when the input language is German
+            GermanKeys {
+                id: keysField
+                Layout.fillWidth: true
+                Layout.leftMargin: 16
+                Layout.rightMargin: 16
+                target: field
+                forLanguage: page.from === "de"
+                onInserted: typing.restart()
             }
 
             // Suggestions while typing (word pack + Wiktionary), like a search box
@@ -476,6 +487,13 @@ Page {
                             speakText: ownExampleField.text
                             languageTag: page.tag(page.learn)
                         }
+                    }
+
+                    GermanKeys {
+                        id: keysOwn
+                        Layout.fillWidth: true
+                        target: ownExampleField
+                        forLanguage: page.learn === "de"
                     }
 
                     // Like Lens: save straight into the learning box (asks if the word is already a card)

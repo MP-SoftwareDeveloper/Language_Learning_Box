@@ -46,6 +46,9 @@ Page {
             "azure": "Azure Translator (optional)",
             "azureHint": "With your own free Azure key, translations go through Azure first (2 million characters a month; after that Azure refuses and nothing is charged). Without a key, Google and MyMemory are used as before.",
             "azureOn": "Azure is used first; Google and MyMemory are the fallback.",
+            "keyboard": "Keyboard",
+            "germanKeys": "German letter keys (ä ö ü ß)",
+            "germanKeysHint": "Shows ä ö ü ß under the text box while you type German, for phone keyboards that do not have them.",
         },
         "fa": {
             "lang": "زبان توضیحات",
@@ -77,6 +80,9 @@ Page {
             "azure": "Azure Translator (اختیاری)",
             "azureHint": "اگر کلید رایگان Azure خودتان را وارد کنید، ترجمه‌ها ابتدا با Azure انجام می‌شوند (۲ میلیون نویسه در ماه؛ پس از آن Azure نمی‌پذیرد و هزینه‌ای گرفته نمی‌شود). بدون کلید، مثل قبل از Google و MyMemory استفاده می‌شود.",
             "azureOn": "ابتدا از Azure استفاده می‌شود؛ Google و MyMemory جایگزین هستند.",
+            "keyboard": "صفحه‌کلید",
+            "germanKeys": "کلیدهای حروف آلمانی (ä ö ü ß)",
+            "germanKeysHint": "هنگام تایپ آلمانی، ä ö ü ß را زیر کادر متن نشان می‌دهد؛ برای صفحه‌کلیدهایی که این حروف را ندارند.",
         },
         "de": {
             "lang": "Sprache der Erklärungen",
@@ -108,6 +114,9 @@ Page {
             "azure": "Azure Translator (optional)",
             "azureHint": "Mit deinem eigenen kostenlosen Azure-Schlüssel wird zuerst Azure verwendet (2 Millionen Zeichen pro Monat; danach lehnt Azure ab, es entstehen keine Kosten). Ohne Schlüssel werden Google und MyMemory wie bisher verwendet.",
             "azureOn": "Azure wird zuerst verwendet; Google und MyMemory sind der Ersatz.",
+            "keyboard": "Tastatur",
+            "germanKeys": "Tasten für deutsche Buchstaben (ä ö ü ß)",
+            "germanKeysHint": "Zeigt ä ö ü ß unter dem Textfeld, wenn du Deutsch tippst – für Handy-Tastaturen ohne diese Buchstaben.",
         }
     })
     function tr2(key) { return (tx[lang] && tx[lang][key]) || tx.en[key] }
@@ -447,6 +456,27 @@ Page {
                         keyResult.text = (ok ? "\u2713 " : "\u2717 ") + message
                     }
                 }
+            }
+
+            // ---------- keyboard ----------
+            Label {
+                Layout.leftMargin: 16
+                Layout.topMargin: 12
+                text: page.tr2("keyboard")
+                font.pixelSize: 16
+                font.bold: true
+            }
+            SwitchDelegate {
+                Layout.fillWidth: true
+                text: page.tr2("germanKeys")
+                checked: KeyboardPrefs.germanKeys
+                onToggled: KeyboardPrefs.germanKeys = checked
+            }
+            HintLabel {
+                Layout.leftMargin: 16
+                Layout.rightMargin: 16
+                horizontalAlignment: page.hAlign
+                text: page.tr2("germanKeysHint")
             }
 
             Item { Layout.preferredHeight: 16 }
