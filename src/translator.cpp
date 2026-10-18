@@ -244,15 +244,17 @@ void Translator::azureAlternatives(int id, const QString &text, const QString &s
                                        AzureTranslate::requestBody(text));
     connect(reply, &QNetworkReply::finished, this, [=, this] {
         reply->deleteLater();
-        QStringList alternatives;
+        QStringList entries;
         if (reply->error() == QNetworkReply::NoError) {
-            alternatives = AzureTranslate::parseLookup(reply->readAll(), main);
+            entries = AzureTranslate::parseLookupAll(reply->readAll());
         } else if (reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt() == 400) {
             m_azureNoDictionary.insert(source + u'>' + target); // no dictionary for this pair: don't ask again
         }
-        // The translation itself is already good; the dictionary is only a bonus.
-        store(source, target, text, main, alternatives);
-        emit translated(id, main, alternatives, QStringLiteral("online"), {});
+        // /translate has no context for a lone word and can pick a wrong one ("vorlesen" -> "Listen"): the
+        // dictionary's best entry wins unless it agrees with the translation (see AzureTranslate::choose).
+        const auto c = AzureTranslate::choose(main, entries);
+        store(source, target, text, c.main, c.alternatives);
+        emit translated(id, c.main, c.alternatives, QStringLiteral("online"), {});
     });
 }
 

@@ -75,6 +75,31 @@ private slots:
                  QStringList({"locations", "spots", "sites"}));
         QCOMPARE(AzureTranslate::parseLookup(json, QStringLiteral("x"), 1), QStringList({"locations"}));
     }
+    void chooseMainAnswer()
+    {
+        const QStringList dict{"read aloud", "aloud", "read", "read out"};
+        // the dictionary does not know the translation: its best entry is the main answer
+        auto c = AzureTranslate::choose(QStringLiteral("Listen"), dict);
+        QCOMPARE(c.main, QStringLiteral("read aloud"));
+        QCOMPARE(c.alternatives, QStringList({"aloud", "read", "read out"}));
+        // the dictionary has it (case ignored): the translation stays, the others follow without it
+        c = AzureTranslate::choose(QStringLiteral("Read"), dict);
+        QCOMPARE(c.main, QStringLiteral("Read"));
+        QCOMPARE(c.alternatives, QStringList({"read aloud", "aloud", "read out"}));
+        // no dictionary answer: the translation, as before
+        c = AzureTranslate::choose(QStringLiteral("Listen"), {});
+        QCOMPARE(c.main, QStringLiteral("Listen"));
+        QVERIFY(c.alternatives.isEmpty());
+    }
+    void lookupAll()
+    {
+        const QByteArray json = R"([{"translations":[
+            {"displayTarget":"b","confidence":0.2},{"displayTarget":"A","confidence":0.9},
+            {"displayTarget":"a","confidence":0.5},{"displayTarget":"c","confidence":0.1}]}])";
+        QCOMPARE(AzureTranslate::parseLookupAll(json), QStringList({"A", "b", "c"}));
+        QCOMPARE(AzureTranslate::parseLookupAll(json, 2), QStringList({"A", "b"}));
+        QVERIFY(AzureTranslate::parseLookupAll("nonsense").isEmpty());
+    }
     void lookupWithoutAnswer()
     {
         QVERIFY(AzureTranslate::parseLookup(R"({"error":{"code":400036}})", QStringLiteral("x")).isEmpty());

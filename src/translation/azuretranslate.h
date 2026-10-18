@@ -42,6 +42,21 @@ Result parseTranslation(const QByteArray &json);
 // confidence. Empty list when there is nothing (no error: this is only a bonus).
 QStringList parseLookup(const QByteArray &json, const QString &main, int maxAlternatives = 3);
 
+// Reads the /dictionary/lookup answer without a "main" answer: all different translations (case ignored),
+// best first by Azure's confidence, at most `maxEntries`.
+QStringList parseLookupAll(const QByteArray &json, int maxEntries = 4);
+
+// What to show for a single word. /translate translates without context and can be wrong for a lone word
+// ("vorlesen" -> "Listen"); the dictionary lists the real meanings. So: the translation stays the main answer
+// when the dictionary has it too, otherwise the dictionary's best entry is the main answer (the others
+// follow, the odd translation is dropped). No dictionary answer: the translation, as before.
+struct Choice
+{
+    QString main;
+    QStringList alternatives;
+};
+Choice choose(const QString &translation, const QStringList &entries, int maxAlternatives = 3);
+
 // Message of an Azure error body ({"error":{"code":401000,"message":"..."}}), or an empty string.
 QString errorMessage(const QByteArray &json);
 

@@ -6,6 +6,7 @@
 #include <QJsonParseError>
 #include <QUrlQuery>
 #include <algorithm>
+#include <limits>
 
 namespace AzureTranslate {
 
@@ -76,7 +77,7 @@ Result parseTranslation(const QByteArray &json)
     return r;
 }
 
-QStringList parseLookup(const QByteArray &json, const QString &main, int maxAlternatives)
+QStringList parseLookupAll(const QByteArray &json, int maxEntries)
 {
     const QJsonDocument doc = QJsonDocument::fromJson(json);
     if (!doc.isArray())
@@ -96,18 +97,51 @@ QStringList parseLookup(const QByteArray &json, const QString &main, int maxAlte
                      [](const Entry &a, const Entry &b) { return a.confidence > b.confidence; });
 
     QStringList out;
-    const QString mainFolded = main.simplified().toCaseFolded();
-    QStringList seen{mainFolded};
+    QStringList seen;
     for (const Entry &e : std::as_const(entries)) {
         const QString folded = e.text.toCaseFolded();
         if (seen.contains(folded))
             continue;
         seen.append(folded);
         out.append(e.text);
+        if (out.size() >= maxEntries)
+            break;
+    }
+    return out;
+}
+
+QStringList parseLookup(const QByteArray &json, const QString &main, int maxAlternatives)
+{
+    const QString mainFolded = main.simplified().toCaseFolded();
+    QStringList out;
+    for (const QString &t : parseLookupAll(json, std::numeric_limits<int>::max())) {
+        if (t.toCaseFolded() == mainFolded)
+            continue;
+        out.append(t);
         if (out.size() >= maxAlternatives)
             break;
     }
     return out;
+}
+
+Choice choose(const QString &translation, const QStringList &entries, int maxAlternatives)
+{
+    if (entries.isEmpty())
+        return {translation, {}};
+    const QString folded = translation.simplified().toCaseFolded();
+    Choice c;
+    const bool known = std::any_of(entries.cbegin(), entries.cend(),
+                                   [&](const QString &e) { return e.toCaseFolded() == folded; });
+    if (known) {
+        c.main = translation;
+        for (const QString &e : entries)
+            if (e.toCaseFolded() != folded && c.alternatives.size() < maxAlternatives)
+                c.alternatives.append(e);
+    } else {
+        c.main = entries.first();
+        c.alternatives = entries.mid(1, maxAlternatives);
+    }
+    return c;
 }
 
 } // namespace AzureTranslate
