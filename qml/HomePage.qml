@@ -174,58 +174,6 @@ Page {
                 }
             }
 
-            GridLayout {
-                Layout.fillWidth: true
-                Layout.leftMargin: 16
-                Layout.rightMargin: 16
-                columns: 3
-                rowSpacing: 8
-                columnSpacing: 8
-
-                Repeater {
-                    model: 6
-                    // Tap a box to see its cards and move them between boxes.
-                    delegate: Pane {
-                        required property int index
-                        Layout.fillWidth: true
-                        id: tile
-                        readonly property color base: page.tileColor(index)
-                        padding: 10
-                        // Fades from the learning box's light shade (Box 1) to its deep shade (Learned).
-                        background: Rectangle {
-                            radius: 8
-                            opacity: boxTap.pressed ? 0.8 : 1
-                            gradient: Gradient {
-                                GradientStop { position: 0; color: Qt.lighter(tile.base, 1.3) }
-                                GradientStop { position: 1; color: tile.base }
-                            }
-                        }
-                        TapHandler {
-                            id: boxTap
-                            onTapped: page.boxRequested(index + 1)
-                        }
-                        ColumnLayout {
-                            anchors.fill: parent
-                            spacing: 2
-                            Label {
-                                text: BoxNames.name(index + 1)
-                                color: "white"
-                                opacity: 0.85
-                                Layout.fillWidth: true
-                                elide: Text.ElideRight
-                                font.pixelSize: 12
-                            }
-                            Label {
-                                text: index < 5 ? (CardStore.boxCounts[index] ?? 0) : CardStore.learnedCount
-                                color: "white"
-                                font.pixelSize: 26
-                                font.bold: true
-                            }
-                        }
-                    }
-                }
-            }
-
             Label {
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
@@ -367,6 +315,58 @@ Page {
                             ctx.moveTo(p0.x, p0.y)
                             ctx.lineTo(p1.x, p1.y)
                             ctx.stroke()
+                        }
+                    }
+                }
+            }
+
+            GridLayout {
+                Layout.fillWidth: true
+                Layout.leftMargin: 16
+                Layout.rightMargin: 16
+                columns: 3
+                rowSpacing: 8
+                columnSpacing: 8
+
+                Repeater {
+                    model: 6
+                    // Tap a box to see its cards and move them between boxes.
+                    delegate: Pane {
+                        required property int index
+                        Layout.fillWidth: true
+                        id: tile
+                        readonly property color base: page.tileColor(index)
+                        padding: 10
+                        // Fades from the learning box's light shade (Box 1) to its deep shade (Learned).
+                        background: Rectangle {
+                            radius: 8
+                            opacity: boxTap.pressed ? 0.8 : 1
+                            gradient: Gradient {
+                                GradientStop { position: 0; color: Qt.lighter(tile.base, 1.3) }
+                                GradientStop { position: 1; color: tile.base }
+                            }
+                        }
+                        TapHandler {
+                            id: boxTap
+                            onTapped: page.boxRequested(index + 1)
+                        }
+                        ColumnLayout {
+                            anchors.fill: parent
+                            spacing: 2
+                            Label {
+                                text: BoxNames.name(index + 1)
+                                color: "white"
+                                opacity: 0.85
+                                Layout.fillWidth: true
+                                elide: Text.ElideRight
+                                font.pixelSize: 12
+                            }
+                            Label {
+                                text: index < 5 ? (CardStore.boxCounts[index] ?? 0) : CardStore.learnedCount
+                                color: "white"
+                                font.pixelSize: 26
+                                font.bold: true
+                            }
                         }
                     }
                 }
