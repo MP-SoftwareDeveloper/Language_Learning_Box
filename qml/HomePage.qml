@@ -166,7 +166,11 @@ Page {
                 }
                 ToolButton {
                     text: "+"
-                    font.pixelSize: 22
+                    font.pixelSize: 66              // 3 x the former 22
+                    Material.foreground: page.boxBase   // same colour as the box tiles
+                    padding: 0
+                    implicitWidth: 56
+                    implicitHeight: 56
                     onClicked: newDialog.open()
                 }
                 ToolButton {
@@ -326,14 +330,22 @@ Page {
                 }
             }
 
-            // Separator under Start
+            // Separator under Start: the six box tile shades (Box 1 -> Mastered)
             Rectangle {
                 Layout.fillWidth: true
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
                 Layout.preferredHeight: 20   // 20 x the former 1 px line
-                radius: page.cornerRadius
-                color: Qt.rgba(Material.foreground.r, Material.foreground.g, Material.foreground.b, 0.2)
+                radius: 0                    // plain rectangle, square corners
+                gradient: Gradient {
+                    orientation: Gradient.Horizontal
+                    GradientStop { position: 0.0; color: page.tileColor(0) }
+                    GradientStop { position: 0.2; color: page.tileColor(1) }
+                    GradientStop { position: 0.4; color: page.tileColor(2) }
+                    GradientStop { position: 0.6; color: page.tileColor(3) }
+                    GradientStop { position: 0.8; color: page.tileColor(4) }
+                    GradientStop { position: 1.0; color: page.tileColor(5) }
+                }
             }
 
             GridLayout {
