@@ -44,7 +44,7 @@ flowchart TD
     C --> A[Show answer · meaning · picture]
     A --> K{Knew it?}
     K -- yes --> U[Move up one box<br/>1→2→…→5 · box 5 → Learned]
-    K -- no --> D[Back to box 1<br/>re-ask at end of session]
+    K -- no --> D[Back to box 1<br/>due tomorrow]
     U --> N[Next due date:<br/>1 / 2 / 4 / 8 / 16 days]
     D --> N
     N --> Q
@@ -87,7 +87,7 @@ flowchart TD
 | Scheduling rules | `src/leitner.h` | Box intervals, promote / demote (pure, unit-tested) |
 | Storage | `src/cardstore.*` (`CardStore`) | SQLite `learningbox.sqlite`, schema via `PRAGMA user_version` (v4: `collections`, v5: `reset_undo`), every query scoped to the selected learning box, add/update/delete, duplicates |
 | Card model | `src/card.h`, `src/cardlistmodel.*` | Card struct, list model with search for *All cards* |
-| Review | `src/reviewsession.*`, `qml/ReviewPage.qml` | Due queue, re-ask failed cards once, edit card, move to a box by hand |
+| Review | `src/reviewsession.*`, `qml/ReviewPage.qml` | Due queue, edit card, move to a box by hand |
 | Box pages | `qml/BoxPage.qml`, `CardStore::cardsInBox / moveCard` | Cards per box, manual ◀ / ▶ moves, Undo |
 | Speech | `src/speaker.*` (`Speaker`), `qml/SpeakButton.qml` | QTextToSpeech, German voice |
 | Pictures | `src/cardimages.*` | Import, EXIF-rotate, scale to 1024 px, JPEG |
@@ -127,7 +127,7 @@ flowchart TD
 - [x] 100 starter words with English and Persian meanings and example sentences (offline fa / en switch) 🧪
 - [x] Edit a card while reviewing it 🧪
 - [x] Choose a card's box by hand: box chooser on the review card (moves it, next card comes) and in the editor 🧪
-- [x] Review session (failed cards re-asked at the end)
+- [x] Review session (failed cards go back to Box 1, asked again tomorrow, not in the same session)
 - [x] Open each box, see its cards, move cards to the next / previous box (with Undo) 🧪
 - [x] Delete a card by press-and-hold (Box pages, All cards) with confirmation 🧪
 - [x] Add a card directly into a box (+ on the Box page; Box chooser in the editor) 🧪

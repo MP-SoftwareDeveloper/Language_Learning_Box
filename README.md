@@ -29,7 +29,7 @@ A Leitner box for German vocabulary. Qt 6.10+ / C++20 / QML, with no Java. Andro
   (`last_used_at` + QSettings), so it is first again after a restart. Box tiles 1–5 + Learned below are unchanged. Review, Lens, Add, All cards, word packs and export all work on the selected box
   (`CardStore` scopes every query by `collection_id`). Existing cards are migrated into *My learning box*.
 - 5 Leitner boxes: intervals 1/2/4/8/16 days (day-aligned); wrong → box 1; correct in box 5 → *Learned*
-- Review session: failed cards are re-asked at the end of the session (the DB is updated only once)
+- Review session: a failed card goes back to Box 1 (due tomorrow) and is not asked again in the same session
 - **Favorite words** (schema v8: `cards.favorite` = time starred, 0 = not): ★ (`qml/StarButton.qml`, drawn
   `qml/StarIcon.qml`) on the review card (top row), in box pages, in the card editor (existing cards) and in Lens
   (selected words; words that are no cards yet are added first, like *Add N words*; all starred → unstar).

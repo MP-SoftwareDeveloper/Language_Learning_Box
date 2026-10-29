@@ -8,7 +8,6 @@ ReviewSession::ReviewSession(QObject *parent)
 void ReviewSession::start(int limit)
 {
     m_queue = CardStore::instance()->dueCardIds(limit);
-    m_failed.clear();
     m_total = int(m_queue.size());
     m_correct = m_wrong = 0;
     m_started = true;
@@ -21,22 +20,12 @@ void ReviewSession::answer(bool correct)
         return;
     const int id = m_current.id;
 
-    if (m_failed.contains(id)) {
-        // Re-ask within the session: already rescheduled to box 1, only drill it.
-        if (correct)
-            m_failed.remove(id);
-        else
-            m_queue.append(id);
-    } else {
-        CardStore::instance()->recordAnswer(id, correct);
-        if (correct) {
-            ++m_correct;
-        } else {
-            ++m_wrong;
-            m_failed.insert(id);
-            m_queue.append(id);
-        }
-    }
+    // Leitner: a wrong answer sends the card back to box 1 (due tomorrow); it is not asked again today.
+    CardStore::instance()->recordAnswer(id, correct);
+    if (correct)
+        ++m_correct;
+    else
+        ++m_wrong;
     advance();
 }
 
@@ -49,7 +38,6 @@ void ReviewSession::advance()
             m_current = *c;
             break;
         }
-        m_failed.remove(id);
     }
     emit currentChanged();
 }
@@ -62,7 +50,6 @@ void ReviewSession::reloadCurrent()
         m_current = *c;
         emit currentChanged();
     } else {
-        m_failed.remove(m_current.id);
         advance();
     }
 }
@@ -72,11 +59,10 @@ void ReviewSession::moveCurrent(int box)
     if (!hasCard())
         return;
     const int id = m_current.id;
-    if (box == m_current.box && !m_failed.contains(id))
+    if (box == m_current.box)
         return;
     if (!CardStore::instance()->moveCard(id, box))
         return;
-    m_failed.remove(id);
     m_queue.removeAll(id);
     advance();
 }

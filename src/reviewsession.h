@@ -8,7 +8,7 @@
 #include <QtQml/qqmlregistration.h>
 
 // One pass over the due cards. A card answered wrong is written back to box 1
-// and re-queued at the end of this session; re-asks don't touch the database.
+// (due tomorrow); it is not asked again in the same session (Leitner).
 class ReviewSession : public QObject
 {
     Q_OBJECT
@@ -22,7 +22,6 @@ class ReviewSession : public QObject
     Q_PROPERTY(QString example READ example NOTIFY currentChanged)
     Q_PROPERTY(QUrl imageUrl READ imageUrl NOTIFY currentChanged)
     Q_PROPERTY(int box READ box NOTIFY currentChanged)
-    Q_PROPERTY(bool isRetry READ isRetry NOTIFY currentChanged)
     Q_PROPERTY(int remaining READ remaining NOTIFY currentChanged)
     Q_PROPERTY(int total READ total NOTIFY currentChanged)
     Q_PROPERTY(int correctCount READ correctCount NOTIFY currentChanged)
@@ -47,7 +46,6 @@ public:
     QString example() const { return m_current.example; }
     QUrl imageUrl() const;
     int box() const { return m_current.box; }
-    bool isRetry() const { return m_failed.contains(m_current.id); }
     int remaining() const { return int(m_queue.size()) + (hasCard() ? 1 : 0); }
     int total() const { return m_total; }
     int correctCount() const { return m_correct; }
@@ -60,7 +58,6 @@ private:
     void advance();
 
     QList<int> m_queue;
-    QSet<int> m_failed;
     Card m_current;
     bool m_started = false;
     int m_total = 0;
