@@ -10,6 +10,8 @@ QtObject {
         const b = Math.max(1, Math.min(6, box))
         return names[b - 1] + " (reg" + b + ")"
     }
+    // plain name for the Home tiles ("reg1" is shown as a small caption there)
+    function title(box) { return names[Math.max(1, Math.min(6, box)) - 1] }
     // all six, for ComboBox models
     readonly property var all: [name(1), name(2), name(3), name(4), name(5), name(6)]
     // compact label for narrow tabs

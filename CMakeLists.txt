@@ -103,6 +103,7 @@ qt_add_qml_module(appLearningBox
         assets/dictionary.png
         assets/export.png
         assets/import.png
+        assets/fonts/PlayfairDisplay.ttf
 )
 
 # Built-in vocabulary packs (read at runtime from :/data/wordpacks/...)

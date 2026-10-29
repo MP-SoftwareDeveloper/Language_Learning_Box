@@ -6,6 +6,10 @@ import LearningBox
 
 Page {
     id: page
+
+    // Elegant serif for every word on this page (Playfair Display, SIL OFL, bundled in assets/fonts)
+    FontLoader { id: serifFont; source: "../assets/fonts/PlayfairDisplay.ttf" }
+    font.family: serifFont.status === FontLoader.Ready ? serifFont.name : "serif"
     title: qsTr("Learning Box")
 
     signal reviewRequested()
@@ -26,10 +30,12 @@ Page {
     function boxColor(id) { return boxPalette[(Math.max(1, id) - 1) % boxPalette.length] }
     function boxLight(id) { return Qt.tint(boxColor(id), Qt.rgba(1, 1, 1, 0.82)) } // pale background
     readonly property color boxBase: boxColor(CardStore.currentCollection)
+    // One corner radius for every rectangle on this page (Start, tiles, buttons, chooser)
+    readonly property int cornerRadius: 12
     readonly property color comboColor: boxLight(CardStore.currentCollection)
     function tileColor(i) {
-        const light = Qt.tint(boxBase, Qt.rgba(1, 1, 1, 0.38))
-        const dark = Qt.darker(boxBase, 1.25)
+        const light = Qt.tint(boxBase, Qt.rgba(1, 1, 1, 0.10))   // strong colour from Box 1 on
+        const dark = Qt.darker(boxBase, 1.5)
         return Qt.tint(light, Qt.rgba(dark.r, dark.g, dark.b, i / 5))
     }
     readonly property color selectedText: "#0D2A45"
@@ -69,7 +75,7 @@ Page {
                     Material.foreground: page.selectedText // arrow, readable on the light background
                     background: Rectangle {
                         implicitHeight: 48
-                        radius: 6
+                        radius: page.cornerRadius
                         color: boxCombo.pressed ? Qt.darker(page.comboColor, 1.05) : page.comboColor
                     }
                     onActivated: (index) => {
@@ -199,7 +205,7 @@ Page {
                     loops: Animation.Infinite; running: true
                 }
 
-                // Button with explicit radius 8 background (matching box tiles)
+                // Button with explicit background (same corner radius as the box tiles)
                 Button {
                     id: startBtn
                     anchors.fill: parent
@@ -215,7 +221,7 @@ Page {
                     }
 
                     background: Rectangle {
-                        radius: 8
+                        radius: page.cornerRadius
                         color: Material.accentColor
                         opacity: startBtn.ready ? 1.0 : 0.38
                     }
@@ -287,7 +293,7 @@ Page {
                     onPaint: {
                         var ctx = getContext("2d")
                         ctx.clearRect(0, 0, width, height)
-                        var w = width, h = height, lw = 5, br = 8
+                        var w = width, h = height, lw = 5, br = page.cornerRadius
                         var half = lw / 2
                         var L1 = w - lw - 2*br, L2 = h - lw - 2*br
                         var arcLen = (Math.PI/2) * br
@@ -320,6 +326,16 @@ Page {
                 }
             }
 
+            // Separator under Start
+            Rectangle {
+                Layout.fillWidth: true
+                Layout.leftMargin: 16
+                Layout.rightMargin: 16
+                Layout.preferredHeight: 20   // 20 x the former 1 px line
+                radius: page.cornerRadius
+                color: Qt.rgba(Material.foreground.r, Material.foreground.g, Material.foreground.b, 0.2)
+            }
+
             GridLayout {
                 Layout.fillWidth: true
                 Layout.leftMargin: 16
@@ -339,10 +355,10 @@ Page {
                         padding: 10
                         // Fades from the learning box's light shade (Box 1) to its deep shade (Learned).
                         background: Rectangle {
-                            radius: 8
+                            radius: page.cornerRadius
                             opacity: boxTap.pressed ? 0.8 : 1
                             gradient: Gradient {
-                                GradientStop { position: 0; color: Qt.lighter(tile.base, 1.3) }
+                                GradientStop { position: 0; color: Qt.lighter(tile.base, 1.12) }
                                 GradientStop { position: 1; color: tile.base }
                             }
                         }
@@ -354,18 +370,31 @@ Page {
                             anchors.fill: parent
                             spacing: 2
                             Label {
-                                text: BoxNames.name(index + 1)
+                                text: BoxNames.title(index + 1)
                                 color: "white"
-                                opacity: 0.85
                                 Layout.fillWidth: true
                                 elide: Text.ElideRight
-                                font.pixelSize: 12
-                            }
-                            Label {
-                                text: index < 5 ? (CardStore.boxCounts[index] ?? 0) : CardStore.learnedCount
-                                color: "white"
-                                font.pixelSize: 26
+                                fontSizeMode: Text.Fit      // long names shrink instead of ending in "…"
+                                minimumPixelSize: 10
+                                font.pixelSize: 14
                                 font.bold: true
+                            }
+                            RowLayout {
+                                Layout.fillWidth: true
+                                Label {
+                                    text: index < 5 ? (CardStore.boxCounts[index] ?? 0) : CardStore.learnedCount
+                                    color: "white"
+                                    font.pixelSize: 26
+                                    font.bold: true
+                                    Layout.fillWidth: true
+                                }
+                                Label {
+                                    text: BoxNames.code(index + 1)
+                                    color: "white"
+                                    opacity: 0.75
+                                    font.pixelSize: 10
+                                    Layout.alignment: Qt.AlignBottom
+                                }
                             }
                         }
                     }
@@ -373,6 +402,8 @@ Page {
             }
             Button {
                 id: lensBtn
+                Material.background: "#74979D"
+                Material.foreground: "white"
                 Layout.fillWidth: true
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
@@ -402,13 +433,13 @@ Page {
                     }
                 }
                 onClicked: page.lensRequested()
-                Component.onCompleted: if (background) background.radius = 4
+                Component.onCompleted: if (background) background.radius = page.cornerRadius
             }
             // Starred cards (★ on any card)
             Button {
                 id: favButton
                 objectName: "favoritesButton"
-                Material.background: "#E65100"
+                Material.background: "#F69956"
                 Material.foreground: "white"
                 Layout.fillWidth: true
                 Layout.preferredHeight: 67   // 70% of Start (96)
@@ -439,7 +470,7 @@ Page {
                     }
                 }
                 onClicked: page.favoritesRequested()
-                Component.onCompleted: if (background) background.radius = 4
+                Component.onCompleted: if (background) background.radius = page.cornerRadius
             }
             // Dictionary (right after Favorite words)
             Button {
@@ -449,7 +480,7 @@ Page {
                 Layout.rightMargin: 16
                 Layout.preferredHeight: 67   // 70% of Start (96)
                 text: qsTr("Dictionary")
-                Material.background: "#7B1FA2"
+                Material.background: "#B088C4"
                 Material.foreground: "white"
                 contentItem: Item {
                     implicitHeight: dictRow.implicitHeight
@@ -474,7 +505,7 @@ Page {
                     }
                 }
                 onClicked: page.dictionaryRequested()
-                Component.onCompleted: if (background) background.radius = 4
+                Component.onCompleted: if (background) background.radius = page.cornerRadius
             }
 
             // Export and import side by side (each page has a ? with a short how-to)
@@ -492,7 +523,7 @@ Page {
                     Layout.preferredHeight: 67   // 70% of Start (96)
                     enabled: CardStore.totalCount > 0
                     text: qsTr("Export")
-                    Material.background: "#1976D2"
+                    Material.background: "#297DD1"
                     Material.foreground: "white"
                     contentItem: Item {
                         implicitHeight: exportRow.implicitHeight
@@ -518,7 +549,7 @@ Page {
                         }
                     }
                     onClicked: page.sendRequested()
-                    Component.onCompleted: if (background) background.radius = 4
+                    Component.onCompleted: if (background) background.radius = page.cornerRadius
                 }
                 Button {
                     id: importButton
@@ -526,7 +557,7 @@ Page {
                     Layout.preferredWidth: 1
                     Layout.preferredHeight: 67   // 70% of Start (96)
                     text: qsTr("Import")
-                    Material.background: "#2E7D32"
+                    Material.background: "#448C43"
                     Material.foreground: "white"
                     contentItem: Item {
                         implicitHeight: importRow.implicitHeight
@@ -551,7 +582,7 @@ Page {
                         }
                     }
                     onClicked: page.getRequested()
-                    Component.onCompleted: if (background) background.radius = 4
+                    Component.onCompleted: if (background) background.radius = page.cornerRadius
                 }
             }
 
@@ -564,7 +595,7 @@ Page {
                 visible: !AppMode.full
                 padding: 12
                 background: Rectangle {
-                    radius: 8
+                    radius: page.cornerRadius
                     color: "transparent"
                     border.width: 1
                     border.color: Material.accentColor
@@ -621,7 +652,7 @@ Page {
                 Material.background: "#455A64"
                 Material.foreground: "white"
                 onClicked: page.browseRequested()
-                Component.onCompleted: if (background) background.radius = 4
+                Component.onCompleted: if (background) background.radius = page.cornerRadius
             }
 
             Label {
