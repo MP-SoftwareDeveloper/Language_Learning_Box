@@ -172,7 +172,7 @@ int LevelPacks::createBox(const LevelPack &p)
 }
 
 namespace {
-// Settings switches "German / Swedish A1 and A2 learning boxes in the box list" (on by default).
+// Settings switches "German / Swedish A1 and A2 learning boxes in the box list" (German on, Swedish off by default).
 QString boxesKey(const QString &language)
 {
     return language == QLatin1String("sv") ? QStringLiteral("levelpacks/swedishBoxes")
@@ -188,7 +188,8 @@ QString installedKey(const QString &language)
 
 bool LevelPacks::boxesOn(const QString &language) const
 {
-    return QSettings().value(boxesKey(language), true).toBool();
+    // German boxes are on by default, Swedish ones off (switched on in Settings)
+    return QSettings().value(boxesKey(language), language == QLatin1String("de")).toBool();
 }
 
 void LevelPacks::setBoxesOn(const QString &language, bool on)
