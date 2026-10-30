@@ -211,6 +211,29 @@ private slots:
         s->deleteCollection(de);
     }
 
+    // A hidden learning box leaves the QML list (collections property) but not collections(); the
+    // selected one always stays visible.
+    void hiddenBoxes()
+    {
+        auto *s = CardStore::instance();
+        const int first = s->currentCollection();
+        const int extra = s->createCollection(QStringLiteral("Hidden one"), QStringLiteral("sv"));
+        const int before = s->visibleCollections().size();
+        s->setCollectionHidden(extra, true);
+        QVERIFY(s->isCollectionHidden(extra));
+        QCOMPARE(s->visibleCollections().size(), before - 1);
+        QCOMPARE(s->collections().size(), before);          // still there, with its cards
+        s->selectCollection(extra);
+        QCOMPARE(s->visibleCollections().size(), before);   // the selected one is shown
+        s->selectCollection(first);
+        QCOMPARE(s->visibleCollections().size(), before - 1);
+        s->setCollectionHidden(extra, false);
+        QCOMPARE(s->visibleCollections().size(), before);
+        s->setCollectionHidden(extra, true);
+        QVERIFY(s->deleteCollection(extra));                // deleting clears the flag
+        QVERIFY(!s->isCollectionHidden(extra));
+    }
+
     // Swedish is a learning language of its own; an unknown language falls back to German.
     void swedishBox()
     {

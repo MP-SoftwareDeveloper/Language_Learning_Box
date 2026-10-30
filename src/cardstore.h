@@ -37,7 +37,9 @@ class CardStore : public QObject
     // most recently used first (so the selected one is on top).
     Q_PROPERTY(int currentCollection READ currentCollection WRITE selectCollection NOTIFY changed)
     Q_PROPERTY(QString currentCollectionName READ currentCollectionName NOTIFY changed)
-    Q_PROPERTY(QVariantList collections READ collections NOTIFY changed)
+    // (learning boxes hidden with setCollectionHidden are left out, except the selected one; C++ code
+    // that needs every box calls collections())
+    Q_PROPERTY(QVariantList collections READ visibleCollections NOTIFY changed)
     // Language being learned in the selected learning box: "de" (German), "en" (English, US) or "sv" (Swedish).
     // Speech, text recognition, translation and example sentences follow it.
     Q_PROPERTY(QString learningLanguage READ learningLanguage NOTIFY changed)
@@ -115,6 +117,10 @@ public:
     int currentCollection() const { return m_collection; }
     QString currentCollectionName() const;
     QVariantList collections() const; // [{id, name, language, meaning, boxCounts, learned, total, due, current}]
+    QVariantList visibleCollections() const; // collections() without the hidden ones (the selected one always stays)
+    // Hides or shows a learning box in the box list. Cards and progress are kept; remembered across starts.
+    Q_INVOKABLE void setCollectionHidden(int id, bool hidden);
+    Q_INVOKABLE bool isCollectionHidden(int id) const;
     QString learningLanguage() const;
     QString meaningLanguage() const;
     void setMeaningLanguage(const QString &language);

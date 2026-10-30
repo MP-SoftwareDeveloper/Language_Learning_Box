@@ -174,24 +174,45 @@ int LevelPacks::createBox(const LevelPack &p)
 int LevelPacks::installBoxes(bool force)
 {
     QSettings settings;
-    // German and Swedish levels have their own first-start flag, so an app that already has the
-    // German boxes gets the Swedish ones on its next start.
-    const bool doDe = force || !settings.value(QStringLiteral("levelpacks/installed"), false).toBool();
-    const bool doSv = force || !settings.value(QStringLiteral("levelpacks/installedSv"), false).toBool();
-    if (!doDe && !doSv)
+    if (!force && settings.value(QStringLiteral("levelpacks/installed"), false).toBool())
         return 0;
     CardStore *store = CardStore::instance();
     const int original = store->currentCollection();
     int created = 0;
     for (const LevelPack &p : std::as_const(m_packs))
-        if ((p.language == QLatin1String("sv") ? doSv : doDe) && boxId(p) < 0 && createBox(p) >= 0)
+        if (p.language == QLatin1String("de") && boxId(p) < 0 && createBox(p) >= 0) // Swedish: see setSwedishBoxes
             ++created;
     if (original >= 0)
         store->selectCollection(original);
     settings.setValue(QStringLiteral("levelpacks/installed"), true);
-    settings.setValue(QStringLiteral("levelpacks/installedSv"), true);
     refresh();
     return created;
+}
+
+bool LevelPacks::swedishBoxes() const
+{
+    return QSettings().value(QStringLiteral("levelpacks/swedishBoxes"), false).toBool();
+}
+
+void LevelPacks::setSwedishBoxes(bool on)
+{
+    if (on == swedishBoxes())
+        return;
+    QSettings().setValue(QStringLiteral("levelpacks/swedishBoxes"), on);
+    CardStore *store = CardStore::instance();
+    const int original = store->currentCollection();
+    for (const LevelPack &p : std::as_const(m_packs)) {
+        if (p.language != QLatin1String("sv"))
+            continue;
+        int id = boxId(p);
+        if (id < 0 && on)
+            id = createBox(p); // creates, selects and fills it
+        if (id >= 0)
+            store->setCollectionHidden(id, !on);
+    }
+    if (original >= 0)
+        store->selectCollection(original);
+    refresh();
 }
 
 bool LevelPacks::openLevel(const QString &levelId)
@@ -204,6 +225,7 @@ bool LevelPacks::openLevel(const QString &levelId)
             id = createBox(p);
         if (id < 0)
             return false;
+        CardStore::instance()->setCollectionHidden(id, false); // opened on purpose: shown in the list
         CardStore::instance()->selectCollection(id);
         return true;
     }

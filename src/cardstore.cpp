@@ -26,6 +26,7 @@ namespace {
 constexpr auto kConnection = "learningbox";
 constexpr int kSchemaVersion = 10;
 constexpr auto kCurrentKey = "learningbox/current"; // QSettings: selected learning box
+constexpr auto kHiddenKey = "learningbox/hiddenCollections"; // QSettings: ids of learning boxes hidden in the list
 
 QSqlDatabase db() { return QSqlDatabase::database(QLatin1String(kConnection)); }
 
@@ -960,6 +961,57 @@ QVariantList CardStore::collections() const
 }
 
 namespace {
+QSet<int> hiddenCollectionIds()
+{
+    QSet<int> ids;
+    for (const QString &s : QSettings().value(QLatin1String(kHiddenKey)).toStringList())
+        ids.insert(s.toInt());
+    return ids;
+}
+
+void storeHiddenCollectionIds(const QSet<int> &ids)
+{
+    QStringList list;
+    for (int id : ids)
+        list << QString::number(id);
+    QSettings().setValue(QLatin1String(kHiddenKey), list);
+}
+} // namespace
+
+QVariantList CardStore::visibleCollections() const
+{
+    const QSet<int> hidden = hiddenCollectionIds();
+    QVariantList all = collections();
+    if (hidden.isEmpty())
+        return all;
+    QVariantList out;
+    for (const QVariant &v : std::as_const(all)) {
+        const int id = v.toMap().value(QStringLiteral("id")).toInt();
+        if (!hidden.contains(id) || id == m_collection)
+            out.append(v);
+    }
+    return out;
+}
+
+bool CardStore::isCollectionHidden(int id) const
+{
+    return hiddenCollectionIds().contains(id);
+}
+
+void CardStore::setCollectionHidden(int id, bool hidden)
+{
+    QSet<int> ids = hiddenCollectionIds();
+    if (hidden ? ids.contains(id) : !ids.contains(id))
+        return;
+    if (hidden)
+        ids.insert(id);
+    else
+        ids.remove(id);
+    storeHiddenCollectionIds(ids);
+    emit changed();
+}
+
+namespace {
 // Languages a learning box can be about: German (default), English (American) and Swedish.
 bool isLearningLanguage(const QString &l)
 {
@@ -1073,6 +1125,11 @@ bool CardStore::deleteCollection(int id)
         return false;
     }
     d.commit();
+    {
+        QSet<int> hidden = hiddenCollectionIds(); // an id can be reused later
+        if (hidden.remove(id))
+            storeHiddenCollectionIds(hidden);
+    }
     removeOrphanImages(); // pictures no other card uses
     if (id == m_collection)
         selectCollection(scalar(QStringLiteral("SELECT id FROM collections ORDER BY last_used_at DESC, id ASC LIMIT 1")));
