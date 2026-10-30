@@ -16,15 +16,15 @@ struct Example
     QString translation; // in the requested language, "" if Tatoeba has none
 };
 
-// Tatoeba language code: "fa" -> "pes" (Iranian Persian), "en" -> "eng", "de" -> "deu".
+// Tatoeba language code: "fa" -> "pes" (Iranian Persian), "en" -> "eng", "de" -> "deu", "sv" -> "swe".
 QString languageCode(const QString &target);
 
-// Search sentences in `source` ("de" German, "en" English) containing `word` (German
-// "der/die/das", English "to/the/a/an" are dropped), shortest first, with translations in
+// Search sentences in `source` ("de" German, "en" English, "sv" Swedish) containing `word` (German
+// "der/die/das", English "to/the/a/an", Swedish "att/en/ett" are dropped), shortest first, with translations in
 // `target` ("fa"/"en") included when they exist.
 QUrl searchUrl(const QString &word, const QString &target, int limit = 10, const QString &source = QStringLiteral("de"));
 
-// The word that is searched for: "das Brot" -> "Brot", English "to go" -> "go".
+// The word that is searched for: "das Brot" -> "Brot", English "to go" -> "go", Swedish "ett hus" -> "hus".
 QString searchWord(const QString &front, const QString &source = QStringLiteral("de"));
 
 // Parses the answer; keeps sentences that really contain the word (case-insensitive), up to

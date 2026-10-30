@@ -761,7 +761,8 @@ Page {
     FileDialog {
         id: galleryDialog
         title: CardStore.learningLanguage === "en" ? qsTr("Choose a photo with English text")
-                                                   : qsTr("Choose a photo with German text")
+               : CardStore.learningLanguage === "sv" ? qsTr("Choose a photo with Swedish text")
+               : qsTr("Choose a photo with German text")
         nameFilters: [qsTr("Images (*.jpg *.jpeg *.png *.webp *.bmp)")]
         onAccepted: engine.recognize(selectedFile)
     }

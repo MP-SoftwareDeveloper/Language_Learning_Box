@@ -15,6 +15,8 @@ QString languageCode(const QString &target)
         return QStringLiteral("eng");
     if (target == QLatin1String("de"))
         return QStringLiteral("deu");
+    if (target == QLatin1String("sv"))
+        return QStringLiteral("swe");
     return QStringLiteral("pes");
 }
 
@@ -24,8 +26,11 @@ QString searchWord(const QString &front, const QString &source)
                                             QRegularExpression::CaseInsensitiveOption);
     static const QRegularExpression englishArticle(QStringLiteral("^(to|the|a|an)\\s+"),
                                                    QRegularExpression::CaseInsensitiveOption);
+    static const QRegularExpression swedishArticle(QStringLiteral("^(att|en|ett)\\s+"),
+                                                   QRegularExpression::CaseInsensitiveOption);
     QString w = front.simplified();
-    w.remove(source == QLatin1String("en") ? englishArticle : article);
+    w.remove(source == QLatin1String("en") ? englishArticle
+             : source == QLatin1String("sv") ? swedishArticle : article);
     w.remove(QRegularExpression(QStringLiteral("[!?.,;:]+$")));
     return w;
 }

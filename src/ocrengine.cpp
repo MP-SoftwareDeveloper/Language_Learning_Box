@@ -24,14 +24,18 @@ namespace {
 // Longest edge for OCR. Phone photos are ~4000 px; ~2400 keeps book text legible
 // for Tesseract while bounding memory and time.
 constexpr int kOcrMaxEdge = 2400;
-// Tesseract models shipped with the app: German and English (tessdata_fast).
-const char *const kLanguages[] = {"deu", "eng"};
+// Tesseract models shipped with the app: German, English and Swedish (tessdata_fast).
+const char *const kLanguages[] = {"deu", "eng", "swe"};
 
 // Model for the language of the selected learning box.
 QString tesseractLanguage()
 {
-    return CardStore::instance()->learningLanguage() == QLatin1String("en") ? QStringLiteral("eng")
-                                                                          : QStringLiteral("deu");
+    const QString lang = CardStore::instance()->learningLanguage();
+    if (lang == QLatin1String("en"))
+        return QStringLiteral("eng");
+    if (lang == QLatin1String("sv"))
+        return QStringLiteral("swe");
+    return QStringLiteral("deu");
 }
 
 QString cacheDir()

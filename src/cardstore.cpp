@@ -248,7 +248,7 @@ bool CardStore::migrate()
                                 " lapses INTEGER NOT NULL)");
     }
     if (version < 6) {
-        // v6: the language learned in each learning box ("de" German, "en" English).
+        // v6: the language learned in each learning box ("de" German, "en" English, "sv" Swedish).
         steps << QStringLiteral("ALTER TABLE collections ADD COLUMN language TEXT NOT NULL DEFAULT 'de'");
     }
     if (version < 7) {
@@ -959,13 +959,21 @@ QVariantList CardStore::collections() const
     return out;
 }
 
+namespace {
+// Languages a learning box can be about: German (default), English (American) and Swedish.
+bool isLearningLanguage(const QString &l)
+{
+    return l == QLatin1String("de") || l == QLatin1String("en") || l == QLatin1String("sv");
+}
+} // namespace
+
 QString CardStore::learningLanguage() const
 {
     QSqlQuery q(db());
     q.prepare(QStringLiteral("SELECT language FROM collections WHERE id = ?"));
     q.addBindValue(m_collection);
-    return q.exec() && q.next() && q.value(0).toString() == QLatin1String("en") ? QStringLiteral("en")
-                                                                              : QStringLiteral("de");
+    const QString l = q.exec() && q.next() ? q.value(0).toString() : QString();
+    return isLearningLanguage(l) ? l : QStringLiteral("de");
 }
 
 namespace {
@@ -1021,7 +1029,7 @@ int CardStore::createCollection(const QString &name, const QString &language, co
     q.addBindValue(n);
     q.addBindValue(nowSecs());
     q.addBindValue(0); // not used yet: goes to the end until it is selected
-    const QString learn = language == QLatin1String("en") ? QStringLiteral("en") : QStringLiteral("de");
+    const QString learn = isLearningLanguage(language) ? language : QStringLiteral("de");
     q.addBindValue(learn);
     q.addBindValue(isMeaningLanguage(meaning) && meaning != learn ? meaning : QStringLiteral("")); // "" = default
     if (!q.exec()) {

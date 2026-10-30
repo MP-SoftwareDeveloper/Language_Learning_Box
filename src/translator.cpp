@@ -463,7 +463,7 @@ int Translator::suggestWords(const QString &prefix, const QString &language)
     const QString p = prefix.trimmed();
     const QStringList variants = wiktionary::suggestVariants(p);
     if (variants.isEmpty() || !useOnline() || !(language == QLatin1String("de") || language == QLatin1String("en")
-                                                 || language == QLatin1String("fa"))) {
+                                                 || language == QLatin1String("sv") || language == QLatin1String("fa"))) {
         QTimer::singleShot(0, this, [=, this] { emit wordsSuggested(id, {}, QString()); });
         return id;
     }

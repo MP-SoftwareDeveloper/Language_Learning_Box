@@ -30,6 +30,18 @@ private slots:
         QCOMPARE(tatoeba::searchWord(QStringLiteral("the station"), QStringLiteral("en")), QStringLiteral("station"));
         QCOMPARE(tatoeba::searchWord(QStringLiteral("die Stadt"), QStringLiteral("en")), QStringLiteral("die Stadt"));
     }
+    void swedishSource()
+    {
+        const QUrl u = tatoeba::searchUrl(QStringLiteral("ett hus"), QStringLiteral("fa"), 10, QStringLiteral("sv"));
+        const QUrlQuery q(u);
+        QCOMPARE(q.queryItemValue(QStringLiteral("lang")), QStringLiteral("swe"));
+        QCOMPARE(q.queryItemValue(QStringLiteral("q"), QUrl::FullyDecoded), QStringLiteral("=hus"));
+        QCOMPARE(q.queryItemValue(QStringLiteral("showtrans:lang")), QStringLiteral("pes"));
+        QCOMPARE(tatoeba::languageCode(QStringLiteral("sv")), QStringLiteral("swe"));
+        QCOMPARE(tatoeba::searchWord(QStringLiteral("en bil"), QStringLiteral("sv")), QStringLiteral("bil"));
+        QCOMPARE(tatoeba::searchWord(QStringLiteral("att läsa"), QStringLiteral("sv")), QStringLiteral("läsa"));
+        QCOMPARE(tatoeba::searchWord(QStringLiteral("die Stadt"), QStringLiteral("sv")), QStringLiteral("die Stadt"));
+    }
 
     void parsesAndOrders()
     {

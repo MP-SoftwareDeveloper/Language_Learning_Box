@@ -56,7 +56,9 @@ Page {
     }
     readonly property color selectedText: "#0D2A45"
     // Flag of the language learned in a learning box
-    function flag(lang) { return lang === "en" ? "\uD83C\uDDFA\uD83C\uDDF8" : "\uD83C\uDDE9\uD83C\uDDEA" }
+    function flag(lang) {
+        return lang === "en" ? "\uD83C\uDDFA\uD83C\uDDF8" : lang === "sv" ? "\uD83C\uDDF8\uD83C\uDDEA" : "\uD83C\uDDE9\uD83C\uDDEA"
+    }
     readonly property bool english: CardStore.learningLanguage === "en"
     property int menuId: 0
     property string menuName: ""
@@ -645,7 +647,7 @@ Page {
         MenuItem {
             text: qsTr("Word packs · %1").arg(WordPacks.title)
             // German words: Full app, German learning boxes
-            enabled: AppMode.full && !page.english
+            enabled: AppMode.full && CardStore.learningLanguage === "de"
             height: enabled ? implicitHeight : 0
             visible: enabled
             onTriggered: page.packsRequested()
@@ -775,6 +777,15 @@ Page {
         y: Math.max(8, (page.height - height) / 3)
         standardButtons: Dialog.Ok | Dialog.Cancel
         property string meaning: "fa"
+        // "de" | "en" | "sv": the language this box is about
+        readonly property string learnCode: learnEnglish.checked ? "en" : learnSwedish.checked ? "sv" : "de"
+        function learnPicked() {
+            startWith.currentIndex = 0
+            // read the buttons themselves: this runs while the bindings are still being updated
+            const code = learnEnglish.checked ? "en" : learnSwedish.checked ? "sv" : "de"
+            if (meaning === code)
+                meaning = "fa" // never the language being learned
+        }
         onAboutToShow: {
             newName.text = ""
             meaning = "fa"
@@ -788,10 +799,12 @@ Page {
             TextField {
                 id: newName
                 Layout.fillWidth: true
-                placeholderText: learnEnglish.checked ? qsTr("e.g. English A2") : qsTr("e.g. Netzwerk neu A2")
+                placeholderText: learnEnglish.checked ? qsTr("e.g. English A2")
+                                 : learnSwedish.checked ? qsTr("e.g. Svenska A1") : qsTr("e.g. Netzwerk neu A2")
             }
             Label { text: qsTr("I want to learn") }
-            RowLayout {
+            Flow {
+                Layout.fillWidth: true   // three languages: wraps to a second line on a narrow dialog
                 ButtonGroup { id: learnGroup }
                 RadioButton {
                     id: learnGerman
@@ -803,23 +816,29 @@ Page {
                     id: learnEnglish
                     ButtonGroup.group: learnGroup
                     text: "\uD83C\uDDFA\uD83C\uDDF8 English"
-                    onCheckedChanged: {
-                        startWith.currentIndex = 0
-                        if (newDialog.meaning === (checked ? "en" : "de"))
-                            newDialog.meaning = "fa" // never the language being learned
-                    }
+                    onCheckedChanged: newDialog.learnPicked()
+                }
+                RadioButton {
+                    id: learnSwedish
+                    ButtonGroup.group: learnGroup
+                    text: "\uD83C\uDDF8\uD83C\uDDEA Svenska"
+                    onCheckedChanged: newDialog.learnPicked()
                 }
             }
             HintLabel {
                 visible: learnEnglish.checked
                 text: qsTr("Read aloud with an American voice.")
             }
+            HintLabel {
+                visible: learnSwedish.checked
+                text: qsTr("Read aloud with a Swedish voice.")
+            }
             Label { text: qsTr("Meanings in") }
             RowLayout {
                 Repeater {
                     // Every language except the one being learned
                     model: [ { code: "fa", label: "فارسی" }, { code: "en", label: "English" }, { code: "de", label: "Deutsch" } ]
-                        .filter(o => o.code !== (learnEnglish.checked ? "en" : "de"))
+                        .filter(o => o.code !== newDialog.learnCode)
                     delegate: RadioButton {
                         required property var modelData
                         checkable: false // shows newDialog.meaning, never its own state
@@ -829,11 +848,11 @@ Page {
                     }
                 }
             }
-            Label { text: qsTr("Start with"); visible: !learnEnglish.checked }
+            Label { text: qsTr("Start with"); visible: learnGerman.checked }
             ComboBox {
                 id: startWith
                 Layout.fillWidth: true
-                visible: !learnEnglish.checked // starter words and word packs are German
+                visible: learnGerman.checked // starter words and word packs are German
                 // Word pack only in the Full app
                 model: AppMode.full ? [qsTr("Empty box"), qsTr("%1 starter words (German, English, Persian)").arg(WordPacks.starterTotal), qsTr("Word pack: %1").arg(WordPacks.title)]
                                     : [qsTr("Empty box"), qsTr("%1 starter words (German, English, Persian)").arg(WordPacks.starterTotal)]
@@ -842,7 +861,7 @@ Page {
         onAccepted: {
             const name = newName.text.trim()
             const id = CardStore.createCollection(name.length > 0 ? name : qsTr("Learning box %1").arg(CardStore.collections.length + 1),
-                                                  learnEnglish.checked ? "en" : "de", newDialog.meaning)
+                                                  newDialog.learnCode, newDialog.meaning)
             if (id > 0) {
                 CardStore.selectCollection(id)
                 if (startWith.currentIndex === 1)

@@ -15,10 +15,10 @@ Page {
     id: page
     title: qsTr("Dictionary")
 
-    readonly property string learn: CardStore.learningLanguage   // "de" / "en"
+    readonly property string learn: CardStore.learningLanguage   // "de" / "en" / "sv"
     readonly property string boxMeaning: Translator.meaningLanguage // "fa" / "en" / "de"
     readonly property var languages: [
-        { code: "de", name: "Deutsch" }, { code: "en", name: "English" }, { code: "fa", name: "فارسی" }
+        { code: "de", name: "Deutsch" }, { code: "en", name: "English" }, { code: "sv", name: "Svenska" }, { code: "fa", name: "فارسی" }
     ]
     // Input and output language: the saved choice when it is valid, else the box's languages
     readonly property bool savedPairValid: prefs.fromLang !== prefs.toLang
@@ -71,8 +71,8 @@ Page {
     // The language the meaning (card back) is in
     readonly property string meaning: reverse ? from : to
 
-    function langName(c) { return c === "fa" ? "فارسی" : c === "de" ? "Deutsch" : "English" }
-    function tag(c) { return c === "en" ? "en-US" : c === "de" ? "de-DE" : "" }
+    function langName(c) { return c === "fa" ? "فارسی" : c === "de" ? "Deutsch" : c === "sv" ? "Svenska" : "English" }
+    function tag(c) { return c === "en" ? "en-US" : c === "de" ? "de-DE" : c === "sv" ? "sv-SE" : "" }
     function persianText(t) { return /[؀-ۿ]/.test(t) }
 
     property string query: ""        // what was looked up
@@ -360,7 +360,8 @@ Page {
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
                 target: field
-                forLanguage: page.from === "de"
+                forLanguage: page.from === "de" || page.from === "sv"
+                letterSet: page.from === "sv" ? "sv" : "de"
                 onInserted: typing.restart()
             }
 
@@ -493,7 +494,8 @@ Page {
                         id: keysOwn
                         Layout.fillWidth: true
                         target: ownExampleField
-                        forLanguage: page.learn === "de"
+                        forLanguage: page.learn === "de" || page.learn === "sv"
+                        letterSet: page.learn === "sv" ? "sv" : "de"
                     }
 
                     // Like Lens: save straight into the learning box (asks if the word is already a card)

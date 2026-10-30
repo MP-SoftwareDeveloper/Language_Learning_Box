@@ -211,6 +211,28 @@ private slots:
         s->deleteCollection(de);
     }
 
+    // Swedish is a learning language of its own; an unknown language falls back to German.
+    void swedishBox()
+    {
+        auto *s = CardStore::instance();
+        const int first = s->currentCollection();
+        const int sv = s->createCollection(QStringLiteral("Svenska A1"), QStringLiteral("sv"));
+        const int odd = s->createCollection(QStringLiteral("Unknown"), QStringLiteral("xx"));
+        s->selectCollection(sv);
+        QCOMPARE(s->learningLanguage(), QStringLiteral("sv"));
+        QSettings().setValue(QStringLiteral("translation/target"), QStringLiteral("fa"));
+        QCOMPARE(s->meaningLanguage(), QStringLiteral("fa"));
+        s->setMeaningLanguage(QStringLiteral("sv")); // never the language being learned
+        QCOMPARE(s->meaningLanguage(), QStringLiteral("fa"));
+        s->setMeaningLanguage(QStringLiteral("de"));
+        QCOMPARE(s->meaningLanguage(), QStringLiteral("de"));
+        s->selectCollection(odd);
+        QCOMPARE(s->learningLanguage(), QStringLiteral("de"));
+        s->selectCollection(first);
+        s->deleteCollection(sv);
+        s->deleteCollection(odd);
+    }
+
     // Meaning language per learning box; never the learning language itself.
     void meaningLanguagePerBox()
     {

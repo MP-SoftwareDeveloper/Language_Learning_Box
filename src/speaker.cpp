@@ -34,8 +34,12 @@ Speaker::Speaker(QObject *parent)
 
 QString Speaker::learningTag()
 {
-    return CardStore::instance()->learningLanguage() == QLatin1String("en") ? QStringLiteral("en-US")
-                                                                          : QStringLiteral("de-DE");
+    const QString lang = CardStore::instance()->learningLanguage();
+    if (lang == QLatin1String("en"))
+        return QStringLiteral("en-US");
+    if (lang == QLatin1String("sv"))
+        return QStringLiteral("sv-SE");
+    return QStringLiteral("de-DE");
 }
 
 bool Speaker::hasLocale(const QLocale &wanted, bool anyVariant) const
@@ -61,7 +65,12 @@ bool Speaker::hasVoice(const QString &languageTag) const
 
 QString Speaker::voiceName() const
 {
-    return learningTag() == QLatin1String("en-US") ? tr("American English") : tr("German");
+    const QString tag = learningTag();
+    if (tag == QLatin1String("en-US"))
+        return tr("American English");
+    if (tag == QLatin1String("sv-SE"))
+        return tr("Swedish");
+    return tr("German");
 }
 
 void Speaker::onEngineState(QTextToSpeech::State s)

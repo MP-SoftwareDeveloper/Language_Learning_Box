@@ -222,7 +222,8 @@ Page {
             readonly property string meaningName: Translator.meaningLanguage === "fa" ? "فارسی"
                                                 : Translator.meaningLanguage === "de" ? "Deutsch" : "English"
             // Language being learned in this learning box
-            readonly property string learnName: CardStore.learningLanguage === "en" ? "English" : "Deutsch"
+            readonly property string learnName: CardStore.learningLanguage === "en" ? "English"
+                                              : CardStore.learningLanguage === "sv" ? "Svenska" : "Deutsch"
             Row {
                 id: directionRow
                 anchors.centerIn: parent
@@ -266,12 +267,11 @@ Page {
             wrapMode: Text.WordWrap
             font.pixelSize: 13
             opacity: 0.7
-            readonly property bool english: CardStore.learningLanguage === "en"
-            text: page.direction === "meaning" ? (english ? qsTr("See the meaning — can you say it in English?")
-                                                          : qsTr("See the meaning — can you say it in German?"))
+            readonly property string learnWord: CardStore.learningLanguage === "en" ? qsTr("English")
+                                              : CardStore.learningLanguage === "sv" ? qsTr("Swedish") : qsTr("German")
+            text: page.direction === "meaning" ? qsTr("See the meaning — can you say it in %1?").arg(learnWord)
                 : page.direction === "mixed" ? qsTr("Surprise me: every card comes from either side.")
-                : (english ? qsTr("Read the English word — do you know what it means?")
-                           : qsTr("Read the German word — do you know what it means?"))
+                : qsTr("Read the %1 word — do you know what it means?").arg(learnWord)
         }
 
         Pane {
@@ -357,6 +357,7 @@ Page {
                         wrapMode: Text.WordWrap
                         opacity: 0.6
                         text: CardStore.learningLanguage === "en" ? qsTr("How do you say it in English?")
+                              : CardStore.learningLanguage === "sv" ? qsTr("How do you say it in Swedish?")
                               : /^(der|die|das) /i.test(session.front)
                               ? qsTr("How do you say it in German? Der, die or das — and the plural?")
                               : qsTr("How do you say it in German?")
@@ -388,6 +389,8 @@ Page {
                         Repeater {
                             model: CardStore.learningLanguage === "en"
                                    ? [ { code: "fa", label: "فارسی" }, { code: "de", label: "Deutsch" } ]
+                                   : CardStore.learningLanguage === "sv"
+                                   ? [ { code: "fa", label: "فارسی" }, { code: "en", label: "English" }, { code: "de", label: "Deutsch" } ]
                                    : [ { code: "fa", label: "فارسی" }, { code: "en", label: "English" } ]
                             delegate: Button {
                                 required property var modelData
@@ -466,6 +469,7 @@ Page {
             highlighted: true
             text: page.germanFirst ? qsTr("Show the meaning")
                                    : CardStore.learningLanguage === "en" ? qsTr("Show the English word")
+                                   : CardStore.learningLanguage === "sv" ? qsTr("Show the Swedish word")
                                    : qsTr("Show the German word")
             onClicked: page.revealed = true
         }

@@ -145,12 +145,13 @@ else()
     message(WARNING "LearningBox: Tesseract not found in ${LB_OCR_PREFIX} - building without OCR")
 endif()
 
-# OCR models (tessdata_fast, Apache-2.0): German and English, as :/ocr/tessdata/<lang>.traineddata
+# OCR models (tessdata_fast, Apache-2.0): German, English and Swedish, as :/ocr/tessdata/<lang>.traineddata
 set_source_files_properties(data/tessdata/deu.traineddata PROPERTIES QT_RESOURCE_ALIAS tessdata/deu.traineddata)
 set_source_files_properties(data/tessdata/eng.traineddata PROPERTIES QT_RESOURCE_ALIAS tessdata/eng.traineddata)
+set_source_files_properties(data/tessdata/swe.traineddata PROPERTIES QT_RESOURCE_ALIAS tessdata/swe.traineddata)
 qt_add_resources(appLearningBox "ocrdata"
     PREFIX "/ocr"
-    FILES data/tessdata/deu.traineddata data/tessdata/eng.traineddata
+    FILES data/tessdata/deu.traineddata data/tessdata/eng.traineddata data/tessdata/swe.traineddata
 )
 
 # Android versionCode: grows with every configure (minutes since 1970), so a newer build always counts as an

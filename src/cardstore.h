@@ -38,7 +38,7 @@ class CardStore : public QObject
     Q_PROPERTY(int currentCollection READ currentCollection WRITE selectCollection NOTIFY changed)
     Q_PROPERTY(QString currentCollectionName READ currentCollectionName NOTIFY changed)
     Q_PROPERTY(QVariantList collections READ collections NOTIFY changed)
-    // Language being learned in the selected learning box: "de" (German) or "en" (English, US).
+    // Language being learned in the selected learning box: "de" (German), "en" (English, US) or "sv" (Swedish).
     // Speech, text recognition, translation and example sentences follow it.
     Q_PROPERTY(QString learningLanguage READ learningLanguage NOTIFY changed)
     // Language of the meanings in the selected learning box: "fa", "en" or "de" (never the learning

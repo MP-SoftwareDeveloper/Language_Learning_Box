@@ -299,7 +299,8 @@ Page {
                     id: frontField
                     Layout.fillWidth: true
                     placeholderText: CardStore.learningLanguage === "en" ? qsTr("English word or sentence")
-                                                                         : qsTr("German word or sentence")
+                                     : CardStore.learningLanguage === "sv" ? qsTr("Swedish word or sentence")
+                                     : qsTr("German word or sentence")
                     onAccepted: backField.forceActiveFocus()
                 }
                 GenderMark { word: page.cardFront }
@@ -387,6 +388,7 @@ Page {
                 Layout.rightMargin: 16
                 target: backField
                 forLanguage: Translator.meaningLanguage === "de"
+                letterSet: "de"
             }
             Label {
                 Layout.leftMargin: 20

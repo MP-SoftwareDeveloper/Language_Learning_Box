@@ -36,7 +36,7 @@ public:
     bool germanAvailable() const { return m_germanAvailable; }
     bool voiceAvailable() const;
     QString voiceName() const;
-    // BCP-47 tag of the learning language: "de-DE" or "en-US".
+    // BCP-47 tag of the learning language: "de-DE", "en-US" or "sv-SE".
     static QString learningTag();
     QString errorString() const;
 
@@ -45,7 +45,7 @@ public:
     // no such voice).
     Q_INVOKABLE int speak(const QString &text, const QString &languageTag = QString());
     Q_INVOKABLE void stop();
-    // Is there a voice for "de-DE" / "en-US" (English: American only)?
+    // Is there a voice for "de-DE" / "en-US" / "sv-SE" (English: American only)?
     Q_INVOKABLE bool hasVoice(const QString &languageTag) const;
 
 signals:

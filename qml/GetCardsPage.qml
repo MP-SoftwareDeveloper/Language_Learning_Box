@@ -196,6 +196,7 @@ Page {
                             visible: intoNew.checked
                             leftPadding: 8
                             text: page.preview.language === "en" ? page.tl("Learning language: \uD83C\uDDFA\uD83C\uDDF8 English", "زبان یادگیری: \uD83C\uDDFA\uD83C\uDDF8 انگلیسی", "Lernsprache: \uD83C\uDDFA\uD83C\uDDF8 Englisch")
+                                                                 : page.preview.language === "sv" ? page.tl("Learning language: \uD83C\uDDF8\uD83C\uDDEA Swedish", "زبان یادگیری: \uD83C\uDDF8\uD83C\uDDEA سوئدی", "Lernsprache: \uD83C\uDDF8\uD83C\uDDEA Schwedisch")
                                                                  : page.tl("Learning language: \uD83C\uDDE9\uD83C\uDDEA German", "زبان یادگیری: \uD83C\uDDE9\uD83C\uDDEA آلمانی", "Lernsprache: \uD83C\uDDE9\uD83C\uDDEA Deutsch")
                         }
                         RadioButton {

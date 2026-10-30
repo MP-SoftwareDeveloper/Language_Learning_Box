@@ -17,19 +17,23 @@ Page {
     // Meaning language for the first learning box (never the language being learned)
     property string meaning: Translator.targetLanguage === "en" ? "en" : "fa"
     readonly property bool fa: meaning === "fa"
-    // Language to learn: "de" German or "en" English (American); English meanings are Persian.
+    // Language to learn: "de" German, "en" English (American) or "sv" Swedish; the language being learned is
+    // never a meaning language.
     property string learn: "de"
     readonly property bool english: learn === "en"
-    readonly property string voiceTag: english ? "en-US" : "de-DE"
+    readonly property bool swedish: learn === "sv"
+    readonly property bool german: learn === "de"
+    readonly property string voiceTag: english ? "en-US" : swedish ? "sv-SE" : "de-DE"
+    readonly property string voiceLabel: english ? qsTr("American English") : swedish ? qsTr("Swedish") : qsTr("German")
     readonly property bool voiceOk: Speaker.ready && Speaker.hasVoice(voiceTag)
     readonly property var stepTitles: [qsTr("Welcome"), qsTr("Choose your app"), qsTr("Starter words"), qsTr("Ready")]
 
     function finish() {
         AppMode.mode = chosenMode
-        if (english) {
-            // An English learning box; a new install's empty German box is not needed then.
+        if (!german) {
+            // An English or Swedish learning box; a new install's empty German box is not needed then.
             const empty = CardStore.collections.length === 1 && CardStore.totalCount === 0 ? CardStore.currentCollection : -1
-            const id = CardStore.createCollection(qsTr("My English box"), "en", page.meaning)
+            const id = CardStore.createCollection(english ? qsTr("My English box") : qsTr("My Swedish box"), page.learn, page.meaning)
             if (id > 0) {
                 CardStore.selectCollection(id)
                 if (empty > 0)
@@ -108,7 +112,8 @@ Page {
                     Layout.fillWidth: true
                     spacing: 12
                     Repeater {
-                        model: [ { code: "de", label: "\uD83C\uDDE9\uD83C\uDDEA  Deutsch" }, { code: "en", label: "\uD83C\uDDFA\uD83C\uDDF8  English" } ]
+                        model: [ { code: "de", label: "\uD83C\uDDE9\uD83C\uDDEA  Deutsch" }, { code: "en", label: "\uD83C\uDDFA\uD83C\uDDF8  English" },
+                                 { code: "sv", label: "\uD83C\uDDF8\uD83C\uDDEA  Svenska" } ]
                         delegate: Button {
                             required property var modelData
                             Layout.fillWidth: true
@@ -127,6 +132,10 @@ Page {
                 HintLabel {
                     visible: page.english
                     text: qsTr("English is read aloud with an American voice.")
+                }
+                HintLabel {
+                    visible: page.swedish
+                    text: qsTr("Swedish is read aloud with a Swedish voice.")
                 }
                 Label {
                     Layout.topMargin: 8
@@ -218,25 +227,25 @@ Page {
                 spacing: 8
                 Label {
                     Layout.fillWidth: true
-                    visible: page.english
+                    visible: !page.german
                     wrapMode: Text.WordWrap
                     font.pixelSize: 16
-                    text: qsTr("The starter words are German. Your English learning box starts empty — add words with Add card, Lens or Get cards.")
+                    text: qsTr("The starter words are German. Your new learning box starts empty — add words with Add card, Lens or Get cards.")
                 }
                 CheckBox {
                     id: starterBox
-                    visible: !page.english
+                    visible: page.german
                     checked: true
                     text: qsTr("Add %1 starter words (recommended)").arg(WordPacks.starterTotal)
                     font.pixelSize: 16
                 }
                 HintLabel {
-                    visible: !page.english
+                    visible: page.german
                     text: qsTr("Common everyday words — greetings, numbers, family, food, home, time, verbs, city — with English and Persian meanings and an example sentence. They go into their own learning box “Starter – 100 words”.")
                 }
-                Label { Layout.topMargin: 8; visible: !page.english; text: qsTr("For example"); font.bold: true }
+                Label { Layout.topMargin: 8; visible: page.german; text: qsTr("For example"); font.bold: true }
                 Repeater {
-                    model: page.english ? [] : [ ["das Brot", "bread", "نان"], ["der Bahnhof", "train station", "ایستگاه قطار"], ["sprechen", "to speak", "صحبت کردن"] ]
+                    model: !page.german ? [] : [ ["das Brot", "bread", "نان"], ["der Bahnhof", "train station", "ایستگاه قطار"], ["sprechen", "to speak", "صحبت کردن"] ]
                     delegate: Label {
                         required property var modelData
                         Layout.fillWidth: true
@@ -244,7 +253,7 @@ Page {
                     }
                 }
                 HintLabel {
-                    visible: !page.english
+                    visible: page.german
                     text: qsTr("You can add them later too: Home → + (new learning box) → Start with: starter words.")
                 }
             }
@@ -279,16 +288,15 @@ Page {
                     Layout.topMargin: 8
                     Layout.fillWidth: true
                     wrapMode: Text.WordWrap
-                    text: !Speaker.ready ? qsTr("Checking the German voice …")
-                          : page.voiceOk ? (page.english ? qsTr("American English voice: installed ✓") : qsTr("German voice: installed ✓"))
-                          : page.english ? qsTr("American English voice: not installed. Cards are not read aloud until you install one.")
-                          : qsTr("German voice: not installed. Cards are not read aloud until you install one.")
+                    text: !Speaker.ready ? qsTr("Checking the %1 voice …").arg(page.voiceLabel)
+                          : page.voiceOk ? qsTr("%1 voice: installed ✓").arg(page.voiceLabel)
+                          : qsTr("%1 voice: not installed. Cards are not read aloud until you install one.").arg(page.voiceLabel)
                     color: Speaker.ready && !page.voiceOk ? Material.color(Material.Orange) : Material.foreground
                 }
                 Button {
                     visible: Speaker.ready && !page.voiceOk && Qt.platform.os === "android"
                     flat: true
-                    text: page.english ? qsTr("Get the American English voice (Google Play)") : qsTr("Get the German voice (Google Play)")
+                    text: qsTr("Get the %1 voice (Google Play)").arg(page.voiceLabel)
                     onClicked: Qt.openUrlExternally("https://play.google.com/store/apps/details?id=com.google.android.tts")
                 }
                 HintLabel {
