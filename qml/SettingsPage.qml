@@ -145,6 +145,36 @@ Page {
 
             Item { Layout.preferredHeight: 4 }
 
+            // ---------- A1 / A2 learning boxes in the box list ----------
+            SwitchDelegate {
+                Layout.fillWidth: true
+                visible: AppMode.full
+                text: page.tr2("germanBoxes")
+                checked: LevelPacks.germanBoxes
+                onToggled: LevelPacks.germanBoxes = checked
+            }
+            HintLabel {
+                Layout.leftMargin: 16
+                Layout.rightMargin: 16
+                visible: AppMode.full
+                horizontalAlignment: page.hAlign
+                text: page.tr2("germanBoxesHint")
+            }
+            SwitchDelegate {
+                Layout.fillWidth: true
+                visible: AppMode.full
+                text: page.tr2("swedishBoxes")
+                checked: LevelPacks.swedishBoxes
+                onToggled: LevelPacks.swedishBoxes = checked
+            }
+            HintLabel {
+                Layout.leftMargin: 16
+                Layout.rightMargin: 16
+                visible: AppMode.full
+                horizontalAlignment: page.hAlign
+                text: page.tr2("swedishBoxesHint")
+            }
+
             Label {
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
@@ -489,35 +519,6 @@ Page {
                 Layout.rightMargin: 16
                 horizontalAlignment: page.hAlign
                 text: page.tr2("germanKeysHint")
-            }
-
-            SwitchDelegate {
-                Layout.fillWidth: true
-                visible: AppMode.full
-                text: page.tr2("germanBoxes")
-                checked: LevelPacks.germanBoxes
-                onToggled: LevelPacks.germanBoxes = checked
-            }
-            HintLabel {
-                Layout.leftMargin: 16
-                Layout.rightMargin: 16
-                visible: AppMode.full
-                horizontalAlignment: page.hAlign
-                text: page.tr2("germanBoxesHint")
-            }
-            SwitchDelegate {
-                Layout.fillWidth: true
-                visible: AppMode.full
-                text: page.tr2("swedishBoxes")
-                checked: LevelPacks.swedishBoxes
-                onToggled: LevelPacks.swedishBoxes = checked
-            }
-            HintLabel {
-                Layout.leftMargin: 16
-                Layout.rightMargin: 16
-                visible: AppMode.full
-                horizontalAlignment: page.hAlign
-                text: page.tr2("swedishBoxesHint")
             }
 
             Item { Layout.preferredHeight: 16 }
