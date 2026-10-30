@@ -171,38 +171,35 @@ int LevelPacks::createBox(const LevelPack &p)
     return id;
 }
 
-int LevelPacks::installBoxes(bool force)
+namespace {
+// Settings switches "German / Swedish A1 and A2 learning boxes in the box list" (on by default).
+QString boxesKey(const QString &language)
 {
-    QSettings settings;
-    if (!force && settings.value(QStringLiteral("levelpacks/installed"), false).toBool())
-        return 0;
-    CardStore *store = CardStore::instance();
-    const int original = store->currentCollection();
-    int created = 0;
-    for (const LevelPack &p : std::as_const(m_packs))
-        if (p.language == QLatin1String("de") && boxId(p) < 0 && createBox(p) >= 0) // Swedish: see setSwedishBoxes
-            ++created;
-    if (original >= 0)
-        store->selectCollection(original);
-    settings.setValue(QStringLiteral("levelpacks/installed"), true);
-    refresh();
-    return created;
+    return language == QLatin1String("sv") ? QStringLiteral("levelpacks/swedishBoxes")
+                                           : QStringLiteral("levelpacks/germanBoxes");
+}
+// First-start flag per language (German keeps its old key), so a deleted box does not come back.
+QString installedKey(const QString &language)
+{
+    return language == QLatin1String("sv") ? QStringLiteral("levelpacks/installedSv")
+                                           : QStringLiteral("levelpacks/installed");
+}
+} // namespace
+
+bool LevelPacks::boxesOn(const QString &language) const
+{
+    return QSettings().value(boxesKey(language), true).toBool();
 }
 
-bool LevelPacks::swedishBoxes() const
+void LevelPacks::setBoxesOn(const QString &language, bool on)
 {
-    return QSettings().value(QStringLiteral("levelpacks/swedishBoxes"), false).toBool();
-}
-
-void LevelPacks::setSwedishBoxes(bool on)
-{
-    if (on == swedishBoxes())
+    if (on == boxesOn(language))
         return;
-    QSettings().setValue(QStringLiteral("levelpacks/swedishBoxes"), on);
+    QSettings().setValue(boxesKey(language), on);
     CardStore *store = CardStore::instance();
     const int original = store->currentCollection();
     for (const LevelPack &p : std::as_const(m_packs)) {
-        if (p.language != QLatin1String("sv"))
+        if (p.language != language)
             continue;
         int id = boxId(p);
         if (id < 0 && on)
@@ -213,6 +210,28 @@ void LevelPacks::setSwedishBoxes(bool on)
     if (original >= 0)
         store->selectCollection(original);
     refresh();
+}
+
+int LevelPacks::installBoxes(bool force)
+{
+    QSettings settings;
+    CardStore *store = CardStore::instance();
+    const int original = store->currentCollection();
+    int created = 0;
+    for (const QString &language : {QStringLiteral("de"), QStringLiteral("sv")}) {
+        if (!force && settings.value(installedKey(language), false).toBool())
+            continue;
+        // Switched off in Settings: no boxes now; switching on creates them.
+        if (boxesOn(language))
+            for (const LevelPack &p : std::as_const(m_packs))
+                if (p.language == language && boxId(p) < 0 && createBox(p) >= 0)
+                    ++created;
+        settings.setValue(installedKey(language), true);
+    }
+    if (original >= 0)
+        store->selectCollection(original);
+    refresh();
+    return created;
 }
 
 bool LevelPacks::openLevel(const QString &levelId)

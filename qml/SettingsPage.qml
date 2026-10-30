@@ -51,6 +51,8 @@ Page {
             "germanKeysHint": "Shows ä ö ü ß (German) or å ä ö (Swedish) under the text box while you type, for phone keyboards that do not have them.",
             "swedishBoxes": "Swedish A1 and A2 learning boxes in the box list",
             "swedishBoxesHint": "Shows the six Swedish learning boxes (A1, A2) in the box list on the home page. Switching off only hides them; their cards and progress are kept.",
+            "germanBoxes": "German A1 and A2 learning boxes in the box list",
+            "germanBoxesHint": "Shows the six German learning boxes (A1, A2) in the box list on the home page. Switching off only hides them; their cards and progress are kept.",
         },
         "fa": {
             "lang": "زبان توضیحات",
@@ -87,6 +89,8 @@ Page {
             "germanKeysHint": "هنگام تایپ، ä ö ü ß (آلمانی) یا å ä ö (سوئدی) را زیر کادر متن نشان می‌دهد؛ برای صفحه‌کلیدهایی که این حروف را ندارند.",
             "swedishBoxes": "جعبه‌های یادگیری سوئدی A1 و A2 در فهرست جعبه‌ها",
             "swedishBoxesHint": "شش جعبه یادگیری سوئدی (A1 و A2) را در فهرست جعبه‌های صفحه اصلی نشان می‌دهد. با خاموش کردن، فقط پنهان می‌شوند؛ کارت‌ها و پیشرفت شما می‌ماند.",
+            "germanBoxes": "جعبه‌های یادگیری آلمانی A1 و A2 در فهرست جعبه‌ها",
+            "germanBoxesHint": "شش جعبه یادگیری آلمانی (A1 و A2) را در فهرست جعبه‌های صفحه اصلی نشان می‌دهد. با خاموش کردن، فقط پنهان می‌شوند؛ کارت‌ها و پیشرفت شما می‌ماند.",
         },
         "de": {
             "lang": "Sprache der Erklärungen",
@@ -123,6 +127,8 @@ Page {
             "germanKeysHint": "Zeigt ä ö ü ß (Deutsch) oder å ä ö (Schwedisch) unter dem Textfeld, wenn du tippst – für Handy-Tastaturen ohne diese Buchstaben.",
             "swedishBoxes": "Schwedische A1- und A2-Lernboxen in der Box-Liste",
             "swedishBoxesHint": "Zeigt die sechs schwedischen Lernboxen (A1, A2) in der Liste auf der Startseite. Beim Ausschalten werden sie nur versteckt; Karten und Fortschritt bleiben erhalten.",
+            "germanBoxes": "Deutsche A1- und A2-Lernboxen in der Box-Liste",
+            "germanBoxesHint": "Zeigt die sechs deutschen Lernboxen (A1, A2) in der Liste auf der Startseite. Beim Ausschalten werden sie nur versteckt; Karten und Fortschritt bleiben erhalten.",
         }
     })
     function tr2(key) { return (tx[lang] && tx[lang][key]) || tx.en[key] }
@@ -485,6 +491,20 @@ Page {
                 text: page.tr2("germanKeysHint")
             }
 
+            SwitchDelegate {
+                Layout.fillWidth: true
+                visible: AppMode.full
+                text: page.tr2("germanBoxes")
+                checked: LevelPacks.germanBoxes
+                onToggled: LevelPacks.germanBoxes = checked
+            }
+            HintLabel {
+                Layout.leftMargin: 16
+                Layout.rightMargin: 16
+                visible: AppMode.full
+                horizontalAlignment: page.hAlign
+                text: page.tr2("germanBoxesHint")
+            }
             SwitchDelegate {
                 Layout.fillWidth: true
                 visible: AppMode.full

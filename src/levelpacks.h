@@ -27,8 +27,10 @@ class LevelPacks : public QObject
     Q_PROPERTY(int wordsInBox READ wordsInBox NOTIFY changed)
     Q_PROPERTY(bool available READ available NOTIFY changed) // the current learning box is German or Swedish
     Q_PROPERTY(QString error READ error CONSTANT)
-    // Settings switch: the six Swedish A1/A2 learning boxes are in the box list of the home page.
-    // On creates the missing ones and shows them; off only hides them (cards and progress are kept).
+    // Settings switches (on by default): the six German / Swedish A1/A2 learning boxes are in the box list
+    // of the home page. On creates the missing ones and shows them; off only hides them (cards and
+    // progress are kept).
+    Q_PROPERTY(bool germanBoxes READ germanBoxes WRITE setGermanBoxes NOTIFY changed)
     Q_PROPERTY(bool swedishBoxes READ swedishBoxes WRITE setSwedishBoxes NOTIFY changed)
 
 public:
@@ -39,8 +41,10 @@ public:
     int wordsInBox() const { return m_wordsInBox; }
     bool available() const;
     QString error() const { return m_error; }
-    bool swedishBoxes() const;
-    void setSwedishBoxes(bool on);
+    bool germanBoxes() const { return boxesOn(QStringLiteral("de")); }
+    void setGermanBoxes(bool on) { setBoxesOn(QStringLiteral("de"), on); }
+    bool swedishBoxes() const { return boxesOn(QStringLiteral("sv")); }
+    void setSwedishBoxes(bool on) { setBoxesOn(QStringLiteral("sv"), on); }
 
     // Adds the words that are not already in the current learning box, with the meaning in the
     // chosen language (Settings), and saves the English and Persian meanings and example
@@ -49,8 +53,8 @@ public:
     Q_INVOKABLE int addLevel(const QString &levelId);
     // Every level is its own learning box (named like the level, e.g. "A1 · Level 1") that shows up
     // in the learning-box list. installBoxes creates the missing ones, filled with all words; with
-    // force=false it does so only once (first start). German levels only; the Swedish ones follow the
-    // swedishBoxes switch. The current learning box stays selected.
+    // force=false it does so only once per language (first start), and only for languages whose
+    // switch (germanBoxes / swedishBoxes) is on. The current learning box stays selected.
     // Returns how many boxes were created.
     Q_INVOKABLE int installBoxes(bool force);
     // Selects the level's learning box (creating it if it was deleted). false on error.
@@ -65,6 +69,8 @@ private:
     explicit LevelPacks(QObject *parent = nullptr);
     void refresh();
     int addWords(const LevelPack &pack, const LevelChapter &chapter);
+    bool boxesOn(const QString &language) const;
+    void setBoxesOn(const QString &language, bool on);
     int boxId(const LevelPack &pack) const; // -1 = no learning box with the level's name
     int createBox(const LevelPack &pack);   // creates, selects and fills it; -1 on error
 
