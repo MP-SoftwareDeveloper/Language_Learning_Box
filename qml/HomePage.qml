@@ -234,10 +234,29 @@ Page {
                             nothingDueDialog.open()
                     }
 
-                    background: Rectangle {
-                        radius: page.cornerRadius
-                        color: Material.accentColor
+                    // Light-to-blue gradient from left to right, shaded 30% toward the bottom
+                    background: Item {
                         opacity: startBtn.ready ? 1.0 : 0.38
+                        Rectangle {
+                            anchors.fill: parent
+                            radius: page.cornerRadius
+                            gradient: Gradient {
+                                orientation: Gradient.Horizontal
+                                GradientStop { position: 0.00; color: "#EFF3F5" }
+                                GradientStop { position: 0.25; color: "#B6DDF5" }
+                                GradientStop { position: 0.50; color: "#7BC6F5" }
+                                GradientStop { position: 0.75; color: "#40B0F5" }
+                                GradientStop { position: 1.00; color: "#079AF5" }
+                            }
+                        }
+                        Rectangle {
+                            anchors.fill: parent
+                            radius: page.cornerRadius
+                            gradient: Gradient {
+                                GradientStop { position: 0.0; color: Qt.rgba(0, 0, 0, 0.0) }
+                                GradientStop { position: 1.0; color: Qt.rgba(0, 0, 0, 0.30) }
+                            }
+                        }
                     }
 
                     // "Start" — 3× font, single color that cycles every 800ms
