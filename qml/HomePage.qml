@@ -183,7 +183,7 @@ Page {
                     popup.width: page.width - 16
                 }
                 ToolButton {
-                    // The "+" is drawn (not a font glyph) so its strokes can be 3 x as thick
+                    // The "+" is drawn (not a font glyph) so its stroke thickness can be set
                     Accessible.name: qsTr("New learning box")
                     padding: 0
                     implicitWidth: 56
@@ -191,13 +191,13 @@ Page {
                     contentItem: Item {
                         Rectangle {                 // horizontal stroke
                             anchors.centerIn: parent
-                            width: 36; height: 14
+                            width: 36; height: 8.4
                             radius: 2
                             color: page.boxBase     // same colour as the box tiles
                         }
                         Rectangle {                 // vertical stroke
                             anchors.centerIn: parent
-                            width: 14; height: 36
+                            width: 8.4; height: 36
                             radius: 2
                             color: page.boxBase
                         }
