@@ -12,6 +12,22 @@ Page {
     font.family: serifFont.status === FontLoader.Ready ? serifFont.name : "serif"
     title: qsTr("Learning Box")
 
+    // Picture behind the whole page; the veil keeps the text readable (0 = picture only, 1 = plain colour)
+    readonly property real backgroundVeil: 0.45
+    background: Item {
+        Image {
+            anchors.fill: parent
+            source: "../assets/home_bg.png"
+            fillMode: Image.PreserveAspectCrop
+            asynchronous: true
+        }
+        Rectangle {
+            anchors.fill: parent
+            color: Material.background
+            opacity: page.backgroundVeil
+        }
+    }
+
     signal reviewRequested()
     signal addRequested()
     signal browseRequested()
