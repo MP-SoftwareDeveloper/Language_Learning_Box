@@ -191,7 +191,11 @@ Page {
                 }
                 ToolButton {
                     text: "⋮"
-                    font.pixelSize: 20
+                    font.pixelSize: 66              // same size as the "+"
+                    Material.foreground: "#E53935"  // red
+                    padding: 0
+                    implicitWidth: 40               // narrow, so it sits right next to the "+"
+                    implicitHeight: 56
                     onClicked: {
                         page.menuId = CardStore.currentCollection
                         page.menuName = CardStore.currentCollectionName
