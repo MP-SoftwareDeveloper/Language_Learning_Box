@@ -446,18 +446,7 @@ Page {
                 Layout.rightMargin: 16
                 Layout.fillWidth: true
                 spacing: 8
-                visible: AppMode.full // pictures are part of the Full app
-                Button {
-                    text: qsTr("\uD83D\uDCF7 Take photo")
-                    onClicked: {
-                        const cam = page.StackView.view.push(cameraShotPage)
-                        cam.taken.connect(name => page.setImage(name))
-                    }
-                }
-                Button {
-                    text: page.image === "" ? qsTr("Add picture") : qsTr("Change picture")
-                    onClicked: imageDialog.open()
-                }
+                visible: AppMode.full && page.image !== "" // only to remove an existing picture
                 Button {
                     flat: true
                     visible: page.image !== ""
