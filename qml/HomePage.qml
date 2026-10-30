@@ -183,18 +183,31 @@ Page {
                     popup.width: page.width - 16
                 }
                 ToolButton {
-                    text: "+"
-                    font.pixelSize: 66              // 3 x the former 22
-                    Material.foreground: page.boxBase   // same colour as the box tiles
+                    // The "+" is drawn (not a font glyph) so its strokes can be 3 x as thick
+                    Accessible.name: qsTr("New learning box")
                     padding: 0
                     implicitWidth: 56
                     implicitHeight: 56
+                    contentItem: Item {
+                        Rectangle {                 // horizontal stroke
+                            anchors.centerIn: parent
+                            width: 36; height: 14
+                            radius: 2
+                            color: page.boxBase     // same colour as the box tiles
+                        }
+                        Rectangle {                 // vertical stroke
+                            anchors.centerIn: parent
+                            width: 14; height: 36
+                            radius: 2
+                            color: page.boxBase
+                        }
+                    }
                     onClicked: newDialog.open()
                 }
                 ToolButton {
                     text: "⋮"
-                    font.pixelSize: 66              // same size as the "+"
-                    Material.foreground: "#E53935"  // red
+                    font.pixelSize: 66              // same size as the "+" used to be
+                    Material.foreground: page.boxBase   // same colour as the "+"
                     padding: 0
                     implicitWidth: 40               // narrow, so it sits right next to the "+"
                     implicitHeight: 56
