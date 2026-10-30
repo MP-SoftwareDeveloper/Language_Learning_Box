@@ -308,7 +308,7 @@ Page {
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
                 Layout.preferredHeight: 20   // 20 x the former 1 px line
-                radius: 0                    // plain rectangle, square corners
+                radius: 4                    // slightly rounded corners
                 gradient: Gradient {
                     orientation: Gradient.Horizontal
                     GradientStop { position: 0.0; color: page.tileColor(0) }
