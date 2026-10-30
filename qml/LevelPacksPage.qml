@@ -27,7 +27,9 @@ Page {
             Layout.bottomMargin: 8
             wrapMode: Text.WordWrap
             opacity: 0.75
-            text: qsTr("Six learning boxes, by the lesson themes of “Starten wir!”. Each one has its own Boxes 1–5, so you can track every level separately. Choose one in the list on the home page, or tap “Open box”.")
+            text: CardStore.learningLanguage === "sv"
+                  ? qsTr("Six learning boxes of Swedish words, three for A1 and three for A2. Each one has its own Boxes 1–5, so you can track every level separately. Tap “Open box” to start; it then also appears in the list on the home page.")
+                  : qsTr("Six learning boxes, by the lesson themes of “Starten wir!”. Each one has its own Boxes 1–5, so you can track every level separately. Choose one in the list on the home page, or tap “Open box”.")
         }
         Label {
             Layout.leftMargin: 16

@@ -4,7 +4,8 @@
 #include <QString>
 #include <QStringView>
 
-// Level packs: German A1 / A2 vocabulary in levels, each level split into themed chapters.
+// Level packs: German and Swedish A1 / A2 vocabulary in levels, each level split into themed chapters.
+// Swedish level ids start with "sv-" (e.g. "sv-a1-1"); the "german" fields then hold the Swedish word.
 // Parsed from a UTF-8 TSV resource:
 //   # comment
 //   @level    <id>      <title>   <subtitle>
@@ -34,6 +35,7 @@ struct LevelPack
     QString title;      // "A1 · Level 1"
     QString subtitle;
     QString cefr;       // "A1" / "A2" (from the id)
+    QString language;   // learning language of the pack: "de" or "sv" (from the id)
     QList<LevelChapter> chapters;
 
     const LevelChapter *chapter(int number) const

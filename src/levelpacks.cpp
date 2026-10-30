@@ -12,6 +12,12 @@
 
 namespace {
 constexpr auto kResource = ":/data/levelpacks/starten_wir_levels.tsv";
+constexpr auto kResourceSv = ":/data/levelpacks/svenska_levels.tsv";
+
+QString learningLanguage()
+{
+    return CardStore::instance()->learningLanguage();
+}
 
 QString deckName(const LevelPack &pack, int chapter)
 {
@@ -35,11 +41,18 @@ LevelPacks *LevelPacks::create(QQmlEngine *, QJSEngine *engine)
 LevelPacks::LevelPacks(QObject *parent)
     : QObject(parent)
 {
-    QFile f(QString::fromLatin1(kResource));
-    if (!f.open(QIODevice::ReadOnly))
-        m_error = QStringLiteral("level pack resource missing");
-    else if (!parseLevelPacks(QString::fromUtf8(f.readAll()), &m_packs, &m_error))
-        m_error.prepend(QStringLiteral("level packs: "));
+    for (const char *resource : {kResource, kResourceSv}) {
+        QFile f(QString::fromLatin1(resource));
+        QList<LevelPack> packs;
+        QString error;
+        if (!f.open(QIODevice::ReadOnly))
+            error = QStringLiteral("level pack resource missing: %1").arg(QString::fromLatin1(resource));
+        else if (!parseLevelPacks(QString::fromUtf8(f.readAll()), &packs, &error))
+            error.prepend(QStringLiteral("level packs: "));
+        if (!error.isEmpty() && m_error.isEmpty())
+            m_error = error;
+        m_packs += packs;
+    }
     if (!m_error.isEmpty())
         qWarning().noquote() << m_error;
 
@@ -50,14 +63,17 @@ LevelPacks::LevelPacks(QObject *parent)
 int LevelPacks::totalWords() const
 {
     int n = 0;
+    const QString lang = learningLanguage();
     for (const LevelPack &p : m_packs)
-        n += p.totalWords();
+        if (p.language == lang)
+            n += p.totalWords();
     return n;
 }
 
 bool LevelPacks::available() const
 {
-    return CardStore::instance()->learningLanguage() == QLatin1String("de");
+    const QString lang = learningLanguage();
+    return lang == QLatin1String("de") || lang == QLatin1String("sv");
 }
 
 void LevelPacks::refresh()
@@ -66,7 +82,10 @@ void LevelPacks::refresh()
     m_levels.clear();
     m_wordsInBox = 0;
     const QVariantList boxes = CardStore::instance()->collections();
+    const QString lang = learningLanguage();
     for (const LevelPack &p : std::as_const(m_packs)) {
+        if (p.language != lang)
+            continue; // only the levels of the current learning language
         QVariantMap own;
         for (const QVariant &v : boxes)
             if (v.toMap().value(QStringLiteral("name")).toString() == p.title)
@@ -106,8 +125,8 @@ void LevelPacks::refresh()
 
 int LevelPacks::addWords(const LevelPack &pack, const LevelChapter &chapter)
 {
-    if (!available())
-        return 0; // German words: only for German learning boxes
+    if (learningLanguage() != pack.language)
+        return 0; // German words go to German boxes, Swedish words to Swedish boxes
     Translator *tr = Translator::instance();
     const QString lang = meaningLanguage();
     QList<Card> cards;
@@ -143,7 +162,7 @@ int LevelPacks::boxId(const LevelPack &p) const
 int LevelPacks::createBox(const LevelPack &p)
 {
     CardStore *store = CardStore::instance();
-    const int id = store->createCollection(p.title, QStringLiteral("de"));
+    const int id = store->createCollection(p.title, p.language);
     if (id < 0)
         return -1;
     store->selectCollection(id); // cards are added to the current learning box
@@ -155,17 +174,22 @@ int LevelPacks::createBox(const LevelPack &p)
 int LevelPacks::installBoxes(bool force)
 {
     QSettings settings;
-    if (!force && settings.value(QStringLiteral("levelpacks/installed"), false).toBool())
+    // German and Swedish levels have their own first-start flag, so an app that already has the
+    // German boxes gets the Swedish ones on its next start.
+    const bool doDe = force || !settings.value(QStringLiteral("levelpacks/installed"), false).toBool();
+    const bool doSv = force || !settings.value(QStringLiteral("levelpacks/installedSv"), false).toBool();
+    if (!doDe && !doSv)
         return 0;
     CardStore *store = CardStore::instance();
     const int original = store->currentCollection();
     int created = 0;
     for (const LevelPack &p : std::as_const(m_packs))
-        if (boxId(p) < 0 && createBox(p) >= 0)
+        if ((p.language == QLatin1String("sv") ? doSv : doDe) && boxId(p) < 0 && createBox(p) >= 0)
             ++created;
     if (original >= 0)
         store->selectCollection(original);
     settings.setValue(QStringLiteral("levelpacks/installed"), true);
+    settings.setValue(QStringLiteral("levelpacks/installedSv"), true);
     refresh();
     return created;
 }

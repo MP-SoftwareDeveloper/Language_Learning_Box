@@ -1,0 +1,481 @@
+# LearningBox level packs: Swedish A1 and A2 vocabulary in 3 levels each (4 themed chapters per level).
+# Vocabulary, phrases and example sentences are ORIGINAL (not copied from any book or word list).
+# Same format as starten_wir_levels.tsv. Level ids start with "sv-"; the front of a card is the Swedish word
+# (nouns with en/ett, verbs with att), the plural column holds the indefinite plural.
+# Format:  @level<TAB>id<TAB>title<TAB>subtitle   @chapter<TAB>levelId<TAB>number<TAB>title
+#          levelId<TAB>chapter<TAB>Swedish<TAB>plural ("-" = none)<TAB>English<TAB>Persian<TAB>example (sv)<TAB>example (en)<TAB>example (fa)
+@level	sv-a1-1	Svenska A1 · Nivå 1	Greetings, people, food and daily life
+@chapter	sv-a1-1	1	Hej! · Hälsa och presentera sig
+@chapter	sv-a1-1	2	Människor · Familj, känslor, siffror
+@chapter	sv-a1-1	3	Mat och dryck
+@chapter	sv-a1-1	4	Mitt liv · Vardag och arbete
+sv-a1-1	1	Hej!	-	Hello! / Hi!	سلام!	Hej! Hur mår du?	Hi! How are you?	سلام! حالت چطور است؟
+sv-a1-1	1	Hej då!	-	Goodbye!	خداحافظ!	Hej då, vi ses imorgon!	Bye, see you tomorrow!	خداحافظ، فردا می‌بینمت!
+sv-a1-1	1	God morgon	-	Good morning	صبح بخیر	God morgon! Har du sovit gott?	Good morning! Did you sleep well?	صبح بخیر! خوب خوابیدی؟
+sv-a1-1	1	God kväll	-	Good evening	عصر بخیر	God kväll och välkommen!	Good evening and welcome!	عصر بخیر و خوش آمدی!
+sv-a1-1	1	God natt	-	Good night	شب بخیر	God natt, sov gott!	Good night, sleep well!	شب بخیر، خوب بخوابی!
+sv-a1-1	1	Tack	-	Thank you	ممنون؛ متشکرم	Tack för hjälpen.	Thanks for the help.	بابت کمکت ممنون.
+sv-a1-1	1	Varsågod	-	Here you are; you're welcome	بفرمایید؛ خواهش می‌کنم	Varsågod, här är kaffet.	Here you are, here is the coffee.	بفرمایید، این هم قهوه.
+sv-a1-1	1	Förlåt	-	Sorry	ببخشید (عذرخواهی)	Förlåt, jag är sen.	Sorry, I am late.	ببخشید، دیر کردم.
+sv-a1-1	1	Ursäkta	-	Excuse me	ببخشید (برای جلب توجه)	Ursäkta, var ligger stationen?	Excuse me, where is the station?	ببخشید، ایستگاه کجاست؟
+sv-a1-1	1	Snälla	-	Please	لطفاً	Hjälp mig, snälla.	Help me, please.	لطفاً کمکم کن.
+sv-a1-1	1	Ja	-	Yes	بله	Ja, det stämmer.	Yes, that is right.	بله، درست است.
+sv-a1-1	1	Nej	-	No	نه؛ خیر	Nej tack, inte nu.	No thanks, not now.	نه ممنون، الان نه.
+sv-a1-1	1	Vad heter du?	-	What is your name?	اسمت چیست؟	Vad heter du? – Jag heter Sara.	What is your name? – My name is Sara.	اسمت چیست؟ – اسم من سارا است.
+sv-a1-1	1	Jag heter …	-	My name is …	اسم من … است	Jag heter Johan.	My name is Johan.	اسم من یوهان است.
+sv-a1-1	1	Hur mår du?	-	How are you?	حالت چطور است؟	Hur mår du? – Bra, tack.	How are you? – Fine, thanks.	حالت چطور است؟ – خوبم، ممنون.
+sv-a1-1	1	Var kommer du ifrån?	-	Where are you from?	اهل کجایی؟	Var kommer du ifrån? – Från Iran.	Where are you from? – From Iran.	اهل کجایی؟ – از ایران.
+sv-a1-1	1	Trevligt att träffas	-	Nice to meet you	از آشنایی با شما خوشحالم	Trevligt att träffas, jag heter Eva.	Nice to meet you, my name is Eva.	از آشنایی با شما خوشحالم، اسم من اوا است.
+sv-a1-1	1	Välkommen	-	Welcome	خوش آمدی	Välkommen till Sverige!	Welcome to Sweden!	به سوئد خوش آمدی!
+sv-a1-1	1	Jag förstår inte	-	I do not understand	نمی‌فهمم	Jag förstår inte, kan du tala långsammare?	I do not understand, can you speak more slowly?	نمی‌فهمم، می‌توانی آهسته‌تر صحبت کنی؟
+sv-a1-1	2	en mamma	mammor	mum; mother	مامان؛ مادر	Min mamma arbetar på ett sjukhus.	My mum works at a hospital.	مادرم در بیمارستان کار می‌کند.
+sv-a1-1	2	en pappa	pappor	dad; father	بابا؛ پدر	Min pappa kör bil.	My dad drives a car.	پدرم رانندگی می‌کند.
+sv-a1-1	2	en bror	bröder	brother	برادر	Jag har en bror.	I have a brother.	من یک برادر دارم.
+sv-a1-1	2	en syster	systrar	sister	خواهر	Min syster bor i Göteborg.	My sister lives in Gothenburg.	خواهرم در گوتنبرگ زندگی می‌کند.
+sv-a1-1	2	ett barn	barn	child	کودک؛ بچه	Barnet leker i parken.	The child is playing in the park.	بچه در پارک بازی می‌کند.
+sv-a1-1	2	en man	män	man; husband	مرد؛ شوهر	Mannen väntar på bussen.	The man is waiting for the bus.	مرد منتظر اتوبوس است.
+sv-a1-1	2	en kvinna	kvinnor	woman	زن	Kvinnan heter Anna.	The woman is called Anna.	اسم آن زن آنا است.
+sv-a1-1	2	en vän	vänner	friend	دوست	Han är min bästa vän.	He is my best friend.	او بهترین دوست من است.
+sv-a1-1	2	glad	-	happy; glad	شاد؛ خوشحال	Jag är glad idag.	I am happy today.	امروز خوشحالم.
+sv-a1-1	2	ledsen	-	sad	ناراحت؛ غمگین	Hon är ledsen.	She is sad.	او ناراحت است.
+sv-a1-1	2	trött	-	tired	خسته	Jag är trött efter jobbet.	I am tired after work.	بعد از کار خسته‌ام.
+sv-a1-1	2	hungrig	-	hungry	گرسنه	Är du hungrig?	Are you hungry?	گرسنه‌ای؟
+sv-a1-1	2	en lärare	lärare	teacher	معلم	Läraren är snäll.	The teacher is kind.	معلم مهربان است.
+sv-a1-1	2	ett	-	one	یک	Jag har ett barn.	I have one child.	من یک بچه دارم.
+sv-a1-1	2	två	-	two	دو	Vi har två katter.	We have two cats.	ما دو گربه داریم.
+sv-a1-1	2	tre	-	three	سه	Klockan är tre.	It is three o'clock.	ساعت سه است.
+sv-a1-1	2	fem	-	five	پنج	Jag väntar i fem minuter.	I wait for five minutes.	پنج دقیقه صبر می‌کنم.
+sv-a1-1	2	tio	-	ten	ده	Boken kostar tio kronor.	The book costs ten kronor.	کتاب ده کرون قیمت دارد.
+sv-a1-1	3	ett bröd	bröd	bread	نان	Jag äter bröd med ost till frukost.	I eat bread with cheese for breakfast.	برای صبحانه نان با پنیر می‌خورم.
+sv-a1-1	3	en ost	ostar	cheese	پنیر	Osten är god.	The cheese is tasty.	پنیر خوشمزه است.
+sv-a1-1	3	ett ägg	ägg	egg	تخم‌مرغ	Jag kokar två ägg.	I am boiling two eggs.	دو تخم‌مرغ می‌پزم.
+sv-a1-1	3	en frukt	frukter	fruit	میوه	Barnen äter mycket frukt.	The children eat a lot of fruit.	بچه‌ها میوه زیادی می‌خورند.
+sv-a1-1	3	ett äpple	äpplen	apple	سیب	Äpplet är rött och sött.	The apple is red and sweet.	سیب قرمز و شیرین است.
+sv-a1-1	3	en banan	bananer	banana	موز	Jag vill ha en banan.	I would like a banana.	من یک موز می‌خواهم.
+sv-a1-1	3	en potatis	potatisar	potato	سیب‌زمینی	Vi äter potatis till middag.	We eat potatoes for dinner.	برای شام سیب‌زمینی می‌خوریم.
+sv-a1-1	3	ris	-	rice	برنج	Vi äter ris med kyckling.	We eat rice with chicken.	ما برنج با مرغ می‌خوریم.
+sv-a1-1	3	kött	-	meat	گوشت	Jag äter inte kött.	I do not eat meat.	من گوشت نمی‌خورم.
+sv-a1-1	3	en fisk	fiskar	fish	ماهی	Fisken är färsk.	The fish is fresh.	ماهی تازه است.
+sv-a1-1	3	en soppa	soppor	soup	سوپ	Soppan är varm.	The soup is hot.	سوپ داغ است.
+sv-a1-1	3	vatten	-	water	آب	Jag dricker ett glas vatten.	I drink a glass of water.	یک لیوان آب می‌نوشم.
+sv-a1-1	3	kaffe	-	coffee	قهوه	Vill du ha kaffe?	Would you like coffee?	قهوه می‌خواهی؟
+sv-a1-1	3	te	-	tea	چای	Jag dricker te på kvällen.	I drink tea in the evening.	شب‌ها چای می‌نوشم.
+sv-a1-1	3	mjölk	-	milk	شیر	Mjölken står i kylskåpet.	The milk is in the fridge.	شیر در یخچال است.
+sv-a1-1	3	en juice	juicer	juice	آبمیوه	Hon dricker en juice.	She is drinking a juice.	او آبمیوه می‌نوشد.
+sv-a1-1	3	ett glas	glas	glass	لیوان	Kan jag få ett glas?	Can I have a glass?	می‌توانم یک لیوان بگیرم؟
+sv-a1-1	3	att äta	-	to eat	خوردن	Vi äter middag klockan sex.	We eat dinner at six o'clock.	ما ساعت شش شام می‌خوریم.
+sv-a1-1	3	att dricka	-	to drink	نوشیدن	Jag vill dricka något kallt.	I want to drink something cold.	می‌خواهم چیزی سرد بنوشم.
+sv-a1-1	3	god	-	tasty; good	خوشمزه؛ خوب	Kakan är mycket god.	The cake is very tasty.	کیک خیلی خوشمزه است.
+sv-a1-1	4	ett jobb	jobb	job	شغل؛ کار	Jag har ett nytt jobb.	I have a new job.	من کار جدیدی دارم.
+sv-a1-1	4	att arbeta	-	to work	کار کردن	Hon arbetar på ett kontor.	She works in an office.	او در یک دفتر کار می‌کند.
+sv-a1-1	4	en dag	dagar	day	روز	Det är en vacker dag.	It is a beautiful day.	روز زیبایی است.
+sv-a1-1	4	en vecka	veckor	week	هفته	Jag arbetar fem dagar i veckan.	I work five days a week.	من هفته‌ای پنج روز کار می‌کنم.
+sv-a1-1	4	en morgon	morgnar	morning	صبح	På morgonen dricker jag kaffe.	In the morning I drink coffee.	صبح‌ها قهوه می‌نوشم.
+sv-a1-1	4	en kväll	kvällar	evening	عصر؛ شب	På kvällen tittar vi på film.	In the evening we watch a film.	شب‌ها فیلم تماشا می‌کنیم.
+sv-a1-1	4	hemma	-	at home	در خانه	Jag är hemma ikväll.	I am at home tonight.	امشب خانه‌ام.
+sv-a1-1	4	att vakna	-	to wake up	از خواب بیدار شدن	Jag vaknar klockan sju.	I wake up at seven o'clock.	ساعت هفت از خواب بیدار می‌شوم.
+sv-a1-1	4	att sova	-	to sleep	خوابیدن	Barnet sover i sin säng.	The child is sleeping in its bed.	بچه در تختش خوابیده است.
+sv-a1-1	4	att duscha	-	to shower	دوش گرفتن	Jag duschar varje morgon.	I shower every morning.	هر صبح دوش می‌گیرم.
+sv-a1-1	4	att laga mat	-	to cook	غذا پختن	Min pappa lagar mat ikväll.	My dad is cooking tonight.	پدرم امشب غذا می‌پزد.
+sv-a1-1	4	att läsa	-	to read	خواندن	Jag läser en bok.	I am reading a book.	من دارم کتاب می‌خوانم.
+sv-a1-1	4	att skriva	-	to write	نوشتن	Han skriver ett brev.	He is writing a letter.	او دارد نامه می‌نویسد.
+sv-a1-1	4	att köpa	-	to buy	خریدن	Jag vill köpa bröd.	I want to buy bread.	می‌خواهم نان بخرم.
+sv-a1-1	4	att städa	-	to clean	تمیز کردن؛ نظافت کردن	Vi städar på lördag.	We clean on Saturday.	ما شنبه نظافت می‌کنیم.
+sv-a1-1	4	en kollega	kollegor	colleague	همکار	Min kollega är trevlig.	My colleague is nice.	همکارم آدم خوبی است.
+sv-a1-1	4	en chef	chefer	boss; manager	رئیس؛ مدیر	Chefen har ett möte.	The boss has a meeting.	رئیس جلسه دارد.
+sv-a1-1	4	pengar	-	money	پول	Jag har inte mycket pengar.	I do not have much money.	من پول زیادی ندارم.
+@level	sv-a1-2	Svenska A1 · Nivå 2	Free time, home and city, weather and dates, getting around
+@chapter	sv-a1-2	1	Fritid
+@chapter	sv-a1-2	2	Min stad, mitt hem
+@chapter	sv-a1-2	3	Väder, datum och tid
+@chapter	sv-a1-2	4	På väg
+sv-a1-2	1	att spela	-	to play	بازی کردن؛ نواختن	Barnen spelar fotboll.	The children are playing football.	بچه‌ها فوتبال بازی می‌کنند.
+sv-a1-2	1	att simma	-	to swim	شنا کردن	Jag simmar i sjön på sommaren.	I swim in the lake in summer.	تابستان‌ها در دریاچه شنا می‌کنم.
+sv-a1-2	1	att cykla	-	to cycle	دوچرخه‌سواری کردن	Vi cyklar till parken.	We cycle to the park.	ما با دوچرخه به پارک می‌رویم.
+sv-a1-2	1	att dansa	-	to dance	رقصیدن	Hon dansar gärna.	She likes to dance.	او دوست دارد برقصد.
+sv-a1-2	1	att sjunga	-	to sing	آواز خواندن	Vi sjunger en sång.	We sing a song.	ما یک آهنگ می‌خوانیم.
+sv-a1-2	1	att måla	-	to paint	نقاشی کردن	Min dotter målar en bild.	My daughter is painting a picture.	دخترم دارد نقاشی می‌کشد.
+sv-a1-2	1	att lyssna	-	to listen	گوش دادن	Jag lyssnar på musik.	I am listening to music.	من به موسیقی گوش می‌دهم.
+sv-a1-2	1	att titta	-	to look; to watch	نگاه کردن؛ تماشا کردن	Vi tittar på en film.	We are watching a film.	ما داریم فیلم تماشا می‌کنیم.
+sv-a1-2	1	musik	-	music	موسیقی	Jag gillar svensk musik.	I like Swedish music.	من موسیقی سوئدی را دوست دارم.
+sv-a1-2	1	en film	filmer	film; movie	فیلم	Filmen börjar klockan åtta.	The film starts at eight o'clock.	فیلم ساعت هشت شروع می‌شود.
+sv-a1-2	1	en bok	böcker	book	کتاب	Den här boken är spännande.	This book is exciting.	این کتاب هیجان‌انگیز است.
+sv-a1-2	1	ett spel	spel	game	بازی	Vi spelar ett spel ikväll.	We are playing a game tonight.	ما امشب یک بازی می‌کنیم.
+sv-a1-2	1	en fotboll	fotbollar	football	فوتبال؛ توپ فوتبال	Pojken sparkar på fotbollen.	The boy kicks the football.	پسر به توپ فوتبال لگد می‌زند.
+sv-a1-2	1	en promenad	promenader	walk	پیاده‌روی؛ قدم‌زدن	Vi tar en promenad efter maten.	We take a walk after the meal.	بعد از غذا قدم می‌زنیم.
+sv-a1-2	1	en hobby	hobbyer	hobby	سرگرمی	Min hobby är fotografering.	My hobby is photography.	سرگرمی من عکاسی است.
+sv-a1-2	1	en fest	fester	party	مهمانی	Det är fest hos Lisa på lördag.	There is a party at Lisa's on Saturday.	شنبه در خانه لیزا مهمانی است.
+sv-a1-2	1	att träffas	-	to meet (each other)	همدیگر را دیدن؛ ملاقات کردن	Vi träffas på caféet.	We meet at the café.	ما در کافه همدیگر را می‌بینیم.
+sv-a1-2	2	en lägenhet	lägenheter	flat; apartment	آپارتمان	Vi bor i en liten lägenhet.	We live in a small flat.	ما در یک آپارتمان کوچک زندگی می‌کنیم.
+sv-a1-2	2	ett hus	hus	house	خانه؛ ساختمان	Huset ligger vid sjön.	The house is by the lake.	خانه کنار دریاچه است.
+sv-a1-2	2	ett rum	rum	room	اتاق	Mitt rum är stort.	My room is big.	اتاق من بزرگ است.
+sv-a1-2	2	ett kök	kök	kitchen	آشپزخانه	Vi äter i köket.	We eat in the kitchen.	ما در آشپزخانه غذا می‌خوریم.
+sv-a1-2	2	ett badrum	badrum	bathroom	حمام	Badrummet är litet.	The bathroom is small.	حمام کوچک است.
+sv-a1-2	2	ett sovrum	sovrum	bedroom	اتاق خواب	Sovrummet har ett stort fönster.	The bedroom has a big window.	اتاق خواب یک پنجره بزرگ دارد.
+sv-a1-2	2	en säng	sängar	bed	تخت	Sängen är mjuk.	The bed is soft.	تخت نرم است.
+sv-a1-2	2	ett bord	bord	table	میز	Boken ligger på bordet.	The book is on the table.	کتاب روی میز است.
+sv-a1-2	2	en stol	stolar	chair	صندلی	Sätt dig på stolen.	Sit on the chair.	روی صندلی بنشین.
+sv-a1-2	2	ett fönster	fönster	window	پنجره	Kan du öppna fönstret?	Can you open the window?	می‌توانی پنجره را باز کنی؟
+sv-a1-2	2	en dörr	dörrar	door	در	Dörren är stängd.	The door is closed.	در بسته است.
+sv-a1-2	2	en stad	städer	city; town	شهر	Stockholm är en stor stad.	Stockholm is a big city.	استکهلم شهر بزرگی است.
+sv-a1-2	2	en gata	gator	street	خیابان	Jag bor på en lugn gata.	I live on a quiet street.	من در یک خیابان آرام زندگی می‌کنم.
+sv-a1-2	2	en affär	affärer	shop; store	مغازه؛ فروشگاه	Affären stänger klockan sex.	The shop closes at six o'clock.	مغازه ساعت شش بسته می‌شود.
+sv-a1-2	2	ett torg	torg	square	میدان	Det finns en marknad på torget.	There is a market in the square.	در میدان بازار هست.
+sv-a1-2	2	en park	parker	park	پارک	Vi går till parken.	We are going to the park.	ما به پارک می‌رویم.
+sv-a1-2	2	en skola	skolor	school	مدرسه	Min son går i skolan.	My son goes to school.	پسرم به مدرسه می‌رود.
+sv-a1-2	2	ett sjukhus	sjukhus	hospital	بیمارستان	Sjukhuset ligger nära centrum.	The hospital is near the centre.	بیمارستان نزدیک مرکز شهر است.
+sv-a1-2	2	att bo	-	to live (reside)	زندگی کردن؛ ساکن بودن	Var bor du?	Where do you live?	کجا زندگی می‌کنی؟
+sv-a1-2	2	en hyra	hyror	rent	اجاره	Hyran är för hög.	The rent is too high.	اجاره خیلی بالاست.
+sv-a1-2	3	väder	-	weather	هوا	Vädret är fint idag.	The weather is nice today.	امروز هوا خوب است.
+sv-a1-2	3	en sol	solar	sun	خورشید	Solen skiner.	The sun is shining.	خورشید می‌تابد.
+sv-a1-2	3	regn	-	rain	باران	Det är mycket regn i höst.	There is a lot of rain this autumn.	پاییز امسال باران زیاد است.
+sv-a1-2	3	snö	-	snow	برف	På vintern faller det snö.	In winter snow falls.	در زمستان برف می‌بارد.
+sv-a1-2	3	varm	-	warm; hot	گرم	Det är varmt i rummet.	It is warm in the room.	اتاق گرم است.
+sv-a1-2	3	kall	-	cold	سرد	Vattnet är kallt.	The water is cold.	آب سرد است.
+sv-a1-2	3	Det regnar	-	It is raining	باران می‌بارد	Det regnar, ta paraplyet!	It is raining, take the umbrella!	باران می‌بارد، چتر را بردار!
+sv-a1-2	3	idag	-	today	امروز	Idag har jag ledigt.	Today I have a day off.	امروز مرخصی دارم.
+sv-a1-2	3	imorgon	-	tomorrow	فردا	Imorgon åker vi till Malmö.	Tomorrow we are going to Malmö.	فردا به مالمو می‌رویم.
+sv-a1-2	3	igår	-	yesterday	دیروز	Igår var jag på bio.	Yesterday I went to the cinema.	دیروز سینما بودم.
+sv-a1-2	3	måndag	-	Monday	دوشنبه	På måndag börjar kursen.	The course starts on Monday.	دوره دوشنبه شروع می‌شود.
+sv-a1-2	3	lördag	-	Saturday	شنبه	På lördag har vi fest.	On Saturday we have a party.	شنبه مهمانی داریم.
+sv-a1-2	3	en månad	månader	month	ماه	Det är en månad kvar till sommaren.	It is one month until summer.	یک ماه تا تابستان مانده است.
+sv-a1-2	3	ett år	år	year	سال	Jag har bott här i två år.	I have lived here for two years.	دو سال است که اینجا زندگی می‌کنم.
+sv-a1-2	3	en sommar	somrar	summer	تابستان	Sommaren är kort i Sverige.	The summer is short in Sweden.	تابستان در سوئد کوتاه است.
+sv-a1-2	3	en vinter	vintrar	winter	زمستان	Vintern är mörk och kall.	The winter is dark and cold.	زمستان تاریک و سرد است.
+sv-a1-2	3	en timme	timmar	hour	ساعت (مدت)	Resan tar en timme.	The journey takes one hour.	سفر یک ساعت طول می‌کشد.
+sv-a1-2	3	en minut	minuter	minute	دقیقه	Bussen kommer om fem minuter.	The bus comes in five minutes.	اتوبوس پنج دقیقه دیگر می‌رسد.
+sv-a1-2	3	klockan	-	o'clock; the time	ساعت (زمان روز)	Vad är klockan?	What time is it?	ساعت چند است؟
+sv-a1-2	4	en buss	bussar	bus	اتوبوس	Jag tar bussen till jobbet.	I take the bus to work.	با اتوبوس سر کار می‌روم.
+sv-a1-2	4	ett tåg	tåg	train	قطار	Tåget går klockan nio.	The train leaves at nine o'clock.	قطار ساعت نه حرکت می‌کند.
+sv-a1-2	4	en bil	bilar	car	ماشین	Vi har en röd bil.	We have a red car.	ما یک ماشین قرمز داریم.
+sv-a1-2	4	en cykel	cyklar	bicycle	دوچرخه	Min cykel är ny.	My bicycle is new.	دوچرخه من نو است.
+sv-a1-2	4	en tunnelbana	tunnelbanor	metro; underground	مترو	Tunnelbanan är snabb.	The metro is fast.	مترو سریع است.
+sv-a1-2	4	en flygplats	flygplatser	airport	فرودگاه	Flygplatsen ligger långt bort.	The airport is far away.	فرودگاه خیلی دور است.
+sv-a1-2	4	en station	stationer	station	ایستگاه (قطار)	Centralstationen är stor.	The central station is big.	ایستگاه مرکزی بزرگ است.
+sv-a1-2	4	en hållplats	hållplatser	bus stop	ایستگاه (اتوبوس)	Hållplatsen är där borta.	The bus stop is over there.	ایستگاه اتوبوس آن‌جاست.
+sv-a1-2	4	en biljett	biljetter	ticket	بلیت	Jag köper en biljett.	I am buying a ticket.	من یک بلیت می‌خرم.
+sv-a1-2	4	en karta	kartor	map	نقشه	Har du en karta över staden?	Do you have a map of the city?	نقشه شهر را داری؟
+sv-a1-2	4	en väg	vägar	road; way	جاده؛ راه	Vägen är lång.	The road is long.	راه طولانی است.
+sv-a1-2	4	höger	-	right	راست	Sväng höger vid ljuset.	Turn right at the lights.	سر چراغ به راست بپیچ.
+sv-a1-2	4	vänster	-	left	چپ	Banken ligger till vänster.	The bank is on the left.	بانک سمت چپ است.
+sv-a1-2	4	rakt fram	-	straight ahead	مستقیم؛ رو به جلو	Gå rakt fram och sedan till höger.	Go straight ahead and then right.	مستقیم برو و بعد به راست.
+sv-a1-2	4	långt	-	far	دور	Är det långt härifrån?	Is it far from here?	از اینجا دور است؟
+sv-a1-2	4	nära	-	near; close	نزدیک	Skolan är nära.	The school is close.	مدرسه نزدیک است.
+sv-a1-2	4	att åka	-	to travel; to go (by vehicle)	رفتن (با وسیله)؛ سفر کردن	Vi åker tåg till Uppsala.	We are going to Uppsala by train.	ما با قطار به اوپسالا می‌رویم.
+sv-a1-2	4	att köra	-	to drive	رانندگی کردن	Han kör försiktigt.	He drives carefully.	او با احتیاط رانندگی می‌کند.
+sv-a1-2	4	att gå	-	to walk; to go	راه رفتن؛ رفتن	Jag går till jobbet.	I walk to work.	من پیاده سر کار می‌روم.
+@level	sv-a1-3	Svenska A1 · Nivå 3	Friends, travel, body and health, work
+@chapter	sv-a1-3	1	Bland vänner
+@chapter	sv-a1-3	2	Resor och semester
+@chapter	sv-a1-3	3	Kropp och hälsa
+@chapter	sv-a1-3	4	Yrken och arbetsliv
+sv-a1-3	1	att bjuda	-	to invite; to treat	دعوت کردن	Jag vill bjuda dig på middag.	I would like to invite you to dinner.	می‌خواهم تو را به شام دعوت کنم.
+sv-a1-3	1	en present	presenter	gift; present	هدیه	Jag köper en present till henne.	I am buying a present for her.	برای او هدیه‌ای می‌خرم.
+sv-a1-3	1	en födelsedag	födelsedagar	birthday	تولد	Min födelsedag är i maj.	My birthday is in May.	تولد من در ماه مه است.
+sv-a1-3	1	att fira	-	to celebrate	جشن گرفتن	Vi firar hemma hos mig.	We celebrate at my place.	ما در خانه من جشن می‌گیریم.
+sv-a1-3	1	en granne	grannar	neighbour	همسایه	Min granne är mycket vänlig.	My neighbour is very friendly.	همسایه من خیلی مهربان است.
+sv-a1-3	1	ett samtal	samtal	conversation; call	گفتگو؛ تماس	Vi har ett långt samtal.	We have a long conversation.	ما گفتگوی طولانی داریم.
+sv-a1-3	1	ett meddelande	meddelanden	message	پیام	Jag fick ett meddelande från Maria.	I got a message from Maria.	از ماریا یک پیام گرفتم.
+sv-a1-3	1	en telefon	telefoner	telephone; phone	تلفن	Min telefon är ny.	My phone is new.	تلفن من نو است.
+sv-a1-3	1	att ringa	-	to call; to ring	زنگ زدن؛ تلفن کردن	Jag ringer dig ikväll.	I will call you tonight.	امشب به تو زنگ می‌زنم.
+sv-a1-3	1	att skicka	-	to send	فرستادن	Kan du skicka bilden till mig?	Can you send the picture to me?	می‌توانی عکس را برای من بفرستی؟
+sv-a1-3	1	att fråga	-	to ask	پرسیدن	Får jag fråga något?	May I ask something?	می‌توانم چیزی بپرسم؟
+sv-a1-3	1	att svara	-	to answer	پاسخ دادن	Han svarar inte i telefon.	He does not answer the phone.	او تلفن را جواب نمی‌دهد.
+sv-a1-3	1	att tycka om	-	to like	دوست داشتن؛ خوشم آمدن	Jag tycker om dig.	I like you.	من تو را دوست دارم.
+sv-a1-3	1	att älska	-	to love	عاشق بودن؛ دوست داشتن (عمیق)	Hon älskar sina barn.	She loves her children.	او فرزندانش را دوست دارد.
+sv-a1-3	1	att skratta	-	to laugh	خندیدن	Vi skrattar tillsammans.	We laugh together.	ما با هم می‌خندیم.
+sv-a1-3	1	rolig	-	funny; fun	بامزه؛ سرگرم‌کننده	Filmen var jättebra och rolig.	The film was great and funny.	فیلم عالی و بامزه بود.
+sv-a1-3	1	snäll	-	kind; nice	مهربان	Min granne är snäll.	My neighbour is kind.	همسایه‌ام مهربان است.
+sv-a1-3	1	tillsammans	-	together	با هم	Vi lagar mat tillsammans.	We cook together.	ما با هم غذا درست می‌کنیم.
+sv-a1-3	2	en resa	resor	trip; journey	سفر	Vi planerar en resa till Italien.	We are planning a trip to Italy.	ما سفری به ایتالیا برنامه‌ریزی می‌کنیم.
+sv-a1-3	2	en semester	semestrar	holiday; vacation	تعطیلات؛ مرخصی	Jag har semester i juli.	I am on holiday in July.	در ماه ژوئیه تعطیلات دارم.
+sv-a1-3	2	ett hotell	hotell	hotel	هتل	Hotellet ligger vid stranden.	The hotel is by the beach.	هتل کنار ساحل است.
+sv-a1-3	2	en resväska	resväskor	suitcase	چمدان	Min resväska är tung.	My suitcase is heavy.	چمدان من سنگین است.
+sv-a1-3	2	ett pass	pass	passport	گذرنامه	Glöm inte ditt pass!	Do not forget your passport!	گذرنامه‌ات را فراموش نکن!
+sv-a1-3	2	en strand	stränder	beach	ساحل	Barnen leker på stranden.	The children are playing on the beach.	بچه‌ها در ساحل بازی می‌کنند.
+sv-a1-3	2	ett hav	hav	sea	دریا	Havet är blått idag.	The sea is blue today.	امروز دریا آبی است.
+sv-a1-3	2	ett berg	berg	mountain	کوه	Vi går upp på berget.	We climb the mountain.	ما از کوه بالا می‌رویم.
+sv-a1-3	2	en sjö	sjöar	lake	دریاچه	Sjön är klar och kall.	The lake is clear and cold.	دریاچه زلال و سرد است.
+sv-a1-3	2	ett land	länder	country	کشور	Sverige är ett vackert land.	Sweden is a beautiful country.	سوئد کشور زیبایی است.
+sv-a1-3	2	en turist	turister	tourist	گردشگر	Många turister besöker Stockholm.	Many tourists visit Stockholm.	گردشگران زیادی از استکهلم دیدن می‌کنند.
+sv-a1-3	2	en bild	bilder	picture; photo	عکس؛ تصویر	Jag tar en bild av berget.	I take a picture of the mountain.	از کوه عکس می‌گیرم.
+sv-a1-3	2	en kamera	kameror	camera	دوربین	Har du en kamera med dig?	Do you have a camera with you?	دوربین همراهت هست؟
+sv-a1-3	2	att boka	-	to book	رزرو کردن	Jag har bokat ett rum.	I have booked a room.	یک اتاق رزرو کرده‌ام.
+sv-a1-3	2	att packa	-	to pack	بار بستن؛ چمدان بستن	Jag packar väskan i kväll.	I am packing the bag tonight.	امشب کیف را می‌بندم.
+sv-a1-3	2	att besöka	-	to visit	بازدید کردن؛ دیدن کردن	Vi besöker mormor i helgen.	We are visiting grandma at the weekend.	آخر هفته به دیدن مادربزرگ می‌رویم.
+sv-a1-3	2	utomlands	-	abroad	خارج از کشور	Hon har bott utomlands.	She has lived abroad.	او در خارج از کشور زندگی کرده است.
+sv-a1-3	3	ett huvud	huvuden	head	سر	Jag har ont i huvudet.	I have a headache.	سرم درد می‌کند.
+sv-a1-3	3	en hand	händer	hand	دست (کف دست)	Tvätta händerna!	Wash your hands!	دست‌هایت را بشوی!
+sv-a1-3	3	en fot	fötter	foot	پا (کف پا)	Min fot gör ont.	My foot hurts.	پایم درد می‌کند.
+sv-a1-3	3	ett ben	ben	leg; bone	پا؛ استخوان	Han har brutit benet.	He has broken his leg.	او پایش را شکسته است.
+sv-a1-3	3	en arm	armar	arm	بازو	Hon bär barnet på armen.	She carries the child on her arm.	او بچه را روی بازویش حمل می‌کند.
+sv-a1-3	3	ett öga	ögon	eye	چشم	Hon har blå ögon.	She has blue eyes.	او چشم‌های آبی دارد.
+sv-a1-3	3	ett öra	öron	ear	گوش	Mitt öra gör ont.	My ear hurts.	گوشم درد می‌کند.
+sv-a1-3	3	en näsa	näsor	nose	بینی	Näsan är röd av kylan.	The nose is red from the cold.	بینی از سرما قرمز شده است.
+sv-a1-3	3	en mun	munnar	mouth	دهان	Öppna munnen, tack.	Open your mouth, please.	دهانت را باز کن، لطفاً.
+sv-a1-3	3	en tand	tänder	tooth	دندان	Jag borstar tänderna två gånger om dagen.	I brush my teeth twice a day.	روزی دو بار دندان‌هایم را مسواک می‌زنم.
+sv-a1-3	3	en mage	magar	stomach; belly	شکم؛ معده	Jag har ont i magen.	I have a stomachache.	دل‌درد دارم.
+sv-a1-3	3	en rygg	ryggar	back	پشت؛ کمر	Min rygg värker efter jobbet.	My back aches after work.	بعد از کار کمرم درد می‌کند.
+sv-a1-3	3	ett hjärta	hjärtan	heart	قلب	Hjärtat slår snabbt.	The heart beats fast.	قلب تند می‌زند.
+sv-a1-3	3	ont	-	pain; sore	درد؛ دردناک	Jag har ont i halsen.	I have a sore throat.	گلودرد دارم.
+sv-a1-3	3	sjuk	-	ill; sick	بیمار؛ مریض	Barnet är sjukt idag.	The child is ill today.	بچه امروز مریض است.
+sv-a1-3	3	frisk	-	healthy; well	سالم؛ سلامت	Jag är frisk igen.	I am well again.	دوباره سالم شده‌ام.
+sv-a1-3	3	feber	-	fever	تب	Han har feber.	He has a fever.	او تب دارد.
+sv-a1-3	3	ett apotek	apotek	pharmacy	داروخانه	Apoteket ligger vid torget.	The pharmacy is by the square.	داروخانه کنار میدان است.
+sv-a1-3	4	ett yrke	yrken	profession; occupation	حرفه؛ شغل	Vad har du för yrke?	What is your profession?	شغل شما چیست؟
+sv-a1-3	4	en sjuksköterska	sjuksköterskor	nurse	پرستار	Sjuksköterskan hjälper patienten.	The nurse helps the patient.	پرستار به بیمار کمک می‌کند.
+sv-a1-3	4	en läkare	läkare	doctor	پزشک؛ دکتر	Läkaren undersöker barnet.	The doctor examines the child.	پزشک بچه را معاینه می‌کند.
+sv-a1-3	4	en kock	kockar	cook; chef	آشپز	Kocken lagar fisk.	The cook is preparing fish.	آشپز دارد ماهی می‌پزد.
+sv-a1-3	4	en bagare	bagare	baker	نانوا	Bagaren bakar bröd tidigt på morgonen.	The baker bakes bread early in the morning.	نانوا صبح زود نان می‌پزد.
+sv-a1-3	4	en polis	poliser	police officer	پلیس	Polisen hjälper turisten.	The police officer helps the tourist.	پلیس به گردشگر کمک می‌کند.
+sv-a1-3	4	en ingenjör	ingenjörer	engineer	مهندس	Min bror är ingenjör.	My brother is an engineer.	برادرم مهندس است.
+sv-a1-3	4	en student	studenter	student (university)	دانشجو	Hon är student i Lund.	She is a student in Lund.	او دانشجوی لوند است.
+sv-a1-3	4	en elev	elever	pupil; school student	دانش‌آموز	Eleverna sitter i klassrummet.	The pupils are sitting in the classroom.	دانش‌آموزان در کلاس نشسته‌اند.
+sv-a1-3	4	en kund	kunder	customer	مشتری	Kunden betalar vid kassan.	The customer pays at the checkout.	مشتری در صندوق پرداخت می‌کند.
+sv-a1-3	4	ett företag	företag	company	شرکت	Han arbetar på ett stort företag.	He works at a big company.	او در یک شرکت بزرگ کار می‌کند.
+sv-a1-3	4	ett kontor	kontor	office	دفتر کار	Kontoret ligger i centrum.	The office is in the centre.	دفتر در مرکز شهر است.
+sv-a1-3	4	en lön	löner	salary; wage	حقوق	Lönen kommer den tjugofemte.	The salary arrives on the 25th.	حقوق روز بیست‌وپنجم می‌رسد.
+sv-a1-3	4	ett möte	möten	meeting	جلسه	Vi har ett möte klockan tio.	We have a meeting at ten o'clock.	ما ساعت ده جلسه داریم.
+sv-a1-3	4	att studera	-	to study	درس خواندن؛ تحصیل کردن	Jag studerar svenska.	I am studying Swedish.	من سوئدی می‌خوانم.
+sv-a1-3	4	att hjälpa	-	to help	کمک کردن	Kan du hjälpa mig?	Can you help me?	می‌توانی به من کمک کنی؟
+sv-a1-3	4	att behöva	-	to need	نیاز داشتن	Jag behöver mer tid.	I need more time.	به زمان بیشتری نیاز دارم.
+sv-a1-3	4	att vilja	-	to want	خواستن	Jag vill bli lärare.	I want to become a teacher.	می‌خواهم معلم شوم.
+@level	sv-a2-1	Svenska A2 · Nivå 1	Languages and origins, clothes, family and relatives, the flat
+@chapter	sv-a2-1	1	Språk och ursprung
+@chapter	sv-a2-1	2	Kläder och utseende
+@chapter	sv-a2-1	3	Familj och släkt
+@chapter	sv-a2-1	4	Lägenheten
+sv-a2-1	1	ett språk	språk	language	زبان	Hur många språk talar du?	How many languages do you speak?	به چند زبان صحبت می‌کنی؟
+sv-a2-1	1	ett modersmål	modersmål	mother tongue	زبان مادری	Mitt modersmål är persiska.	My mother tongue is Persian.	زبان مادری من فارسی است.
+sv-a2-1	1	att prata	-	to talk; to speak	صحبت کردن	Vi pratar svenska på jobbet.	We speak Swedish at work.	ما در محل کار سوئدی صحبت می‌کنیم.
+sv-a2-1	1	att lära sig	-	to learn	یاد گرفتن	Jag vill lära mig svenska snabbt.	I want to learn Swedish quickly.	می‌خواهم سوئدی را سریع یاد بگیرم.
+sv-a2-1	1	att öva	-	to practise	تمرین کردن	Du måste öva varje dag.	You have to practise every day.	باید هر روز تمرین کنی.
+sv-a2-1	1	ett ord	ord	word	کلمه؛ واژه	Jag känner inte till det här ordet.	I do not know this word.	این کلمه را نمی‌شناسم.
+sv-a2-1	1	en mening	meningar	sentence; opinion	جمله؛ نظر	Skriv en kort mening.	Write a short sentence.	یک جمله کوتاه بنویس.
+sv-a2-1	1	ett uttal	uttal	pronunciation	تلفظ	Hennes uttal är mycket bra.	Her pronunciation is very good.	تلفظ او خیلی خوب است.
+sv-a2-1	1	ett fel	fel	mistake; error	اشتباه؛ خطا	Det är inte farligt att göra fel.	It is not dangerous to make mistakes.	اشتباه کردن خطرناک نیست.
+sv-a2-1	1	att översätta	-	to translate	ترجمه کردن	Kan du översätta den här texten?	Can you translate this text?	می‌توانی این متن را ترجمه کنی؟
+sv-a2-1	1	en översättning	översättningar	translation	ترجمه	Översättningen är korrekt.	The translation is correct.	ترجمه درست است.
+sv-a2-1	1	en kurs	kurser	course	دوره؛ کلاس	Jag går en kurs i svenska.	I am taking a Swedish course.	من در یک دوره زبان سوئدی شرکت می‌کنم.
+sv-a2-1	1	en kultur	kulturer	culture	فرهنگ	Jag är nyfiken på svensk kultur.	I am curious about Swedish culture.	درباره فرهنگ سوئد کنجکاوم.
+sv-a2-1	1	en tradition	traditioner	tradition	سنت	Fika är en svensk tradition.	Fika is a Swedish tradition.	فیکا یک سنت سوئدی است.
+sv-a2-1	1	en dialekt	dialekter	dialect	گویش	Han talar en dialekt från norr.	He speaks a dialect from the north.	او با یک گویش شمالی صحبت می‌کند.
+sv-a2-1	1	flytande	-	fluent; fluently	روان	Hon talar flytande engelska.	She speaks fluent English.	او انگلیسی را روان صحبت می‌کند.
+sv-a2-1	1	utländsk	-	foreign	خارجی	Många utländska studenter bor här.	Many foreign students live here.	بسیاری از دانشجویان خارجی اینجا زندگی می‌کنند.
+sv-a2-1	1	att flytta	-	to move (house)	نقل مکان کردن	Vi ska flytta till Sverige nästa år.	We are going to move to Sweden next year.	سال آینده به سوئد نقل مکان می‌کنیم.
+sv-a2-1	2	en tröja	tröjor	sweater; jumper	ژاکت؛ پلیور	Jag har på mig en varm tröja.	I am wearing a warm sweater.	یک پلیور گرم پوشیده‌ام.
+sv-a2-1	2	en jacka	jackor	jacket	کاپشن؛ ژاکت بیرون	Ta på dig jackan, det är kallt.	Put on your jacket, it is cold.	کاپشنت را بپوش، هوا سرد است.
+sv-a2-1	2	byxor	-	trousers; pants	شلوار	Mina byxor är för stora.	My trousers are too big.	شلوار من خیلی بزرگ است.
+sv-a2-1	2	en klänning	klänningar	dress	پیراهن زنانه؛ لباس	Hon köper en ny klänning.	She is buying a new dress.	او یک لباس جدید می‌خرد.
+sv-a2-1	2	en kjol	kjolar	skirt	دامن	Kjolen är kort.	The skirt is short.	دامن کوتاه است.
+sv-a2-1	2	en skjorta	skjortor	shirt	پیراهن مردانه	Han har en vit skjorta.	He has a white shirt.	او یک پیراهن سفید دارد.
+sv-a2-1	2	en sko	skor	shoe	کفش	Mina skor är blöta.	My shoes are wet.	کفش‌هایم خیس است.
+sv-a2-1	2	en mössa	mössor	hat; cap	کلاه	På vintern bär jag mössa.	In winter I wear a hat.	زمستان‌ها کلاه می‌گذارم.
+sv-a2-1	2	en halsduk	halsdukar	scarf	شال‌گردن	Halsduken håller mig varm.	The scarf keeps me warm.	شال‌گردن مرا گرم نگه می‌دارد.
+sv-a2-1	2	strumpor	-	socks	جوراب	Jag behöver nya strumpor.	I need new socks.	به جوراب نو نیاز دارم.
+sv-a2-1	2	en färg	färger	colour	رنگ	Vilken färg gillar du?	Which colour do you like?	چه رنگی را دوست داری؟
+sv-a2-1	2	röd	-	red	قرمز	Hon har en röd väska.	She has a red bag.	او یک کیف قرمز دارد.
+sv-a2-1	2	blå	-	blue	آبی	Himlen är blå.	The sky is blue.	آسمان آبی است.
+sv-a2-1	2	grön	-	green	سبز	Gräset är grönt.	The grass is green.	چمن سبز است.
+sv-a2-1	2	svart	-	black	سیاه؛ مشکی	Han bär en svart jacka.	He is wearing a black jacket.	او یک کاپشن مشکی پوشیده است.
+sv-a2-1	2	lång	-	tall; long	بلند؛ قدبلند	Min bror är lång.	My brother is tall.	برادرم قدبلند است.
+sv-a2-1	2	kort	-	short	کوتاه	Hon har kort hår.	She has short hair.	او موی کوتاه دارد.
+sv-a2-1	2	snygg	-	good-looking; smart	خوش‌تیپ؛ قشنگ	Du ser snygg ut i den kappan.	You look smart in that coat.	با آن پالتو خوش‌تیپ شده‌ای.
+sv-a2-1	2	att prova	-	to try; to try on	امتحان کردن؛ پرو کردن	Får jag prova byxorna?	May I try on the trousers?	می‌توانم شلوار را پرو کنم؟
+sv-a2-1	3	en släkting	släktingar	relative	فامیل؛ خویشاوند	Alla mina släktingar bor i Iran.	All my relatives live in Iran.	همه فامیل من در ایران زندگی می‌کنند.
+sv-a2-1	3	en kusin	kusiner	cousin	پسرعمو؛ دخترعمو؛ پسرخاله؛ دخترخاله	Min kusin besöker oss i sommar.	My cousin is visiting us this summer.	پسرخاله‌ام تابستان به دیدن ما می‌آید.
+sv-a2-1	3	en moster	mostrar	aunt (mother's sister)	خاله	Min moster bor i Malmö.	My aunt lives in Malmö.	خاله‌ام در مالمو زندگی می‌کند.
+sv-a2-1	3	en farbror	farbröder	uncle (father's brother)	عمو	Min farbror har en liten båt.	My uncle has a small boat.	عمویم یک قایق کوچک دارد.
+sv-a2-1	3	mormor	-	grandmother (mother's mother)	مادربزرگ (مادری)	Mormor bakar alltid kanelbullar.	Grandma always bakes cinnamon buns.	مادربزرگ همیشه نان دارچینی می‌پزد.
+sv-a2-1	3	farfar	-	grandfather (father's father)	پدربزرگ (پدری)	Farfar berättar roliga historier.	Grandpa tells funny stories.	پدربزرگ داستان‌های بامزه تعریف می‌کند.
+sv-a2-1	3	en make	makar	husband; spouse	همسر (مرد)	Hennes make arbetar i Stockholm.	Her husband works in Stockholm.	شوهرش در استکهلم کار می‌کند.
+sv-a2-1	3	en fru	fruar	wife	همسر (زن)	Hans fru är läkare.	His wife is a doctor.	همسرش پزشک است.
+sv-a2-1	3	en sambo	sambor	partner (living together)	شریک زندگی (هم‌خانه)	Min sambo och jag har en hund.	My partner and I have a dog.	من و شریک زندگی‌ام یک سگ داریم.
+sv-a2-1	3	ett syskon	syskon	sibling	خواهر یا برادر	Har du några syskon?	Do you have any siblings?	خواهر یا برادر داری؟
+sv-a2-1	3	en bekant	bekanta	acquaintance	آشنا	Han är en bekant till mig.	He is an acquaintance of mine.	او یکی از آشنایان من است.
+sv-a2-1	3	ett förhållande	förhållanden	relationship	رابطه	De har ett bra förhållande.	They have a good relationship.	آن‌ها رابطه خوبی دارند.
+sv-a2-1	3	att gifta sig	-	to get married	ازدواج کردن	De ska gifta sig i sommar.	They are getting married this summer.	آن‌ها تابستان امسال ازدواج می‌کنند.
+sv-a2-1	3	att bli kär	-	to fall in love	عاشق شدن	Han blev kär i henne direkt.	He fell in love with her right away.	او فوراً عاشق او شد.
+sv-a2-1	3	ensam	-	alone; lonely	تنها	Jag känner mig ensam ibland.	I feel lonely sometimes.	گاهی احساس تنهایی می‌کنم.
+sv-a2-1	3	att sakna	-	to miss	دلتنگ بودن	Jag saknar min familj.	I miss my family.	دلم برای خانواده‌ام تنگ شده است.
+sv-a2-1	3	att umgås	-	to socialise; to spend time with	معاشرت کردن؛ وقت گذراندن با	Vi umgås ofta med grannarna.	We often spend time with the neighbours.	ما اغلب با همسایه‌ها معاشرت می‌کنیم.
+sv-a2-1	3	att lita på	-	to trust	اعتماد کردن	Du kan lita på mig.	You can trust me.	می‌توانی به من اعتماد کنی.
+sv-a2-1	4	en hyresvärd	hyresvärdar	landlord	صاحبخانه	Hyresvärden bor i huset bredvid.	The landlord lives in the next house.	صاحبخانه در خانه بغلی زندگی می‌کند.
+sv-a2-1	4	att hyra	-	to rent	اجاره کردن	Vi hyr en lägenhet i centrum.	We rent a flat in the centre.	ما یک آپارتمان در مرکز شهر اجاره می‌کنیم.
+sv-a2-1	4	en nyckel	nycklar	key	کلید	Jag har tappat min nyckel.	I have lost my key.	کلیدم را گم کرده‌ام.
+sv-a2-1	4	en balkong	balkonger	balcony	بالکن	Vi sitter på balkongen på kvällen.	We sit on the balcony in the evening.	شب‌ها روی بالکن می‌نشینیم.
+sv-a2-1	4	en trappa	trappor	stairs	پله	Det är tre trappor upp.	It is three flights up.	سه طبقه بالاست.
+sv-a2-1	4	en hiss	hissar	lift; elevator	آسانسور	Hissen fungerar inte idag.	The lift is not working today.	آسانسور امروز کار نمی‌کند.
+sv-a2-1	4	en tvättmaskin	tvättmaskiner	washing machine	ماشین لباسشویی	Tvättmaskinen finns i källaren.	The washing machine is in the basement.	ماشین لباسشویی در زیرزمین است.
+sv-a2-1	4	en diskmaskin	diskmaskiner	dishwasher	ماشین ظرفشویی	Ställ koppen i diskmaskinen.	Put the cup in the dishwasher.	فنجان را در ماشین ظرفشویی بگذار.
+sv-a2-1	4	ett kylskåp	kylskåp	fridge	یخچال	Kylskåpet är nästan tomt.	The fridge is almost empty.	یخچال تقریباً خالی است.
+sv-a2-1	4	en spis	spisar	cooker; stove	اجاق	Spisen är fortfarande varm.	The cooker is still hot.	اجاق هنوز داغ است.
+sv-a2-1	4	en soffa	soffor	sofa	مبل؛ کاناپه	Vi sitter i soffan och tittar på tv.	We sit on the sofa and watch TV.	ما روی مبل می‌نشینیم و تلویزیون تماشا می‌کنیم.
+sv-a2-1	4	en matta	mattor	carpet; rug	فرش؛ قالیچه	Mattan i vardagsrummet är mjuk.	The rug in the living room is soft.	فرش اتاق نشیمن نرم است.
+sv-a2-1	4	en lampa	lampor	lamp	لامپ؛ چراغ	Tänd lampan, det är mörkt.	Turn on the lamp, it is dark.	چراغ را روشن کن، تاریک است.
+sv-a2-1	4	en hylla	hyllor	shelf	قفسه	Böckerna står på hyllan.	The books are on the shelf.	کتاب‌ها روی قفسه هستند.
+sv-a2-1	4	ett skåp	skåp	cupboard; cabinet	کمد	Glasen står i skåpet.	The glasses are in the cupboard.	لیوان‌ها در کمد هستند.
+sv-a2-1	4	möblerad	-	furnished	مبله	Lägenheten är fullt möblerad.	The flat is fully furnished.	آپارتمان کاملاً مبله است.
+sv-a2-1	4	mysig	-	cosy	دنج؛ دلنشین	Rummet är litet men mysigt.	The room is small but cosy.	اتاق کوچک اما دنج است.
+sv-a2-1	4	att betala	-	to pay	پرداخت کردن	Jag betalar hyran den första varje månad.	I pay the rent on the first of every month.	اجاره را اول هر ماه پرداخت می‌کنم.
+@level	sv-a2-2	Svenska A2 · Nivå 2	Restaurants and Swedish food, nature and culture, school and jobs, health
+@chapter	sv-a2-2	1	Mat och restaurang
+@chapter	sv-a2-2	2	Natur och kultur
+@chapter	sv-a2-2	3	Skola och jobb
+@chapter	sv-a2-2	4	Hälsa och sjukvård
+sv-a2-2	1	en meny	menyer	menu	منو	Kan jag få se menyn?	Can I see the menu?	می‌توانم منو را ببینم؟
+sv-a2-2	1	en servitör	servitörer	waiter	گارسون	Servitören tar emot beställningen.	The waiter takes the order.	گارسون سفارش را می‌گیرد.
+sv-a2-2	1	att beställa	-	to order	سفارش دادن	Vi vill beställa nu.	We would like to order now.	ما می‌خواهیم الان سفارش بدهیم.
+sv-a2-2	1	att reservera	-	to reserve	رزرو کردن (میز)	Jag har reserverat ett bord för fyra.	I have reserved a table for four.	یک میز چهارنفره رزرو کرده‌ام.
+sv-a2-2	1	en förrätt	förrätter	starter	پیش‌غذا	Som förrätt tar jag en sallad.	For a starter I will have a salad.	به‌عنوان پیش‌غذا سالاد می‌خورم.
+sv-a2-2	1	en varmrätt	varmrätter	main course	غذای اصلی	Varmrätten är lax med potatis.	The main course is salmon with potatoes.	غذای اصلی سالمون با سیب‌زمینی است.
+sv-a2-2	1	en efterrätt	efterrätter	dessert	دسر	Vill ni ha någon efterrätt?	Would you like any dessert?	دسر میل دارید؟
+sv-a2-2	1	en sallad	sallader	salad	سالاد	Salladen är fräsch.	The salad is fresh.	سالاد تازه است.
+sv-a2-2	1	vegetarisk	-	vegetarian	گیاهی	Har ni någon vegetarisk rätt?	Do you have any vegetarian dish?	غذای گیاهی دارید؟
+sv-a2-2	1	stark	-	strong; spicy	تند؛ قوی	Soppan är för stark för mig.	The soup is too spicy for me.	سوپ برای من خیلی تند است.
+sv-a2-2	1	söt	-	sweet	شیرین	Kakan är mycket söt.	The cake is very sweet.	کیک خیلی شیرین است.
+sv-a2-2	1	salt	-	salty	شور	Maten är lite salt.	The food is a bit salty.	غذا کمی شور است.
+sv-a2-2	1	en räkning	räkningar	bill	صورتحساب	Kan vi få räkningen, tack?	Can we have the bill, please?	می‌توانیم صورتحساب را بگیریم، لطفاً؟
+sv-a2-2	1	dricks	-	tip	انعام	I Sverige lämnar man inte alltid dricks.	In Sweden people do not always leave a tip.	در سوئد همیشه انعام نمی‌دهند.
+sv-a2-2	1	en fika	fikor	coffee break; fika	فیکا؛ استراحت با قهوه و شیرینی	Ska vi ta en fika efter jobbet?	Shall we have a fika after work?	بعد از کار یک فیکا بخوریم؟
+sv-a2-2	1	en kanelbulle	kanelbullar	cinnamon bun	نان دارچینی	Jag älskar kanelbullar med kaffe.	I love cinnamon buns with coffee.	من نان دارچینی را با قهوه خیلی دوست دارم.
+sv-a2-2	1	köttbullar	-	meatballs	کوفته‌قلقلی سوئدی	Köttbullar med potatis är en klassiker.	Meatballs with potatoes is a classic.	کوفته با سیب‌زمینی یک غذای کلاسیک است.
+sv-a2-2	1	lingon	-	lingonberries	توت لینگون	Vi äter lingon till köttbullarna.	We eat lingonberries with the meatballs.	ما با کوفته‌ها لینگون می‌خوریم.
+sv-a2-2	1	nöjd	-	satisfied; pleased	راضی	Jag är mycket nöjd med maten.	I am very satisfied with the food.	از غذا خیلی راضی هستم.
+sv-a2-2	1	Smaklig måltid!	-	Enjoy your meal!	نوش جان!	Smaklig måltid, alla!	Enjoy your meal, everyone!	نوش جان، همگی!
+sv-a2-2	2	naturen	-	nature	طبیعت	Jag älskar att vara ute i naturen.	I love being out in nature.	دوست دارم در طبیعت باشم.
+sv-a2-2	2	en skog	skogar	forest	جنگل	Vi plockar svamp i skogen.	We pick mushrooms in the forest.	ما در جنگل قارچ جمع می‌کنیم.
+sv-a2-2	2	ett träd	träd	tree	درخت	Det finns ett stort träd i trädgården.	There is a big tree in the garden.	در باغ یک درخت بزرگ هست.
+sv-a2-2	2	en blomma	blommor	flower	گل	Hon plockar en blomma.	She picks a flower.	او یک گل می‌چیند.
+sv-a2-2	2	ett djur	djur	animal	حیوان	Vilket djur gillar du mest?	Which animal do you like best?	کدام حیوان را بیشتر دوست داری؟
+sv-a2-2	2	en miljö	miljöer	environment	محیط زیست؛ محیط	Vi måste skydda miljön.	We must protect the environment.	باید از محیط زیست محافظت کنیم.
+sv-a2-2	2	att skydda	-	to protect	محافظت کردن	Lagen skyddar naturen.	The law protects nature.	قانون از طبیعت محافظت می‌کند.
+sv-a2-2	2	att återvinna	-	to recycle	بازیافت کردن	Vi återvinner papper och plast.	We recycle paper and plastic.	ما کاغذ و پلاستیک را بازیافت می‌کنیم.
+sv-a2-2	2	sopor	-	rubbish; waste	زباله	Jag lämnar soporna i soprummet.	I take the rubbish to the waste room.	زباله‌ها را به اتاق زباله می‌برم.
+sv-a2-2	2	ren	-	clean	تمیز؛ پاک	Luften är ren här.	The air is clean here.	هوا اینجا پاک است.
+sv-a2-2	2	smutsig	-	dirty	کثیف	Skorna är smutsiga.	The shoes are dirty.	کفش‌ها کثیف‌اند.
+sv-a2-2	2	allemansrätten	-	the right of public access	حق دسترسی عمومی به طبیعت	Allemansrätten gör att vi får vandra fritt.	The right of public access means we may hike freely.	حق دسترسی عمومی به ما اجازه می‌دهد آزادانه پیاده‌روی کنیم.
+sv-a2-2	2	midsommar	-	Midsummer	میدسومر (جشن تابستان)	Vi dansar runt midsommarstången.	We dance around the maypole.	ما دور میله میدسومر می‌رقصیم.
+sv-a2-2	2	jul	-	Christmas	کریسمس	Vi firar jul hos mormor.	We celebrate Christmas at grandma's.	ما کریسمس را در خانه مادربزرگ جشن می‌گیریم.
+sv-a2-2	2	en högtid	högtider	holiday; festival	جشن؛ مناسبت	Nyår är en stor högtid.	New Year is a big holiday.	سال نو یک مناسبت بزرگ است.
+sv-a2-2	2	ett museum	museer	museum	موزه	Museet är öppet på söndagar.	The museum is open on Sundays.	موزه یکشنبه‌ها باز است.
+sv-a2-2	2	en utställning	utställningar	exhibition	نمایشگاه	Vi går på en konstutställning.	We are going to an art exhibition.	ما به یک نمایشگاه هنری می‌رویم.
+sv-a2-2	2	en konstnär	konstnärer	artist	هنرمند	Konstnären målar med olja.	The artist paints with oil.	هنرمند با رنگ روغن نقاشی می‌کند.
+sv-a2-2	2	en teater	teatrar	theatre	تئاتر	Vi ska se en pjäs på teatern.	We are going to see a play at the theatre.	ما می‌رویم در تئاتر یک نمایش ببینیم.
+sv-a2-2	3	ett ämne	ämnen	subject; topic	درس؛ موضوع	Matematik är mitt favoritämne.	Maths is my favourite subject.	ریاضی درس مورد علاقه من است.
+sv-a2-2	3	en lektion	lektioner	lesson	درس؛ جلسه کلاس	Lektionen börjar klockan åtta.	The lesson starts at eight o'clock.	کلاس ساعت هشت شروع می‌شود.
+sv-a2-2	3	ett prov	prov	test; exam	امتحان؛ آزمون	Jag har ett prov på fredag.	I have a test on Friday.	جمعه امتحان دارم.
+sv-a2-2	3	en läxa	läxor	homework	تکلیف (مدرسه)	Har du gjort din läxa?	Have you done your homework?	تکلیفت را انجام داده‌ای؟
+sv-a2-2	3	ett betyg	betyg	grade; mark	نمره	Hon fick ett bra betyg.	She got a good grade.	او نمره خوبی گرفت.
+sv-a2-2	3	ett universitet	universitet	university	دانشگاه	Han studerar på universitetet i Uppsala.	He studies at Uppsala University.	او در دانشگاه اوپسالا درس می‌خواند.
+sv-a2-2	3	en utbildning	utbildningar	education; training	آموزش؛ تحصیلات	Jag har en utbildning som sjuksköterska.	I have training as a nurse.	من آموزش پرستاری دیده‌ام.
+sv-a2-2	3	en praktik	praktiker	work placement; internship	کارآموزی	Hon gör praktik på ett företag.	She is doing a work placement at a company.	او در یک شرکت کارآموزی می‌کند.
+sv-a2-2	3	att söka	-	to look for; to apply for	جست‌وجو کردن؛ درخواست دادن	Jag söker ett nytt jobb.	I am looking for a new job.	دنبال کار جدیدی هستم.
+sv-a2-2	3	en ansökan	ansökningar	application	درخواست (برای کار یا تحصیل)	Jag har skickat in min ansökan.	I have sent in my application.	درخواستم را فرستاده‌ام.
+sv-a2-2	3	en intervju	intervjuer	interview	مصاحبه	Jag har en intervju på tisdag.	I have an interview on Tuesday.	سه‌شنبه مصاحبه دارم.
+sv-a2-2	3	en erfarenhet	erfarenheter	experience	تجربه	Hon har lång erfarenhet av vården.	She has long experience in healthcare.	او تجربه زیادی در حوزه درمان دارد.
+sv-a2-2	3	en anställning	anställningar	employment; position	استخدام؛ شغل	Han fick en fast anställning.	He got a permanent position.	او استخدام دائم شد.
+sv-a2-2	3	heltid	-	full-time	تمام‌وقت	Jag arbetar heltid.	I work full-time.	من تمام‌وقت کار می‌کنم.
+sv-a2-2	3	deltid	-	part-time	پاره‌وقت	Hon jobbar deltid på ett café.	She works part-time at a café.	او پاره‌وقت در یک کافه کار می‌کند.
+sv-a2-2	3	arbetslös	-	unemployed	بیکار	Han har varit arbetslös i tre månader.	He has been unemployed for three months.	او سه ماه است بیکار است.
+sv-a2-2	3	att undervisa	-	to teach	تدریس کردن	Hon undervisar i svenska.	She teaches Swedish.	او سوئدی تدریس می‌کند.
+sv-a2-2	3	en lunchrast	lunchraster	lunch break	استراحت ناهار	Vi har lunchrast klockan tolv.	We have a lunch break at twelve o'clock.	ما ساعت دوازده استراحت ناهار داریم.
+sv-a2-2	4	hälsa	-	health	سلامت	Hälsan är viktigast.	Health is the most important thing.	سلامتی از همه مهم‌تر است.
+sv-a2-2	4	en vårdcentral	vårdcentraler	health centre	مرکز درمانی (پزشک خانواده)	Jag har en tid på vårdcentralen.	I have an appointment at the health centre.	در مرکز درمانی وقت دارم.
+sv-a2-2	4	en tid	tider	appointment; time	وقت (ملاقات)	Jag vill boka en tid hos tandläkaren.	I would like to book an appointment with the dentist.	می‌خواهم از دندان‌پزشک وقت بگیرم.
+sv-a2-2	4	en tandläkare	tandläkare	dentist	دندان‌پزشک	Tandläkaren är snäll.	The dentist is kind.	دندان‌پزشک مهربان است.
+sv-a2-2	4	ett recept	recept	prescription; recipe	نسخه؛ دستور پخت	Läkaren skriver ett recept.	The doctor writes a prescription.	پزشک نسخه می‌نویسد.
+sv-a2-2	4	en förkylning	förkylningar	cold	سرماخوردگی	Jag har en förkylning.	I have a cold.	سرما خورده‌ام.
+sv-a2-2	4	en hosta	hostor	cough	سرفه	Hon har en torr hosta.	She has a dry cough.	او سرفه خشک دارد.
+sv-a2-2	4	huvudvärk	-	headache	سردرد	Jag har huvudvärk idag.	I have a headache today.	امروز سردرد دارم.
+sv-a2-2	4	en skada	skador	injury	آسیب؛ جراحت	Skadan i knät är allvarlig.	The knee injury is serious.	آسیب زانو جدی است.
+sv-a2-2	4	en sjukdom	sjukdomar	illness; disease	بیماری	Det är en vanlig sjukdom.	It is a common illness.	این یک بیماری شایع است.
+sv-a2-2	4	en allergi	allergier	allergy	آلرژی	Han har en allergi mot nötter.	He has an allergy to nuts.	او به آجیل آلرژی دارد.
+sv-a2-2	4	att vila	-	to rest	استراحت کردن	Du måste vila ordentligt.	You must rest properly.	باید درست استراحت کنی.
+sv-a2-2	4	att träna	-	to exercise; to train	ورزش کردن؛ تمرین کردن	Jag tränar tre gånger i veckan.	I exercise three times a week.	هفته‌ای سه بار ورزش می‌کنم.
+sv-a2-2	4	stress	-	stress	استرس	Stress kan göra dig sjuk.	Stress can make you ill.	استرس می‌تواند تو را بیمار کند.
+sv-a2-2	4	en vitamin	vitaminer	vitamin	ویتامین	På vintern tar jag D-vitamin.	In winter I take vitamin D.	در زمستان ویتامین د مصرف می‌کنم.
+sv-a2-2	4	en ambulans	ambulanser	ambulance	آمبولانس	Ambulansen kommer snart.	The ambulance is coming soon.	آمبولانس به‌زودی می‌رسد.
+sv-a2-2	4	Ring 112!	-	Call 112! (emergency number)	به ۱۱۲ زنگ بزن! (شماره اورژانس)	Det är en olycka, ring 112!	There has been an accident, call 112!	تصادف شده، به ۱۱۲ زنگ بزن!
+sv-a2-2	4	att må bra	-	to feel well	حال خوب داشتن	Jag mår bra efter en promenad.	I feel good after a walk.	بعد از قدم‌زدن حالم خوب است.
+@level	sv-a2-3	Svenska A2 · Nivå 3	Media and technology, shopping and services, bank and post, travel
+@chapter	sv-a2-3	1	Media och teknik
+@chapter	sv-a2-3	2	Handla och tjänster
+@chapter	sv-a2-3	3	Bank och post
+@chapter	sv-a2-3	4	Ut på resa
+sv-a2-3	1	en dator	datorer	computer	رایانه؛ کامپیوتر	Min dator är ganska gammal.	My computer is quite old.	کامپیوتر من نسبتاً قدیمی است.
+sv-a2-3	1	en mobil	mobiler	mobile phone	تلفن همراه؛ موبایل	Jag har glömt min mobil hemma.	I have forgotten my mobile at home.	موبایلم را در خانه جا گذاشته‌ام.
+sv-a2-3	1	en skärm	skärmar	screen	صفحه نمایش	Skärmen är sprucken.	The screen is cracked.	صفحه نمایش ترک خورده است.
+sv-a2-3	1	en laddare	laddare	charger	شارژر	Har du en laddare jag kan låna?	Do you have a charger I can borrow?	شارژری داری که قرض بگیرم؟
+sv-a2-3	1	ett batteri	batterier	battery	باتری	Batteriet är nästan slut.	The battery is almost dead.	باتری تقریباً تمام شده است.
+sv-a2-3	1	internet	-	internet	اینترنت	Det finns inget internet här.	There is no internet here.	اینجا اینترنت نیست.
+sv-a2-3	1	ett lösenord	lösenord	password	رمز عبور	Jag har glömt mitt lösenord.	I have forgotten my password.	رمز عبورم را فراموش کرده‌ام.
+sv-a2-3	1	ett mejl	mejl	email	ایمیل	Jag skickar ett mejl till chefen.	I am sending an email to the boss.	به رئیس ایمیل می‌فرستم.
+sv-a2-3	1	en hemsida	hemsidor	website	وب‌سایت	Företagets hemsida är ny.	The company's website is new.	وب‌سایت شرکت جدید است.
+sv-a2-3	1	en app	appar	app	اپلیکیشن؛ برنامه	Jag använder en app för att lära mig svenska.	I use an app to learn Swedish.	از یک اپلیکیشن برای یادگیری سوئدی استفاده می‌کنم.
+sv-a2-3	1	en nyhet	nyheter	news item; piece of news	خبر	Har du hört nyheten?	Have you heard the news?	آن خبر را شنیده‌ای؟
+sv-a2-3	1	en tidning	tidningar	newspaper	روزنامه	Min pappa läser tidningen varje morgon.	My dad reads the newspaper every morning.	پدرم هر صبح روزنامه می‌خواند.
+sv-a2-3	1	ett program	program	programme; program	برنامه (تلویزیونی یا کامپیوتری)	Det här programmet är mycket bra.	This programme is very good.	این برنامه خیلی خوب است.
+sv-a2-3	1	att surfa	-	to browse; to surf	گشت‌وگذار در اینترنت	Hon surfar på nätet varje kväll.	She browses the web every evening.	او هر شب در اینترنت می‌گردد.
+sv-a2-3	1	att klicka	-	to click	کلیک کردن	Klicka på länken.	Click on the link.	روی لینک کلیک کن.
+sv-a2-3	1	att spara	-	to save	ذخیره کردن؛ پس‌انداز کردن	Glöm inte att spara filen.	Do not forget to save the file.	فراموش نکن فایل را ذخیره کنی.
+sv-a2-3	1	att ladda ner	-	to download	دانلود کردن	Jag laddar ner appen nu.	I am downloading the app now.	الان اپلیکیشن را دانلود می‌کنم.
+sv-a2-3	1	att dela	-	to share; to divide	به اشتراک گذاشتن؛ تقسیم کردن	Vi delar bilderna med familjen.	We share the pictures with the family.	ما عکس‌ها را با خانواده به اشتراک می‌گذاریم.
+sv-a2-3	2	en butik	butiker	shop; store	فروشگاه	Butiken har öppet till nio.	The shop is open until nine.	فروشگاه تا ساعت نه باز است.
+sv-a2-3	2	ett varuhus	varuhus	department store	فروشگاه بزرگ	Varuhuset har många avdelningar.	The department store has many departments.	فروشگاه بزرگ بخش‌های زیادی دارد.
+sv-a2-3	2	att handla	-	to shop	خرید کردن	Jag handlar mat på lördagar.	I do the food shopping on Saturdays.	شنبه‌ها خرید مواد غذایی می‌کنم.
+sv-a2-3	2	ett pris	priser	price	قیمت	Vad är priset på jackan?	What is the price of the jacket?	قیمت کاپشن چقدر است؟
+sv-a2-3	2	att kosta	-	to cost	قیمت داشتن	Hur mycket kostar den här tröjan?	How much does this sweater cost?	این ژاکت چند قیمت دارد؟
+sv-a2-3	2	billig	-	cheap	ارزان	Biljetten är billig.	The ticket is cheap.	بلیت ارزان است.
+sv-a2-3	2	dyr	-	expensive	گران	Den här klockan är för dyr.	This watch is too expensive.	این ساعت خیلی گران است.
+sv-a2-3	2	en rabatt	rabatter	discount	تخفیف	Det är rabatt på skor idag.	There is a discount on shoes today.	امروز روی کفش تخفیف هست.
+sv-a2-3	2	ett erbjudande	erbjudanden	offer	پیشنهاد ویژه	Det här är ett bra erbjudande.	This is a good offer.	این یک پیشنهاد ویژه خوب است.
+sv-a2-3	2	en kassa	kassor	checkout; till	صندوق	Kön till kassan är lång.	The queue for the checkout is long.	صف صندوق طولانی است.
+sv-a2-3	2	ett kvitto	kvitton	receipt	رسید	Spara kvittot om du vill lämna tillbaka.	Keep the receipt if you want to return it.	اگر می‌خواهی پس بدهی، رسید را نگه دار.
+sv-a2-3	2	en påse	påsar	bag (plastic or paper)	کیسه؛ پاکت	Vill du ha en påse?	Do you want a bag?	کیسه می‌خواهی؟
+sv-a2-3	2	en kundvagn	kundvagnar	shopping trolley	چرخ خرید	Jag behöver en kundvagn.	I need a shopping trolley.	به چرخ خرید نیاز دارم.
+sv-a2-3	2	en storlek	storlekar	size	اندازه؛ سایز	Har ni den här tröjan i en större storlek?	Do you have this sweater in a larger size?	این ژاکت را در سایز بزرگ‌تر دارید؟
+sv-a2-3	2	att lämna tillbaka	-	to return (an item)	پس دادن	Jag vill lämna tillbaka byxorna.	I would like to return the trousers.	می‌خواهم شلوار را پس بدهم.
+sv-a2-3	2	en frisör	frisörer	hairdresser	آرایشگر	Jag har tid hos frisören klockan tre.	I have an appointment at the hairdresser at three.	ساعت سه از آرایشگر وقت دارم.
+sv-a2-3	2	öppen	-	open	باز	Banken är öppen till fem.	The bank is open until five.	بانک تا پنج باز است.
+sv-a2-3	2	stängd	-	closed	بسته	Affären är stängd på söndagar.	The shop is closed on Sundays.	مغازه یکشنبه‌ها بسته است.
+sv-a2-3	2	en öppettid	öppettider	opening hour	ساعت کاری	Vilka är öppettiderna?	What are the opening hours?	ساعت‌های کاری چیست؟
+sv-a2-3	3	en bank	banker	bank	بانک	Jag går till banken efter lunch.	I am going to the bank after lunch.	بعد از ناهار به بانک می‌روم.
+sv-a2-3	3	ett konto	konton	account	حساب (بانکی)	Jag vill öppna ett konto.	I would like to open an account.	می‌خواهم یک حساب باز کنم.
+sv-a2-3	3	ett kort	kort	card	کارت	Kan jag betala med kort?	Can I pay by card?	می‌توانم با کارت پرداخت کنم؟
+sv-a2-3	3	en bankomat	bankomater	cash machine; ATM	دستگاه خودپرداز	Det finns en bankomat vid torget.	There is a cash machine by the square.	کنار میدان یک خودپرداز هست.
+sv-a2-3	3	kontanter	-	cash	پول نقد	Jag har inga kontanter med mig.	I do not have any cash with me.	پول نقد همراهم نیست.
+sv-a2-3	3	en faktura	fakturor	invoice; bill	فاکتور؛ قبض	Fakturan måste betalas före den tionde.	The invoice must be paid before the 10th.	فاکتور باید قبل از دهم پرداخت شود.
+sv-a2-3	3	en avgift	avgifter	fee; charge	هزینه؛ کارمزد	Det finns en liten avgift.	There is a small fee.	یک کارمزد کوچک وجود دارد.
+sv-a2-3	3	ett lån	lån	loan	وام	Hon har tagit ett lån för lägenheten.	She has taken a loan for the flat.	او برای آپارتمان وام گرفته است.
+sv-a2-3	3	att sätta in	-	to deposit	واریز کردن	Jag vill sätta in pengar på kontot.	I want to deposit money into the account.	می‌خواهم به حساب پول واریز کنم.
+sv-a2-3	3	att ta ut	-	to withdraw	برداشت کردن	Jag tar ut femhundra kronor.	I am withdrawing five hundred kronor.	پانصد کرون برداشت می‌کنم.
+sv-a2-3	3	ett paket	paket	parcel; package	بسته پستی	Jag väntar på ett paket.	I am waiting for a parcel.	منتظر یک بسته هستم.
+sv-a2-3	3	ett brev	brev	letter	نامه	Jag har fått ett brev från banken.	I have received a letter from the bank.	از بانک یک نامه گرفته‌ام.
+sv-a2-3	3	ett frimärke	frimärken	stamp	تمبر	Vi behöver ett frimärke till brevet.	We need a stamp for the letter.	برای نامه به یک تمبر نیاز داریم.
+sv-a2-3	3	en adress	adresser	address	آدرس	Vad är din adress?	What is your address?	آدرس شما چیست؟
+sv-a2-3	3	ett postnummer	postnummer	postcode	کد پستی	Skriv ditt postnummer här.	Write your postcode here.	کد پستی‌ات را اینجا بنویس.
+sv-a2-3	3	en brevlåda	brevlådor	letterbox; mailbox	صندوق پست	Brevlådan är full.	The letterbox is full.	صندوق پست پر است.
+sv-a2-3	3	att posta	-	to post; to mail	پست کردن	Jag ska posta brevet idag.	I am going to post the letter today.	امروز نامه را پست می‌کنم.
+sv-a2-3	3	en blankett	blanketter	form	فرم	Fyll i blanketten, tack.	Fill in the form, please.	لطفاً فرم را پر کنید.
+sv-a2-3	3	en underskrift	underskrifter	signature	امضا	Här behövs din underskrift.	Your signature is needed here.	اینجا امضای تو لازم است.
+sv-a2-3	3	ett personnummer	personnummer	personal identity number	شماره هویت شخصی (سوئد)	Du behöver ett personnummer för att öppna ett konto.	You need a personal identity number to open an account.	برای باز کردن حساب به شماره هویت شخصی نیاز داری.
+sv-a2-3	4	ett flyg	flyg	flight	پرواز	Mitt flyg går klockan sju.	My flight leaves at seven.	پرواز من ساعت هفت است.
+sv-a2-3	4	en flygbiljett	flygbiljetter	plane ticket	بلیت هواپیما	Jag har köpt en flygbiljett till Rom.	I have bought a plane ticket to Rome.	یک بلیت هواپیما به رم خریده‌ام.
+sv-a2-3	4	en avgång	avgångar	departure	حرکت؛ پرواز خروجی	Avgången är försenad.	The departure is delayed.	حرکت با تأخیر انجام می‌شود.
+sv-a2-3	4	en ankomst	ankomster	arrival	ورود؛ رسیدن	Ankomsten är klockan tolv.	The arrival is at twelve.	زمان رسیدن ساعت دوازده است.
+sv-a2-3	4	försenad	-	delayed	با تأخیر	Tåget är tyvärr försenat.	The train is unfortunately delayed.	متأسفانه قطار تأخیر دارد.
+sv-a2-3	4	en incheckning	incheckningar	check-in	پذیرش؛ تحویل بار	Incheckningen stänger en timme före avgång.	Check-in closes one hour before departure.	پذیرش یک ساعت قبل از پرواز بسته می‌شود.
+sv-a2-3	4	bagage	-	luggage; baggage	بار؛ بار سفر	Mitt bagage har kommit bort.	My luggage has gone missing.	بار من گم شده است.
+sv-a2-3	4	en tull	tullar	customs	گمرک	Vi måste gå genom tullen.	We have to go through customs.	باید از گمرک رد شویم.
+sv-a2-3	4	ett visum	visum	visa	ویزا	Behöver jag ett visum för resan?	Do I need a visa for the trip?	برای این سفر به ویزا نیاز دارم؟
+sv-a2-3	4	valuta	-	currency	ارز	Vilken valuta används i Norge?	Which currency is used in Norway?	در نروژ از چه ارزی استفاده می‌شود؟
+sv-a2-3	4	en färja	färjor	ferry	کشتی (فری)	Vi åker färja till Finland.	We are taking the ferry to Finland.	ما با کشتی به فنلاند می‌رویم.
+sv-a2-3	4	en kryssning	kryssningar	cruise	سفر دریایی با کشتی	De har bokat en kryssning.	They have booked a cruise.	آن‌ها یک سفر دریایی رزرو کرده‌اند.
+sv-a2-3	4	en vandring	vandringar	hike	پیاده‌روی طولانی؛ کوه‌پیمایی	Vi gör en lång vandring i fjällen.	We are going on a long hike in the mountains.	ما در کوهستان پیاده‌روی طولانی می‌کنیم.
+sv-a2-3	4	ett tält	tält	tent	چادر	Vi sover i tält i sommar.	We are sleeping in a tent this summer.	تابستان امسال در چادر می‌خوابیم.
+sv-a2-3	4	en sevärdhet	sevärdheter	sight; attraction	جاذبه دیدنی	Gamla stan har många sevärdheter.	The Old Town has many sights.	شهر قدیم جاذبه‌های دیدنی زیادی دارد.
+sv-a2-3	4	en reseguide	reseguider	travel guide	راهنمای سفر	Jag läser en reseguide om Island.	I am reading a travel guide about Iceland.	یک راهنمای سفر درباره ایسلند می‌خوانم.
+sv-a2-3	4	att övernatta	-	to stay overnight	شب را ماندن	Vi övernattar på ett litet hotell.	We stay overnight at a small hotel.	ما شب را در یک هتل کوچک می‌مانیم.
+sv-a2-3	4	att avboka	-	to cancel (a booking)	لغو کردن (رزرو)	Jag måste avboka resan.	I have to cancel the trip.	باید سفر را لغو کنم.
+sv-a2-3	4	att landa	-	to land	فرود آمدن	Planet landar klockan fem.	The plane lands at five o'clock.	هواپیما ساعت پنج فرود می‌آید.

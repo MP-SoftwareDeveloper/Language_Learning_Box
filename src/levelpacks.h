@@ -10,9 +10,10 @@
 class QQmlEngine;
 class QJSEngine;
 
-// Built-in level packs (German A1 and A2, three levels each, themed chapters; meanings in
-// English and Persian). Exposed to QML as a singleton; levels or single chapters are added to
-// the current learning box on request. German learning boxes only.
+// Built-in level packs (German and Swedish A1 and A2, three levels each, themed chapters; meanings
+// in English and Persian). Exposed to QML as a singleton; levels or single chapters are added to
+// the current learning box on request. German or Swedish learning boxes only: the levels shown
+// are those of the current learning language.
 class LevelPacks : public QObject
 {
     Q_OBJECT
@@ -22,9 +23,9 @@ class LevelPacks : public QObject
     // [{id, title, subtitle, cefr, total, inBox (cards in its own box), learned, due, boxId (-1 = none),
     //   chapters: [{number, title, total, inBox (in the current box)}]}]
     Q_PROPERTY(QVariantList levels READ levels NOTIFY changed)
-    Q_PROPERTY(int totalWords READ totalWords CONSTANT)
+    Q_PROPERTY(int totalWords READ totalWords NOTIFY changed)
     Q_PROPERTY(int wordsInBox READ wordsInBox NOTIFY changed)
-    Q_PROPERTY(bool available READ available NOTIFY changed) // the current learning box is German
+    Q_PROPERTY(bool available READ available NOTIFY changed) // the current learning box is German or Swedish
     Q_PROPERTY(QString error READ error CONSTANT)
 
 public:
@@ -43,7 +44,8 @@ public:
     Q_INVOKABLE int addLevel(const QString &levelId);
     // Every level is its own learning box (named like the level, e.g. "A1 · Level 1") that shows up
     // in the learning-box list. installBoxes creates the missing ones, filled with all words; with
-    // force=false it does so only once (first start). The current learning box stays selected.
+    // force=false it does so only once per language (German and Swedish levels). The current learning
+    // box stays selected.
     // Returns how many boxes were created.
     Q_INVOKABLE int installBoxes(bool force);
     // Selects the level's learning box (creating it if it was deleted). false on error.

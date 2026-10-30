@@ -29,6 +29,20 @@ private slots:
         QCOMPARE(levelWordBack(c->words[0], QStringLiteral("en")), QStringLiteral("house\nPl. die Häuser"));
         QCOMPARE(levelWordBack(c->words[1], QStringLiteral("fa")), QStringLiteral("رفتن"));
     }
+    void swedishIdsGetSwedishLanguage()
+    {
+        const QString text = QStringLiteral(
+            "@level\tsv-a2-1\tSvenska A2 · Nivå 1\tSub\n"
+            "@level\ta2-1\tA2 · Level 1\tSub\n");
+        QList<LevelPack> packs;
+        QString err;
+        QVERIFY2(parseLevelPacks(text, &packs, &err), qPrintable(err));
+        QCOMPARE(packs.size(), 2);
+        QCOMPARE(packs[0].language, QStringLiteral("sv"));
+        QCOMPARE(packs[0].cefr, QStringLiteral("A2"));
+        QCOMPARE(packs[1].language, QStringLiteral("de"));
+        QCOMPARE(packs[1].cefr, QStringLiteral("A2"));
+    }
     void rejectsUnknownLevel()
     {
         QList<LevelPack> packs;
@@ -47,6 +61,33 @@ private slots:
         int a1 = 0, a2 = 0;
         QSet<QString> seen;
         for (const LevelPack &p : packs) {
+            QCOMPARE(p.chapters.size(), 4);
+            (p.cefr == QLatin1String("A1") ? a1 : a2)++;
+            for (const LevelChapter &c : p.chapters) {
+                QVERIFY2(!c.words.isEmpty(), qPrintable(p.id));
+                for (const LevelWord &w : c.words) {
+                    QVERIFY(!w.german.isEmpty() && !w.english.isEmpty() && !w.persian.isEmpty());
+                    QVERIFY(!w.exampleDe.isEmpty() && !w.exampleEn.isEmpty() && !w.exampleFa.isEmpty());
+                    QVERIFY2(!seen.contains(w.german), qPrintable(w.german));
+                    seen.insert(w.german);
+                }
+            }
+        }
+        QCOMPARE(a1, 3);
+        QCOMPARE(a2, 3);
+    }
+    void shippedSwedishDataIsComplete()
+    {
+        QFile f(QStringLiteral(LB_LEVELPACK_SV_FILE));
+        QVERIFY(f.open(QIODevice::ReadOnly));
+        QList<LevelPack> packs;
+        QString err;
+        QVERIFY2(parseLevelPacks(QString::fromUtf8(f.readAll()), &packs, &err), qPrintable(err));
+        QCOMPARE(packs.size(), 6);
+        int a1 = 0, a2 = 0;
+        QSet<QString> seen;
+        for (const LevelPack &p : packs) {
+            QCOMPARE(p.language, QStringLiteral("sv"));
             QCOMPARE(p.chapters.size(), 4);
             (p.cefr == QLatin1String("A1") ? a1 : a2)++;
             for (const LevelChapter &c : p.chapters) {

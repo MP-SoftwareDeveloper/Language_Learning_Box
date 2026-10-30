@@ -28,7 +28,8 @@ bool parseLevelPacks(QStringView text, QList<LevelPack> *out, QString *error)
             p.id = f.at(1).trimmed();
             p.title = f.at(2).trimmed();
             p.subtitle = f.value(3).trimmed();
-            p.cefr = p.id.left(2).toUpper();
+            p.language = p.id.startsWith(QLatin1String("sv-")) ? QStringLiteral("sv") : QStringLiteral("de");
+            p.cefr = p.id.mid(p.language == QLatin1String("sv") ? 3 : 0, 2).toUpper();
             if (p.id.isEmpty() || p.title.isEmpty())
                 return fail(ln, QStringLiteral("@level needs an id and a title"));
             out->append(p);
