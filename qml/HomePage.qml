@@ -371,7 +371,7 @@ Page {
             }
             Button {
                 id: lensBtn
-                Material.background: "#74979D"
+                Material.background: "#547D9A"
                 Material.foreground: "white"
                 Layout.fillWidth: true
                 Layout.leftMargin: 16
@@ -408,7 +408,7 @@ Page {
             Button {
                 id: favButton
                 objectName: "favoritesButton"
-                Material.background: "#F69956"
+                Material.background: "#566CAD"
                 Material.foreground: "white"
                 Layout.fillWidth: true
                 Layout.preferredHeight: 67   // 70% of Start (96)
@@ -449,7 +449,7 @@ Page {
                 Layout.rightMargin: 16
                 Layout.preferredHeight: 67   // 70% of Start (96)
                 text: qsTr("Dictionary")
-                Material.background: "#B088C4"
+                Material.background: "#6A74CA"
                 Material.foreground: "white"
                 contentItem: Item {
                     implicitHeight: dictRow.implicitHeight
@@ -492,7 +492,7 @@ Page {
                     Layout.preferredHeight: 67   // 70% of Start (96)
                     enabled: CardStore.totalCount > 0
                     text: qsTr("Export")
-                    Material.background: "#297DD1"
+                    Material.background: "#007CFB"
                     Material.foreground: "white"
                     contentItem: Item {
                         implicitHeight: exportRow.implicitHeight
@@ -526,7 +526,7 @@ Page {
                     Layout.preferredWidth: 1
                     Layout.preferredHeight: 67   // 70% of Start (96)
                     text: qsTr("Import")
-                    Material.background: "#448C43"
+                    Material.background: "#005DB9"
                     Material.foreground: "white"
                     contentItem: Item {
                         implicitHeight: importRow.implicitHeight
