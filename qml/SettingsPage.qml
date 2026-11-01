@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Controls.Material
+import QtQuick.Effects
 import LearningBox
 
 Page {
@@ -519,6 +520,38 @@ Page {
                 Layout.rightMargin: 16
                 horizontalAlignment: page.hAlign
                 text: page.tr2("germanKeysHint")
+            }
+
+            // Maker's sign, at the very end of the page
+            Item {
+                id: sign
+                Layout.fillWidth: true
+                Layout.leftMargin: 16
+                Layout.rightMargin: 16
+                Layout.topMargin: 24
+                Layout.preferredHeight: width * signImage.implicitHeight / Math.max(1, signImage.implicitWidth)
+                Accessible.name: "Maziar, App & Digital Innovation"
+                Image {
+                    id: signImage
+                    anchors.fill: parent
+                    source: "../assets/maziar.jpg"
+                    fillMode: Image.PreserveAspectFit
+                    smooth: true
+                    visible: false // drawn by the MultiEffect below, with round corners
+                }
+                Rectangle {
+                    id: signMask
+                    anchors.fill: parent
+                    radius: 22
+                    visible: false
+                    layer.enabled: true
+                }
+                MultiEffect {
+                    anchors.fill: parent
+                    source: signImage
+                    maskEnabled: true
+                    maskSource: signMask
+                }
             }
 
             Item { Layout.preferredHeight: 16 }
