@@ -193,13 +193,13 @@ Page {
                             anchors.centerIn: parent
                             width: 36; height: 8.4
                             radius: 2
-                            color: page.boxBase     // same colour as the box tiles
+                            color: page.comboColor  // same colour as the box chooser
                         }
                         Rectangle {                 // vertical stroke
                             anchors.centerIn: parent
                             width: 8.4; height: 36
                             radius: 2
-                            color: page.boxBase
+                            color: page.comboColor
                         }
                     }
                     onClicked: newDialog.open()
@@ -207,7 +207,7 @@ Page {
                 ToolButton {
                     text: "⋮"
                     font.pixelSize: 66              // same size as the "+" used to be
-                    Material.foreground: page.boxBase   // same colour as the "+"
+                    Material.foreground: page.comboColor   // same colour as the "+" and the box chooser
                     padding: 0
                     implicitWidth: 40               // narrow, so it sits right next to the "+"
                     implicitHeight: 56
