@@ -14,6 +14,9 @@ Page {
     signal finished()
 
     property string chosenMode: "simple"
+    // Lens (words from a photo) is on unless the user says no (asked when Full is chosen)
+    property bool lensWanted: true
+    LensTexts { id: lensTexts }
     // Meaning language for the first learning box (never the language being learned)
     property string meaning: Translator.targetLanguage === "en" ? "en" : "fa"
     readonly property bool fa: meaning === "fa"
@@ -54,6 +57,7 @@ Page {
             Translator.targetLanguage = page.meaning // the starter cards' back uses it
             WordPacks.addStarterCards()
         }
+        AppMode.lensEnabled = page.lensWanted
         AppMode.setupDone = true
         page.finished()
     }
@@ -208,6 +212,46 @@ Page {
                                 text: modelData.text
                             }
                         }
+                    }
+                }
+                // Lens: asked in the language chosen for the meanings
+                Pane {
+                    id: lensAsk
+                    objectName: "lensAsk"
+                    Layout.fillWidth: true
+                    visible: page.chosenMode === "full"
+                    padding: 12
+                    LayoutMirroring.enabled: page.fa
+                    LayoutMirroring.childrenInherit: true
+                    background: Rectangle {
+                        radius: 8
+                        color: "transparent"
+                        border.width: 1
+                        border.color: Material.dividerColor
+                    }
+                    ColumnLayout {
+                        anchors.fill: parent
+                        spacing: 6
+                        Label {
+                            Layout.fillWidth: true
+                            wrapMode: Text.WordWrap
+                            font.pixelSize: 18
+                            font.bold: true
+                            text: lensTexts.t("askTitle", page.meaning)
+                        }
+                        Label {
+                            Layout.fillWidth: true
+                            wrapMode: Text.WordWrap
+                            text: lensTexts.t("askBody", page.meaning)
+                        }
+                        Switch {
+                            objectName: "lensSwitch"
+                            Layout.fillWidth: true
+                            checked: page.lensWanted
+                            text: lensTexts.t("askSwitch", page.meaning)
+                            onToggled: page.lensWanted = checked
+                        }
+                        HintLabel { text: lensTexts.t("askHint", page.meaning) }
                     }
                 }
                 HintLabel { text: qsTr("You can switch any time in Settings. Your cards and progress are kept.") }

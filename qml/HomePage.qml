@@ -386,7 +386,10 @@ Page {
             }
             Button {
                 id: lensBtn
-                Material.background: "#547D9A"
+                objectName: "lensButton"
+                // Lens turned off in the setup / Settings: the button looks disabled, a tap explains why
+                opacity: AppMode.lensEnabled ? 1 : 0.5
+                Material.background: AppMode.lensEnabled ? "#547D9A" : "#78909C"
                 Material.foreground: "white"
                 Layout.fillWidth: true
                 Layout.leftMargin: 16
@@ -416,7 +419,7 @@ Page {
                         }
                     }
                 }
-                onClicked: page.lensRequested()
+                onClicked: AppMode.lensEnabled ? page.lensRequested() : lensOffDialog.open()
                 Component.onCompleted: if (background) background.radius = page.cornerRadius
             }
             // Starred cards (★ on any card)
@@ -780,6 +783,37 @@ Page {
             }
         }
         onAccepted: AppMode.mode = "full"
+    }
+
+    LensTexts { id: lensTexts }
+    Dialog {
+        id: lensOffDialog
+        objectName: "lensOffDialog"
+        readonly property string lang: lensTexts.langOf(AppMode.helpLanguage !== "" ? AppMode.helpLanguage : Translator.targetLanguage)
+        title: lensTexts.t("offTitle", lang)
+        modal: true
+        width: Math.min(340, page.width - 32)
+        x: (page.width - width) / 2
+        y: Math.max(8, (page.height - height) / 3)
+        LayoutMirroring.enabled: lang === "fa"
+        LayoutMirroring.childrenInherit: true
+        contentItem: Label {
+            wrapMode: Text.WordWrap
+            text: lensTexts.t("offBody", lensOffDialog.lang)
+        }
+        footer: DialogButtonBox {
+            Button {
+                flat: true
+                text: lensTexts.t("close", lensOffDialog.lang)
+                DialogButtonBox.buttonRole: DialogButtonBox.RejectRole
+            }
+            Button {
+                flat: true
+                text: lensTexts.t("turnOn", lensOffDialog.lang)
+                DialogButtonBox.buttonRole: DialogButtonBox.AcceptRole
+            }
+        }
+        onAccepted: AppMode.lensEnabled = true
     }
 
     Dialog {

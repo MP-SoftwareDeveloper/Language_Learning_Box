@@ -59,6 +59,7 @@ qt_add_qml_module(appLearningBox
         qml/WordPackChapterPage.qml
         qml/MeaningText.qml
         qml/LensPage.qml
+        qml/LensTexts.qml
         qml/SettingsPage.qml
         qml/ExampleText.qml
         qml/ExampleList.qml

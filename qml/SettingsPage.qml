@@ -12,6 +12,7 @@ Page {
 
     // Language of the explanations on this page (shared with the help pages).
     HelpLanguageBar { id: langBar; visible: false }
+    LensTexts { id: lensTexts }
     readonly property string lang: langBar.lang
     readonly property bool rtl: lang === "fa"
     // Left in the code: the mirrored layout below turns it into right-aligned text for Persian.
@@ -411,6 +412,23 @@ Page {
                 text: page.tr2("lens")
                 font.pixelSize: 16
                 font.bold: true
+            }
+            SwitchDelegate {
+                Layout.fillWidth: true
+                visible: AppMode.full
+                text: lensTexts.t("setLens", page.lang)
+                checked: AppMode.lensEnabled
+                onToggled: AppMode.lensEnabled = checked
+            }
+            Label {
+                Layout.leftMargin: 16
+                Layout.rightMargin: 16
+                Layout.fillWidth: true
+                wrapMode: Text.WordWrap
+                opacity: 0.7
+                visible: AppMode.full
+                horizontalAlignment: page.hAlign
+                text: lensTexts.t("setLensHint", page.lang)
             }
             SwitchDelegate {
                 Layout.fillWidth: true

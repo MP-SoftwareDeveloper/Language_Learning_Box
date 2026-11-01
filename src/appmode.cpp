@@ -11,6 +11,7 @@
 namespace {
 constexpr auto kModeKey = "app/mode";
 constexpr auto kSetupKey = "setup/done";
+constexpr auto kLensKey = "app/lens";
 constexpr auto kHelpLangKey = "help/language";
 }
 
@@ -45,6 +46,7 @@ AppMode::AppMode(QObject *parent)
     m_setupDone = st.value(QLatin1String(kSetupKey), false).toBool();
     m_full = st.value(QLatin1String(kModeKey), QStringLiteral("full")).toString() != QLatin1String("simple");
     m_helpLanguage = st.value(QLatin1String(kHelpLangKey)).toString();
+    m_lens = st.value(QLatin1String(kLensKey), true).toBool();
 }
 
 void AppMode::setMode(const QString &mode)
@@ -54,6 +56,15 @@ void AppMode::setMode(const QString &mode)
         return;
     m_full = full;
     QSettings().setValue(QLatin1String(kModeKey), this->mode());
+    emit changed();
+}
+
+void AppMode::setLensEnabled(bool on)
+{
+    if (on == m_lens)
+        return;
+    m_lens = on;
+    QSettings().setValue(QLatin1String(kLensKey), on);
     emit changed();
 }
 
