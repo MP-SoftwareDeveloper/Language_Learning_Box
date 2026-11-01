@@ -13,6 +13,7 @@
 namespace {
 constexpr auto kResource = ":/data/levelpacks/starten_wir_levels.tsv";
 constexpr auto kResourceSv = ":/data/levelpacks/svenska_levels.tsv";
+constexpr auto kResourceAdv = ":/data/levelpacks/deutsch_b1_c1.tsv"; // German B1, B2, C1
 
 QString learningLanguage()
 {
@@ -41,7 +42,7 @@ LevelPacks *LevelPacks::create(QQmlEngine *, QJSEngine *engine)
 LevelPacks::LevelPacks(QObject *parent)
     : QObject(parent)
 {
-    for (const char *resource : {kResource, kResourceSv}) {
+    for (const char *resource : {kResource, kResourceAdv, kResourceSv}) {
         QFile f(QString::fromLatin1(resource));
         QList<LevelPack> packs;
         QString error;
@@ -178,11 +179,17 @@ QString boxesKey(const QString &language)
     return language == QLatin1String("sv") ? QStringLiteral("levelpacks/swedishBoxes")
                                            : QStringLiteral("levelpacks/germanBoxes");
 }
-// First-start flag per language (German keeps its old key), so a deleted box does not come back.
-QString installedKey(const QString &language)
+// First-start flag per group of packs (German A1/A2 keeps its old key), so a deleted box does not come back.
+// German B1-C1 has its own flag, so existing users get those boxes once after an update.
+bool isAdvanced(const LevelPack &p)
 {
-    return language == QLatin1String("sv") ? QStringLiteral("levelpacks/installedSv")
-                                           : QStringLiteral("levelpacks/installed");
+    return p.language == QLatin1String("de") && p.cefr != QLatin1String("A1") && p.cefr != QLatin1String("A2");
+}
+QString installedKey(const QString &language, bool advanced)
+{
+    if (language == QLatin1String("sv"))
+        return QStringLiteral("levelpacks/installedSv");
+    return advanced ? QStringLiteral("levelpacks/installedDeAdv") : QStringLiteral("levelpacks/installed");
 }
 } // namespace
 
@@ -219,15 +226,18 @@ int LevelPacks::installBoxes(bool force)
     CardStore *store = CardStore::instance();
     const int original = store->currentCollection();
     int created = 0;
-    for (const QString &language : {QStringLiteral("de"), QStringLiteral("sv")}) {
-        if (!force && settings.value(installedKey(language), false).toBool())
+    const struct { const char *language; bool advanced; } groups[] = {{"de", false}, {"de", true}, {"sv", false}};
+    for (const auto &g : groups) {
+        const QString language = QString::fromLatin1(g.language);
+        const QString key = installedKey(language, g.advanced);
+        if (!force && settings.value(key, false).toBool())
             continue;
         // Switched off in Settings: no boxes now; switching on creates them.
         if (boxesOn(language))
             for (const LevelPack &p : std::as_const(m_packs))
-                if (p.language == language && boxId(p) < 0 && createBox(p) >= 0)
+                if (p.language == language && isAdvanced(p) == g.advanced && boxId(p) < 0 && createBox(p) >= 0)
                     ++created;
-        settings.setValue(installedKey(language), true);
+        settings.setValue(key, true);
     }
     if (original >= 0)
         store->selectCollection(original);

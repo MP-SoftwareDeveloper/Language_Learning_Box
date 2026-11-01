@@ -4,11 +4,21 @@ import QtQuick.Layouts
 import QtQuick.Controls.Material
 import LearningBox
 
-// The A1 and A2 levels. Each level is its own learning box (also in the box list on the home page),
+// The A1 to C1 levels (Swedish: A1 and A2). Each level is its own learning box (also in the box list on the home page),
 // with its own boxes 1-5 and progress. Tap a level to see its chapters; "Open box" starts learning it.
 Page {
     id: page
-    title: qsTr("A1 and A2 levels")
+
+    function cefrHeading(c) {
+        switch (c) {
+        case "A1": return qsTr("A1 \u2013 Beginner")
+        case "A2": return qsTr("A2 \u2013 Elementary")
+        case "B1": return qsTr("B1 \u2013 Intermediate")
+        case "B2": return qsTr("B2 \u2013 Upper intermediate")
+        default: return qsTr("C1 \u2013 Advanced")
+        }
+    }
+    title: CardStore.learningLanguage === "sv" ? qsTr("A1 and A2 levels") : qsTr("Levels A1 to C1")
 
     Component { id: levelPage; LevelPage {} }
 
@@ -29,7 +39,7 @@ Page {
             opacity: 0.75
             text: CardStore.learningLanguage === "sv"
                   ? qsTr("Six learning boxes of Swedish words, three for A1 and three for A2. Each one has its own Boxes 1–5, so you can track every level separately. Tap “Open box” to start; it then also appears in the list on the home page.")
-                  : qsTr("Six learning boxes, by the lesson themes of “Starten wir!”. Each one has its own Boxes 1–5, so you can track every level separately. Choose one in the list on the home page, or tap “Open box”.")
+                  : qsTr("Twelve learning boxes of German words from A1 to C1. A1 and A2 follow the lesson themes of “Starten wir!”; B1, B2 and C1 are grouped by everyday and academic topics. Each one has its own Boxes 1–5, so you can track every level separately. Choose one in the list on the home page, or tap “Open box”.")
         }
         Label {
             Layout.leftMargin: 16
@@ -60,7 +70,7 @@ Page {
                     Layout.topMargin: 12
                     Layout.bottomMargin: 4
                     visible: item.index === 0 || LevelPacks.levels[item.index - 1].cefr !== item.modelData.cefr
-                    text: item.modelData.cefr === "A1" ? qsTr("A1 \u2013 Beginner") : qsTr("A2 \u2013 Elementary")
+                    text: page.cefrHeading(item.modelData.cefr)
                     font.pixelSize: 20
                     font.bold: true
                 }

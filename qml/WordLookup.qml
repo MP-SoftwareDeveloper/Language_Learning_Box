@@ -41,6 +41,68 @@ Item {
     readonly property string forms: wikiForms !== "" ? wikiForms : packForms          // "Plural ...", "Singular die ..."
     readonly property bool isNoun: front !== "" || wikiForms !== ""
 
+    // ---- one spelling, two words ----
+    // "Berichten" is the plural of the noun "Bericht" (reports) and also the verb "berichten" (to report).
+    // A word typed with a capital that is a noun, while Wiktionary also has a page for its lowercase spelling,
+    // could be either. The user picks (WordDetails shows the two choices): the choice is the capital letter,
+    // as in German spelling, so card front, meaning, forms and example sentences all follow the same word.
+    property string senseKey: ""        // lowercase spelling whose two words are on offer, "" = none
+    property string senseNoun: ""       // the noun side, e.g. "der Bericht"
+    property string pageFor: ""
+    property int pageRequest: -1
+    readonly property bool asNoun: !!parts && /^[A-ZÄÖÜ]/.test(bare)
+    readonly property bool ambiguous: lang === "de" && !!parts && !parts[1] && senseKey !== ""
+                                      && senseKey === bare.toLowerCase()
+    // The text to translate for the meaning: for the noun side of an ambiguous spelling the singular with its
+    // article ("der Bericht"), which no translator reads as a verb; otherwise the word as typed.
+    readonly property string meaningText: ambiguous && asNoun && senseNoun !== "" ? senseNoun : word.trim()
+    // Translators answer "der Bericht" with "the report": drop the English article again
+    function meaningFix(text) {
+        return meaningText !== word.trim() ? String(text).replace(/^(?:the|a|an)\s+/i, "") : text
+    }
+    function chooseSense(noun) {
+        if (!ambiguous || !parts)
+            return
+        const w = parts[2]
+        const nw = (noun ? w[0].toUpperCase() : w[0].toLowerCase()) + w.slice(1)
+        if (nw === w)
+            return
+        const i = word.lastIndexOf(w)
+        capitalise(word.slice(0, i) + nw + word.slice(i + w.length))
+    }
+    function probeSense() {
+        if (lang !== "de" || !parts || parts[1] || !asNoun || !isNoun)
+            return
+        const k = bare.toLowerCase()
+        if (senseKey === k || pageFor === k)
+            return
+        pageFor = k
+        pageRequest = Translator.lookupPage(k)
+    }
+    // Example sentences that fit the chosen word: a capitalised form inside a sentence is the noun, any other use
+    // (lowercase, or a capital only because it starts the sentence) is the verb. Unfiltered when nothing fits.
+    function occursInside(t, form) {
+        let i = -1
+        while ((i = t.indexOf(form, i + 1)) >= 0) {
+            if (/[A-Za-zÄÖÜäöüß]/.test(t.charAt(i + form.length)) || (i > 0 && /[A-Za-zÄÖÜäöüß]/.test(t.charAt(i - 1))))
+                continue
+            const before = t.slice(0, i)
+            if (before.trim() === "" || /[.!?:\u201E"\u00BB]\s*$/.test(before))
+                continue // the capital may only be the start of the sentence
+            return true
+        }
+        return false
+    }
+    function senseFilter(list) {
+        if (!ambiguous)
+            return list
+        const cap = senseKey[0].toUpperCase() + senseKey.slice(1)
+        const wantNoun = asNoun
+        const fit = list.filter(e => occursInside(e.text, cap) === wantNoun
+                                     && (wantNoun || e.text.toLowerCase().indexOf(senseKey) >= 0))
+        return fit.length > 0 ? fit : list
+    }
+
     // Rows of the unified layout: [{kind, text, mark}] - singular of each gender, plural, plural of each gender.
     // `mark` is the article that gives the colour mark (der blue, die red, das green): the gender is never written.
     // The lines come in the card's order: own plural, then per other gender "Singular der ..." and its "Plural ...".
@@ -82,6 +144,11 @@ Item {
 
     function requestGrammar() {
         const w = bare
+        const k = w.toLowerCase()
+        if (k !== senseKey)
+            senseKey = ""
+        if (k !== pageFor)
+            pageFor = ""
         if (w === grammarFor)
             return
         grammarFor = w
@@ -158,7 +225,7 @@ Item {
     function findExamples(force) {
         const t = word.trim()
         const q = parts ? parts[2] : t
-        const key = q + "|" + meaning + "|" + lang
+        const key = q + "|" + meaning + "|" + lang + "|" + (ambiguous ? "2" : "")
         if (!force && key === examplesFor)
             return
         examplesFor = key
@@ -172,7 +239,7 @@ Item {
             return
         const persian = meaning === "fa"
         examples = lang !== "de" ? []
-                 : WordPacks.examplesContaining(q, 3).map(e => ({ text: e.text, translation: persian ? e.translation : "" }))
+                 : senseFilter(WordPacks.examplesContaining(q, 3).map(e => ({ text: e.text, translation: persian ? e.translation : "" })))
         if (examples.length > 0 && autoPick)
             pickAll([0], false) // the first one is ticked to start with; tick more or untick it
         if (Translator.useOnline)
@@ -229,6 +296,19 @@ Item {
             root.wikiFront = grammar.front ?? ""
             root.wikiForms = grammar.forms ?? ""
             root.applyCapital()
+            root.probeSense()
+        }
+        function onPageChecked(requestId, exists, error) {
+            if (requestId !== root.pageRequest)
+                return
+            root.pageRequest = -1
+            if (!exists || (error ?? "") !== "" || !root.asNoun || !root.isNoun || root.bare.toLowerCase() !== root.pageFor)
+                return
+            const sg = root.rows.filter(r => r.kind === "singular")
+            root.senseNoun = sg.length > 0 ? sg[0].text : root.bare
+            root.senseKey = root.pageFor // two words: the user chooses (WordDetails)
+            if (root.active)
+                root.findExamples(false)
         }
         function onExamplesSuggested(requestId, list) {
             if (requestId !== root.examplesRequest)
@@ -236,7 +316,7 @@ Item {
             root.examplesRequest = -1
             const merged = root.examples.slice()
             const seen = merged.map(e => e.text.toLowerCase())
-            for (const e of list)
+            for (const e of root.senseFilter(list))
                 if (merged.length < 5 && seen.indexOf(e.text.toLowerCase()) < 0)
                     merged.push(e)
             root.examples = merged

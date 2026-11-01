@@ -608,6 +608,50 @@ int Translator::lookupGrammar(const QString &word)
     return id;
 }
 
+int Translator::lookupPage(const QString &title)
+{
+    const int id = m_nextId++;
+    const QString w = title.simplified();
+    const auto answer = [=, this](bool exists, const QString &error) {
+        QTimer::singleShot(0, this, [=, this] { emit pageChecked(id, exists, error); });
+    };
+    if (w.isEmpty() || w.contains(QLatin1Char(' '))) {
+        answer(false, QString());
+        return id;
+    }
+    QString saved;
+    QStringList extra;
+    if (lookup(QStringLiteral("de"), QStringLiteral("page1"), w, &saved, &extra)) {
+        answer(saved == QLatin1String("1"), QString());
+        return id;
+    }
+    if (!useOnline()) {
+        answer(false, QStringLiteral("offline"));
+        return id;
+    }
+    QNetworkRequest req(wiktionary::existsUrl(w));
+    req.setHeader(QNetworkRequest::UserAgentHeader, QStringLiteral("LearningBox/1.0 (Qt; German vocabulary app)"));
+    QNetworkReply *reply = m_nam->get(req);
+    connect(reply, &QNetworkReply::finished, this, [=, this] {
+        reply->deleteLater();
+        const QByteArray body = reply->readAll();
+        QString error;
+        if (reply->error() != QNetworkReply::NoError && !body.trimmed().startsWith('{')) {
+            answer(false, reply->errorString());
+            return;
+        }
+        const bool exists = wiktionary::pageExists(body, &error);
+        if (!error.isEmpty()) {
+            answer(false, error);
+            return;
+        }
+        store(QStringLiteral("de"), QStringLiteral("page1"), w, exists ? QStringLiteral("1") : QStringLiteral("0"),
+              QStringList());
+        answer(exists, QString());
+    });
+    return id;
+}
+
 void Translator::guessSingular(const QString &plural, const wiktionary::Grammar &original,
                                QStringList candidates,
                                std::function<void(const wiktionary::Grammar &, const QString &)> finished)

@@ -1,0 +1,343 @@
+# LearningBox level packs: German B1, B2 and C1 vocabulary in 2 levels each (4 themed chapters per level).
+# Vocabulary, translations and example sentences are ORIGINAL (not copied from any course book or word list).
+# Same format as starten_wir_levels.tsv. Nouns carry their article, the plural column holds the plural form
+# without article ("-" = none); verbs are given in the infinitive.
+# Format:  @level<TAB>id<TAB>title<TAB>subtitle   @chapter<TAB>levelId<TAB>number<TAB>title
+#          levelId<TAB>chapter<TAB>German<TAB>plural ("-" = none)<TAB>English<TAB>Persian<TAB>example (de)<TAB>example (en)<TAB>example (fa)
+@level	b1-1	B1 · Level 1	Work and career, housing, media, health and sport
+@chapter	b1-1	1	Arbeit und Karriere
+@chapter	b1-1	2	Wohnen und Nachbarn
+@chapter	b1-1	3	Medien und Kommunikation
+@chapter	b1-1	4	Gesundheit und Sport
+b1-1	1	der Arbeitgeber	Arbeitgeber	employer	کارفرما	Mein Arbeitgeber zahlt die Fortbildung.	My employer pays for the training.	کارفرمایم هزینه دوره آموزشی را می‌پردازد.
+b1-1	1	der Arbeitnehmer	Arbeitnehmer	employee	کارمند؛ کارگر (استخدام‌شده)	Jeder Arbeitnehmer hat Anspruch auf Urlaub.	Every employee is entitled to holidays.	هر کارمندی حق مرخصی دارد.
+b1-1	1	die Kündigung	Kündigungen	notice; dismissal; resignation	استعفا؛ اخراج؛ فسخ قرارداد	Ich habe die Kündigung per Post bekommen.	I received the notice by post.	اطلاعیه فسخ قرارداد را از طریق پست گرفتم.
+b1-1	1	die Fortbildung	Fortbildungen	further training	دوره آموزشی تکمیلی	Nächste Woche besuche ich eine Fortbildung.	Next week I am attending a training course.	هفته آینده در یک دوره آموزشی شرکت می‌کنم.
+b1-1	1	die Überstunde	Überstunden	overtime hour	اضافه‌کاری	Diese Woche habe ich zehn Überstunden gemacht.	This week I worked ten hours of overtime.	این هفته ده ساعت اضافه‌کاری کردم.
+b1-1	1	sich bewerben	-	to apply (for a job)	درخواست کار دادن؛ متقاضی شدن	Ich bewerbe mich um die Stelle als Lehrerin.	I am applying for the position of teacher.	من برای موقعیت معلمی درخواست می‌دهم.
+b1-1	1	kündigen	-	to give notice; to terminate	استعفا دادن؛ فسخ کردن	Sie hat ihren Job gekündigt.	She has quit her job.	او شغلش را ترک کرد (استعفا داد).
+b1-1	1	zuständig	-	responsible; in charge	مسئول؛ ذی‌صلاح	Dafür ist die Personalabteilung zuständig.	The HR department is responsible for that.	بخش منابع انسانی مسئول آن است.
+b1-1	1	die Karriere	Karrieren	career	پیشرفت شغلی؛ حرفه	Sie macht Karriere in einer großen Bank.	She is building a career at a large bank.	او در یک بانک بزرگ پیشرفت شغلی می‌کند.
+b1-1	1	die Aufgabe	Aufgaben	task; duty	وظیفه؛ تکلیف کاری	Meine Aufgabe ist die Kundenberatung.	My task is customer advice.	وظیفه من مشاوره به مشتریان است.
+b1-1	2	der Mieter	Mieter	tenant	مستأجر	Die Mieter müssen die Hausordnung beachten.	The tenants must follow the house rules.	مستأجرها باید قوانین ساختمان را رعایت کنند.
+b1-1	2	der Mietvertrag	Mietverträge	rental agreement	قرارداد اجاره	Ich habe den Mietvertrag gestern unterschrieben.	I signed the rental agreement yesterday.	قرارداد اجاره را دیروز امضا کردم.
+b1-1	2	die Kaution	Kautionen	deposit	ودیعه؛ پول پیش (رهن)	Die Kaution beträgt drei Monatsmieten.	The deposit is three months' rent.	پول پیش سه ماه اجاره است.
+b1-1	2	die Nebenkosten	-	additional costs; utilities	هزینه‌های جانبی (آب، برق و ...)	Die Nebenkosten sind nicht in der Miete enthalten.	The utilities are not included in the rent.	هزینه‌های جانبی در اجاره گنجانده نشده‌اند.
+b1-1	2	die Hausordnung	Hausordnungen	house rules	قوانین ساختمان	Nach 22 Uhr gilt laut Hausordnung Ruhe.	According to the house rules, quiet applies after 10 pm.	طبق قوانین ساختمان بعد از ساعت ۲۲ باید سکوت رعایت شود.
+b1-1	2	der Lärm	-	noise	سر و صدا	Der Lärm von der Baustelle stört mich.	The noise from the building site disturbs me.	سر و صدای کارگاه ساختمانی مزاحم من است.
+b1-1	2	die Besichtigung	Besichtigungen	viewing (of a flat)	بازدید (از خانه)	Die Besichtigung der Wohnung ist am Samstag.	The viewing of the flat is on Saturday.	بازدید از آپارتمان روز شنبه است.
+b1-1	2	der Hausmeister	Hausmeister	caretaker; janitor	سرایدار؛ مسئول ساختمان	Der Hausmeister kümmert sich um den Garten.	The caretaker looks after the garden.	سرایدار از باغ مراقبت می‌کند.
+b1-1	2	die Heizung	Heizungen	heating	گرمایش؛ شوفاژ	Die Heizung funktioniert seit gestern nicht.	The heating hasn't worked since yesterday.	از دیروز شوفاژ کار نمی‌کند.
+b1-1	2	die Renovierung	Renovierungen	renovation	بازسازی؛ نوسازی	Die Renovierung dauert drei Wochen.	The renovation takes three weeks.	بازسازی سه هفته طول می‌کشد.
+b1-1	2	einziehen	-	to move in	به خانه جدید رفتن (نقل مکان کردن)	Nächsten Monat ziehe ich in die neue Wohnung ein.	Next month I move into the new flat.	ماه آینده به آپارتمان جدید نقل مکان می‌کنم.
+b1-1	2	ausziehen	-	to move out	از خانه بیرون رفتن (تخلیه کردن)	Meine Tochter zieht im Herbst aus.	My daughter is moving out in autumn.	دخترم پاییز از خانه می‌رود.
+b1-1	3	die Zeitschrift	Zeitschriften	magazine	مجله	Ich lese jede Woche eine Zeitschrift.	I read a magazine every week.	من هر هفته یک مجله می‌خوانم.
+b1-1	3	der Artikel	Artikel	article	مقاله؛ مطلب	Der Artikel handelt vom Klimawandel.	The article is about climate change.	این مقاله درباره تغییر اقلیم است.
+b1-1	3	die Schlagzeile	Schlagzeilen	headline	تیتر خبر	Die Schlagzeile hat mich überrascht.	The headline surprised me.	تیتر خبر مرا شگفت‌زده کرد.
+b1-1	3	der Journalist	Journalisten	journalist	روزنامه‌نگار	Der Journalist stellt dem Politiker eine Frage.	The journalist asks the politician a question.	روزنامه‌نگار از سیاستمدار سؤالی می‌پرسد.
+b1-1	3	die Meinung	Meinungen	opinion	نظر؛ عقیده	Meiner Meinung nach ist der Film zu lang.	In my opinion the film is too long.	به نظر من فیلم خیلی طولانی است.
+b1-1	3	der Beitrag	Beiträge	contribution; post; report	مطلب؛ پست؛ سهم	Ich habe einen Beitrag im Internet gelesen.	I read a post on the internet.	من یک مطلب در اینترنت خواندم.
+b1-1	3	das Gerücht	Gerüchte	rumour	شایعه	Das ist nur ein Gerücht, nicht die Wahrheit.	That is just a rumour, not the truth.	این فقط یک شایعه است، نه حقیقت.
+b1-1	3	die Quelle	Quellen	source; spring	منبع؛ چشمه	Wer ist die Quelle dieser Nachricht?	Who is the source of this news?	منبع این خبر کیست؟
+b1-1	3	berichten	-	to report; to relate	گزارش دادن؛ خبر دادن	Die Zeitung berichtet über den Unfall.	The newspaper reports on the accident.	روزنامه درباره حادثه گزارش می‌دهد.
+b1-1	3	veröffentlichen	-	to publish	منتشر کردن	Der Verlag veröffentlicht das Buch im Herbst.	The publisher is publishing the book in autumn.	ناشر کتاب را در پاییز منتشر می‌کند.
+b1-1	3	behaupten	-	to claim; to assert	ادعا کردن	Er behauptet, nichts gewusst zu haben.	He claims to have known nothing.	او ادعا می‌کند که چیزی نمی‌دانسته است.
+b1-1	3	erwähnen	-	to mention	اشاره کردن؛ نام بردن	Sie hat den Termin nicht erwähnt.	She did not mention the appointment.	او به قرار ملاقات اشاره‌ای نکرد.
+b1-1	4	die Verletzung	Verletzungen	injury	آسیب؛ جراحت	Er hat eine schwere Verletzung am Knie.	He has a serious injury to his knee.	او آسیب جدی به زانویش دارد.
+b1-1	4	die Untersuchung	Untersuchungen	examination	معاینه؛ آزمایش	Die Untersuchung beim Arzt dauert eine halbe Stunde.	The examination at the doctor's takes half an hour.	معاینه نزد پزشک نیم ساعت طول می‌کشد.
+b1-1	4	die Impfung	Impfungen	vaccination	واکسیناسیون؛ تزریق واکسن	Die Impfung ist kostenlos.	The vaccination is free of charge.	واکسن رایگان است.
+b1-1	4	die Bewegung	Bewegungen	movement; exercise	حرکت؛ تحرک	Mehr Bewegung tut dem Rücken gut.	More exercise is good for the back.	تحرک بیشتر برای کمر خوب است.
+b1-1	4	das Training	Trainings	training; workout	تمرین ورزشی	Das Training beginnt um 18 Uhr.	The training starts at 6 pm.	تمرین ساعت ۱۸ شروع می‌شود.
+b1-1	4	der Muskel	Muskeln	muscle	ماهیچه؛ عضله	Nach dem Sport tun mir die Muskeln weh.	After sport my muscles ache.	بعد از ورزش عضلاتم درد می‌کنند.
+b1-1	4	die Ausdauer	-	stamina; endurance	استقامت؛ پایداری	Für einen Marathon braucht man viel Ausdauer.	You need a lot of stamina for a marathon.	برای ماراتن به استقامت زیادی نیاز است.
+b1-1	4	abnehmen	-	to lose weight	وزن کم کردن	Ich möchte fünf Kilo abnehmen.	I would like to lose five kilos.	می‌خواهم پنج کیلو وزن کم کنم.
+b1-1	4	zunehmen	-	to gain weight; to increase	وزن اضافه کردن؛ افزایش یافتن	Im Winter nehme ich meistens zu.	In winter I usually put on weight.	در زمستان معمولاً وزنم زیاد می‌شود.
+b1-1	4	der Verein	Vereine	club; association	باشگاه؛ انجمن	Er ist Mitglied in einem Sportverein.	He is a member of a sports club.	او عضو یک باشگاه ورزشی است.
+b1-1	4	die Mannschaft	Mannschaften	team	تیم	Unsere Mannschaft hat das Spiel gewonnen.	Our team won the game.	تیم ما بازی را برد.
+b1-1	4	verletzen	-	to injure	مجروح کردن	Beim Fußball hat er sich am Knie verletzt.	He injured his knee playing football.	او هنگام فوتبال زانویش آسیب دید.
+@level	b1-2	B1 · Level 2	Society and rules, environment, education, feelings and relationships
+@chapter	b1-2	1	Gesellschaft und Regeln
+@chapter	b1-2	2	Umwelt und Natur
+@chapter	b1-2	3	Bildung und Lernen
+@chapter	b1-2	4	Gefühle und Beziehungen
+b1-2	1	das Gesetz	Gesetze	law (statute)	قانون	Dieses Gesetz gilt seit dem ersten Januar.	This law has been in force since 1 January.	این قانون از اول ژانویه اجرا می‌شود.
+b1-2	1	die Pflicht	Pflichten	duty; obligation	وظیفه؛ تکلیف	Es ist meine Pflicht, dir zu helfen.	It is my duty to help you.	وظیفه من است که به تو کمک کنم.
+b1-2	1	das Recht	Rechte	right; law	حق؛ قانون	Jeder hat das Recht auf eine eigene Meinung.	Everyone has the right to their own opinion.	هر کس حق دارد نظر خودش را داشته باشد.
+b1-2	1	die Behörde	Behörden	authority; public office	اداره دولتی؛ مرجع رسمی	Die Behörde ist nur vormittags geöffnet.	The office is only open in the morning.	اداره فقط صبح‌ها باز است.
+b1-2	1	der Antrag	Anträge	application; request (official)	درخواست (رسمی)	Den Antrag müssen Sie persönlich abgeben.	You must hand in the application in person.	درخواست را باید شخصاً تحویل بدهید.
+b1-2	1	die Genehmigung	Genehmigungen	permit; approval	مجوز؛ تأیید	Für das Fest brauchen wir eine Genehmigung.	We need a permit for the party.	برای این جشن به مجوز نیاز داریم.
+b1-2	1	die Wahl	Wahlen	election; choice	انتخابات؛ انتخاب	Die nächste Wahl ist im September.	The next election is in September.	انتخابات بعدی در سپتامبر است.
+b1-2	1	die Regierung	Regierungen	government	دولت	Die Regierung plant neue Maßnahmen.	The government is planning new measures.	دولت اقدامات جدیدی را برنامه‌ریزی می‌کند.
+b1-2	1	der Bürger	Bürger	citizen	شهروند	Jeder Bürger darf wählen gehen.	Every citizen may go and vote.	هر شهروندی می‌تواند رأی بدهد.
+b1-2	1	das Ehrenamt	Ehrenämter	voluntary work; honorary post	کار داوطلبانه (افتخاری)	Mein Ehrenamt macht mir viel Freude.	My voluntary work gives me a lot of joy.	کار داوطلبانه من برایم بسیار لذت‌بخش است.
+b1-2	1	beantragen	-	to apply for (officially)	درخواست دادن (رسمی)	Ich muss einen neuen Pass beantragen.	I have to apply for a new passport.	باید برای گذرنامه جدید درخواست بدهم.
+b1-2	1	verbieten	-	to forbid; to ban	ممنوع کردن	Die Stadt will das Parken hier verbieten.	The city wants to ban parking here.	شهر می‌خواهد پارک کردن اینجا را ممنوع کند.
+b1-2	2	das Recycling	-	recycling	بازیافت	Recycling spart wertvolle Rohstoffe.	Recycling saves valuable raw materials.	بازیافت در مواد خام ارزشمند صرفه‌جویی می‌کند.
+b1-2	2	die Verschmutzung	Verschmutzungen	pollution	آلودگی	Die Verschmutzung der Flüsse ist ein großes Problem.	The pollution of the rivers is a big problem.	آلودگی رودخانه‌ها مشکل بزرگی است.
+b1-2	2	die Abgase	-	exhaust fumes	گازهای خروجی (اگزوز)	Die Abgase der Autos belasten die Luft.	Car exhaust fumes pollute the air.	گازهای خروجی ماشین‌ها هوا را آلوده می‌کنند.
+b1-2	2	das Gewitter	Gewitter	thunderstorm	طوفان تندری؛ رعد و برق	Am Abend gibt es ein starkes Gewitter.	There will be a strong thunderstorm in the evening.	عصر یک طوفان تندری شدید خواهد بود.
+b1-2	2	die Überschwemmung	Überschwemmungen	flood	سیل	Die Überschwemmung hat viele Häuser zerstört.	The flood destroyed many houses.	سیل خانه‌های زیادی را ویران کرد.
+b1-2	2	nachhaltig	-	sustainable	پایدار؛ دوستدار محیط زیست	Wir kaufen nur noch nachhaltige Produkte.	We now only buy sustainable products.	ما فقط محصولات پایدار می‌خریم.
+b1-2	2	erneuerbar	-	renewable	تجدیدپذیر	Wind ist eine erneuerbare Energiequelle.	Wind is a renewable source of energy.	باد یک منبع انرژی تجدیدپذیر است.
+b1-2	2	verbrauchen	-	to consume; to use up	مصرف کردن	Dieses Auto verbraucht wenig Benzin.	This car uses little petrol.	این ماشین بنزین کمی مصرف می‌کند.
+b1-2	2	schützen	-	to protect	محافظت کردن	Wir wollen die Natur schützen.	We want to protect nature.	می‌خواهیم از طبیعت محافظت کنیم.
+b1-2	2	die Natur	-	nature	طبیعت	Am Wochenende gehen wir in die Natur.	At the weekend we go out into nature.	آخر هفته به دل طبیعت می‌رویم.
+b1-2	2	das Tier	Tiere	animal	حیوان	Im Wald leben viele Tiere.	Many animals live in the forest.	در جنگل حیوانات زیادی زندگی می‌کنند.
+b1-2	2	die Luft	Lüfte	air	هوا	Die Luft in den Bergen ist sehr frisch.	The air in the mountains is very fresh.	هوای کوهستان بسیار تازه است.
+b1-2	2	verschmutzen	-	to pollute	آلوده کردن	Fabriken verschmutzen den Fluss.	Factories pollute the river.	کارخانه‌ها رودخانه را آلوده می‌کنند.
+b1-2	3	der Abschluss	Abschlüsse	degree; qualification; completion	مدرک پایان تحصیل؛ اتمام	Mit dem Abschluss findet er leichter Arbeit.	With the qualification he finds work more easily.	با مدرک پایان تحصیل راحت‌تر کار پیدا می‌کند.
+b1-2	3	das Stipendium	Stipendien	scholarship	بورسیه	Sie hat ein Stipendium für Berlin bekommen.	She got a scholarship for Berlin.	او برای برلین بورسیه گرفت.
+b1-2	3	die Vorlesung	Vorlesungen	lecture	درس دانشگاهی؛ سخنرانی	Die Vorlesung beginnt um acht Uhr.	The lecture starts at eight o'clock.	درس دانشگاه ساعت هشت شروع می‌شود.
+b1-2	3	das Seminar	Seminare	seminar	سمینار؛ کلاس بحث	Im Seminar diskutieren wir über den Text.	In the seminar we discuss the text.	در سمینار درباره متن بحث می‌کنیم.
+b1-2	3	die Hausarbeit	Hausarbeiten	term paper; homework	مقاله درسی؛ تکلیف	Die Hausarbeit muss ich bis Freitag abgeben.	I have to hand in the term paper by Friday.	باید مقاله درسی را تا جمعه تحویل بدهم.
+b1-2	3	die Fähigkeit	Fähigkeiten	ability; skill	توانایی؛ مهارت	Teamarbeit ist eine wichtige Fähigkeit.	Teamwork is an important skill.	کار تیمی یک مهارت مهم است.
+b1-2	3	die Nachhilfe	-	private tutoring	کلاس تقویتی؛ تدریس خصوصی	Mein Sohn bekommt Nachhilfe in Mathe.	My son gets tutoring in maths.	پسرم در ریاضی کلاس تقویتی می‌رود.
+b1-2	3	sich konzentrieren	-	to concentrate	تمرکز کردن	Bei dem Lärm kann ich mich nicht konzentrieren.	I can't concentrate with this noise.	با این سر و صدا نمی‌توانم تمرکز کنم.
+b1-2	3	wiederholen	-	to repeat; to revise	تکرار کردن؛ مرور کردن	Vor der Prüfung wiederhole ich den Stoff.	Before the exam I revise the material.	قبل از امتحان مطالب را مرور می‌کنم.
+b1-2	3	fleißig	-	hard-working; diligent	کوشا؛ سخت‌کوش	Er ist ein fleißiger Schüler.	He is a hard-working pupil.	او دانش‌آموز کوشایی است.
+b1-2	4	das Vertrauen	-	trust	اعتماد	Vertrauen ist die Basis jeder Freundschaft.	Trust is the basis of every friendship.	اعتماد پایه هر دوستی است.
+b1-2	4	die Eifersucht	-	jealousy	حسادت؛ رشک (در رابطه)	Seine Eifersucht macht die Beziehung schwer.	His jealousy makes the relationship difficult.	حسادت او رابطه را سخت می‌کند.
+b1-2	4	die Enttäuschung	Enttäuschungen	disappointment	ناامیدی؛ دلسردی	Die Absage war eine große Enttäuschung.	The rejection was a big disappointment.	پاسخ منفی ناامیدی بزرگی بود.
+b1-2	4	der Streit	-	quarrel; argument	دعوا؛ بگومگو	Der Streit hat uns beide belastet.	The quarrel weighed on both of us.	این دعوا هر دوی ما را آزار داد.
+b1-2	4	sich streiten	-	to quarrel	دعوا کردن؛ بگومگو کردن	Wir streiten uns oft über Kleinigkeiten.	We often quarrel about trivial things.	ما اغلب سر چیزهای کوچک دعوا می‌کنیم.
+b1-2	4	sich versöhnen	-	to make up; to reconcile	آشتی کردن	Nach dem Streit haben wir uns schnell versöhnt.	After the argument we made up quickly.	بعد از دعوا زود آشتی کردیم.
+b1-2	4	die Freundschaft	Freundschaften	friendship	دوستی	Unsere Freundschaft hält schon zwanzig Jahre.	Our friendship has lasted twenty years.	دوستی ما بیست سال است ادامه دارد.
+b1-2	4	die Verabredung	Verabredungen	date; appointment (to meet)	قرار (ملاقات)	Ich habe heute Abend eine Verabredung.	I have a date tonight.	امشب قرار دارم.
+b1-2	4	die Trennung	Trennungen	separation; break-up	جدایی	Die Trennung war für beide schwer.	The separation was hard for both.	جدایی برای هر دو سخت بود.
+b1-2	4	die Geduld	-	patience	صبر	Mit Kindern braucht man viel Geduld.	With children you need a lot of patience.	با بچه‌ها به صبر زیادی نیاز است.
+b1-2	4	dankbar	-	grateful	سپاسگزار؛ قدردان	Ich bin dir sehr dankbar für deine Hilfe.	I am very grateful to you for your help.	از کمک تو بسیار سپاسگزارم.
+b1-2	4	besorgt	-	worried; concerned	نگران	Die Eltern sind besorgt um ihren Sohn.	The parents are worried about their son.	والدین نگران پسرشان هستند.
+@level	b2-1	B2 · Level 1	Economy and finance, science and technology, politics and Europe, culture and literature
+@chapter	b2-1	1	Wirtschaft und Finanzen
+@chapter	b2-1	2	Technik und Wissenschaft
+@chapter	b2-1	3	Politik und Europa
+@chapter	b2-1	4	Kultur und Literatur
+b2-1	1	die Wirtschaft	-	economy; business	اقتصاد	Die Wirtschaft wächst in diesem Jahr langsam.	The economy is growing slowly this year.	اقتصاد امسال آهسته رشد می‌کند.
+b2-1	1	der Haushalt	Haushalte	budget; household	بودجه؛ خانوار	Der Haushalt der Stadt ist sehr knapp.	The city's budget is very tight.	بودجه شهر بسیار محدود است.
+b2-1	1	die Inflation	-	inflation	تورم	Die Inflation macht das Leben teurer.	Inflation makes life more expensive.	تورم زندگی را گران‌تر می‌کند.
+b2-1	1	die Steuer	Steuern	tax	مالیات	Die Steuer wird direkt vom Gehalt abgezogen.	The tax is deducted directly from the salary.	مالیات مستقیماً از حقوق کسر می‌شود.
+b2-1	1	der Kredit	Kredite	loan; credit	وام؛ اعتبار	Wir haben einen Kredit für das Haus aufgenommen.	We took out a loan for the house.	ما برای خانه وام گرفتیم.
+b2-1	1	die Schulden	-	debts	بدهی‌ها	Er versucht, seine Schulden zurückzuzahlen.	He is trying to pay back his debts.	او سعی می‌کند بدهی‌هایش را پس بدهد.
+b2-1	1	die Rente	Renten	pension	بازنشستگی؛ حقوق بازنشستگی	Mit 65 Jahren geht sie in Rente.	She retires at the age of 65.	او در ۶۵ سالگی بازنشسته می‌شود.
+b2-1	1	die Aktie	Aktien	share; stock	سهام	Er hat Aktien eines Autoherstellers gekauft.	He bought shares in a car manufacturer.	او سهام یک خودروساز خرید.
+b2-1	1	der Gewinn	Gewinne	profit; win	سود؛ برد	Das Unternehmen hat einen hohen Gewinn gemacht.	The company made a high profit.	این شرکت سود زیادی کرد.
+b2-1	1	der Verlust	Verluste	loss	ضرر؛ زیان	Die Firma hat im letzten Jahr Verluste gemacht.	The company made losses last year.	شرکت سال گذشته ضرر کرد.
+b2-1	1	die Nachfrage	-	demand	تقاضا	Die Nachfrage nach Elektroautos steigt.	Demand for electric cars is rising.	تقاضا برای خودروهای برقی بالا می‌رود.
+b2-1	1	investieren	-	to invest	سرمایه‌گذاری کردن	Sie investiert ihr Geld in Immobilien.	She invests her money in property.	او پولش را در املاک سرمایه‌گذاری می‌کند.
+b2-1	1	sich leisten	-	to afford	توانایی مالی داشتن (برای)	Ein neues Auto kann ich mir nicht leisten.	I can't afford a new car.	از پس خرج یک ماشین جدید برنمی‌آیم.
+b2-1	2	die Forschung	Forschungen	research	پژوهش	Die Forschung an neuen Medikamenten ist teuer.	Research into new medicines is expensive.	پژوهش درباره داروهای جدید پرهزینه است.
+b2-1	2	die Erfindung	Erfindungen	invention	اختراع	Das Telefon war eine wichtige Erfindung.	The telephone was an important invention.	تلفن اختراع مهمی بود.
+b2-1	2	die Entwicklung	Entwicklungen	development	توسعه؛ پیشرفت	Die Entwicklung der Technik geht schnell.	The development of technology is fast.	پیشرفت فناوری سریع است.
+b2-1	2	der Fortschritt	Fortschritte	progress	پیشرفت	Die Medizin hat große Fortschritte gemacht.	Medicine has made great progress.	پزشکی پیشرفت‌های بزرگی کرده است.
+b2-1	2	die künstliche Intelligenz	-	artificial intelligence	هوش مصنوعی	Künstliche Intelligenz verändert viele Berufe.	Artificial intelligence is changing many professions.	هوش مصنوعی بسیاری از مشاغل را تغییر می‌دهد.
+b2-1	2	der Datenschutz	-	data protection	حفاظت از داده‌ها	Der Datenschutz ist im Internet besonders wichtig.	Data protection is especially important on the internet.	حفاظت از داده‌ها در اینترنت بسیار مهم است.
+b2-1	2	das Experiment	Experimente	experiment	آزمایش؛ تجربه علمی	Das Experiment hat nicht funktioniert.	The experiment did not work.	آزمایش نتیجه نداد.
+b2-1	2	die Studie	Studien	study	مطالعه؛ پژوهش	Eine neue Studie zeigt interessante Ergebnisse.	A new study shows interesting results.	یک مطالعه جدید نتایج جالبی نشان می‌دهد.
+b2-1	2	das Ergebnis	Ergebnisse	result	نتیجه	Das Ergebnis der Untersuchung überrascht uns.	The result of the examination surprises us.	نتیجه معاینه ما را شگفت‌زده می‌کند.
+b2-1	2	die Software	-	software	نرم‌افزار	Die Software wird regelmäßig aktualisiert.	The software is updated regularly.	نرم‌افزار به‌طور منظم به‌روزرسانی می‌شود.
+b2-1	2	herstellen	-	to produce; to manufacture	تولید کردن	Die Firma stellt Maschinen für die Industrie her.	The company manufactures machines for industry.	این شرکت ماشین‌آلات صنعتی تولید می‌کند.
+b2-1	2	entwickeln	-	to develop	توسعه دادن؛ ابداع کردن	Das Team entwickelt eine neue App.	The team is developing a new app.	تیم در حال توسعه یک اپلیکیشن جدید است.
+b2-1	2	nachweisen	-	to prove; to demonstrate	اثبات کردن	Forscher konnten den Effekt nachweisen.	Researchers were able to prove the effect.	پژوهشگران توانستند این اثر را اثبات کنند.
+b2-1	3	das Parlament	Parlamente	parliament	پارلمان؛ مجلس	Das Parlament hat das Gesetz verabschiedet.	Parliament has passed the law.	مجلس این قانون را تصویب کرده است.
+b2-1	3	der Abgeordnete	Abgeordnete	member of parliament	نماینده مجلس	Der Abgeordnete spricht heute im Parlament.	The member of parliament speaks in parliament today.	نماینده مجلس امروز در پارلمان سخنرانی می‌کند.
+b2-1	3	die Verfassung	Verfassungen	constitution	قانون اساسی	Die Verfassung schützt die Grundrechte.	The constitution protects fundamental rights.	قانون اساسی از حقوق بنیادین محافظت می‌کند.
+b2-1	3	die Mehrheit	Mehrheiten	majority	اکثریت	Die Mehrheit der Bürger war dafür.	The majority of citizens were in favour.	اکثریت شهروندان موافق بودند.
+b2-1	3	die Minderheit	Minderheiten	minority	اقلیت	Die Minderheit hat gegen den Plan protestiert.	The minority protested against the plan.	اقلیت علیه این طرح اعتراض کرد.
+b2-1	3	die Zusammenarbeit	-	cooperation	همکاری	Die Zusammenarbeit zwischen den Ländern ist eng.	The cooperation between the countries is close.	همکاری بین کشورها نزدیک است.
+b2-1	3	die Verhandlung	Verhandlungen	negotiation	مذاکره	Die Verhandlungen dauern schon seit Monaten.	The negotiations have been going on for months.	مذاکرات ماه‌هاست ادامه دارد.
+b2-1	3	die Demokratie	Demokratien	democracy	دموکراسی	Die Demokratie lebt von freien Wahlen.	Democracy lives on free elections.	دموکراسی از انتخابات آزاد زنده است.
+b2-1	3	beschließen	-	to decide; to pass (a resolution)	تصمیم گرفتن؛ تصویب کردن	Die Regierung hat neue Regeln beschlossen.	The government has decided on new rules.	دولت قوانین جدیدی را تصویب کرده است.
+b2-1	3	abstimmen	-	to vote	رأی‌گیری کردن؛ رأی دادن	Das Parlament stimmt morgen darüber ab.	Parliament votes on it tomorrow.	مجلس فردا درباره آن رأی‌گیری می‌کند.
+b2-1	3	unterstützen	-	to support	حمایت کردن	Viele Bürger unterstützen den Plan.	Many citizens support the plan.	بسیاری از شهروندان از این طرح حمایت می‌کنند.
+b2-1	3	verhandeln	-	to negotiate	مذاکره کردن	Die Gewerkschaft verhandelt mit dem Arbeitgeber.	The union is negotiating with the employer.	اتحادیه با کارفرما مذاکره می‌کند.
+b2-1	4	der Roman	Romane	novel	رمان	Dieser Roman spielt im Berlin der zwanziger Jahre.	This novel is set in the Berlin of the twenties.	این رمان در برلین دهه بیست میلادی می‌گذرد.
+b2-1	4	der Autor	Autoren	author	نویسنده	Der Autor liest heute Abend aus seinem Buch.	The author reads from his book tonight.	نویسنده امشب از کتابش می‌خواند.
+b2-1	4	die Handlung	Handlungen	plot; action	داستان؛ پیرنگ؛ عمل	Die Handlung des Films ist sehr spannend.	The plot of the film is very exciting.	داستان فیلم بسیار هیجان‌انگیز است.
+b2-1	4	die Figur	Figuren	character; figure	شخصیت (داستان)؛ پیکر	Die Hauptfigur des Buches ist eine junge Frau.	The main character of the book is a young woman.	شخصیت اصلی کتاب یک زن جوان است.
+b2-1	4	das Theaterstück	Theaterstücke	play	نمایشنامه؛ نمایش تئاتر	Wir haben ein Theaterstück von Brecht gesehen.	We saw a play by Brecht.	ما نمایشی از برشت دیدیم.
+b2-1	4	die Aufführung	Aufführungen	performance	اجرا؛ نمایش	Die Aufführung dauerte fast drei Stunden.	The performance lasted almost three hours.	اجرا تقریباً سه ساعت طول کشید.
+b2-1	4	das Publikum	-	audience	تماشاگران؛ مخاطبان	Das Publikum applaudierte lange.	The audience applauded for a long time.	تماشاگران مدت زیادی کف زدند.
+b2-1	4	die Kritik	Kritiken	criticism; review	نقد؛ انتقاد	Die Kritik in der Zeitung war positiv.	The review in the newspaper was positive.	نقد روزنامه مثبت بود.
+b2-1	4	das Gemälde	Gemälde	painting	تابلوی نقاشی	Das Gemälde hängt im Museum.	The painting hangs in the museum.	این تابلو در موزه آویزان است.
+b2-1	4	die Bühne	Bühnen	stage	صحنه (تئاتر)	Die Schauspieler betreten die Bühne.	The actors enter the stage.	بازیگران روی صحنه می‌آیند.
+b2-1	4	die Epoche	Epochen	era; period	دوره؛ عصر (تاریخی)	Die Romantik ist eine wichtige Epoche der Literatur.	Romanticism is an important period of literature.	رمانتیسم دوره مهمی از ادبیات است.
+b2-1	4	darstellen	-	to portray; to depict	به تصویر کشیدن؛ نشان دادن	Der Film stellt das Leben im Krieg dar.	The film portrays life during the war.	این فیلم زندگی در زمان جنگ را به تصویر می‌کشد.
+b2-1	4	übersetzen	-	to translate	ترجمه کردن	Sie übersetzt Gedichte aus dem Persischen.	She translates poems from Persian.	او شعرهایی را از فارسی ترجمه می‌کند.
+@level	b2-2	B2 · Level 2	Changing world of work, travel and mobility, psychology, city and country
+@chapter	b2-2	1	Arbeitswelt im Wandel
+@chapter	b2-2	2	Reisen und Mobilität
+@chapter	b2-2	3	Psychologie und Verhalten
+@chapter	b2-2	4	Stadt und Land
+b2-2	1	die Digitalisierung	-	digitalisation	دیجیتالی‌سازی	Die Digitalisierung verändert die Arbeitswelt.	Digitalisation is changing the world of work.	دیجیتالی‌سازی دنیای کار را تغییر می‌دهد.
+b2-2	1	das Homeoffice	Homeoffices	working from home	دورکاری؛ کار از خانه	Zweimal pro Woche arbeite ich im Homeoffice.	I work from home twice a week.	هفته‌ای دو بار از خانه کار می‌کنم.
+b2-2	1	die Vollzeitstelle	Vollzeitstellen	full-time job	شغل تمام‌وقت	Sie sucht eine Vollzeitstelle in der Pflege.	She is looking for a full-time job in nursing.	او دنبال یک شغل تمام‌وقت در پرستاری است.
+b2-2	1	die Führungskraft	Führungskräfte	manager; executive	مدیر؛ مقام مدیریتی	Gute Führungskräfte hören ihrem Team zu.	Good managers listen to their team.	مدیران خوب به تیم خود گوش می‌دهند.
+b2-2	1	der Fachkräftemangel	-	shortage of skilled workers	کمبود نیروی متخصص	Der Fachkräftemangel betrifft viele Branchen.	The shortage of skilled workers affects many sectors.	کمبود نیروی متخصص بر بسیاری از صنایع اثر می‌گذارد.
+b2-2	1	die Weiterbildung	Weiterbildungen	continuing education	آموزش ضمن خدمت؛ ادامه تحصیل حرفه‌ای	Die Firma unterstützt die Weiterbildung ihrer Mitarbeiter.	The company supports its employees' continuing education.	شرکت از آموزش مداوم کارکنانش حمایت می‌کند.
+b2-2	1	die Gleichberechtigung	-	equality (of rights)	برابری حقوق	Die Gleichberechtigung von Frauen und Männern ist ein Ziel.	Equal rights for women and men is a goal.	برابری حقوق زنان و مردان یک هدف است.
+b2-2	1	das Arbeitsklima	-	working atmosphere	فضای کاری	Im Team herrscht ein gutes Arbeitsklima.	There is a good working atmosphere in the team.	در تیم فضای کاری خوبی حاکم است.
+b2-2	1	die Belastung	Belastungen	strain; burden	فشار؛ بار؛ استرس	Die Belastung im Beruf nimmt zu.	The strain at work is increasing.	فشار در محل کار بیشتر می‌شود.
+b2-2	1	befristet	-	temporary; fixed-term	موقت؛ با مدت معین	Mein Vertrag ist auf zwei Jahre befristet.	My contract is limited to two years.	قرارداد من دو ساله و موقت است.
+b2-2	1	sich einarbeiten	-	to get up to speed	با کار جدید آشنا شدن	Ich muss mich noch in das neue Thema einarbeiten.	I still have to get up to speed on the new topic.	هنوز باید با موضوع جدید آشنا شوم.
+b2-2	1	bewältigen	-	to cope with; to manage	از پس (کاری) برآمدن؛ مدیریت کردن	Sie bewältigt die viele Arbeit ohne Stress.	She copes with the large amount of work without stress.	او بدون استرس از پس این همه کار برمی‌آید.
+b2-2	1	ausscheiden	-	to leave (a company); to drop out	از شرکت خارج شدن؛ کنار رفتن	Er scheidet Ende des Jahres aus der Firma aus.	He leaves the company at the end of the year.	او آخر سال از شرکت خارج می‌شود.
+b2-2	2	die Verbindung	Verbindungen	connection	ارتباط؛ اتصال (حمل‌ونقل)	Es gibt eine direkte Verbindung nach München.	There is a direct connection to Munich.	یک اتصال مستقیم به مونیخ هست.
+b2-2	2	die Reiseroute	Reiserouten	itinerary; route	مسیر سفر	Wir haben unsere Reiseroute genau geplant.	We have planned our itinerary carefully.	ما مسیر سفرمان را دقیق برنامه‌ریزی کرده‌ایم.
+b2-2	2	der Grenzübergang	Grenzübergänge	border crossing	گذرگاه مرزی	Am Grenzübergang gab es lange Wartezeiten.	There were long waiting times at the border crossing.	در گذرگاه مرزی انتظار طولانی بود.
+b2-2	2	das Visum	Visa	visa	ویزا	Für die Reise brauche ich ein Visum.	I need a visa for the trip.	برای این سفر ویزا لازم دارم.
+b2-2	2	die Rundreise	Rundreisen	round trip; tour	سفر دورچرخشی؛ تور	Wir machen eine Rundreise durch Süddeutschland.	We are going on a tour through southern Germany.	ما یک سفر دورچرخشی در جنوب آلمان انجام می‌دهیم.
+b2-2	2	die Zwischenlandung	Zwischenlandungen	stopover	توقف میانی (پرواز)	Der Flug hat eine Zwischenlandung in Istanbul.	The flight has a stopover in Istanbul.	پرواز در استانبول توقف میانی دارد.
+b2-2	2	die Baustelle	Baustellen	building site; roadworks	کارگاه ساختمانی؛ تعمیرات جاده	Wegen der Baustelle muss ich einen Umweg fahren.	Because of the roadworks I have to take a detour.	به‌خاطر تعمیرات جاده باید مسیر دورتری بروم.
+b2-2	2	der Reiseleiter	Reiseleiter	tour guide	راهنمای تور	Der Reiseleiter erklärt die Geschichte der Stadt.	The tour guide explains the history of the city.	راهنمای تور تاریخ شهر را توضیح می‌دهد.
+b2-2	2	der Fahrgast	Fahrgäste	passenger	مسافر (وسیله نقلیه عمومی)	Die Fahrgäste warten auf den Bus.	The passengers are waiting for the bus.	مسافران منتظر اتوبوس هستند.
+b2-2	2	der Fremdenverkehr	-	tourism	گردشگری	Der Fremdenverkehr ist für die Region wichtig.	Tourism is important for the region.	گردشگری برای این منطقه مهم است.
+b2-2	2	die Fernreise	Fernreisen	long-distance trip	سفر دور	Eine Fernreise muss man gut vorbereiten.	A long-distance trip has to be well prepared.	یک سفر دور را باید خوب آماده کرد.
+b2-2	2	der Aufenthalt	Aufenthalte	stay; layover	اقامت؛ توقف	Wir haben zwei Stunden Aufenthalt in Köln.	We have a two-hour layover in Cologne.	ما دو ساعت در کلن توقف داریم.
+b2-2	2	einchecken	-	to check in	پذیرش شدن؛ چک‌این کردن	Wir müssen zwei Stunden vor Abflug einchecken.	We have to check in two hours before departure.	باید دو ساعت پیش از پرواز چک‌این کنیم.
+b2-2	2	stornieren	-	to cancel (booking)	لغو کردن (رزرو)	Ich musste meinen Flug leider stornieren.	Unfortunately I had to cancel my flight.	متأسفانه مجبور شدم پروازم را لغو کنم.
+b2-2	3	das Verhalten	-	behaviour	رفتار	Sein Verhalten hat mich sehr überrascht.	His behaviour surprised me a lot.	رفتار او مرا بسیار شگفت‌زده کرد.
+b2-2	3	die Gewohnheit	Gewohnheiten	habit	عادت	Früh aufzustehen ist für mich eine Gewohnheit.	Getting up early is a habit for me.	زود بیدار شدن برای من یک عادت است.
+b2-2	3	die Erwartung	Erwartungen	expectation	انتظار؛ توقع	Meine Erwartungen an den Urlaub waren hoch.	My expectations of the holiday were high.	انتظارات من از تعطیلات بالا بود.
+b2-2	3	die Angst	Ängste	fear; anxiety	ترس؛ اضطراب	Sie hat Angst vor Prüfungen.	She is afraid of exams.	او از امتحان می‌ترسد.
+b2-2	3	das Selbstvertrauen	-	self-confidence	اعتمادبه‌نفس	Mit mehr Selbstvertrauen wirst du besser sprechen.	With more self-confidence you will speak better.	با اعتمادبه‌نفس بیشتر بهتر صحبت خواهی کرد.
+b2-2	3	die Motivation	Motivationen	motivation	انگیزه	Ihm fehlt die Motivation zum Lernen.	He lacks the motivation to study.	او برای درس خواندن انگیزه ندارد.
+b2-2	3	die Entscheidung	Entscheidungen	decision	تصمیم	Die Entscheidung ist mir nicht leichtgefallen.	The decision was not easy for me.	این تصمیم برایم آسان نبود.
+b2-2	3	der Einfluss	Einflüsse	influence	تأثیر؛ نفوذ	Freunde haben großen Einfluss auf Jugendliche.	Friends have a great influence on teenagers.	دوستان تأثیر زیادی بر نوجوانان دارند.
+b2-2	3	die Absicht	Absichten	intention	قصد؛ نیت	Es war nicht meine Absicht, dich zu verletzen.	It was not my intention to hurt you.	قصد من آزار دادن تو نبود.
+b2-2	3	sich verhalten	-	to behave	رفتار کردن	Wie soll man sich in dieser Situation verhalten?	How should one behave in this situation?	در این شرایط چگونه باید رفتار کرد؟
+b2-2	3	beeinflussen	-	to influence	تحت تأثیر قرار دادن	Das Wetter beeinflusst meine Stimmung.	The weather influences my mood.	هوا بر حال و هوای من تأثیر می‌گذارد.
+b2-2	3	vermeiden	-	to avoid	اجتناب کردن؛ پرهیز کردن	Du solltest Streit unbedingt vermeiden.	You should definitely avoid arguments.	حتماً باید از دعوا پرهیز کنی.
+b2-2	3	zögern	-	to hesitate	تردید کردن؛ دودل بودن	Zögern Sie nicht, mich anzurufen.	Do not hesitate to call me.	در تماس گرفتن با من تردید نکنید.
+b2-2	3	bereuen	-	to regret	پشیمان بودن (از)	Ich bereue meine Entscheidung nicht.	I do not regret my decision.	از تصمیمم پشیمان نیستم.
+b2-2	4	die Großstadt	Großstädte	big city	شهر بزرگ	In der Großstadt ist das Leben teuer.	Life is expensive in the big city.	در شهر بزرگ زندگی گران است.
+b2-2	4	das Dorf	Dörfer	village	روستا	Mein Großvater lebt in einem kleinen Dorf.	My grandfather lives in a small village.	پدربزرگم در یک روستای کوچک زندگی می‌کند.
+b2-2	4	die Landschaft	Landschaften	landscape; countryside	منظره؛ چشم‌انداز طبیعی	Die Landschaft im Süden ist wunderschön.	The landscape in the south is beautiful.	منظره جنوب بسیار زیباست.
+b2-2	4	der Verkehr	-	traffic	ترافیک؛ رفت‌وآمد	Der Verkehr in der Innenstadt nimmt zu.	The traffic in the city centre is increasing.	ترافیک مرکز شهر بیشتر می‌شود.
+b2-2	4	die Infrastruktur	Infrastrukturen	infrastructure	زیرساخت	Auf dem Land fehlt oft eine gute Infrastruktur.	In the countryside a good infrastructure is often lacking.	در روستاها اغلب زیرساخت خوبی وجود ندارد.
+b2-2	4	die Bevölkerung	Bevölkerungen	population	جمعیت؛ مردم	Die Bevölkerung der Stadt wächst schnell.	The city's population is growing quickly.	جمعیت شهر به سرعت رشد می‌کند.
+b2-2	4	der Vorort	Vororte	suburb	حومه شهر	Viele Familien ziehen in die Vororte.	Many families move to the suburbs.	بسیاری از خانواده‌ها به حومه شهر می‌روند.
+b2-2	4	das Hochhaus	Hochhäuser	high-rise building	برج؛ ساختمان بلند	Im Zentrum stehen viele Hochhäuser.	There are many high-rise buildings in the centre.	در مرکز شهر برج‌های زیادی هست.
+b2-2	4	die Landwirtschaft	-	agriculture; farming	کشاورزی	Die Landwirtschaft braucht im Sommer viel Wasser.	Agriculture needs a lot of water in summer.	کشاورزی در تابستان به آب زیادی نیاز دارد.
+b2-2	4	der Bauer	Bauern	farmer	کشاورز؛ دهقان	Der Bauer fährt früh auf das Feld.	The farmer drives to the field early.	کشاورز صبح زود به مزرعه می‌رود.
+b2-2	4	die Ernte	Ernten	harvest	برداشت محصول	Die Ernte war dieses Jahr sehr gut.	The harvest was very good this year.	برداشت محصول امسال بسیار خوب بود.
+b2-2	4	ländlich	-	rural	روستایی	Ich mag die ländliche Ruhe.	I like the rural calm.	من آرامش روستایی را دوست دارم.
+b2-2	4	städtisch	-	urban; municipal	شهری	Die städtische Bibliothek hat lange geöffnet.	The municipal library is open late.	کتابخانه شهرداری تا دیر وقت باز است.
+b2-2	4	überfüllt	-	overcrowded	پرجمعیت؛ شلوغ	Morgens sind die Züge überfüllt.	In the morning the trains are overcrowded.	صبح‌ها قطارها شلوغ هستند.
+@level	c1-1	C1 · Level 1	Argumentation and academic language, society and change, ethics and philosophy, media and public sphere
+@chapter	c1-1	1	Argumentation und Wissenschaft
+@chapter	c1-1	2	Gesellschaft im Wandel
+@chapter	c1-1	3	Ethik und Philosophie
+@chapter	c1-1	4	Medien und Öffentlichkeit
+c1-1	1	die These	Thesen	thesis; claim	فرضیه؛ ادعا	Der Autor stellt eine provokante These auf.	The author puts forward a provocative thesis.	نویسنده فرضیه‌ای تحریک‌آمیز مطرح می‌کند.
+c1-1	1	das Argument	Argumente	argument	استدلال؛ دلیل	Dieses Argument überzeugt mich nicht.	This argument does not convince me.	این استدلال مرا قانع نمی‌کند.
+c1-1	1	die Schlussfolgerung	Schlussfolgerungen	conclusion	نتیجه‌گیری	Aus den Daten ziehen wir eine klare Schlussfolgerung.	From the data we draw a clear conclusion.	از داده‌ها نتیجه‌گیری روشنی می‌کنیم.
+c1-1	1	der Zusammenhang	Zusammenhänge	connection; context	ارتباط؛ زمینه	Es besteht ein enger Zusammenhang zwischen beiden Faktoren.	There is a close connection between the two factors.	بین این دو عامل ارتباط نزدیکی وجود دارد.
+c1-1	1	die Voraussetzung	Voraussetzungen	prerequisite; assumption	پیش‌شرط؛ پیش‌فرض	Gute Sprachkenntnisse sind eine wichtige Voraussetzung.	Good language skills are an important prerequisite.	مهارت زبانی خوب یک پیش‌شرط مهم است.
+c1-1	1	der Ansatz	Ansätze	approach	رویکرد؛ شیوه برخورد	Wir verfolgen einen neuen Ansatz.	We are pursuing a new approach.	ما رویکرد تازه‌ای را دنبال می‌کنیم.
+c1-1	1	die Erkenntnis	Erkenntnisse	insight; finding	بینش؛ یافته	Die Studie liefert wichtige Erkenntnisse.	The study provides important insights.	این مطالعه یافته‌های مهمی ارائه می‌دهد.
+c1-1	1	der Widerspruch	Widersprüche	contradiction	تناقض	In seiner Aussage steckt ein Widerspruch.	There is a contradiction in his statement.	در گفته او تناقضی وجود دارد.
+c1-1	1	belegen	-	to prove; to substantiate	ثابت کردن؛ مستند کردن	Diese Zahlen belegen den Trend.	These figures substantiate the trend.	این اعداد این روند را مستند می‌کنند.
+c1-1	1	hinterfragen	-	to question; to challenge	زیر سؤال بردن؛ بازنگری انتقادی کردن	Man sollte solche Aussagen kritisch hinterfragen.	One should critically question such statements.	باید چنین اظهاراتی را به‌طور انتقادی زیر سؤال برد.
+c1-1	1	erörtern	-	to discuss; to examine	بحث و بررسی کردن	In dem Aufsatz erörtert sie die Folgen des Klimawandels.	In the essay she discusses the consequences of climate change.	او در مقاله پیامدهای تغییر اقلیم را بررسی می‌کند.
+c1-1	1	schlüssig	-	conclusive; coherent	منسجم؛ قانع‌کننده	Seine Begründung ist nicht schlüssig.	His reasoning is not coherent.	دلیل‌آوری او منسجم نیست.
+c1-1	1	differenzieren	-	to differentiate	تمایز قائل شدن	Man muss hier genau differenzieren.	One has to differentiate carefully here.	اینجا باید دقیقاً تمایز قائل شد.
+c1-1	2	der Wandel	-	change; transformation	دگرگونی؛ تغییر	Der gesellschaftliche Wandel geht immer schneller.	Social change is happening ever faster.	دگرگونی اجتماعی هر روز سریع‌تر می‌شود.
+c1-1	2	die Ungleichheit	Ungleichheiten	inequality	نابرابری	Die soziale Ungleichheit hat zugenommen.	Social inequality has increased.	نابرابری اجتماعی افزایش یافته است.
+c1-1	2	die Integration	-	integration	ادغام؛ همگرایی اجتماعی	Die Integration gelingt nur mit gegenseitigem Respekt.	Integration only succeeds with mutual respect.	ادغام اجتماعی فقط با احترام متقابل موفق می‌شود.
+c1-1	2	die Zuwanderung	-	immigration	مهاجرت (به یک کشور)	Die Zuwanderung stellt Städte vor neue Aufgaben.	Immigration presents cities with new challenges.	مهاجرت شهرها را با وظایف تازه‌ای روبه‌رو می‌کند.
+c1-1	2	der Zusammenhalt	-	cohesion	همبستگی؛ انسجام	Der gesellschaftliche Zusammenhalt wird auf die Probe gestellt.	Social cohesion is being put to the test.	همبستگی اجتماعی در معرض آزمون قرار گرفته است.
+c1-1	2	die Teilhabe	-	participation	مشارکت؛ سهم‌داری	Bildung ermöglicht gesellschaftliche Teilhabe.	Education enables participation in society.	آموزش مشارکت اجتماعی را ممکن می‌سازد.
+c1-1	2	die Generation	Generationen	generation	نسل	Die jüngere Generation sieht vieles anders.	The younger generation sees many things differently.	نسل جوان‌تر خیلی چیزها را متفاوت می‌بیند.
+c1-1	2	das Vorurteil	Vorurteile	prejudice	پیش‌داوری؛ تعصب	Vorurteile entstehen oft aus Unwissen.	Prejudices often arise from ignorance.	پیش‌داوری‌ها اغلب از ناآگاهی پدید می‌آیند.
+c1-1	2	die Herausforderung	Herausforderungen	challenge	چالش	Der demografische Wandel ist eine große Herausforderung.	Demographic change is a major challenge.	تغییر جمعیتی یک چالش بزرگ است.
+c1-1	2	gesellschaftlich	-	social; societal	اجتماعی	Das ist ein gesellschaftliches Problem.	That is a societal problem.	این یک مسئله اجتماعی است.
+c1-1	2	benachteiligen	-	to disadvantage	در موقعیت نامناسب قرار دادن؛ تبعیض روا داشتن	Das System benachteiligt Familien mit niedrigem Einkommen.	The system disadvantages low-income families.	این نظام خانواده‌های کم‌درآمد را در موقعیت نامناسب قرار می‌دهد.
+c1-1	2	sich wandeln	-	to change; to transform	دگرگون شدن	Die Rolle der Familie hat sich gewandelt.	The role of the family has changed.	نقش خانواده دگرگون شده است.
+c1-1	2	fördern	-	to promote; to support	ترویج کردن؛ حمایت کردن	Der Staat fördert erneuerbare Energien.	The state promotes renewable energy.	دولت از انرژی‌های تجدیدپذیر حمایت می‌کند.
+c1-1	2	verdrängen	-	to displace; to suppress	جایگزین کردن؛ سرکوب کردن	Der Onlinehandel verdrängt kleine Läden.	Online shopping is displacing small shops.	خرید اینترنتی مغازه‌های کوچک را از میدان به در می‌کند.
+c1-1	3	die Moral	-	morality; morale	اخلاق؛ روحیه	Es geht hier nicht nur um Recht, sondern auch um Moral.	This is not only about law but also about morality.	اینجا فقط بحث قانون نیست، بحث اخلاق هم هست.
+c1-1	3	das Gewissen	-	conscience	وجدان	Er hat ein schlechtes Gewissen wegen der Lüge.	He has a guilty conscience about the lie.	او به‌خاطر دروغ عذاب وجدان دارد.
+c1-1	3	die Verantwortung	Verantwortungen	responsibility	مسئولیت	Wir tragen Verantwortung für kommende Generationen.	We bear responsibility for future generations.	ما در برابر نسل‌های آینده مسئولیت داریم.
+c1-1	3	die Gerechtigkeit	-	justice; fairness	عدالت	Gerechtigkeit ist ein zentrales Thema der Philosophie.	Justice is a central topic of philosophy.	عدالت یکی از موضوعات اصلی فلسفه است.
+c1-1	3	die Freiheit	Freiheiten	freedom	آزادی	Die Freiheit des Einzelnen hat Grenzen.	The freedom of the individual has limits.	آزادی فرد حدود دارد.
+c1-1	3	die Würde	-	dignity	کرامت؛ شأن	Die Würde des Menschen ist unantastbar.	Human dignity is inviolable.	کرامت انسان مصون از تعرض است.
+c1-1	3	das Dilemma	Dilemmata	dilemma	دوراهی؛ معضل	Die Ärztin steht vor einem moralischen Dilemma.	The doctor faces a moral dilemma.	پزشک با یک دوراهی اخلاقی روبه‌رو است.
+c1-1	3	der Wert	Werte	value	ارزش	Ehrlichkeit gehört zu seinen wichtigsten Werten.	Honesty is one of his most important values.	صداقت از مهم‌ترین ارزش‌های اوست.
+c1-1	3	die Rücksicht	-	consideration	ملاحظه؛ ملاحظه‌کاری	Er nimmt keine Rücksicht auf andere.	He shows no consideration for others.	او هیچ ملاحظه‌ای نسبت به دیگران ندارد.
+c1-1	3	die Toleranz	-	tolerance	تساهل؛ مدارا	Toleranz ist die Grundlage des Zusammenlebens.	Tolerance is the basis of living together.	مدارا پایه همزیستی است.
+c1-1	3	ethisch	-	ethical	اخلاقی	Der Einsatz von Tierversuchen ist ethisch umstritten.	The use of animal testing is ethically controversial.	استفاده از آزمایش بر حیوانات از نظر اخلاقی بحث‌برانگیز است.
+c1-1	3	rechtfertigen	-	to justify	توجیه کردن	Nichts kann diese Gewalt rechtfertigen.	Nothing can justify this violence.	هیچ چیز نمی‌تواند این خشونت را توجیه کند.
+c1-1	3	abwägen	-	to weigh up	سبک‌سنگین کردن	Man muss Vor- und Nachteile sorgfältig abwägen.	One has to weigh up advantages and disadvantages carefully.	باید مزایا و معایب را با دقت سبک‌سنگین کرد.
+c1-1	3	sich bekennen	-	to profess; to commit oneself	پای (چیزی) ایستادن؛ اذعان کردن	Sie bekennt sich offen zu ihren Überzeugungen.	She openly stands by her convictions.	او آشکارا پای باورهایش می‌ایستد.
+c1-1	4	die Öffentlichkeit	-	the public	عموم مردم؛ افکار عمومی	Die Öffentlichkeit wurde über den Fall informiert.	The public was informed about the case.	عموم مردم درباره این پرونده مطلع شدند.
+c1-1	4	die Berichterstattung	-	news coverage	پوشش خبری	Die Berichterstattung über den Prozess war ausführlich.	The coverage of the trial was extensive.	پوشش خبری دادگاه مفصل بود.
+c1-1	4	die Meinungsfreiheit	-	freedom of speech	آزادی بیان	Die Meinungsfreiheit ist ein hohes Gut.	Freedom of speech is a precious good.	آزادی بیان ارزش بزرگی است.
+c1-1	4	die Falschmeldung	Falschmeldungen	false report; fake news	خبر نادرست	Falschmeldungen verbreiten sich im Netz sehr schnell.	False reports spread very quickly online.	اخبار نادرست در اینترنت بسیار سریع پخش می‌شوند.
+c1-1	4	die Meinungsbildung	-	forming of opinion	شکل‌گیری افکار عمومی	Die Medien spielen bei der Meinungsbildung eine große Rolle.	The media play a major role in forming opinion.	رسانه‌ها در شکل‌گیری افکار نقش بزرگی دارند.
+c1-1	4	die Glaubwürdigkeit	-	credibility	اعتبار؛ باورپذیری	Die Zeitung hat an Glaubwürdigkeit verloren.	The newspaper has lost credibility.	روزنامه اعتبار خود را از دست داده است.
+c1-1	4	die Pressefreiheit	-	freedom of the press	آزادی مطبوعات	Ohne Pressefreiheit gibt es keine Demokratie.	Without freedom of the press there is no democracy.	بدون آزادی مطبوعات دموکراسی وجود ندارد.
+c1-1	4	der Leitartikel	Leitartikel	editorial	سرمقاله	Der Leitartikel kritisiert die Entscheidung scharf.	The editorial sharply criticises the decision.	سرمقاله از این تصمیم به شدت انتقاد می‌کند.
+c1-1	4	die Zensur	Zensuren	censorship	سانسور	In manchen Ländern gibt es strenge Zensur.	In some countries there is strict censorship.	در برخی کشورها سانسور شدیدی وجود دارد.
+c1-1	4	aufdecken	-	to uncover; to expose	افشا کردن؛ آشکار کردن	Die Reporterin deckte einen Skandal auf.	The reporter uncovered a scandal.	خبرنگار یک رسوایی را افشا کرد.
+c1-1	4	verbreiten	-	to spread	پخش کردن؛ منتشر کردن	Gerüchte verbreiten sich schnell.	Rumours spread quickly.	شایعات سریع پخش می‌شوند.
+c1-1	4	manipulieren	-	to manipulate	دستکاری کردن	Manche Medien versuchen, die Meinung zu manipulieren.	Some media try to manipulate opinion.	برخی رسانه‌ها می‌کوشند افکار را دستکاری کنند.
+c1-1	4	dementieren	-	to deny (officially)	تکذیب کردن	Das Ministerium hat die Meldung sofort dementiert.	The ministry immediately denied the report.	وزارتخانه بلافاصله این خبر را تکذیب کرد.
+@level	c1-2	C1 · Level 2	Research and innovation, politics and law, language and art, environment and sustainability
+@chapter	c1-2	1	Forschung und Innovation
+@chapter	c1-2	2	Politik und Recht
+@chapter	c1-2	3	Sprache und Kunst
+@chapter	c1-2	4	Umwelt und Nachhaltigkeit
+c1-2	1	die Hypothese	Hypothesen	hypothesis	فرضیه (علمی)	Die Hypothese konnte im Versuch bestätigt werden.	The hypothesis could be confirmed in the experiment.	فرضیه در آزمایش تأیید شد.
+c1-2	1	die Methode	Methoden	method	روش	Die Methode ist einfach, aber sehr effektiv.	The method is simple but very effective.	این روش ساده اما بسیار مؤثر است.
+c1-2	1	die Stichprobe	Stichproben	sample	نمونه (آماری)	Die Stichprobe umfasst tausend Personen.	The sample comprises a thousand people.	نمونه آماری شامل هزار نفر است.
+c1-2	1	der Durchbruch	Durchbrüche	breakthrough	پیشرفت بزرگ؛ نقطه عطف	Den Forschern gelang ein medizinischer Durchbruch.	The researchers achieved a medical breakthrough.	پژوهشگران به یک پیشرفت بزرگ پزشکی دست یافتند.
+c1-2	1	die Innovation	Innovationen	innovation	نوآوری	Innovationen sichern die Zukunft des Unternehmens.	Innovations secure the future of the company.	نوآوری‌ها آینده شرکت را تضمین می‌کنند.
+c1-2	1	die Auswertung	Auswertungen	evaluation; analysis	ارزیابی؛ تحلیل (داده‌ها)	Die Auswertung der Daten dauert mehrere Wochen.	The analysis of the data takes several weeks.	تحلیل داده‌ها چند هفته طول می‌کشد.
+c1-2	1	die Nachhaltigkeit	-	sustainability	پایداری	Nachhaltigkeit spielt bei der Planung eine zentrale Rolle.	Sustainability plays a central role in planning.	پایداری در برنامه‌ریزی نقش محوری دارد.
+c1-2	1	die Machbarkeit	-	feasibility	امکان‌پذیری	Zuerst prüfen wir die Machbarkeit des Projekts.	First we examine the feasibility of the project.	ابتدا امکان‌پذیری پروژه را بررسی می‌کنیم.
+c1-2	1	erforschen	-	to research; to explore	تحقیق کردن؛ کاوش کردن	Sie erforscht seltene Krankheiten.	She researches rare diseases.	او درباره بیماری‌های نادر تحقیق می‌کند.
+c1-2	1	auswerten	-	to evaluate; to analyse	ارزیابی کردن؛ تحلیل کردن	Wir müssen die Umfrage noch auswerten.	We still have to analyse the survey.	ما هنوز باید نظرسنجی را تحلیل کنیم.
+c1-2	1	überprüfen	-	to check; to verify	بررسی کردن؛ راستی‌آزمایی کردن	Die Ergebnisse wurden unabhängig überprüft.	The results were independently verified.	نتایج به‌طور مستقل بررسی شدند.
+c1-2	1	ableiten	-	to derive	استنتاج کردن؛ استخراج کردن	Aus den Messwerten lässt sich eine Regel ableiten.	A rule can be derived from the measured values.	از مقادیر اندازه‌گیری‌شده می‌توان قاعده‌ای استخراج کرد.
+c1-2	1	bahnbrechend	-	groundbreaking	انقلابی؛ پیشگامانه	Das war eine bahnbrechende Entdeckung.	That was a groundbreaking discovery.	این کشف انقلابی بود.
+c1-2	2	die Verordnung	Verordnungen	regulation; decree	آیین‌نامه؛ فرمان	Die neue Verordnung gilt ab sofort.	The new regulation applies immediately.	آیین‌نامه جدید از همین حالا اجرا می‌شود.
+c1-2	2	die Gewaltenteilung	-	separation of powers	تفکیک قوا	Die Gewaltenteilung schützt vor Machtmissbrauch.	The separation of powers protects against abuse of power.	تفکیک قوا از سوءاستفاده از قدرت جلوگیری می‌کند.
+c1-2	2	die Opposition	-	opposition	اپوزیسیون؛ مخالفان	Die Opposition kritisiert den Haushaltsplan.	The opposition criticises the budget plan.	اپوزیسیون از طرح بودجه انتقاد می‌کند.
+c1-2	2	der Gerichtshof	Gerichtshöfe	court (of justice)	دادگاه (عالی)	Der Gerichtshof hat das Urteil bestätigt.	The court has confirmed the verdict.	دادگاه حکم را تأیید کرد.
+c1-2	2	das Urteil	Urteile	verdict; judgement	حکم؛ رأی دادگاه	Das Urteil wurde gestern verkündet.	The verdict was announced yesterday.	حکم دیروز اعلام شد.
+c1-2	2	der Anspruch	Ansprüche	claim; entitlement	حق؛ استحقاق؛ ادعا	Du hast Anspruch auf dreißig Urlaubstage.	You are entitled to thirty days of holiday.	تو حق ۳۰ روز مرخصی داری.
+c1-2	2	die Maßnahme	Maßnahmen	measure	اقدام؛ تدبیر	Die Regierung beschloss strenge Maßnahmen.	The government decided on strict measures.	دولت اقدامات سختی تصویب کرد.
+c1-2	2	die Reform	Reformen	reform	اصلاحات	Die Reform des Bildungssystems ist überfällig.	The reform of the education system is overdue.	اصلاح نظام آموزشی دیر شده است.
+c1-2	2	die Souveränität	-	sovereignty	حاکمیت	Die Souveränität eines Staates wird international anerkannt.	The sovereignty of a state is recognised internationally.	حاکمیت یک کشور در سطح بین‌المللی شناخته می‌شود.
+c1-2	2	einführen	-	to introduce	معرفی کردن؛ برقرار کردن	Die Stadt führt eine neue Regelung ein.	The city is introducing a new regulation.	شهر مقررات جدیدی برقرار می‌کند.
+c1-2	2	verstoßen	-	to violate; to infringe	تخطی کردن؛ نقض کردن	Das Unternehmen hat gegen das Gesetz verstoßen.	The company has violated the law.	شرکت قانون را نقض کرده است.
+c1-2	2	durchsetzen	-	to enforce; to push through	اجرا کردن؛ به کرسی نشاندن	Die Regierung konnte ihren Plan nicht durchsetzen.	The government could not push through its plan.	دولت نتوانست طرح خود را به کرسی بنشاند.
+c1-2	2	anfechten	-	to contest; to challenge	اعتراض کردن؛ به چالش کشیدن (در دادگاه)	Der Anwalt will das Urteil anfechten.	The lawyer wants to challenge the verdict.	وکیل می‌خواهد به حکم اعتراض کند.
+c1-2	3	der Ausdruck	Ausdrücke	expression	عبارت؛ بیان	Dieser Ausdruck ist in der Umgangssprache üblich.	This expression is common in colloquial language.	این عبارت در زبان محاوره رایج است.
+c1-2	3	die Redewendung	Redewendungen	idiom	اصطلاح؛ ضرب‌المثل	Diese Redewendung kenne ich nicht.	I don't know this idiom.	این اصطلاح را نمی‌شناسم.
+c1-2	3	der Wortschatz	-	vocabulary	دایره واژگان	Ein großer Wortschatz hilft beim Lesen.	A large vocabulary helps with reading.	دایره واژگان گسترده در خواندن کمک می‌کند.
+c1-2	3	die Mundart	Mundarten	dialect	گویش	In dieser Region spricht man eine besondere Mundart.	In this region people speak a special dialect.	در این منطقه گویش خاصی صحبت می‌شود.
+c1-2	3	die Skulptur	Skulpturen	sculpture	مجسمه	Die Skulptur steht mitten auf dem Platz.	The sculpture stands in the middle of the square.	مجسمه درست وسط میدان قرار دارد.
+c1-2	3	das Werk	Werke	work (of art)	اثر (هنری)	Das Werk wurde im Jahr 1920 geschaffen.	The work was created in 1920.	این اثر در سال ۱۹۲۰ خلق شد.
+c1-2	3	der Künstler	Künstler	artist	هنرمند	Der Künstler lebt zurückgezogen auf dem Land.	The artist lives secluded in the countryside.	هنرمند گوشه‌نشین در روستا زندگی می‌کند.
+c1-2	3	die Wirkung	Wirkungen	effect; impact	تأثیر؛ اثر	Das Gedicht verfehlt seine Wirkung nicht.	The poem does not fail to have its effect.	این شعر بی‌تأثیر نیست.
+c1-2	3	die Anspielung	Anspielungen	allusion; hint	کنایه؛ اشاره	Der Text enthält viele Anspielungen auf die Geschichte.	The text contains many allusions to history.	متن حاوی کنایه‌های فراوان به تاریخ است.
+c1-2	3	die Nuance	Nuancen	nuance	ظرافت؛ تفاوت ظریف	Beim Übersetzen gehen oft Nuancen verloren.	Nuances are often lost in translation.	هنگام ترجمه اغلب ظرافت‌ها از دست می‌روند.
+c1-2	3	ausdrücken	-	to express	بیان کردن	Er kann seine Gefühle schwer ausdrücken.	He finds it hard to express his feelings.	او به‌سختی می‌تواند احساساتش را بیان کند.
+c1-2	3	andeuten	-	to hint; to imply	اشاره غیرمستقیم کردن	Sie hat nur angedeutet, dass sie kündigen möchte.	She only hinted that she wants to quit.	او فقط اشاره کرد که می‌خواهد استعفا بدهد.
+c1-2	3	anschaulich	-	vivid; illustrative	روشن؛ ملموس؛ گویا	Der Lehrer erklärt den Stoff sehr anschaulich.	The teacher explains the material very vividly.	معلم مطلب را بسیار گویا توضیح می‌دهد.
+c1-2	3	treffend	-	apt; fitting	بجا؛ دقیق (بیان)	Das ist eine treffende Beschreibung.	That is an apt description.	این توصیف بسیار دقیقی است.
+c1-2	4	die Erderwärmung	-	global warming	گرمایش زمین	Die Erderwärmung lässt die Gletscher schmelzen.	Global warming is melting the glaciers.	گرمایش زمین یخچال‌ها را آب می‌کند.
+c1-2	4	die Ressource	Ressourcen	resource	منبع (طبیعی)	Wasser ist eine knappe Ressource.	Water is a scarce resource.	آب منبعی کمیاب است.
+c1-2	4	der Ausstoß	-	emissions; output	انتشار (گازها)؛ تولید	Der Ausstoß von Kohlendioxid soll sinken.	Carbon dioxide emissions are to fall.	انتشار دی‌اکسید کربن باید کاهش یابد.
+c1-2	4	die Artenvielfalt	-	biodiversity	تنوع زیستی	Die Artenvielfalt geht weltweit zurück.	Biodiversity is declining worldwide.	تنوع زیستی در سراسر جهان رو به کاهش است.
+c1-2	4	der Lebensraum	Lebensräume	habitat	زیستگاه	Viele Tiere verlieren ihren Lebensraum.	Many animals are losing their habitat.	بسیاری از جانوران زیستگاه خود را از دست می‌دهند.
+c1-2	4	die Energiewende	-	energy transition	گذار انرژی	Die Energiewende erfordert hohe Investitionen.	The energy transition requires high investment.	گذار انرژی نیازمند سرمایه‌گذاری بالاست.
+c1-2	4	die Dürre	Dürren	drought	خشکسالی	Die Dürre hat die Ernte zerstört.	The drought destroyed the harvest.	خشکسالی محصول را نابود کرد.
+c1-2	4	das Hochwasser	-	flood	سیل؛ طغیان آب	Nach dem Hochwasser musste das Dorf evakuiert werden.	After the flood the village had to be evacuated.	پس از سیل روستا باید تخلیه می‌شد.
+c1-2	4	der Verbrauch	-	consumption	مصرف	Der Verbrauch an Strom steigt jedes Jahr.	Electricity consumption rises every year.	مصرف برق هر سال بالا می‌رود.
+c1-2	4	schonen	-	to conserve; to spare	حفظ کردن؛ مراقبت کردن (از)	Wir sollten die Umwelt mehr schonen.	We should protect the environment more.	ما باید بیشتر از محیط زیست مراقبت کنیم.
+c1-2	4	einsparen	-	to save (resources)	صرفه‌جویی کردن	Durch bessere Dämmung lässt sich viel Energie einsparen.	A lot of energy can be saved through better insulation.	با عایق‌کاری بهتر می‌توان انرژی زیادی صرفه‌جویی کرد.
+c1-2	4	aussterben	-	to become extinct	منقرض شدن	Diese Vogelart ist fast ausgestorben.	This bird species is almost extinct.	این گونه پرنده تقریباً منقرض شده است.
+c1-2	4	klimaneutral	-	climate-neutral	بی‌اثر بر اقلیم؛ خنثی از نظر کربن	Die Stadt will bis 2040 klimaneutral werden.	The city wants to become climate-neutral by 2040.	شهر می‌خواهد تا سال ۲۰۴۰ از نظر اقلیمی خنثی شود.
+c1-2	4	umweltfreundlich	-	environmentally friendly	دوستدار محیط زیست	Ich fahre mit dem Rad, weil es umweltfreundlich ist.	I cycle because it is environmentally friendly.	دوچرخه می‌رانم چون دوستدار محیط زیست است.

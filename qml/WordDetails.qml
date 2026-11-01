@@ -28,6 +28,36 @@ ColumnLayout {
         text: "Singular:        " // 8 spaces
     }
 
+    // ---- one spelling, two words (noun / verb): the choice is the capital letter ----
+    ColumnLayout {
+        Layout.fillWidth: true
+        visible: root.info !== null && root.info.ambiguous
+        spacing: 4
+        Label {
+            Layout.fillWidth: true
+            wrapMode: Text.WordWrap
+            font.pixelSize: 12
+            opacity: 0.6
+            text: qsTr("This spelling is two different words. Which one do you mean?")
+        }
+        Flow {
+            Layout.fillWidth: true
+            spacing: 8
+            Button {
+                highlighted: root.info !== null && root.info.asNoun
+                flat: !highlighted
+                text: qsTr("Noun: %1").arg(root.info ? root.info.senseNoun : "")
+                onClicked: root.info.chooseSense(true)
+            }
+            Button {
+                highlighted: root.info !== null && !root.info.asNoun
+                flat: !highlighted
+                text: qsTr("Verb or other: %1").arg(root.info ? root.info.senseKey : "")
+                onClicked: root.info.chooseSense(false)
+            }
+        }
+    }
+
     // ---- forms ----
     ColumnLayout {
         Layout.fillWidth: true

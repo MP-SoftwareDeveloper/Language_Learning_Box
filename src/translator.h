@@ -95,6 +95,10 @@ public:
     // grammarFound(id, {front, lemma, plural, pluralLine, forms}, error); the map is empty when the
     // word is not a (single-word) noun or nothing is known.
     Q_INVOKABLE int lookupGrammar(const QString &word);
+    // Does the German Wiktionary have a page with exactly this title (case-sensitive)? For one spelling that is two
+    // words: "Berichten" (plural of the noun Bericht) and "berichten" (a verb). Answers through
+    // pageChecked(id, exists, error); saved for offline use.
+    Q_INVOKABLE int lookupPage(const QString &title);
 
     // Word suggestions while typing, like a search box: Wiktionary's prefix search in `language` ("de", "en",
     // "fa"; online only). Answers through wordsSuggested(id, words, error).
@@ -103,6 +107,7 @@ public:
 signals:
     void wordsSuggested(int requestId, const QStringList &words, const QString &error);
     void grammarFound(int requestId, const QVariantMap &grammar, const QString &error);
+    void pageChecked(int requestId, bool exists, const QString &error);
     void examplesSuggested(int requestId, const QVariantList &examples, const QString &error);
     void settingsChanged();
     void networkChanged();

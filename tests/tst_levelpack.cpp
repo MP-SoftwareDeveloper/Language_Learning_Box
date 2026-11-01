@@ -103,6 +103,43 @@ private slots:
         QCOMPARE(a1, 3);
         QCOMPARE(a2, 3);
     }
+    void shippedAdvancedGermanDataIsComplete()
+    {
+        QFile f(QStringLiteral(LB_LEVELPACK_ADV_FILE));
+        QVERIFY(f.open(QIODevice::ReadOnly));
+        QList<LevelPack> packs;
+        QString err;
+        QVERIFY2(parseLevelPacks(QString::fromUtf8(f.readAll()), &packs, &err), qPrintable(err));
+        QCOMPARE(packs.size(), 6);
+        QHash<QString, int> perLevel;
+        QSet<QString> seen;
+        // the words must not repeat the A1/A2 packs either
+        QFile base(QStringLiteral(LB_LEVELPACK_FILE));
+        QVERIFY(base.open(QIODevice::ReadOnly));
+        QList<LevelPack> basic;
+        QVERIFY(parseLevelPacks(QString::fromUtf8(base.readAll()), &basic, &err));
+        for (const LevelPack &p : basic)
+            for (const LevelChapter &c : p.chapters)
+                for (const LevelWord &w : c.words)
+                    seen.insert(w.german);
+        for (const LevelPack &p : packs) {
+            QCOMPARE(p.language, QStringLiteral("de"));
+            QCOMPARE(p.chapters.size(), 4);
+            perLevel[p.cefr]++;
+            for (const LevelChapter &c : p.chapters) {
+                QVERIFY2(c.words.size() >= 8, qPrintable(p.id));
+                for (const LevelWord &w : c.words) {
+                    QVERIFY(!w.german.isEmpty() && !w.english.isEmpty() && !w.persian.isEmpty());
+                    QVERIFY(!w.exampleDe.isEmpty() && !w.exampleEn.isEmpty() && !w.exampleFa.isEmpty());
+                    QVERIFY2(!seen.contains(w.german), qPrintable(w.german));
+                    seen.insert(w.german);
+                }
+            }
+        }
+        QCOMPARE(perLevel.value(QStringLiteral("B1")), 2);
+        QCOMPARE(perLevel.value(QStringLiteral("B2")), 2);
+        QCOMPARE(perLevel.value(QStringLiteral("C1")), 2);
+    }
 };
 
 QTEST_GUILESS_MAIN(TstLevelPack)

@@ -157,18 +157,30 @@ Page {
     readonly property bool canAdd: !free && requestId < 0
                                    && (learnWord !== "" || (reverse && query !== ""))
 
+    // An ambiguous spelling (Berichten: noun or verb) is translated as the word the user chose, see WordLookup
+    property string meaningQuery: ""
+    property bool inLookup: false
+    function requestMeaning() {
+        const q = from === learn && wordInfo.meaningText !== "" ? wordInfo.meaningText : query
+        meaningQuery = q
+        requestId = Translator.translateBetween(q, from, to)
+    }
+
     function clearResult() {
         headword = ""; result = ""; alternatives = []; source = ""; error = ""
         requestId = -1
     }
     function lookup() {
+        inLookup = true // the word changes below: not an "ambiguous spelling" re-translation, see wordInfo
         clearResult()
         if (field.text.trim() !== query)
             ownExampleField.clear() // a different word: the typed sentences belonged to the old one
         query = field.text.trim()
         suggestions = []
-        if (query === "")
+        if (query === "") {
+            inLookup = false
             return
+        }
         // Offline first: the German word pack with its curated Persian meaning
         if (from === learn && learn === "de" && to === "fa") {
             const known = WordPacks.lookup(query)
@@ -178,8 +190,9 @@ Page {
                 source = "pack"
             }
         }
-        requestId = Translator.translateBetween(query, from, to) // online, else saved
+        requestMeaning() // online, else saved
         wordInfo.refreshNow() // article, forms and example sentences of the word
+        inLookup = false
     }
 
     Connections {
@@ -190,6 +203,8 @@ Page {
             page.requestId = -1
             page.error = error ?? ""
             if (text !== "") {
+                text = wordInfo.meaningFix(text)
+                alternatives = (alternatives ?? []).map(a => wordInfo.meaningFix(a))
                 if (page.source === "pack") {
                     // Keep the word pack's meaning first; the translator's words become extras
                     page.alternatives = [text].concat(alternatives ?? []).filter(a => page.result.indexOf(a) < 0)
@@ -211,6 +226,14 @@ Page {
         id: wordInfo
         word: page.free ? "" : page.reverse ? page.result.split("\n")[0] : page.query
         meaning: page.meaning
+        onMeaningTextChanged: {
+            // The word turned out to be two (noun / verb), or the choice changed: translate the chosen one
+            if (page.inLookup || page.reverse || page.free || page.query === "" || page.source === "pack"
+                    || page.from !== page.learn || meaningText === page.meaningQuery || word.trim() !== page.query)
+                return
+            page.result = ""; page.alternatives = []; page.source = ""
+            page.requestMeaning()
+        }
         onCapitalise: (text) => {
             if (page.reverse || page.free)
                 return

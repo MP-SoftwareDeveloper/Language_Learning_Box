@@ -90,7 +90,8 @@ Page {
     function fillMeaning() {
         if (!isNew || !backAuto)
             return
-        const w = typed
+        // An ambiguous spelling (Berichten: noun or verb) is translated as the chosen word, see WordLookup
+        const w = wordInfo.meaningText !== "" ? wordInfo.meaningText : typed
         meaningRequest = -1
         if (w === "") {
             setBack("")
@@ -105,7 +106,7 @@ Page {
         }
         const saved = Translator.saved(w)
         if (saved !== "") {
-            setBack(saved)
+            setBack(wordInfo.meaningFix(saved))
         } else if (Translator.useOnline) {
             meaningFor = w
             meaningRequest = Translator.translate(w)
@@ -117,10 +118,11 @@ Page {
             if (requestId !== page.meaningRequest)
                 return
             page.meaningRequest = -1
-            if (page.backAuto && page.typed === page.meaningFor && text !== "") {
+            if (page.backAuto && wordInfo.meaningText === page.meaningFor && text !== "") {
                 const sep = Translator.rightToLeft ? "\u060C " : ", "
-                const more = (alternatives ?? []).slice(0, 2)
-                page.setBack(more.length > 0 ? text + sep + more.join(sep) : text)
+                const more = (alternatives ?? []).slice(0, 2).map(a => wordInfo.meaningFix(a))
+                const first = wordInfo.meaningFix(text)
+                page.setBack(more.length > 0 ? first + sep + more.join(sep) : first)
             }
         }
     }
@@ -149,6 +151,11 @@ Page {
         function onFormsChanged() {
             if (page.isNew && page.backAuto)
                 page.setBack(page.withoutPlural(backField.text))
+        }
+        // The word is now known to be two (noun / verb), or the choice changed: translate the chosen one
+        function onMeaningTextChanged() {
+            if (page.isNew && AppMode.full && page.backAuto)
+                suggestTimer.restart()
         }
     }
 
