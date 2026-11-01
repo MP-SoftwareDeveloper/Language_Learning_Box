@@ -1,6 +1,9 @@
 #include "reviewsession.h"
 #include "cardstore.h"
 
+#include <QRandomGenerator>
+#include <algorithm>
+
 ReviewSession::ReviewSession(QObject *parent)
     : QObject(parent)
 {}
@@ -8,6 +11,8 @@ ReviewSession::ReviewSession(QObject *parent)
 void ReviewSession::start(int limit)
 {
     m_queue = CardStore::instance()->dueCardIds(limit);
+    // Random order, so boxes that were filled A to Z (e.g. A1_complete) are not asked alphabetically.
+    std::shuffle(m_queue.begin(), m_queue.end(), *QRandomGenerator::global());
     m_total = int(m_queue.size());
     m_correct = m_wrong = 0;
     m_started = true;

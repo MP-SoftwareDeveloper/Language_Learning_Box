@@ -148,6 +148,8 @@ int LevelPacks::addWords(const LevelPack &pack, const LevelChapter &chapter)
     const QString lang = meaningLanguage();
     QList<Card> cards;
     cards.reserve(chapter.words.size());
+    if (tr)
+        tr->beginBatch(); // one transaction for all saved translations of this chapter
     for (const LevelWord &w : chapter.words) {
         Card c;
         c.front = w.german;
@@ -163,6 +165,8 @@ int LevelPacks::addWords(const LevelPack &pack, const LevelChapter &chapter)
             }
         }
     }
+    if (tr)
+        tr->endBatch();
     return qMax(0, CardStore::instance()->addCards(cards, deckName(pack, chapter.number)));
 }
 
@@ -174,6 +178,16 @@ int LevelPacks::boxId(const LevelPack &p) const
             return m.value(QStringLiteral("id")).toInt();
     }
     return -1;
+}
+
+// Adds the words of the pack that the box does not have yet (cards are unique per box), e.g. when
+// the first fill of a big box was interrupted.
+void LevelPacks::fillBox(const LevelPack &p, int boxId)
+{
+    CardStore *store = CardStore::instance();
+    store->selectCollection(boxId);
+    for (const LevelChapter &c : p.chapters)
+        addWords(p, c);
 }
 
 int LevelPacks::createBox(const LevelPack &p)
@@ -210,7 +224,7 @@ QString installedKey(const QString &language, int group)
         return QStringLiteral("levelpacks/installedSv");
     switch (group) {
     case 1: return QStringLiteral("levelpacks/installedDeAdv");
-    case 2: return QStringLiteral("levelpacks/installedDeComplete");
+    case 2: return QStringLiteral("levelpacks/installedDeComplete2"); // "2": completes boxes that were cut off
     default: return QStringLiteral("levelpacks/installed");
     }
 }
@@ -258,8 +272,15 @@ int LevelPacks::installBoxes(bool force)
         // Switched off in Settings: no boxes now; switching on creates them.
         if (boxesOn(language))
             for (const LevelPack &p : std::as_const(m_packs))
-                if (p.language == language && packGroup(p) == g.group && boxId(p) < 0 && createBox(p) >= 0)
-                    ++created;
+                if (p.language == language && packGroup(p) == g.group) {
+                    const int existingBox = boxId(p);
+                    if (existingBox < 0) {
+                        if (createBox(p) >= 0)
+                            ++created;
+                    } else {
+                        fillBox(p, existingBox); // complete a box whose first fill was interrupted
+                    }
+                }
         settings.setValue(key, true);
     }
     if (original >= 0)

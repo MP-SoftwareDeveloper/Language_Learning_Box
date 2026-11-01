@@ -161,8 +161,9 @@ private slots:
             for (const LevelWord &w : c.words) {
                 QVERIFY(!w.german.isEmpty() && !w.english.isEmpty() && !w.persian.isEmpty());
                 QVERIFY(!w.exampleDe.isEmpty() && !w.exampleEn.isEmpty() && !w.exampleFa.isEmpty());
-                QVERIFY2(!seen.contains(w.german), qPrintable(w.german));
-                seen.insert(w.german);
+                // cards are unique per box by case-folded front ("sie" and "Sie" would collide)
+                QVERIFY2(!seen.contains(w.german.toCaseFolded()), qPrintable(w.german));
+                seen.insert(w.german.toCaseFolded());
             }
         }
     }

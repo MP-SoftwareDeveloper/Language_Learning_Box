@@ -87,6 +87,9 @@ public:
     Q_INVOKABLE void remember(const QString &text, const QString &translation);
     // Same for a given language ("fa" / "en"), e.g. the starter cards save both languages.
     void rememberIn(const QString &language, const QString &text, const QString &translation);
+    // Many rememberIn() calls in one database transaction (much faster; e.g. filling a level box).
+    void beginBatch();
+    void endBatch();
     // Example sentences with `word` from Tatoeba (online only). Answers through
     // examplesSuggested(id, [{text, translation}], error); translations are also saved.
     Q_INVOKABLE int suggestExamples(const QString &word);
@@ -154,6 +157,8 @@ private:
     QString m_lastSource;
     bool m_onlineEnabled = true;
     bool m_cacheOk = false;
+    bool m_batch = false;
+    bool m_batchDirty = false;
     qint64 m_googleBlockedUntil = 0; // ms since epoch; after a 429 Google is skipped for a while
     qint64 m_azureBlockedUntil = 0;  // same for Azure (wrong key, monthly quota used up)
     QString m_azureKey;

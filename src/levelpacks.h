@@ -73,6 +73,7 @@ private:
     void setBoxesOn(const QString &language, bool on);
     int boxId(const LevelPack &pack) const; // -1 = no learning box with the level's name
     int createBox(const LevelPack &pack);   // creates, selects and fills it; -1 on error
+    void fillBox(const LevelPack &pack, int boxId); // adds the words the box is missing
 
     QList<LevelPack> m_packs;
     QVariantList m_levels;

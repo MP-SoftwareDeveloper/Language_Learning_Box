@@ -738,10 +738,33 @@ void Translator::store(const QString &source, const QString &target, const QStri
     q.addBindValue(key(source, text));
     q.addBindValue(translation);
     q.addBindValue(alternatives.join(QLatin1Char('\n')));
-    if (q.exec())
-        emit savedCountChanged();
-    else
+    if (q.exec()) {
+        if (m_batch)
+            m_batchDirty = true; // announced once in endBatch()
+        else
+            emit savedCountChanged();
+    } else {
         qWarning() << "Translation cache:" << q.lastError().text();
+    }
+}
+
+void Translator::beginBatch()
+{
+    if (!m_cacheOk || m_batch)
+        return;
+    m_batch = db().transaction();
+    m_batchDirty = false;
+}
+
+void Translator::endBatch()
+{
+    if (!m_batch)
+        return;
+    m_batch = false;
+    db().commit();
+    if (m_batchDirty)
+        emit savedCountChanged();
+    m_batchDirty = false;
 }
 
 bool Translator::lookup(const QString &source, const QString &target, const QString &text,
