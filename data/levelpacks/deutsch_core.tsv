@@ -1,0 +1,458 @@
+# LearningBox level pack: "Alltag" - core everyday-conversation vocabulary (ORIGINAL list).
+# The word selection, the English and Persian meanings and all example sentences were written for this app.
+# They are NOT copied or derived from the Goethe-Institut, telc, a textbook or any other word list.
+# Format:  @level<TAB>id<TAB>title<TAB>subtitle   @chapter<TAB>levelId<TAB>number<TAB>title
+#          levelId<TAB>chapter<TAB>German<TAB>plural ("-" = none)<TAB>English<TAB>Persian<TAB>example (de)<TAB>example (en)<TAB>example (fa)
+@level	core-1	Alltag	Everyday conversation words
+@chapter	core-1	1	Gespräch am Laufen halten
+@chapter	core-1	2	Fragen, Antworten, Bitten
+@chapter	core-1	3	Meinung und Gefühle
+@chapter	core-1	4	Zeit und Häufigkeit
+@chapter	core-1	5	Ort, Richtung, Menge
+@chapter	core-1	6	Menschen und Beziehungen
+@chapter	core-1	7	Zuhause und Alltag
+@chapter	core-1	8	Essen, Einkaufen, Geld
+@chapter	core-1	9	Arbeit und Lernen
+@chapter	core-1	10	Unterwegs und Reisen
+@chapter	core-1	11	Körper und Gesundheit
+@chapter	core-1	12	Freizeit, Medien, Wetter
+core-1	1	also	-	so; well then	پس؛ خب	Also, was machen wir heute?	So, what are we doing today?	خب، امروز چه کار کنیم؟
+core-1	1	eigentlich	-	actually; really	در واقع؛ راستش	Eigentlich wollte ich zu Hause bleiben.	Actually, I wanted to stay at home.	در واقع می‌خواستم در خانه بمانم.
+core-1	1	übrigens	-	by the way	راستی؛ اتفاقاً	Übrigens, morgen habe ich Geburtstag.	By the way, tomorrow is my birthday.	راستی، فردا تولد من است.
+core-1	1	natürlich	-	of course; naturally	البته؛ طبیعتاً	Natürlich helfe ich dir.	Of course I will help you.	البته که کمکت می‌کنم.
+core-1	1	genau	-	exactly; precisely	دقیقاً؛ درست است	Genau, so habe ich das gemeint.	Exactly, that is what I meant.	دقیقاً، منظورم همین بود.
+core-1	1	ehrlich gesagt	-	to be honest	راستش را بخواهید؛ صادقانه بگویم	Ehrlich gesagt, ich habe keine Lust.	To be honest, I don't feel like it.	راستش حوصله‌اش را ندارم.
+core-1	1	zum Beispiel	-	for example	برای مثال	Ich mag Obst, zum Beispiel Äpfel.	I like fruit, for example apples.	من میوه دوست دارم، برای مثال سیب.
+core-1	1	nämlich	-	namely; you see (explaining)	یعنی؛ چون (توضیح)	Ich kann nicht kommen, ich bin nämlich krank.	I can't come, you see, I am ill.	نمی‌توانم بیایم، آخر مریضم.
+core-1	1	trotzdem	-	nevertheless; all the same	با این حال؛ بااین‌همه	Es regnet, aber wir gehen trotzdem spazieren.	It is raining, but we go for a walk anyway.	باران می‌بارد، اما با این حال قدم می‌زنیم.
+core-1	1	deshalb	-	therefore; that's why	به همین دلیل	Ich bin müde, deshalb gehe ich früh ins Bett.	I am tired, that's why I go to bed early.	خسته‌ام، به همین دلیل زود می‌خوابم.
+core-1	1	sonst	-	otherwise; else	وگرنه؛ دیگر	Beeil dich, sonst verpassen wir den Bus.	Hurry up, otherwise we will miss the bus.	عجله کن، وگرنه اتوبوس را از دست می‌دهیم.
+core-1	1	außerdem	-	besides; in addition	علاوه بر این	Das Hotel ist günstig, außerdem liegt es zentral.	The hotel is cheap, and besides it is central.	هتل ارزان است، علاوه بر این مرکزی هم هست.
+core-1	1	Na ja	-	well; oh well	خب؛ ای بابا	Na ja, so schlecht war es nicht.	Well, it wasn't that bad.	خب، آن‌قدرها هم بد نبود.
+core-1	1	Keine Ahnung	-	no idea	نمی‌دانم؛ هیچ ایده‌ای ندارم	Wo ist Anna? – Keine Ahnung.	Where is Anna? – No idea.	آنا کجاست؟ – نمی‌دانم.
+core-1	1	Das stimmt.	-	That's right.	درست است.	Das stimmt, du hast recht.	That's right, you are right.	درست است، حق با توست.
+core-1	1	Echt?	-	Really?	واقعاً؟	Ich habe gewonnen! – Echt?	I won! – Really?	من برنده شدم! – واقعاً؟
+core-1	1	Quatsch	-	nonsense	مزخرف؛ چرت	Das ist doch Quatsch!	That's just nonsense!	این که چرت است!
+core-1	1	Klar!	-	Sure!; Of course!	حتماً!؛ معلومه!	Kommst du mit? – Klar!	Are you coming along? – Sure!	با ما می‌آیی؟ – حتماً!
+core-1	1	Moment mal	-	hang on; wait a second	یک لحظه؛ صبر کن	Moment mal, das habe ich nicht verstanden.	Hang on, I didn't understand that.	یک لحظه، این را نفهمیدم.
+core-1	1	Kein Problem.	-	No problem.	مشکلی نیست.	Danke für die Hilfe! – Kein Problem.	Thanks for the help! – No problem.	از کمکت ممنون! – مشکلی نیست.
+core-1	1	Macht nichts.	-	Never mind.	اشکالی ندارد.	Entschuldigung! – Macht nichts.	Sorry! – Never mind.	ببخشید! – اشکالی ندارد.
+core-1	1	Alles klar.	-	All right; understood.	باشه؛ فهمیدم.	Treffen wir uns um acht? – Alles klar.	Shall we meet at eight? – All right.	ساعت هشت همدیگر را ببینیم؟ – باشه.
+core-1	1	wie gesagt	-	as I said	همان‌طور که گفتم	Wie gesagt, ich komme später.	As I said, I'll come later.	همان‌طور که گفتم، دیرتر می‌آیم.
+core-1	1	Ich meine	-	I mean	منظورم این است	Ich meine, wir sollten früher losgehen.	I mean, we should set off earlier.	منظورم این است که باید زودتر راه بیفتیم.
+core-1	1	zum Glück	-	luckily; fortunately	خوشبختانه؛ از شانس خوب	Zum Glück war niemand verletzt.	Luckily nobody was hurt.	خوشبختانه کسی آسیب ندید.
+core-1	1	hoffentlich	-	hopefully	امیدوارم	Hoffentlich regnet es morgen nicht.	Hopefully it won't rain tomorrow.	امیدوارم فردا باران نبارد.
+core-1	1	doch	-	but yes; after all (contradicts a no)	چرا (در پاسخ به نفی)	Du kommst nicht? – Doch, ich komme!	You're not coming? – Yes, I am!	نمی‌آیی؟ – چرا، می‌آیم!
+core-1	1	eben	-	just; exactly (that's how it is)	همین؛ دیگر (همین است که هست)	Es ist eben so.	That's just how it is.	اوضاع همین است دیگر.
+core-1	1	irgendwie	-	somehow	به‌نوعی؛ یک‌جوری	Irgendwie finde ich ihn komisch.	Somehow I find him odd.	یک‌جوری او را عجیب می‌دانم.
+core-1	1	ungefähr	-	about; approximately	تقریباً؛ حدوداً	Der Weg dauert ungefähr zehn Minuten.	The way takes about ten minutes.	راه حدوداً ده دقیقه طول می‌کشد.
+core-1	1	wahrscheinlich	-	probably	احتمالاً	Er kommt wahrscheinlich später.	He will probably come later.	او احتمالاً دیرتر می‌آید.
+core-1	1	bestimmt	-	certainly; surely	حتماً؛ مطمئناً	Das schaffst du bestimmt.	You will surely manage that.	تو حتماً از پسش برمی‌آیی.
+core-1	1	sicher	-	sure; safe	مطمئن؛ امن	Bist du sicher?	Are you sure?	مطمئنی؟
+core-1	1	anscheinend	-	apparently	ظاهراً	Anscheinend hat er den Zug verpasst.	Apparently he missed the train.	ظاهراً او قطار را از دست داده است.
+core-1	1	tatsächlich	-	actually; indeed	واقعاً؛ در حقیقت	Es hat tatsächlich geklappt!	It actually worked!	واقعاً جواب داد!
+core-1	1	zumindest	-	at least	دست‌کم	Zumindest hat es nicht geregnet.	At least it didn't rain.	دست‌کم باران نبارید.
+core-1	1	jedenfalls	-	in any case	به هر حال	Jedenfalls bin ich um acht da.	In any case I will be there at eight.	به هر حال ساعت هشت آنجا هستم.
+core-1	1	schließlich	-	finally; after all	سرانجام؛ آخر	Schließlich haben wir den Weg gefunden.	Finally we found the way.	سرانجام راه را پیدا کردیم.
+core-1	2	Wie bitte?	-	Pardon?; Sorry?	ببخشید؟ چی فرمودید؟	Wie bitte? Ich habe Sie nicht verstanden.	Pardon? I didn't understand you.	ببخشید؟ متوجه نشدم.
+core-1	2	Wie meinst du das?	-	What do you mean?	منظورت چیست؟	Wie meinst du das genau?	What exactly do you mean?	دقیقاً منظورت چیست؟
+core-1	2	Könnten Sie das wiederholen?	-	Could you repeat that?	می‌توانید تکرار کنید؟	Entschuldigung, könnten Sie das wiederholen?	Sorry, could you repeat that?	ببخشید، می‌توانید تکرار کنید؟
+core-1	2	Wie sagt man …?	-	How do you say …?	چگونه می‌گویند …؟	Wie sagt man „thank you“ auf Deutsch?	How do you say "thank you" in German?	«thank you» را به آلمانی چطور می‌گویند؟
+core-1	2	Wie schreibt man das?	-	How do you spell that?	این را چطور می‌نویسند؟	Wie schreibt man Ihren Namen?	How do you spell your name?	اسم شما را چطور می‌نویسند؟
+core-1	2	Was bedeutet das?	-	What does that mean?	این یعنی چه؟	Was bedeutet dieses Wort?	What does this word mean?	این کلمه یعنی چه؟
+core-1	2	Woher weißt du das?	-	How do you know that?	از کجا می‌دانی؟	Woher weißt du das?	How do you know that?	این را از کجا می‌دانی؟
+core-1	2	Warum nicht?	-	Why not?	چرا که نه؟	Du willst nicht mitkommen? Warum nicht?	You don't want to come along? Why not?	نمی‌خواهی بیایی؟ چرا که نه؟
+core-1	2	Wie lange?	-	How long?	چه مدت؟	Wie lange dauert der Film?	How long does the film last?	فیلم چه مدت طول می‌کشد؟
+core-1	2	Wie oft?	-	How often?	چند وقت یک‌بار؟	Wie oft gehst du ins Kino?	How often do you go to the cinema?	هر چند وقت یک‌بار به سینما می‌روی؟
+core-1	2	Wie viele?	-	How many?	چند تا؟	Wie viele Leute kommen?	How many people are coming?	چند نفر می‌آیند؟
+core-1	2	Seit wann?	-	Since when?	از کی؟	Seit wann wohnst du hier?	Since when have you lived here?	از کی اینجا زندگی می‌کنی؟
+core-1	2	Bis wann?	-	Until when?	تا کی؟	Bis wann hast du geöffnet?	Until when are you open?	تا کی باز هستید؟
+core-1	2	Hast du Zeit?	-	Do you have time?	وقت داری؟	Hast du morgen Zeit für einen Kaffee?	Do you have time for a coffee tomorrow?	فردا برای یک قهوه وقت داری؟
+core-1	2	Hättest du Lust?	-	Would you like to?	حوصله‌اش را داری؟	Hättest du Lust auf einen Spaziergang?	Would you like to go for a walk?	حوصله یک پیاده‌روی را داری؟
+core-1	2	Ich hätte gern …	-	I would like …	من … می‌خواستم	Ich hätte gern einen Tee.	I would like a tea.	من یک چای می‌خواستم.
+core-1	2	Darf ich …?	-	May I …?	اجازه هست …؟	Darf ich Sie etwas fragen?	May I ask you something?	اجازه هست چیزی از شما بپرسم؟
+core-1	2	Würdest du bitte …?	-	Would you please …?	لطفاً می‌شود …؟	Würdest du bitte das Fenster zumachen?	Would you please close the window?	لطفاً می‌شود پنجره را ببندی؟
+core-1	2	Gern geschehen.	-	You're welcome.	خواهش می‌کنم.	Danke für alles! – Gern geschehen.	Thanks for everything! – You're welcome.	بابت همه چیز ممنون! – خواهش می‌کنم.
+core-1	2	Keine Ursache.	-	Don't mention it.	قابلی ندارد.	Vielen Dank! – Keine Ursache.	Thank you very much! – Don't mention it.	خیلی ممنون! – قابلی ندارد.
+core-1	2	Auf keinen Fall.	-	Under no circumstances; no way.	به هیچ وجه.	Gehst du dorthin? – Auf keinen Fall.	Are you going there? – No way.	آنجا می‌روی؟ – به هیچ وجه.
+core-1	2	Von mir aus.	-	Fine by me.	برای من فرقی نمی‌کند؛ باشه.	Pizza oder Pasta? – Von mir aus beides.	Pizza or pasta? – Fine by me, either.	پیتزا یا پاستا؟ – برای من هر دو خوب است.
+core-1	2	Das ist mir egal.	-	I don't mind; I don't care.	برایم فرقی نمی‌کند.	Wo wir essen, ist mir egal.	It doesn't matter to me where we eat.	برایم فرقی نمی‌کند کجا غذا بخوریم.
+core-1	2	Einverstanden.	-	Agreed.	موافقم.	Um acht Uhr? – Einverstanden.	At eight o'clock? – Agreed.	ساعت هشت؟ – موافقم.
+core-1	2	Abgemacht!	-	It's a deal!	قرارمان شد!	Ich bringe den Kuchen mit. – Abgemacht!	I'll bring the cake. – It's a deal!	من کیک می‌آورم. – قرارمان شد!
+core-1	2	Ich bin mir nicht sicher.	-	I'm not sure.	مطمئن نیستم.	Ich bin mir nicht sicher, ob er kommt.	I'm not sure whether he is coming.	مطمئن نیستم که او بیاید.
+core-1	2	Ich glaube schon.	-	I think so.	فکر می‌کنم بله.	Regnet es morgen? – Ich glaube schon.	Will it rain tomorrow? – I think so.	فردا باران می‌بارد؟ – فکر کنم بله.
+core-1	2	Ich glaube nicht.	-	I don't think so.	فکر نمی‌کنم.	Kommt er noch? – Ich glaube nicht.	Is he still coming? – I don't think so.	هنوز می‌آید؟ – فکر نمی‌کنم.
+core-1	2	überhaupt nicht	-	not at all	اصلاً؛ ابداً	Das stört mich überhaupt nicht.	That doesn't bother me at all.	این اصلاً مرا ناراحت نمی‌کند.
+core-1	2	gar nicht	-	not at all	اصلاً	Ich verstehe das gar nicht.	I don't understand that at all.	من این را اصلاً نمی‌فهمم.
+core-1	2	Nein danke.	-	No thank you.	نه ممنون.	Noch ein Stück Kuchen? – Nein danke.	Another piece of cake? – No thank you.	یک تکه کیک دیگر؟ – نه ممنون.
+core-1	2	Kann ich Ihnen helfen?	-	Can I help you?	می‌توانم کمکتان کنم؟	Guten Tag, kann ich Ihnen helfen?	Good day, can I help you?	روز بخیر، می‌توانم کمکتان کنم؟
+core-1	2	Das passt mir gut.	-	That suits me fine.	برای من خوب است.	Dienstag passt mir gut.	Tuesday suits me fine.	سه‌شنبه برای من خوب است.
+core-1	2	Das geht leider nicht.	-	Unfortunately that's not possible.	متأسفانه نمی‌شود.	Morgen geht leider nicht.	Tomorrow is unfortunately not possible.	فردا متأسفانه نمی‌شود.
+core-1	2	Ich bin gleich da.	-	I'll be right there.	همین حالا می‌رسم.	Warte kurz, ich bin gleich da.	Wait a moment, I'll be right there.	یک لحظه صبر کن، همین حالا می‌رسم.
+core-1	2	Machen Sie sich keine Sorgen.	-	Don't worry.	نگران نباشید.	Machen Sie sich keine Sorgen, das schaffen wir.	Don't worry, we'll manage.	نگران نباشید، از پسش برمی‌آییم.
+core-1	2	Das ist nett von dir.	-	That's kind of you.	لطف داری.	Danke, das ist nett von dir.	Thanks, that's kind of you.	ممنون، لطف داری.
+core-1	2	Entschuldigen Sie die Verspätung.	-	Sorry for being late.	ببخشید که دیر کردم.	Entschuldigen Sie die Verspätung, der Bus kam nicht.	Sorry for being late, the bus didn't come.	ببخشید که دیر کردم، اتوبوس نیامد.
+core-1	2	Tut mir leid.	-	I'm sorry.	متأسفم.	Tut mir leid, das wusste ich nicht.	I'm sorry, I didn't know that.	متأسفم، این را نمی‌دانستم.
+core-1	2	Kein Wunder.	-	No wonder.	عجیب نیست.	Er hat nicht geschlafen, kein Wunder, dass er müde ist.	He didn't sleep, no wonder he is tired.	او نخوابیده، عجیب نیست که خسته است.
+core-1	3	ich finde	-	I think; I find (opinion)	به نظر من؛ فکر می‌کنم	Ich finde den Film gut.	I think the film is good.	به نظر من فیلم خوب است.
+core-1	3	meiner Meinung nach	-	in my opinion	به نظر من	Meiner Meinung nach ist das richtig.	In my opinion that is correct.	به نظر من این درست است.
+core-1	3	zustimmen	-	to agree	موافقت کردن	Ich stimme dir völlig zu.	I completely agree with you.	کاملاً با تو موافقم.
+core-1	3	widersprechen	-	to contradict; to disagree	مخالفت کردن	Dem muss ich leider widersprechen.	Unfortunately I have to disagree with that.	متأسفانه باید با این مخالفت کنم.
+core-1	3	dafür	-	in favour	موافق	Ich bin dafür.	I am in favour.	من موافقم.
+core-1	3	dagegen	-	against	مخالف	Ich bin dagegen.	I am against it.	من مخالفم.
+core-1	3	froh	-	glad; happy	خوشحال	Ich bin froh, dass du da bist.	I am glad that you are here.	خوشحالم که تو اینجایی.
+core-1	3	glücklich	-	happy	شاد؛ خوشبخت	Sie ist sehr glücklich.	She is very happy.	او بسیار خوشبخت است.
+core-1	3	traurig	-	sad	غمگین	Warum bist du so traurig?	Why are you so sad?	چرا اینقدر غمگینی؟
+core-1	3	wütend	-	furious; angry	عصبانی؛ خشمگین	Er ist wütend auf mich.	He is angry with me.	او از دست من عصبانی است.
+core-1	3	sauer	-	angry (informal); sour	دلخور؛ ترش	Bist du sauer auf mich?	Are you cross with me?	از دستم دلخوری؟
+core-1	3	aufgeregt	-	excited; nervous	هیجان‌زده؛ دلشوره‌دار	Ich bin vor der Prüfung sehr aufgeregt.	I am very nervous before the exam.	قبل از امتحان خیلی دلشوره دارم.
+core-1	3	nervös	-	nervous	عصبی؛ نگران	Sie ist vor dem Interview nervös.	She is nervous before the interview.	او قبل از مصاحبه عصبی است.
+core-1	3	gespannt	-	curious; eager to know	کنجکاو؛ مشتاق	Ich bin gespannt auf das Ergebnis.	I am eager to see the result.	مشتاقم نتیجه را ببینم.
+core-1	3	enttäuscht	-	disappointed	ناامید؛ دلسرد	Ich bin vom Ergebnis enttäuscht.	I am disappointed with the result.	از نتیجه ناامید شده‌ام.
+core-1	3	überrascht	-	surprised	شگفت‌زده	Ich bin total überrascht.	I am totally surprised.	من کاملاً شگفت‌زده‌ام.
+core-1	3	stolz	-	proud	مغرور؛ سربلند	Ich bin stolz auf dich.	I am proud of you.	به تو افتخار می‌کنم.
+core-1	3	peinlich	-	embarrassing	خجالت‌آور	Das ist mir wirklich peinlich.	I am really embarrassed about that.	این واقعاً برایم خجالت‌آور است.
+core-1	3	langweilig	-	boring	خسته‌کننده؛ کسل‌کننده	Der Film war langweilig.	The film was boring.	فیلم کسل‌کننده بود.
+core-1	3	spannend	-	exciting; thrilling	هیجان‌انگیز	Das Buch ist sehr spannend.	The book is very exciting.	کتاب بسیار هیجان‌انگیز است.
+core-1	3	interessant	-	interesting	جالب	Das ist ein interessantes Thema.	That is an interesting topic.	این موضوع جالبی است.
+core-1	3	schrecklich	-	terrible; awful	وحشتناک؛ افتضاح	Das Wetter ist schrecklich.	The weather is awful.	هوا افتضاح است.
+core-1	3	toll	-	great; fantastic	عالی؛ محشر	Das war ein toller Abend.	That was a great evening.	شب عالی‌ای بود.
+core-1	3	super	-	super; great	فوق‌العاده	Das Essen war super.	The food was super.	غذا فوق‌العاده بود.
+core-1	3	furchtbar	-	dreadful; terribly	وحشتناک	Es tut mir furchtbar leid.	I am terribly sorry.	خیلی متأسفم.
+core-1	3	komisch	-	odd; funny; strange	عجیب؛ خنده‌دار	Das ist wirklich komisch.	That is really odd.	این واقعاً عجیب است.
+core-1	3	seltsam	-	strange	غریب؛ عجیب	Er benimmt sich seltsam.	He is behaving strangely.	او رفتار عجیبی دارد.
+core-1	3	sich ärgern	-	to be annoyed	عصبانی شدن؛ دلخور شدن	Ich ärgere mich über den Lärm.	I am annoyed about the noise.	از سروصدا عصبانی‌ام.
+core-1	3	sich sorgen	-	to worry	نگران بودن	Meine Eltern sorgen sich um mich.	My parents worry about me.	پدر و مادرم نگران من هستند.
+core-1	3	sich wundern	-	to be surprised	تعجب کردن	Ich wundere mich über seine Antwort.	I am surprised by his answer.	از جواب او تعجب می‌کنم.
+core-1	3	hassen	-	to hate	متنفر بودن	Ich hasse Montage.	I hate Mondays.	من از دوشنبه‌ها متنفرم.
+core-1	3	bedauern	-	to regret; to be sorry about	متأسف بودن	Ich bedaure den Fehler sehr.	I very much regret the mistake.	از این اشتباه بسیار متأسفم.
+core-1	3	sich fühlen	-	to feel	احساس کردن	Wie fühlst du dich heute?	How do you feel today?	امروز چه احساسی داری؟
+core-1	3	vertrauen	-	to trust	اعتماد کردن	Ich vertraue meinem Freund.	I trust my friend.	من به دوستم اعتماد دارم.
+core-1	3	Spaß machen	-	to be fun	لذت‌بخش بودن؛ سرگرم‌کننده بودن	Deutsch lernen macht mir Spaß.	Learning German is fun for me.	یادگیری آلمانی برایم لذت‌بخش است.
+core-1	3	gefallen	-	to please; to like	پسندیدن؛ خوشایند بودن	Dein Kleid gefällt mir sehr.	I like your dress a lot.	لباس تو را خیلی می‌پسندم.
+core-1	3	sich entscheiden	-	to decide	تصمیم گرفتن	Ich kann mich nicht entscheiden.	I can't decide.	نمی‌توانم تصمیم بگیرم.
+core-1	4	gerade	-	just now; at the moment	همین الان؛ الان	Ich bin gerade beim Essen.	I am eating right now.	همین الان مشغول غذا خوردنم.
+core-1	4	vorhin	-	a little while ago	چند لحظه پیش	Ich habe dich vorhin angerufen.	I called you a little while ago.	چند لحظه پیش به تو زنگ زدم.
+core-1	4	neulich	-	the other day; recently	چندی پیش؛ اخیراً	Neulich habe ich Paul getroffen.	The other day I met Paul.	چندی پیش پاول را دیدم.
+core-1	4	damals	-	back then	آن زمان؛ در آن روزگار	Damals hatten wir kein Handy.	Back then we had no mobile phone.	آن زمان ما تلفن همراه نداشتیم.
+core-1	4	früher	-	earlier; in the past	قبلاً؛ در گذشته	Früher habe ich in Teheran gewohnt.	In the past I lived in Tehran.	قبلاً در تهران زندگی می‌کردم.
+core-1	4	später	-	later	بعداً	Ich rufe dich später an.	I'll call you later.	بعداً به تو زنگ می‌زنم.
+core-1	4	sofort	-	immediately	فوراً	Komm bitte sofort her!	Please come here immediately!	لطفاً فوراً بیا اینجا!
+core-1	4	gleich	-	in a moment; right away	همین الان؛ تا چند لحظه دیگر	Ich komme gleich.	I'll be right there.	همین الان می‌آیم.
+core-1	4	erst	-	only; not until	تازه؛ فقط	Es ist erst acht Uhr.	It is only eight o'clock.	تازه ساعت هشت است.
+core-1	4	endlich	-	finally; at last	بالاخره	Endlich ist Freitag!	At last it is Friday!	بالاخره جمعه شد!
+core-1	4	zuerst	-	first; at first	اول؛ ابتدا	Zuerst trinke ich einen Kaffee.	First I drink a coffee.	اول یک قهوه می‌نوشم.
+core-1	4	danach	-	afterwards	بعد از آن	Danach gehen wir nach Hause.	Afterwards we go home.	بعد از آن به خانه می‌رویم.
+core-1	4	davor	-	before that	قبل از آن	Davor habe ich noch gegessen.	Before that I ate something.	قبل از آن هنوز غذا خورده بودم.
+core-1	4	nie	-	never	هرگز؛ هیچ‌وقت	Ich war noch nie in Wien.	I have never been to Vienna.	من هرگز در وین نبوده‌ام.
+core-1	4	immer	-	always	همیشه	Er ist immer pünktlich.	He is always punctual.	او همیشه وقت‌شناس است.
+core-1	4	oft	-	often	اغلب؛ زیاد	Wir sehen uns oft.	We see each other often.	ما همدیگر را اغلب می‌بینیم.
+core-1	4	manchmal	-	sometimes	گاهی؛ بعضی وقت‌ها	Manchmal koche ich am Wochenende.	Sometimes I cook at the weekend.	گاهی آخر هفته آشپزی می‌کنم.
+core-1	4	selten	-	rarely	به‌ندرت	Ich esse selten Fleisch.	I rarely eat meat.	به‌ندرت گوشت می‌خورم.
+core-1	4	meistens	-	mostly; usually	بیشتر اوقات	Meistens stehe ich um sieben auf.	I usually get up at seven.	بیشتر اوقات ساعت هفت بلند می‌شوم.
+core-1	4	normalerweise	-	normally	معمولاً	Normalerweise arbeite ich bis fünf.	Normally I work until five.	معمولاً تا ساعت پنج کار می‌کنم.
+core-1	4	jedes Mal	-	every time	هر بار	Jedes Mal vergesse ich den Schlüssel.	Every time I forget the key.	هر بار کلید را فراموش می‌کنم.
+core-1	4	täglich	-	daily	روزانه	Ich lerne täglich eine Stunde.	I study for an hour daily.	من روزانه یک ساعت درس می‌خوانم.
+core-1	4	am Wochenende	-	at the weekend	آخر هفته	Am Wochenende besuche ich meine Eltern.	At the weekend I visit my parents.	آخر هفته به دیدن پدر و مادرم می‌روم.
+core-1	4	nächste Woche	-	next week	هفته آینده	Nächste Woche habe ich Urlaub.	Next week I am on holiday.	هفته آینده مرخصی دارم.
+core-1	4	letzte Woche	-	last week	هفته گذشته	Letzte Woche war ich krank.	Last week I was ill.	هفته گذشته مریض بودم.
+core-1	4	vorgestern	-	the day before yesterday	پریروز	Vorgestern habe ich ihn gesehen.	I saw him the day before yesterday.	پریروز او را دیدم.
+core-1	4	übermorgen	-	the day after tomorrow	پس‌فردا	Übermorgen fahren wir los.	We set off the day after tomorrow.	پس‌فردا حرکت می‌کنیم.
+core-1	4	inzwischen	-	meanwhile; by now	در این بین؛ تا حالا	Inzwischen ist er zurückgekommen.	By now he has come back.	تا حالا او برگشته است.
+core-1	4	während	-	during; while	در طول؛ هنگامی که	Während des Essens sprechen wir nicht.	During the meal we don't talk.	در حین غذا صحبت نمی‌کنیم.
+core-1	4	bevor	-	before (conjunction)	پیش از آنکه	Bevor ich gehe, rufe ich dich an.	Before I leave, I'll call you.	پیش از آنکه بروم، به تو زنگ می‌زنم.
+core-1	4	nachdem	-	after (conjunction)	بعد از آنکه	Nachdem ich gegessen hatte, ging ich spazieren.	After I had eaten, I went for a walk.	بعد از آنکه غذا خوردم، به پیاده‌روی رفتم.
+core-1	4	seitdem	-	since then	از آن زمان	Seitdem lerne ich jeden Tag Deutsch.	Since then I learn German every day.	از آن زمان هر روز آلمانی یاد می‌گیرم.
+core-1	4	plötzlich	-	suddenly	ناگهان	Plötzlich klingelte das Telefon.	Suddenly the phone rang.	ناگهان تلفن زنگ زد.
+core-1	4	rechtzeitig	-	in time	به‌موقع	Wir sind rechtzeitig am Bahnhof.	We are at the station in time.	ما به‌موقع در ایستگاه هستیم.
+core-1	4	sich beeilen	-	to hurry	عجله کردن	Wir müssen uns beeilen.	We have to hurry.	ما باید عجله کنیم.
+core-1	4	verschieben	-	to postpone; to move	عقب انداختن؛ جابه‌جا کردن	Können wir den Termin verschieben?	Can we postpone the appointment?	می‌توانیم قرار را عقب بیندازیم؟
+core-1	4	absagen	-	to cancel; to call off	لغو کردن (قرار)	Ich muss das Treffen leider absagen.	Unfortunately I have to cancel the meeting.	متأسفانه باید دیدار را لغو کنم.
+core-1	4	vereinbaren	-	to arrange; to agree on	قرار گذاشتن؛ توافق کردن	Wir vereinbaren einen neuen Termin.	We arrange a new appointment.	یک قرار جدید می‌گذاریم.
+core-1	4	verpassen	-	to miss	از دست دادن (قطار و …)	Ich habe den Bus verpasst.	I missed the bus.	اتوبوس را از دست دادم.
+core-1	4	Zeit haben	-	to have time	وقت داشتن	Hast du am Samstag Zeit?	Do you have time on Saturday?	شنبه وقت داری؟
+core-1	4	dauern	-	to last; to take (time)	طول کشیدن	Das dauert noch ein bisschen.	That will take a little longer.	این هنوز کمی طول می‌کشد.
+core-1	5	überall	-	everywhere	همه‌جا	Ich habe überall gesucht.	I have searched everywhere.	همه‌جا را گشته‌ام.
+core-1	5	irgendwo	-	somewhere	یک جایی	Ich habe meine Brille irgendwo liegen lassen.	I left my glasses somewhere.	عینکم را یک جایی جا گذاشته‌ام.
+core-1	5	nirgends	-	nowhere	هیچ‌جا	Ich finde den Schlüssel nirgends.	I can't find the key anywhere.	کلید را هیچ‌جا پیدا نمی‌کنم.
+core-1	5	drinnen	-	inside	داخل؛ توی خانه	Bei Regen bleiben wir drinnen.	When it rains we stay inside.	وقتی باران می‌بارد داخل می‌مانیم.
+core-1	5	nebenan	-	next door	همین کنار؛ خانه کناری	Die Bäckerei ist gleich nebenan.	The bakery is right next door.	نانوایی همین کنار است.
+core-1	5	gegenüber	-	opposite	روبه‌رو	Die Post ist gegenüber vom Bahnhof.	The post office is opposite the station.	اداره پست روبه‌روی ایستگاه است.
+core-1	5	in der Nähe	-	nearby	نزدیک؛ در همین اطراف	Gibt es hier in der Nähe eine Apotheke?	Is there a pharmacy nearby?	اینجا نزدیک داروخانه هست؟
+core-1	5	weit weg	-	far away	دور	Mein Bruder wohnt weit weg.	My brother lives far away.	برادرم دور زندگی می‌کند.
+core-1	5	geradeaus	-	straight ahead	مستقیم	Gehen Sie geradeaus bis zur Ampel.	Go straight ahead to the traffic lights.	مستقیم تا چراغ راهنما بروید.
+core-1	5	abbiegen	-	to turn (off)	پیچیدن	Biegen Sie an der Kreuzung links ab.	Turn left at the junction.	سر چهارراه به چپ بپیچید.
+core-1	5	überqueren	-	to cross	عبور کردن از	Wir überqueren die Straße bei Grün.	We cross the street on green.	ما در چراغ سبز از خیابان رد می‌شویم.
+core-1	5	entlang	-	along	در امتداد	Wir gehen den Fluss entlang.	We walk along the river.	ما در امتداد رودخانه قدم می‌زنیم.
+core-1	5	mitten	-	in the middle	وسط؛ در میان	Das Hotel liegt mitten in der Stadt.	The hotel is in the middle of the city.	هتل وسط شهر قرار دارد.
+core-1	5	hinein	-	in; inside (direction)	به داخل	Gehen Sie bitte hinein.	Please go in.	لطفاً داخل بروید.
+core-1	5	heraus	-	out (direction)	به بیرون	Kommen Sie bitte heraus.	Please come out.	لطفاً بیرون بیایید.
+core-1	5	hinauf	-	up (away from speaker)	به بالا	Wir gehen den Berg hinauf.	We walk up the mountain.	ما از کوه بالا می‌رویم.
+core-1	5	hinunter	-	down (away from speaker)	به پایین	Sie läuft die Treppe hinunter.	She runs down the stairs.	او از پله‌ها پایین می‌دود.
+core-1	5	genug	-	enough	کافی	Ich habe genug gegessen.	I have eaten enough.	به اندازه کافی خورده‌ام.
+core-1	5	zu viel	-	too much	زیاد؛ بیش از حد	Das ist mir zu viel.	That is too much for me.	این برای من زیاد است.
+core-1	5	etwas	-	something; a little	چیزی؛ کمی	Möchtest du etwas trinken?	Would you like something to drink?	چیزی می‌نوشی؟
+core-1	5	alles	-	everything	همه چیز	Ich habe alles verstanden.	I understood everything.	همه چیز را فهمیدم.
+core-1	5	mehrere	-	several	چندین	Er hat mehrere Sprachen gelernt.	He has learned several languages.	او چندین زبان یاد گرفته است.
+core-1	5	einige	-	some; a few	بعضی؛ چند	Einige Freunde kommen heute Abend.	Some friends are coming tonight.	چند دوست امشب می‌آیند.
+core-1	5	manche	-	some (people/things)	بعضی	Manche Leute mögen kein Wetter wie dieses.	Some people don't like weather like this.	بعضی‌ها از چنین هوایی خوششان نمی‌آید.
+core-1	5	die Hälfte	Hälften	half	نیمه؛ نصف	Die Hälfte der Klasse fehlt heute.	Half the class is missing today.	نیمی از کلاس امروز غایب است.
+core-1	5	der Rest	Reste	the rest; remainder	باقی‌مانده؛ بقیه	Den Rest erzähle ich dir morgen.	I'll tell you the rest tomorrow.	بقیه‌اش را فردا برایت می‌گویم.
+core-1	5	ziemlich	-	quite; fairly	نسبتاً؛ کاملاً	Das ist ziemlich teuer.	That is quite expensive.	این نسبتاً گران است.
+core-1	5	ganz	-	quite; whole	کاملاً؛ تمام	Ich bin ganz sicher.	I am quite sure.	من کاملاً مطمئنم.
+core-1	5	völlig	-	completely	کاملاً؛ به‌طور کامل	Das ist völlig falsch.	That is completely wrong.	این کاملاً غلط است.
+core-1	5	mindestens	-	at least	دست‌کم	Das dauert mindestens eine Stunde.	That takes at least an hour.	این دست‌کم یک ساعت طول می‌کشد.
+core-1	5	höchstens	-	at most	حداکثر	Ich bleibe höchstens zwei Tage.	I'll stay two days at most.	حداکثر دو روز می‌مانم.
+core-1	5	fast	-	almost	تقریباً؛ نزدیک	Ich bin fast fertig.	I am almost finished.	تقریباً تمام کرده‌ام.
+core-1	5	außerhalb	-	outside (of)	بیرون از	Wir wohnen außerhalb der Stadt.	We live outside the city.	ما بیرون از شهر زندگی می‌کنیم.
+core-1	5	innerhalb	-	within	درون؛ در محدوده	Innerhalb einer Woche bekommst du eine Antwort.	Within a week you'll get an answer.	ظرف یک هفته جواب می‌گیری.
+core-1	5	vorbei	-	past; over	گذشته؛ تمام	Der Winter ist bald vorbei.	Winter will soon be over.	زمستان به‌زودی تمام می‌شود.
+core-1	6	jemand	-	someone	کسی؛ یک نفر	Ist jemand zu Hause?	Is anyone at home?	کسی خانه است؟
+core-1	6	niemand	-	nobody	هیچ‌کس	Niemand hat angerufen.	Nobody called.	هیچ‌کس تماس نگرفت.
+core-1	6	der Nachbar	Nachbarn	neighbour	همسایه	Unser Nachbar ist sehr freundlich.	Our neighbour is very friendly.	همسایه ما بسیار مهربان است.
+core-1	6	der Kollege	Kollegen	colleague	همکار	Mein Kollege hilft mir oft.	My colleague often helps me.	همکارم اغلب به من کمک می‌کند.
+core-1	6	der Typ	Typen	guy; type	آدم؛ پسر؛ تیپ	Wer ist der Typ da drüben?	Who is that guy over there?	آن آدم آن‌طرف کیست؟
+core-1	6	sich unterhalten	-	to chat; to talk	گپ زدن	Wir unterhalten uns oft über Musik.	We often chat about music.	ما اغلب درباره موسیقی گپ می‌زنیم.
+core-1	6	zuhören	-	to listen	گوش دادن	Hör mir bitte zu!	Please listen to me!	لطفاً به من گوش بده!
+core-1	6	sich verabreden	-	to arrange to meet	قرار ملاقات گذاشتن	Wir verabreden uns für Samstag.	We arrange to meet on Saturday.	برای شنبه قرار می‌گذاریم.
+core-1	6	die Verabredung	Verabredungen	date; appointment	قرار (ملاقات)	Ich habe heute Abend eine Verabredung.	I have a date tonight.	امشب قرار دارم.
+core-1	6	das Treffen	Treffen	meeting; get-together	دیدار؛ جلسه	Das Treffen war sehr nett.	The get-together was very nice.	دیدار بسیار دوستانه بود.
+core-1	6	sich trennen	-	to split up; to separate	جدا شدن	Sie haben sich letztes Jahr getrennt.	They split up last year.	آن‌ها پارسال از هم جدا شدند.
+core-1	6	sich entschuldigen	-	to apologise	عذرخواهی کردن	Ich muss mich bei ihm entschuldigen.	I have to apologise to him.	باید از او عذرخواهی کنم.
+core-1	6	verzeihen	-	to forgive	بخشیدن	Kannst du mir verzeihen?	Can you forgive me?	می‌توانی مرا ببخشی؟
+core-1	6	versprechen	-	to promise	قول دادن	Ich verspreche dir, pünktlich zu sein.	I promise you to be on time.	به تو قول می‌دهم وقت‌شناس باشم.
+core-1	6	trösten	-	to comfort	تسلی دادن	Sie tröstet ihre kleine Schwester.	She comforts her little sister.	او خواهر کوچکش را تسلی می‌دهد.
+core-1	6	begrüßen	-	to greet; to welcome	سلام کردن؛ خوشامد گفتن	Er begrüßt die Gäste an der Tür.	He welcomes the guests at the door.	او مهمان‌ها را دم در خوشامد می‌گوید.
+core-1	6	sich verabschieden	-	to say goodbye	خداحافظی کردن	Wir verabschieden uns am Bahnhof.	We say goodbye at the station.	ما در ایستگاه خداحافظی می‌کنیم.
+core-1	6	der Gastgeber	Gastgeber	host	میزبان	Der Gastgeber serviert Tee.	The host serves tea.	میزبان چای می‌آورد.
+core-1	6	das Gespräch	Gespräche	conversation	گفتگو	Das Gespräch war sehr offen.	The conversation was very open.	گفتگو بسیار صریح بود.
+core-1	6	der Freundeskreis	Freundeskreise	circle of friends	حلقه دوستان	In meinem Freundeskreis sprechen alle Deutsch.	In my circle of friends everyone speaks German.	در حلقه دوستانم همه آلمانی صحبت می‌کنند.
+core-1	6	sich kennen	-	to know each other	همدیگر را می‌شناسند	Wir kennen uns schon lange.	We have known each other for a long time.	ما مدت‌هاست همدیگر را می‌شناسیم.
+core-1	6	sich verstehen	-	to get along	با هم کنار آمدن؛ تفاهم داشتن	Ich verstehe mich gut mit meinem Bruder.	I get along well with my brother.	من با برادرم خوب کنار می‌آیم.
+core-1	6	sich streiten	-	to argue; to quarrel	دعوا کردن	Die Kinder streiten sich ständig.	The children argue constantly.	بچه‌ها دائم دعوا می‌کنند.
+core-1	6	sich einigen	-	to agree; to come to terms	به توافق رسیدن	Wir konnten uns nicht einigen.	We couldn't agree.	نتوانستیم به توافق برسیم.
+core-1	6	sich melden	-	to get in touch; to report	تماس گرفتن؛ خبر دادن	Melde dich bitte, wenn du da bist.	Please get in touch when you are there.	لطفاً وقتی رسیدی خبر بده.
+core-1	6	erwähnen	-	to mention	ذکر کردن	Er hat das gar nicht erwähnt.	He didn't mention that at all.	او اصلاً این را ذکر نکرد.
+core-1	6	erreichen	-	to reach; to get hold of	رسیدن به؛ در دسترس بودن	Ich habe ihn nicht erreicht.	I did not reach him.	به او دسترسی پیدا نکردم.
+core-1	6	weitersagen	-	to pass on (tell others)	به دیگران گفتن	Bitte sag es nicht weiter.	Please don't tell anyone.	لطفاً به کسی نگو.
+core-1	6	ausrichten	-	to pass on (a message)	پیغام رساندن	Kannst du ihm etwas ausrichten?	Can you pass a message on to him?	می‌توانی پیغامی به او برسانی؟
+core-1	6	vorschlagen	-	to suggest	پیشنهاد کردن	Ich schlage einen Spaziergang vor.	I suggest a walk.	یک پیاده‌روی پیشنهاد می‌کنم.
+core-1	6	einladen	-	to invite	دعوت کردن	Ich lade dich zum Essen ein.	I invite you to dinner.	تو را به شام دعوت می‌کنم.
+core-1	6	gratulieren	-	to congratulate	تبریک گفتن	Ich gratuliere dir zum Geburtstag.	Happy birthday to you.	تولدت را تبریک می‌گویم.
+core-1	7	aufräumen	-	to tidy up	مرتب کردن	Ich räume mein Zimmer auf.	I tidy up my room.	اتاقم را مرتب می‌کنم.
+core-1	7	putzen	-	to clean	تمیز کردن	Am Samstag putzen wir die Wohnung.	On Saturday we clean the flat.	شنبه آپارتمان را تمیز می‌کنیم.
+core-1	7	abwaschen	-	to wash up	ظرف شستن	Wer wäscht heute ab?	Who is washing up today?	امروز کی ظرف می‌شوید؟
+core-1	7	die Wäsche	-	laundry	لباس‌های شستنی؛ رخت	Ich mache die Wäsche.	I do the laundry.	رخت‌ها را می‌شویم.
+core-1	7	den Tisch decken	-	to set the table	میز را چیدن	Kannst du bitte den Tisch decken?	Can you set the table, please?	لطفاً میز را بچینی؟
+core-1	7	den Müll rausbringen	-	to take out the rubbish	زباله را بیرون بردن	Vergiss nicht, den Müll rauszubringen.	Don't forget to take out the rubbish.	فراموش نکن زباله را ببری بیرون.
+core-1	7	staubsaugen	-	to vacuum	جارو برقی کشیدن	Ich muss noch staubsaugen.	I still have to vacuum.	هنوز باید جارو برقی بکشم.
+core-1	7	lüften	-	to air (a room)	هوا دادن (اتاق)	Ich lüfte jeden Morgen das Zimmer.	I air the room every morning.	هر صبح به اتاق هوا می‌دهم.
+core-1	7	abschließen	-	to lock	قفل کردن	Hast du die Tür abgeschlossen?	Did you lock the door?	در را قفل کردی؟
+core-1	7	aufmachen	-	to open	باز کردن	Mach bitte die Tür auf.	Please open the door.	لطفاً در را باز کن.
+core-1	7	zumachen	-	to close	بستن	Kannst du das Fenster zumachen?	Can you close the window?	می‌توانی پنجره را ببندی؟
+core-1	7	einschalten	-	to switch on	روشن کردن	Schalte bitte den Fernseher ein.	Please switch on the TV.	لطفاً تلویزیون را روشن کن.
+core-1	7	ausschalten	-	to switch off	خاموش کردن	Schalte das Licht aus, wenn du gehst.	Switch off the light when you leave.	وقتی می‌روی چراغ را خاموش کن.
+core-1	7	klingeln	-	to ring	زنگ زدن	Jemand klingelt an der Tür.	Someone is ringing at the door.	کسی دم در زنگ می‌زند.
+core-1	7	vergessen	-	to forget	فراموش کردن	Ich habe meinen Schirm vergessen.	I forgot my umbrella.	چترم را فراموش کردم.
+core-1	7	verlieren	-	to lose	گم کردن؛ باختن	Ich habe meinen Schlüssel verloren.	I have lost my key.	کلیدم را گم کرده‌ام.
+core-1	7	wegwerfen	-	to throw away	دور انداختن	Das kannst du wegwerfen.	You can throw that away.	این را می‌توانی دور بیندازی.
+core-1	7	kaputtgehen	-	to break; to stop working	خراب شدن	Meine Waschmaschine ist kaputtgegangen.	My washing machine has broken.	ماشین لباسشویی‌ام خراب شده است.
+core-1	7	funktionieren	-	to work; to function	کار کردن؛ درست کار کردن	Die Heizung funktioniert nicht.	The heating doesn't work.	شوفاژ کار نمی‌کند.
+core-1	7	der Lärm	-	noise	سروصدا	Der Lärm von der Straße stört mich.	The noise from the street bothers me.	سروصدای خیابان مرا اذیت می‌کند.
+core-1	7	die Ruhe	-	quiet; peace	آرامش؛ سکوت	Ich brauche etwas Ruhe.	I need some peace and quiet.	کمی آرامش لازم دارم.
+core-1	7	die Heizung	Heizungen	heating	شوفاژ؛ گرمایش	Die Heizung ist an.	The heating is on.	شوفاژ روشن است.
+core-1	7	die Steckdose	Steckdosen	socket	پریز برق	Wo ist hier eine Steckdose?	Where is a socket here?	اینجا پریز برق کجاست؟
+core-1	7	der Briefkasten	Briefkästen	letterbox	صندوق پست	Ich schaue in den Briefkasten.	I look in the letterbox.	به صندوق پست نگاه می‌کنم.
+core-1	7	das Paket	Pakete	parcel	بسته (پستی)	Ein Paket ist für dich gekommen.	A parcel has come for you.	یک بسته برای تو آمده است.
+core-1	7	der Müll	-	rubbish; waste	زباله	Der Müll wird dienstags abgeholt.	The rubbish is collected on Tuesdays.	زباله سه‌شنبه‌ها جمع می‌شود.
+core-1	7	der Besuch	-	visit; visitor	دیدار؛ مهمان	Wir bekommen heute Besuch.	We have visitors today.	امروز مهمان داریم.
+core-1	7	das Geschirr	-	dishes; crockery	ظروف	Das Geschirr steht in der Spüle.	The dishes are in the sink.	ظرف‌ها توی سینک هستند.
+core-1	7	aufwachen	-	to wake up	بیدار شدن	Ich wache jeden Tag um sechs auf.	I wake up at six every day.	هر روز ساعت شش بیدار می‌شوم.
+core-1	7	einschlafen	-	to fall asleep	به خواب رفتن	Ich kann nicht einschlafen.	I can't fall asleep.	نمی‌توانم بخوابم.
+core-1	7	ausschlafen	-	to sleep in	تا دیروقت خوابیدن	Am Sonntag schlafe ich gern aus.	On Sunday I like to sleep in.	یکشنبه‌ها دوست دارم تا دیروقت بخوابم.
+core-1	7	sich ausruhen	-	to rest	استراحت کردن	Nach der Arbeit ruhe ich mich aus.	After work I rest.	بعد از کار استراحت می‌کنم.
+core-1	7	sich kümmern um	-	to take care of	رسیدگی کردن به	Wer kümmert sich um die Katze?	Who takes care of the cat?	چه کسی به گربه رسیدگی می‌کند؟
+core-1	7	bügeln	-	to iron	اتو کردن	Ich muss noch Hemden bügeln.	I still have to iron shirts.	هنوز باید پیراهن‌ها را اتو کنم.
+core-1	7	sauber	-	clean	تمیز	Die Küche ist sauber.	The kitchen is clean.	آشپزخانه تمیز است.
+core-1	7	schmutzig	-	dirty	کثیف	Die Schuhe sind schmutzig.	The shoes are dirty.	کفش‌ها کثیف هستند.
+core-1	7	ordentlich	-	tidy; proper	مرتب؛ درست‌وحسابی	Er hält sein Zimmer ordentlich.	He keeps his room tidy.	او اتاقش را مرتب نگه می‌دارد.
+core-1	7	unordentlich	-	messy	بی‌نظم	Mein Schreibtisch ist unordentlich.	My desk is messy.	میز کارم بی‌نظم است.
+core-1	7	die Hausordnung	-	house rules	مقررات ساختمان	Die Hausordnung hängt im Flur.	The house rules hang in the hallway.	مقررات ساختمان در راهرو آویزان است.
+core-1	7	das Treppenhaus	Treppenhäuser	stairwell	راه‌پله	Im Treppenhaus ist das Licht kaputt.	The light in the stairwell is broken.	چراغ راه‌پله خراب است.
+core-1	8	bestellen	-	to order	سفارش دادن	Ich bestelle einen Salat.	I order a salad.	من یک سالاد سفارش می‌دهم.
+core-1	8	probieren	-	to try; to taste	امتحان کردن؛ چشیدن	Möchtest du mal probieren?	Would you like to try some?	می‌خواهی امتحان کنی؟
+core-1	8	satt	-	full; not hungry	سیر	Danke, ich bin satt.	Thanks, I am full.	ممنون، من سیرم.
+core-1	8	hungrig	-	hungry	گرسنه	Nach der Wanderung war ich sehr hungrig.	After the hike I was very hungry.	بعد از کوهنوردی خیلی گرسنه بودم.
+core-1	8	durstig	-	thirsty	تشنه	Ich bin durstig, hast du Wasser?	I am thirsty, do you have water?	تشنه‌ام، آب داری؟
+core-1	8	frisch	-	fresh	تازه	Das Brot ist ganz frisch.	The bread is quite fresh.	نان کاملاً تازه است.
+core-1	8	salzig	-	salty	شور	Die Suppe ist zu salzig.	The soup is too salty.	سوپ زیادی شور است.
+core-1	8	vegetarisch	-	vegetarian	گیاهخوار؛ بدون گوشت	Gibt es ein vegetarisches Gericht?	Is there a vegetarian dish?	غذای بدون گوشت دارید؟
+core-1	8	das Mittagessen	-	lunch	ناهار	Das Mittagessen ist um zwölf Uhr.	Lunch is at twelve o'clock.	ناهار ساعت دوازده است.
+core-1	8	das Abendessen	-	dinner; supper	شام	Was gibt es zum Abendessen?	What's for dinner?	برای شام چه داریم؟
+core-1	8	die Portion	Portionen	portion	پُرس؛ وعده	Eine Portion Pommes, bitte.	One portion of chips, please.	یک پرس سیب‌زمینی سرخ‌کرده، لطفاً.
+core-1	8	zubereiten	-	to prepare (food)	آماده کردن (غذا)	Sie bereitet das Essen zu.	She prepares the meal.	او غذا را آماده می‌کند.
+core-1	8	die Rechnung	Rechnungen	bill; invoice	صورتحساب	Die Rechnung, bitte.	The bill, please.	صورتحساب، لطفاً.
+core-1	8	das Trinkgeld	Trinkgelder	tip	انعام	Ich gebe fünf Euro Trinkgeld.	I give a five-euro tip.	پنج یورو انعام می‌دهم.
+core-1	8	das Wechselgeld	-	change (money)	پول خرد؛ باقی‌مانده پول	Hier ist Ihr Wechselgeld.	Here is your change.	این هم باقی‌مانده پول شما.
+core-1	8	die Kasse	Kassen	till; checkout	صندوق	Bitte zahlen Sie an der Kasse.	Please pay at the checkout.	لطفاً در صندوق بپردازید.
+core-1	8	der Einkaufswagen	Einkaufswagen	shopping trolley	چرخ خرید	Ich brauche einen Einkaufswagen.	I need a shopping trolley.	من یک چرخ خرید لازم دارم.
+core-1	8	die Tüte	Tüten	bag (plastic/paper)	کیسه	Brauchen Sie eine Tüte?	Do you need a bag?	کیسه لازم دارید؟
+core-1	8	im Angebot	-	on offer	در تخفیف	Heute sind Äpfel im Angebot.	Apples are on offer today.	امروز سیب تخفیف دارد.
+core-1	8	umtauschen	-	to exchange	عوض کردن؛ تعویض کردن	Kann ich die Hose umtauschen?	Can I exchange the trousers?	می‌توانم شلوار را عوض کنم؟
+core-1	8	zurückgeben	-	to give back; to return	پس دادن	Ich muss das Buch zurückgeben.	I have to give the book back.	باید کتاب را پس بدهم.
+core-1	8	ausgeben	-	to spend	خرج کردن	Ich gebe zu viel Geld aus.	I spend too much money.	من پول زیادی خرج می‌کنم.
+core-1	8	sparen	-	to save	پس‌انداز کردن	Ich spare für den Urlaub.	I am saving for the holiday.	برای تعطیلات پس‌انداز می‌کنم.
+core-1	8	leihen	-	to lend; to borrow	قرض دادن؛ قرض گرفتن	Kannst du mir zehn Euro leihen?	Can you lend me ten euros?	می‌توانی ده یورو به من قرض بدهی؟
+core-1	8	schulden	-	to owe	بدهکار بودن	Ich schulde dir noch zwanzig Euro.	I still owe you twenty euros.	هنوز بیست یورو به تو بدهکارم.
+core-1	8	nachbestellen	-	to order more	دوباره سفارش دادن	Wir möchten noch ein Wasser nachbestellen.	We would like to order another water.	می‌خواهیم یک آب دیگر سفارش بدهیم.
+core-1	8	einschenken	-	to pour (a drink)	ریختن (نوشیدنی)	Darf ich Ihnen Tee einschenken?	May I pour you some tea?	می‌توانم برایتان چای بریزم؟
+core-1	8	das Mitbringsel	Mitbringsel	small gift (brought along)	سوغاتی؛ هدیه کوچک	Ich habe ein kleines Mitbringsel für dich.	I have a small gift for you.	یک هدیه کوچک برایت آورده‌ام.
+core-1	8	der Preis	Preise	price	قیمت	Der Preis ist in Ordnung.	The price is fine.	قیمت مناسب است.
+core-1	8	die Ermäßigung	Ermäßigungen	discount; reduction	تخفیف	Studenten bekommen eine Ermäßigung.	Students get a discount.	دانشجویان تخفیف می‌گیرند.
+core-1	8	bargeldlos	-	cashless	بدون پول نقد	Hier kann man bargeldlos zahlen.	You can pay cashless here.	اینجا می‌شود بدون پول نقد پرداخت کرد.
+core-1	8	der Kassenzettel	Kassenzettel	receipt	رسید خرید	Bitte behalten Sie den Kassenzettel.	Please keep the receipt.	لطفاً رسید خرید را نگه دارید.
+core-1	8	der Supermarkt	Supermärkte	supermarket	سوپرمارکت	Ich gehe schnell zum Supermarkt.	I'm quickly going to the supermarket.	سریع به سوپرمارکت می‌روم.
+core-1	8	die Auswahl	-	selection; choice	انتخاب؛ تنوع	Das Geschäft hat eine große Auswahl.	The shop has a large selection.	این فروشگاه تنوع زیادی دارد.
+core-1	8	vorrätig	-	in stock	موجود (در انبار)	Haben Sie das in Blau vorrätig?	Do you have that in blue in stock?	این را به رنگ آبی موجود دارید؟
+core-1	9	der Termin	Termine	appointment	قرار؛ وقت ملاقات	Ich habe morgen einen Termin beim Arzt.	I have a doctor's appointment tomorrow.	فردا نزد دکتر وقت دارم.
+core-1	9	die Besprechung	Besprechungen	meeting	جلسه	Die Besprechung beginnt um zehn.	The meeting begins at ten.	جلسه ساعت ده شروع می‌شود.
+core-1	9	die Frist	Fristen	deadline; time limit	مهلت؛ ضرب‌الاجل	Die Frist endet am Freitag.	The deadline ends on Friday.	مهلت جمعه تمام می‌شود.
+core-1	9	sich bewerben	-	to apply	درخواست دادن (برای شغل)	Ich bewerbe mich um eine Stelle.	I am applying for a job.	برای یک شغل درخواست می‌دهم.
+core-1	9	der Urlaub	Urlaube	holiday; leave	مرخصی؛ تعطیلات	Ich nehme nächste Woche Urlaub.	I am taking leave next week.	هفته آینده مرخصی می‌گیرم.
+core-1	9	krankschreiben	-	to give sick leave	گواهی استعلاجی دادن	Der Arzt hat mich eine Woche krankgeschrieben.	The doctor signed me off sick for a week.	دکتر یک هفته برایم مرخصی استعلاجی نوشت.
+core-1	9	üben	-	to practise	تمرین کردن	Ich übe jeden Tag Deutsch.	I practise German every day.	هر روز آلمانی تمرین می‌کنم.
+core-1	9	sich erinnern	-	to remember	به یاد آوردن	Ich erinnere mich gut an den Tag.	I remember that day well.	آن روز را خوب به یاد دارم.
+core-1	9	begreifen	-	to grasp; to understand	فهمیدن؛ درک کردن	Ich begreife das nicht.	I don't grasp that.	من این را درک نمی‌کنم.
+core-1	9	bestehen	-	to pass (exam)	قبول شدن	Sie hat die Prüfung bestanden.	She passed the exam.	او امتحان را قبول شد.
+core-1	9	durchfallen	-	to fail (exam)	مردود شدن	Er ist bei der Prüfung durchgefallen.	He failed the exam.	او در امتحان مردود شد.
+core-1	9	korrigieren	-	to correct	تصحیح کردن	Der Lehrer korrigiert die Hefte.	The teacher corrects the exercise books.	معلم دفترها را تصحیح می‌کند.
+core-1	9	aussprechen	-	to pronounce	تلفظ کردن	Wie spricht man dieses Wort aus?	How do you pronounce this word?	این کلمه را چطور تلفظ می‌کنند؟
+core-1	9	nachschlagen	-	to look up	جستجو کردن (در کتاب)	Ich schlage das Wort im Wörterbuch nach.	I look the word up in the dictionary.	کلمه را در فرهنگ لغت جستجو می‌کنم.
+core-1	9	das Wörterbuch	Wörterbücher	dictionary	فرهنگ لغت	Hast du ein Wörterbuch dabei?	Do you have a dictionary with you?	فرهنگ لغت همراهت هست؟
+core-1	9	die Grammatik	Grammatiken	grammar	دستور زبان	Die deutsche Grammatik ist schwierig.	German grammar is difficult.	دستور زبان آلمانی سخت است.
+core-1	9	die Übung	Übungen	exercise; practice	تمرین	Diese Übung ist leicht.	This exercise is easy.	این تمرین آسان است.
+core-1	9	Fortschritte machen	-	to make progress	پیشرفت کردن	Du machst große Fortschritte.	You are making great progress.	تو پیشرفت بزرگی می‌کنی.
+core-1	9	sich konzentrieren	-	to concentrate	تمرکز کردن	Ich kann mich bei Lärm nicht konzentrieren.	I can't concentrate when there's noise.	وقتی سروصدا هست نمی‌توانم تمرکز کنم.
+core-1	9	sich vorbereiten	-	to prepare (oneself)	آماده شدن	Ich bereite mich auf die Prüfung vor.	I am preparing for the exam.	برای امتحان آماده می‌شوم.
+core-1	9	anstrengend	-	tiring; strenuous	خسته‌کننده؛ طاقت‌فرسا	Der Tag war sehr anstrengend.	The day was very tiring.	روز بسیار طاقت‌فرسا بود.
+core-1	9	schaffen	-	to manage; to make it	از پس (کاری) برآمدن	Das schaffe ich nicht allein.	I can't manage that alone.	من تنها از پس این برنمی‌آیم.
+core-1	9	der Feierabend	-	end of the working day	پایان ساعت کاری	Ich freue mich auf den Feierabend.	I'm looking forward to finishing work.	مشتاق پایان ساعت کاری هستم.
+core-1	9	die Überstunden	-	overtime	اضافه‌کاری	Heute muss ich Überstunden machen.	Today I have to work overtime.	امروز باید اضافه‌کاری کنم.
+core-1	9	der Kurs	Kurse	course	دوره؛ کلاس	Der Kurs beginnt im Januar.	The course starts in January.	دوره در ژانویه شروع می‌شود.
+core-1	9	die Schule	Schulen	school	مدرسه	Die Schule beginnt um acht Uhr.	School starts at eight o'clock.	مدرسه ساعت هشت شروع می‌شود.
+core-1	9	die Ausbildung	Ausbildungen	vocational training	آموزش حرفه‌ای	Er macht eine Ausbildung zum Koch.	He is doing training as a cook.	او دوره آموزش آشپزی می‌گذراند.
+core-1	9	der Beruf	Berufe	profession	شغل؛ حرفه	Was ist Ihr Beruf?	What is your profession?	شغل شما چیست؟
+core-1	9	der Lebenslauf	Lebensläufe	CV; résumé	رزومه	Bitte schicken Sie Ihren Lebenslauf.	Please send your CV.	لطفاً رزومه‌تان را بفرستید.
+core-1	9	das Gehalt	Gehälter	salary	حقوق ماهانه	Das Gehalt wird am Monatsende gezahlt.	The salary is paid at the end of the month.	حقوق آخر ماه پرداخت می‌شود.
+core-1	9	der Vertrag	Verträge	contract	قرارداد	Ich unterschreibe den Vertrag morgen.	I'll sign the contract tomorrow.	فردا قرارداد را امضا می‌کنم.
+core-1	9	die Probezeit	-	probation period	دوره آزمایشی	Die Probezeit dauert sechs Monate.	The probation period lasts six months.	دوره آزمایشی شش ماه طول می‌کشد.
+core-1	9	der Lehrer	Lehrer	teacher	معلم	Unser Lehrer erklärt sehr gut.	Our teacher explains very well.	معلم ما خیلی خوب توضیح می‌دهد.
+core-1	9	die Hausaufgabe	Hausaufgaben	homework	تکلیف خانه	Hast du die Hausaufgaben gemacht?	Did you do the homework?	تکلیفت را انجام دادی؟
+core-1	10	einsteigen	-	to get on; to board	سوار شدن	Bitte einsteigen, der Zug fährt ab!	All aboard, the train is leaving!	لطفاً سوار شوید، قطار حرکت می‌کند!
+core-1	10	aussteigen	-	to get off	پیاده شدن	Ich muss an der nächsten Haltestelle aussteigen.	I have to get off at the next stop.	باید در ایستگاه بعدی پیاده شوم.
+core-1	10	umsteigen	-	to change (trains)	عوض کردن (قطار، اتوبوس)	In Köln müssen wir umsteigen.	We have to change in Cologne.	در کلن باید قطار عوض کنیم.
+core-1	10	abfahren	-	to depart; to leave	حرکت کردن	Der Bus fährt in fünf Minuten ab.	The bus leaves in five minutes.	اتوبوس پنج دقیقه دیگر حرکت می‌کند.
+core-1	10	ankommen	-	to arrive	رسیدن	Wann kommt der Zug an?	When does the train arrive?	قطار کی می‌رسد؟
+core-1	10	die Haltestelle	Haltestellen	stop (bus, tram)	ایستگاه (اتوبوس، تراموا)	Die Haltestelle ist gleich um die Ecke.	The stop is just around the corner.	ایستگاه همین نزدیکی است.
+core-1	10	der Fahrplan	Fahrpläne	timetable	جدول زمانی	Laut Fahrplan fährt der Bus um acht.	According to the timetable the bus leaves at eight.	طبق جدول زمانی اتوبوس ساعت هشت حرکت می‌کند.
+core-1	10	die Fahrkarte	Fahrkarten	ticket	بلیت	Wo kann ich eine Fahrkarte kaufen?	Where can I buy a ticket?	از کجا می‌توانم بلیت بخرم؟
+core-1	10	das Gleis	Gleise	platform; track	سکو؛ ریل	Der Zug fährt von Gleis sieben ab.	The train leaves from platform seven.	قطار از سکوی هفت حرکت می‌کند.
+core-1	10	die Verspätung	Verspätungen	delay	تأخیر	Der Zug hat zehn Minuten Verspätung.	The train is ten minutes late.	قطار ده دقیقه تأخیر دارد.
+core-1	10	ausfallen	-	to be cancelled	لغو شدن	Der Zug fällt heute aus.	The train is cancelled today.	قطار امروز لغو شده است.
+core-1	10	der Stau	Staus	traffic jam	ترافیک سنگین	Wir standen eine Stunde im Stau.	We were stuck in a traffic jam for an hour.	یک ساعت در ترافیک گیر کردیم.
+core-1	10	parken	-	to park	پارک کردن	Hier darf man nicht parken.	You may not park here.	اینجا اجازه پارک نیست.
+core-1	10	tanken	-	to fill up (with fuel)	بنزین زدن	Wir müssen noch tanken.	We still have to fill up.	هنوز باید بنزین بزنیم.
+core-1	10	zu Fuß	-	on foot	پیاده	Ich gehe zu Fuß zur Arbeit.	I walk to work.	پیاده سر کار می‌روم.
+core-1	10	mit dem Rad	-	by bike	با دوچرخه	Ich fahre mit dem Rad in die Stadt.	I go into town by bike.	با دوچرخه به شهر می‌روم.
+core-1	10	die Strecke	Strecken	route; distance	مسیر؛ فاصله	Die Strecke ist ungefähr zehn Kilometer lang.	The route is about ten kilometres long.	مسیر حدود ده کیلومتر است.
+core-1	10	verreisen	-	to go away (on a trip)	به سفر رفتن	Wir verreisen nächste Woche.	We are going away next week.	هفته آینده به سفر می‌رویم.
+core-1	10	buchen	-	to book	رزرو کردن	Ich habe das Hotel schon gebucht.	I have already booked the hotel.	هتل را قبلاً رزرو کرده‌ام.
+core-1	10	reservieren	-	to reserve	رزرو کردن (میز و …)	Ich möchte einen Tisch für zwei reservieren.	I would like to reserve a table for two.	می‌خواهم یک میز برای دو نفر رزرو کنم.
+core-1	10	packen	-	to pack	بستن (چمدان)	Hast du schon deinen Koffer gepackt?	Have you packed your suitcase yet?	چمدانت را بسته‌ای؟
+core-1	10	das Gepäck	-	luggage	بار؛ چمدان‌ها	Das Gepäck ist im Kofferraum.	The luggage is in the boot.	بار در صندوق عقب است.
+core-1	10	der Flug	Flüge	flight	پرواز	Mein Flug geht um zehn Uhr.	My flight is at ten o'clock.	پرواز من ساعت ده است.
+core-1	10	landen	-	to land	فرود آمدن	Das Flugzeug landet pünktlich.	The plane lands on time.	هواپیما به‌موقع فرود می‌آید.
+core-1	10	besichtigen	-	to visit (sights)	بازدید کردن	Wir besichtigen morgen das Schloss.	We are visiting the castle tomorrow.	فردا از قصر بازدید می‌کنیم.
+core-1	10	sich verlaufen	-	to get lost (on foot)	راه را گم کردن (پیاده)	Ich habe mich in der Stadt verlaufen.	I got lost in the city.	در شهر راه را گم کردم.
+core-1	10	sich verfahren	-	to get lost (driving)	راه را گم کردن (با ماشین)	Wir haben uns auf der Autobahn verfahren.	We got lost on the motorway.	در بزرگراه راه را گم کردیم.
+core-1	10	nach dem Weg fragen	-	to ask for directions	آدرس پرسیدن	Ich frage jemanden nach dem Weg.	I ask someone for directions.	از کسی آدرس می‌پرسم.
+core-1	10	der Stadtplan	Stadtpläne	city map	نقشه شهر	Hast du einen Stadtplan?	Do you have a city map?	نقشه شهر داری؟
+core-1	10	die Grenze	Grenzen	border	مرز	Wir fahren morgen über die Grenze.	We cross the border tomorrow.	فردا از مرز عبور می‌کنیم.
+core-1	10	der Reisepass	Reisepässe	passport	گذرنامه	Vergiss deinen Reisepass nicht!	Don't forget your passport!	گذرنامه‌ات را فراموش نکن!
+core-1	10	der Ausflug	Ausflüge	trip; excursion	گردش؛ سفر کوتاه	Am Sonntag machen wir einen Ausflug.	On Sunday we are going on a trip.	یکشنبه به گردش می‌رویم.
+core-1	10	die Aussicht	Aussichten	view	منظره	Von hier hat man eine tolle Aussicht.	From here you have a great view.	از اینجا منظره فوق‌العاده‌ای دیده می‌شود.
+core-1	10	der Aufzug	Aufzüge	lift; elevator	آسانسور	Der Aufzug ist leider außer Betrieb.	Unfortunately the lift is out of order.	متأسفانه آسانسور از کار افتاده است.
+core-1	10	die Rolltreppe	Rolltreppen	escalator	پله‌برقی	Nehmen Sie die Rolltreppe nach oben.	Take the escalator up.	با پله‌برقی بالا بروید.
+core-1	10	die Fahrt	Fahrten	journey; ride	سفر؛ مسیر رفت‌وآمد	Die Fahrt dauert zwei Stunden.	The journey takes two hours.	سفر دو ساعت طول می‌کشد.
+core-1	10	das Ziel	Ziele	destination; goal	مقصد؛ هدف	Wir haben unser Ziel erreicht.	We have reached our destination.	ما به مقصد رسیده‌ایم.
+core-1	10	der Hinweis	Hinweise	sign; notice; hint	اطلاعیه؛ نشانه	Bitte beachten Sie die Hinweise.	Please follow the notices.	لطفاً به اطلاعیه‌ها توجه کنید.
+core-1	10	die Einbahnstraße	Einbahnstraßen	one-way street	خیابان یک‌طرفه	Das ist eine Einbahnstraße.	That is a one-way street.	این یک خیابان یک‌طرفه است.
+core-1	11	der Schnupfen	-	runny nose; cold	سرماخوردگی (آبریزش بینی)	Ich habe einen starken Schnupfen.	I have a bad runny nose.	آبریزش بینی شدیدی دارم.
+core-1	11	die Halsschmerzen	-	sore throat	گلودرد	Ich habe seit gestern Halsschmerzen.	I have had a sore throat since yesterday.	از دیروز گلودرد دارم.
+core-1	11	die Kopfschmerzen	-	headache	سردرد	Ich habe starke Kopfschmerzen.	I have a bad headache.	سردرد شدیدی دارم.
+core-1	11	die Bauchschmerzen	-	stomach ache	دل‌درد	Mein Sohn hat Bauchschmerzen.	My son has a stomach ache.	پسرم دل‌درد دارد.
+core-1	11	die Grippe	-	flu	آنفلوآنزا	Er liegt mit Grippe im Bett.	He is in bed with the flu.	او با آنفلوآنزا در رخت‌خواب است.
+core-1	11	gesund	-	healthy	سالم	Obst ist gesund.	Fruit is healthy.	میوه سالم است.
+core-1	11	die Praxis	Praxen	doctor's surgery	مطب	Die Praxis ist bis 18 Uhr geöffnet.	The surgery is open until 6 pm.	مطب تا ساعت ۱۸ باز است.
+core-1	11	die Apotheke	Apotheken	pharmacy	داروخانه	Die Apotheke hat Notdienst.	The pharmacy has an emergency service.	داروخانه شبانه‌روزی است.
+core-1	11	das Medikament	Medikamente	medicine	دارو	Nehmen Sie das Medikament dreimal täglich.	Take the medicine three times a day.	دارو را روزی سه بار مصرف کنید.
+core-1	11	die Tablette	Tabletten	tablet; pill	قرص	Ich nehme eine Tablette gegen die Schmerzen.	I take a tablet for the pain.	برای درد یک قرص می‌خورم.
+core-1	11	das Rezept	Rezepte	prescription; recipe	نسخه؛ دستور پخت	Der Arzt schreibt mir ein Rezept.	The doctor writes me a prescription.	دکتر برایم نسخه می‌نویسد.
+core-1	11	die Verletzung	Verletzungen	injury	آسیب؛ مجروحیت	Die Verletzung ist nicht schlimm.	The injury is not serious.	آسیب جدی نیست.
+core-1	11	bluten	-	to bleed	خونریزی کردن	Mein Finger blutet.	My finger is bleeding.	انگشتم خونریزی می‌کند.
+core-1	11	sich schneiden	-	to cut oneself	خود را بریدن	Ich habe mich in den Finger geschnitten.	I cut my finger.	انگشتم را بریده‌ام.
+core-1	11	sich verletzen	-	to hurt oneself	آسیب دیدن	Er hat sich beim Sport verletzt.	He hurt himself playing sport.	او هنگام ورزش آسیب دید.
+core-1	11	schwitzen	-	to sweat	عرق کردن	Im Sommer schwitze ich viel.	In summer I sweat a lot.	تابستان‌ها زیاد عرق می‌کنم.
+core-1	11	frieren	-	to be cold; to freeze	سردم بودن؛ یخ زدن	Ich friere, mach bitte das Fenster zu.	I'm cold, please close the window.	سردم است، لطفاً پنجره را ببند.
+core-1	11	atmen	-	to breathe	نفس کشیدن	Atmen Sie bitte tief ein.	Please breathe in deeply.	لطفاً نفس عمیق بکشید.
+core-1	11	schwach	-	weak	ضعیف؛ بی‌حال	Nach der Krankheit fühle ich mich schwach.	After the illness I feel weak.	بعد از بیماری احساس ضعف می‌کنم.
+core-1	11	schwindlig	-	dizzy	سرگیجه داشتن	Mir ist schwindlig.	I feel dizzy.	سرگیجه دارم.
+core-1	11	übel	-	nauseous; bad	حالت تهوع؛ بد	Mir ist übel.	I feel sick.	حالم بد است (حالت تهوع دارم).
+core-1	11	die Allergie	Allergien	allergy	آلرژی	Ich habe eine Allergie gegen Nüsse.	I have an allergy to nuts.	من به آجیل آلرژی دارم.
+core-1	11	untersuchen	-	to examine	معاینه کردن	Der Arzt untersucht den Patienten.	The doctor examines the patient.	دکتر بیمار را معاینه می‌کند.
+core-1	11	impfen	-	to vaccinate	واکسن زدن	Ich lasse mich gegen Grippe impfen.	I am getting vaccinated against flu.	برای آنفلوآنزا واکسن می‌زنم.
+core-1	11	die Krankenkasse	Krankenkassen	health insurance	بیمه درمانی	Die Krankenkasse zahlt die Behandlung.	The health insurance pays for the treatment.	بیمه درمانی هزینه درمان را می‌پردازد.
+core-1	11	Gute Besserung!	-	Get well soon!	زود خوب شوی!	Gute Besserung und bis bald!	Get well soon and see you soon!	زود خوب شوی و به زودی ببینمت!
+core-1	11	Gesundheit!	-	Bless you!	سلامت باشی! (هنگام عطسه)	Hatschi! – Gesundheit!	Achoo! – Bless you!	عطسه! – سلامت باشی!
+core-1	11	der Notarzt	Notärzte	emergency doctor	پزشک اورژانس	Rufen Sie sofort den Notarzt!	Call the emergency doctor immediately!	فوراً به پزشک اورژانس زنگ بزنید!
+core-1	11	der Krankenwagen	Krankenwagen	ambulance	آمبولانس	Der Krankenwagen kommt in fünf Minuten.	The ambulance arrives in five minutes.	آمبولانس پنج دقیقه دیگر می‌رسد.
+core-1	11	sich operieren lassen	-	to have an operation	عمل جراحی کردن	Er lässt sich am Knie operieren.	He is having an operation on his knee.	او زانویش را عمل می‌کند.
+core-1	11	der Schmerz	Schmerzen	pain	درد	Haben Sie starke Schmerzen?	Do you have severe pain?	درد شدیدی دارید؟
+core-1	11	zunehmen	-	to put on weight	وزن اضافه کردن	Im Winter nehme ich oft zu.	In winter I often put on weight.	زمستان‌ها اغلب وزن اضافه می‌کنم.
+core-1	11	abnehmen	-	to lose weight	وزن کم کردن	Ich möchte fünf Kilo abnehmen.	I would like to lose five kilos.	می‌خواهم پنج کیلو وزن کم کنم.
+core-1	11	der Körper	Körper	body	بدن	Sport ist gut für den Körper.	Sport is good for the body.	ورزش برای بدن خوب است.
+core-1	11	der Hals	Hälse	throat; neck	گلو؛ گردن	Mir tut der Hals weh.	My throat hurts.	گلویم درد می‌کند.
+core-1	11	die Stimme	Stimmen	voice	صدا	Ich habe keine Stimme mehr.	I have lost my voice.	صدایم رفته است.
+core-1	11	das Pflaster	Pflaster	plaster	چسب زخم	Hast du ein Pflaster für mich?	Do you have a plaster for me?	چسب زخم داری؟
+core-1	12	spazieren gehen	-	to go for a walk	قدم زدن	Am Abend gehen wir spazieren.	In the evening we go for a walk.	عصر قدم می‌زنیم.
+core-1	12	joggen	-	to jog	دویدن (جاگینگ)	Ich jogge dreimal pro Woche.	I jog three times a week.	هفته‌ای سه بار می‌دوم.
+core-1	12	Sport treiben	-	to do sport	ورزش کردن	Ich treibe gern Sport.	I like doing sport.	دوست دارم ورزش کنم.
+core-1	12	ins Kino gehen	-	to go to the cinema	به سینما رفتن	Heute Abend gehen wir ins Kino.	Tonight we go to the cinema.	امشب به سینما می‌رویم.
+core-1	12	ausgehen	-	to go out	بیرون رفتن (تفریح)	Am Samstag gehen wir aus.	On Saturday we go out.	شنبه بیرون می‌رویم.
+core-1	12	Karten spielen	-	to play cards	ورق بازی کردن	Am Abend spielen wir Karten.	In the evening we play cards.	عصر ورق بازی می‌کنیم.
+core-1	12	die Serie	Serien	series	سریال	Ich schaue gern Serien.	I like watching series.	دوست دارم سریال ببینم.
+core-1	12	die Nachricht	Nachrichten	message; news item	پیام؛ خبر	Ich habe dir eine Nachricht geschickt.	I sent you a message.	من برایت پیام فرستادم.
+core-1	12	aufladen	-	to charge	شارژ کردن	Ich muss mein Handy aufladen.	I have to charge my phone.	باید گوشی‌ام را شارژ کنم.
+core-1	12	der Akku	Akkus	battery	باتری	Mein Akku ist leer.	My battery is flat.	باتری‌ام خالی است.
+core-1	12	das WLAN	-	Wi-Fi	وای‌فای	Wie ist das WLAN-Passwort?	What is the Wi-Fi password?	رمز وای‌فای چیست؟
+core-1	12	herunterladen	-	to download	دانلود کردن	Ich lade die App herunter.	I download the app.	اپلیکیشن را دانلود می‌کنم.
+core-1	12	ein Foto machen	-	to take a photo	عکس گرفتن	Kannst du ein Foto von uns machen?	Can you take a photo of us?	می‌توانی از ما عکس بگیری؟
+core-1	12	anschauen	-	to look at; to watch	نگاه کردن؛ تماشا کردن	Schau dir dieses Bild an!	Look at this picture!	به این تصویر نگاه کن!
+core-1	12	der Regen	-	rain	باران	Der Regen hört bald auf.	The rain will stop soon.	باران به‌زودی بند می‌آید.
+core-1	12	es schneit	-	it is snowing	برف می‌بارد	Heute Nacht schneit es.	It will snow tonight.	امشب برف می‌بارد.
+core-1	12	windig	-	windy	بادی	Heute ist es sehr windig.	It is very windy today.	امروز هوا خیلی بادی است.
+core-1	12	bewölkt	-	cloudy	ابری	Morgen ist es bewölkt.	Tomorrow it is cloudy.	فردا هوا ابری است.
+core-1	12	neblig	-	foggy	مه‌آلود	Am Morgen ist es neblig.	In the morning it is foggy.	صبح هوا مه‌آلود است.
+core-1	12	das Gewitter	Gewitter	thunderstorm	رعدوبرق	Heute Abend gibt es ein Gewitter.	There will be a thunderstorm tonight.	امشب رعدوبرق می‌شود.
+core-1	12	die Wettervorhersage	Wettervorhersagen	weather forecast	پیش‌بینی هوا	Laut Wettervorhersage wird es sonnig.	According to the weather forecast it will be sunny.	طبق پیش‌بینی هوا آفتابی می‌شود.
+core-1	12	der Schirm	Schirme	umbrella	چتر	Nimm einen Schirm mit!	Take an umbrella!	یک چتر ببر!
+core-1	12	heiß	-	hot	داغ؛ گرم	Im Sommer ist es hier sehr heiß.	In summer it is very hot here.	تابستان اینجا خیلی گرم است.
+core-1	12	kühl	-	cool	خنک	Am Abend wird es kühl.	In the evening it gets cool.	عصرها هوا خنک می‌شود.
+core-1	12	schwül	-	humid; muggy	شرجی	Heute ist es schwül.	It is humid today.	امروز هوا شرجی است.
+core-1	12	die Temperatur	Temperaturen	temperature	دما	Die Temperatur sinkt auf null Grad.	The temperature drops to zero degrees.	دما به صفر درجه می‌رسد.
+core-1	12	der Schatten	Schatten	shade; shadow	سایه	Wir setzen uns in den Schatten.	We sit in the shade.	ما در سایه می‌نشینیم.
+core-1	12	das Hobby	Hobbys	hobby	سرگرمی	Mein Hobby ist Fotografieren.	My hobby is photography.	سرگرمی من عکاسی است.
+core-1	12	das Konzert	Konzerte	concert	کنسرت	Das Konzert beginnt um acht.	The concert begins at eight.	کنسرت ساعت هشت شروع می‌شود.
+core-1	12	das Ticket	Tickets	ticket (event)	بلیت (برنامه)	Hast du schon Tickets besorgt?	Have you already got tickets?	بلیت‌ها را تهیه کرده‌ای؟
+core-1	12	Langeweile haben	-	to be bored	حوصله‌ام سر رفته	Ich habe Langeweile.	I am bored.	حوصله‌ام سر رفته است.
+core-1	12	sich langweilen	-	to be bored	حوصله‌اش سر رفتن	Bei dem Film habe ich mich gelangweilt.	I was bored during the film.	در طول فیلم حوصله‌ام سر رفت.

@@ -16,10 +16,13 @@ constexpr auto kResource = ":/data/levelpacks/starten_wir_levels.tsv";
 constexpr auto kResourceSv = ":/data/levelpacks/svenska_levels.tsv";
 constexpr auto kResourceAdv = ":/data/levelpacks/deutsch_b1_c1.tsv"; // German B1, B2, C1
 constexpr auto kResourceA1Complete = ":/data/levelpacks/deutsch_a1_complete.tsv"; // "A1_complete": whole A1 word list
+constexpr auto kResourceCore = ":/data/levelpacks/deutsch_core.tsv"; // "Alltag": original core words for everyday conversation
 
+// Extra boxes next to the A1-C1 levels ("-complete" word lists, the "core-" everyday-conversation box):
+// they repeat or go beyond the level words, so they are not counted in the totals.
 bool isComplete(const LevelPack &p)
 {
-    return p.id.endsWith(QLatin1String("-complete"));
+    return p.id.endsWith(QLatin1String("-complete")) || p.id.startsWith(QLatin1String("core-"));
 }
 
 QString learningLanguage()
@@ -49,7 +52,7 @@ LevelPacks *LevelPacks::create(QQmlEngine *, QJSEngine *engine)
 LevelPacks::LevelPacks(QObject *parent)
     : QObject(parent)
 {
-    for (const char *resource : {kResource, kResourceA1Complete, kResourceAdv, kResourceSv}) {
+    for (const char *resource : {kResource, kResourceA1Complete, kResourceAdv, kResourceCore, kResourceSv}) {
         QFile f(QString::fromLatin1(resource));
         QList<LevelPack> packs;
         QString error;
@@ -63,14 +66,14 @@ LevelPacks::LevelPacks(QObject *parent)
     }
     if (!m_error.isEmpty())
         qWarning().noquote() << m_error;
-    // Order for the list: German before Swedish, by CEFR level; a "complete" box follows the levels of its CEFR step.
+    // Order for the list: German before Swedish, by CEFR level; an extra box follows the levels of its CEFR step.
     std::stable_sort(m_packs.begin(), m_packs.end(), [](const LevelPack &a, const LevelPack &b) {
         const bool aSv = a.language != QLatin1String("de"), bSv = b.language != QLatin1String("de");
         if (aSv != bSv)
             return bSv;
         if (a.cefr != b.cefr)
             return a.cefr < b.cefr;
-        return !a.id.endsWith(QLatin1String("-complete")) && b.id.endsWith(QLatin1String("-complete"));
+        return !isComplete(a) && isComplete(b);
     });
 
     connect(CardStore::instance(), &CardStore::changed, this, &LevelPacks::refresh);
@@ -82,7 +85,7 @@ int LevelPacks::totalWords() const
     int n = 0;
     const QString lang = learningLanguage();
     for (const LevelPack &p : m_packs)
-        if (p.language == lang && !isComplete(p)) // the "complete" boxes repeat words of the levels
+        if (p.language == lang && !isComplete(p)) // the extra boxes repeat words of the levels
             n += p.totalWords();
     return n;
 }
@@ -211,9 +214,11 @@ QString boxesKey(const QString &language)
 }
 // First-start flag per group of packs (German A1/A2 keeps its old key), so a deleted box does not come back.
 // German B1-C1 has its own flag, so existing users get those boxes once after an update.
-// Groups of German packs: 0 = A1/A2 levels, 1 = B1-C1 levels, 2 = "complete" boxes (A1_complete, ...).
+// Groups of German packs: 0 = A1/A2 levels, 1 = B1-C1 levels, 2 = "complete" boxes (A1_complete, ...), 3 = "Alltag" (original everyday-conversation words).
 int packGroup(const LevelPack &p)
 {
+    if (p.id.startsWith(QLatin1String("core-")))
+        return 3;
     if (isComplete(p))
         return 2;
     return p.language == QLatin1String("de") && p.cefr != QLatin1String("A1") && p.cefr != QLatin1String("A2") ? 1 : 0;
@@ -225,6 +230,7 @@ QString installedKey(const QString &language, int group)
     switch (group) {
     case 1: return QStringLiteral("levelpacks/installedDeAdv");
     case 2: return QStringLiteral("levelpacks/installedDeComplete2"); // "2": completes boxes that were cut off
+    case 3: return QStringLiteral("levelpacks/installedDeCore"); // installs "Alltag" once for existing users
     default: return QStringLiteral("levelpacks/installed");
     }
 }
@@ -263,7 +269,7 @@ int LevelPacks::installBoxes(bool force)
     CardStore *store = CardStore::instance();
     const int original = store->currentCollection();
     int created = 0;
-    const struct { const char *language; int group; } groups[] = {{"de", 0}, {"de", 1}, {"de", 2}, {"sv", 0}};
+    const struct { const char *language; int group; } groups[] = {{"de", 0}, {"de", 1}, {"de", 2}, {"de", 3}, {"sv", 0}};
     for (const auto &g : groups) {
         const QString language = QString::fromLatin1(g.language);
         const QString key = installedKey(language, g.group);

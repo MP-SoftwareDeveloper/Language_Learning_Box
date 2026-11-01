@@ -167,6 +167,32 @@ private slots:
             }
         }
     }
+    void shippedCoreDataIsComplete()
+    {
+        QFile f(QStringLiteral(LB_LEVELPACK_CORE_FILE));
+        QVERIFY(f.open(QIODevice::ReadOnly));
+        QList<LevelPack> packs;
+        QString err;
+        QVERIFY2(parseLevelPacks(QString::fromUtf8(f.readAll()), &packs, &err), qPrintable(err));
+        QCOMPARE(packs.size(), 1);
+        const LevelPack &p = packs.first();
+        QCOMPARE(p.id, QStringLiteral("core-1"));
+        QCOMPARE(p.title, QStringLiteral("Alltag"));
+        QCOMPARE(p.language, QStringLiteral("de"));
+        QCOMPARE(p.chapters.size(), 12);
+        QVERIFY(p.totalWords() >= 400);
+        QSet<QString> seen;
+        for (const LevelChapter &c : p.chapters) {
+            QVERIFY2(c.words.size() >= 25, qPrintable(c.title));
+            for (const LevelWord &w : c.words) {
+                QVERIFY(!w.german.isEmpty() && !w.english.isEmpty() && !w.persian.isEmpty());
+                QVERIFY(!w.exampleDe.isEmpty() && !w.exampleEn.isEmpty() && !w.exampleFa.isEmpty());
+                // cards are unique per box by case-folded front
+                QVERIFY2(!seen.contains(w.german.toCaseFolded()), qPrintable(w.german));
+                seen.insert(w.german.toCaseFolded());
+            }
+        }
+    }
 };
 
 QTEST_GUILESS_MAIN(TstLevelPack)

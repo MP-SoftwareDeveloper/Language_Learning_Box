@@ -15,6 +15,7 @@ Page {
         case "A2": return qsTr("A2 \u2013 Elementary")
         case "B1": return qsTr("B1 \u2013 Intermediate")
         case "B2": return qsTr("B2 \u2013 Upper intermediate")
+        case "CO": return qsTr("Everyday conversation")
         default: return qsTr("C1 \u2013 Advanced")
         }
     }
@@ -39,7 +40,7 @@ Page {
             opacity: 0.75
             text: CardStore.learningLanguage === "sv"
                   ? qsTr("Six learning boxes of Swedish words, three for A1 and three for A2. Each one has its own Boxes 1–5, so you can track every level separately. Tap “Open box” to start; it then also appears in the list on the home page.")
-                  : qsTr("Learning boxes of German words from A1 to C1. A1 and A2 follow the lesson themes of “Starten wir!”; B1, B2 and C1 are grouped by everyday and academic topics; the “complete” boxes hold the whole word list of a level, A to Z. Each one has its own Boxes 1–5, so you can track every level separately. Choose one in the list on the home page, or tap “Open box”.")
+                  : qsTr("Learning boxes of German words from A1 to C1. A1 and A2 follow the lesson themes of “Starten wir!”; B1, B2 and C1 are grouped by everyday and academic topics; the “complete” boxes hold the whole word list of a level, A to Z; the “Alltag” box holds core words for real everyday conversation. Each one has its own Boxes 1–5, so you can track every level separately. Choose one in the list on the home page, or tap “Open box”.")
         }
         Label {
             Layout.leftMargin: 16
