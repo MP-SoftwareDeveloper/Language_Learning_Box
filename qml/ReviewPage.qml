@@ -182,6 +182,32 @@ Page {
                 onToggled: page.autoSpeak = checked
             }
             Item { Layout.fillWidth: true }
+            // Back to the previous card (its answer is undone)
+            ToolButton {
+                objectName: "reviewPrevious"
+                focusPolicy: Qt.NoFocus
+                enabled: session.canGoBack
+                opacity: enabled ? 1 : 0.3
+                Accessible.name: qsTr("Previous card")
+                onClicked: session.goBack()
+                contentItem: Item {
+                    implicitWidth: 18
+                    implicitHeight: 24
+                    // "<" drawn from two bars (the arrow glyph is missing in some Persian fonts)
+                    Rectangle {
+                        x: 4; y: 12 - 1.4; width: 13; height: 2.8; radius: 1.4
+                        color: Material.foreground
+                        transformOrigin: Item.Left
+                        rotation: -45
+                    }
+                    Rectangle {
+                        x: 4; y: 12 - 1.4; width: 13; height: 2.8; radius: 1.4
+                        color: Material.foreground
+                        transformOrigin: Item.Left
+                        rotation: 45
+                    }
+                }
+            }
             ToolButton {
                 focusPolicy: Qt.NoFocus
                 onClicked: page.editCurrent()
@@ -528,6 +554,12 @@ Page {
             horizontalAlignment: Text.AlignHCenter
             visible: session.total > 0
             text: qsTr("%1 known · %2 to repeat").arg(session.correctCount).arg(session.wrongCount)
+        }
+        Button {
+            Layout.alignment: Qt.AlignHCenter
+            visible: session.canGoBack
+            text: qsTr("Previous card")
+            onClicked: session.goBack()
         }
         Button {
             Layout.alignment: Qt.AlignHCenter

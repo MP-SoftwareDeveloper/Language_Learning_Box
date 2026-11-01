@@ -15,6 +15,7 @@ void ReviewSession::start(int limit)
     std::shuffle(m_queue.begin(), m_queue.end(), *QRandomGenerator::global());
     m_total = int(m_queue.size());
     m_correct = m_wrong = 0;
+    m_history.clear();
     m_started = true;
     advance();
 }
@@ -24,6 +25,7 @@ void ReviewSession::answer(bool correct)
     if (!hasCard())
         return;
     const int id = m_current.id;
+    m_history.append({m_current, correct ? 1 : 0});
 
     // Leitner: a wrong answer sends the card back to box 1 (due tomorrow); it is not asked again today.
     CardStore::instance()->recordAnswer(id, correct);
@@ -68,8 +70,31 @@ void ReviewSession::moveCurrent(int box)
         return;
     if (!CardStore::instance()->moveCard(id, box))
         return;
+    m_history.append({m_current, -1});
     m_queue.removeAll(id);
     advance();
+}
+
+void ReviewSession::goBack()
+{
+    CardStore *store = CardStore::instance();
+    while (!m_history.isEmpty()) {
+        const Step s = m_history.takeLast();
+        if (!store->restoreProgress(s.before.id, s.before.box, s.before.dueAt, s.before.reviews, s.before.lapses))
+            continue; // deleted meanwhile: try the one before
+        const auto c = store->cardById(s.before.id);
+        if (!c)
+            continue;
+        if (s.kind == 1)
+            m_correct = qMax(0, m_correct - 1);
+        else if (s.kind == 0)
+            m_wrong = qMax(0, m_wrong - 1);
+        if (hasCard())
+            m_queue.prepend(m_current.id); // the card on screen comes again right after
+        m_current = *c;
+        emit currentChanged();
+        return;
+    }
 }
 
 QUrl ReviewSession::imageUrl() const

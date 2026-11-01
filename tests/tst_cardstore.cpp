@@ -7,6 +7,7 @@
 #include <QStandardPaths>
 
 #include "cardstore.h"
+#include "reviewsession.h"
 
 // Runs against a throw-away database: QStandardPaths test mode redirects AppDataLocation.
 class TstCardStore : public QObject
@@ -232,6 +233,64 @@ private slots:
         s->setCollectionHidden(extra, true);
         QVERIFY(s->deleteCollection(extra));                // deleting clears the flag
         QVERIFY(!s->isCollectionHidden(extra));
+    }
+
+    // Review: "previous card" undoes the last answer (box, due date, counters) and asks that card again.
+    void reviewGoBack()
+    {
+        auto *s = CardStore::instance();
+        const int first = s->currentCollection();
+        const int box = s->createCollection(QStringLiteral("Review undo"), QStringLiteral("de"));
+        s->selectCollection(box);
+        QList<Card> cs;
+        for (const char *w : {"eins", "zwei", "drei"}) {
+            Card c;
+            c.front = QString::fromLatin1(w);
+            c.back = QStringLiteral("x");
+            cs << c;
+        }
+        QCOMPARE(s->addCards(cs, QStringLiteral("t")), 3);
+
+        ReviewSession r;
+        r.start();
+        QCOMPARE(r.total(), 3);
+        QVERIFY(!r.canGoBack());
+        r.goBack(); // nothing to undo yet
+        QCOMPARE(r.remaining(), 3);
+
+        const int a = r.cardId();
+        const QDateTime dueA = s->cardById(a)->dueAt;
+        r.answer(true);
+        QVERIFY(r.canGoBack());
+        QCOMPARE(r.correctCount(), 1);
+        QCOMPARE(s->cardById(a)->box, 2);
+        r.goBack();
+        QCOMPARE(r.cardId(), a);
+        QCOMPARE(r.correctCount(), 0);
+        QCOMPARE(r.remaining(), 3);
+        QCOMPARE(s->cardById(a)->box, 1);
+        QCOMPARE(s->cardById(a)->dueAt, dueA);
+        QCOMPARE(s->cardById(a)->reviews, 0);
+        QVERIFY(!r.canGoBack());
+
+        // a wrong answer is undone too, also after the last card (summary page)
+        r.answer(false);
+        QCOMPARE(r.wrongCount(), 1);
+        r.answer(true);
+        r.answer(true);
+        QVERIFY(r.finished());
+        r.goBack();
+        QVERIFY(r.hasCard() && !r.finished());
+        QCOMPARE(r.correctCount(), 1);
+        r.goBack();
+        r.goBack();
+        QCOMPARE(r.cardId(), a);
+        QCOMPARE(r.wrongCount(), 0);
+        QCOMPARE(s->cardById(a)->dueAt, dueA);
+        QCOMPARE(s->cardById(a)->lapses, 0);
+
+        s->selectCollection(first);
+        QVERIFY(s->deleteCollection(box));
     }
 
     // Swedish is a learning language of its own; an unknown language falls back to German.

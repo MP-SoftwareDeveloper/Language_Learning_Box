@@ -26,6 +26,7 @@ class ReviewSession : public QObject
     Q_PROPERTY(int total READ total NOTIFY currentChanged)
     Q_PROPERTY(int correctCount READ correctCount NOTIFY currentChanged)
     Q_PROPERTY(int wrongCount READ wrongCount NOTIFY currentChanged)
+    Q_PROPERTY(bool canGoBack READ canGoBack NOTIFY currentChanged)
 
 public:
     explicit ReviewSession(QObject *parent = nullptr);
@@ -37,6 +38,9 @@ public:
     // Put the current card into `box` by hand (1..5, 6 = Learned; scheduled with that box's
     // interval) and continue with the next card. Not counted as known or wrong.
     Q_INVOKABLE void moveCurrent(int box);
+    // Back to the previous card: its answer (or box move) is undone, so it keeps the box and due date it had
+    // before, and it is asked again now. Can be repeated back to the first card of the session.
+    Q_INVOKABLE void goBack();
 
     bool hasCard() const { return m_current.id >= 0; }
     bool finished() const { return m_started && !hasCard(); }
@@ -50,12 +54,17 @@ public:
     int total() const { return m_total; }
     int correctCount() const { return m_correct; }
     int wrongCount() const { return m_wrong; }
+    bool canGoBack() const { return !m_history.isEmpty(); }
 
 signals:
     void currentChanged();
 
 private:
     void advance();
+
+    // What was done to a card, to undo it: the card as it was, and 1 = known, 0 = wrong, -1 = moved by hand
+    struct Step { Card before; int kind = 1; };
+    QList<Step> m_history;
 
     QList<int> m_queue;
     Card m_current;

@@ -330,7 +330,7 @@ if (LEARNINGBOX_BUILD_TESTS AND NOT ANDROID AND NOT IOS)
         add_test(NAME tst_azuretranslate COMMAND tst_azuretranslate)
 
         qt_add_executable(tst_cardstore tests/tst_cardstore.cpp
-            src/cardstore.cpp src/cardstore.h src/cardimages.cpp)
+            src/cardstore.cpp src/cardstore.h src/cardimages.cpp src/reviewsession.cpp src/reviewsession.h)
         target_include_directories(tst_cardstore PRIVATE src)
         target_link_libraries(tst_cardstore PRIVATE Qt6::Test Qt6::Gui Qt6::Sql Qt6::Qml)
         set_target_properties(tst_cardstore PROPERTIES WIN32_EXECUTABLE FALSE)

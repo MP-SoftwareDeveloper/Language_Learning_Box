@@ -657,6 +657,29 @@ QList<int> CardStore::dueCardIds(int limit) const
     return out;
 }
 
+bool CardStore::restoreProgress(int id, int box, const QDateTime &dueAt, int reviews, int lapses)
+{
+    QSqlQuery q(db());
+    q.prepare(QStringLiteral("UPDATE cards SET box = ?, due_at = ?, reviews = ?, lapses = ?, updated_at = ? WHERE id = ?"));
+    q.addBindValue(box);
+    QVariant due; // learned (Box 6) has no due date: NULL
+    if (dueAt.isValid())
+        due = dueAt.toSecsSinceEpoch();
+    q.addBindValue(due);
+    q.addBindValue(qMax(0, reviews));
+    q.addBindValue(qMax(0, lapses));
+    q.addBindValue(nowSecs());
+    q.addBindValue(id);
+    if (!q.exec()) {
+        fail(QStringLiteral("restoreProgress"), q.lastError().text());
+        return false;
+    }
+    if (q.numRowsAffected() <= 0)
+        return false; // the card was deleted
+    emit changed();
+    return true;
+}
+
 bool CardStore::recordAnswer(int id, bool correct)
 {
     const auto c = cardById(id);

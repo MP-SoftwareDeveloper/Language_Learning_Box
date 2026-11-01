@@ -159,6 +159,8 @@ public:
     QList<Card> cardsAcrossBoxes(bool favoritesOnly, int collectionId, QStringList *boxNames) const;
     QList<int> dueCardIds(int limit = 0) const;
     bool recordAnswer(int id, bool correct);
+    // Puts a card back to the progress it had before an answer (review: "previous card").
+    bool restoreProgress(int id, int box, const QDateTime &dueAt, int reviews, int lapses);
     // Bulk insert in one transaction; skips fronts already in the box (case-insensitive).
     // Returns the number of cards inserted, or -1 on error.
     int addCards(const QList<Card> &cards, const QString &deck);
