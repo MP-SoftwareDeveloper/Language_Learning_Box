@@ -140,6 +140,32 @@ private slots:
         QCOMPARE(perLevel.value(QStringLiteral("B2")), 2);
         QCOMPARE(perLevel.value(QStringLiteral("C1")), 2);
     }
+    void shippedA1CompleteDataIsComplete()
+    {
+        QFile f(QStringLiteral(LB_LEVELPACK_A1C_FILE));
+        QVERIFY(f.open(QIODevice::ReadOnly));
+        QList<LevelPack> packs;
+        QString err;
+        QVERIFY2(parseLevelPacks(QString::fromUtf8(f.readAll()), &packs, &err), qPrintable(err));
+        QCOMPARE(packs.size(), 1);
+        const LevelPack &p = packs.first();
+        QCOMPARE(p.id, QStringLiteral("a1-complete"));
+        QCOMPARE(p.title, QStringLiteral("A1_complete"));
+        QCOMPARE(p.cefr, QStringLiteral("A1"));
+        QCOMPARE(p.language, QStringLiteral("de"));
+        QCOMPARE(p.chapters.size(), 12);
+        QVERIFY(p.totalWords() > 600);
+        QSet<QString> seen;
+        for (const LevelChapter &c : p.chapters) {
+            QVERIFY(!c.words.isEmpty());
+            for (const LevelWord &w : c.words) {
+                QVERIFY(!w.german.isEmpty() && !w.english.isEmpty() && !w.persian.isEmpty());
+                QVERIFY(!w.exampleDe.isEmpty() && !w.exampleEn.isEmpty() && !w.exampleFa.isEmpty());
+                QVERIFY2(!seen.contains(w.german), qPrintable(w.german));
+                seen.insert(w.german);
+            }
+        }
+    }
 };
 
 QTEST_GUILESS_MAIN(TstLevelPack)

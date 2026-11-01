@@ -52,7 +52,7 @@ Page {
             "swedishBoxes": "Swedish A1 and A2 learning boxes in the box list",
             "swedishBoxesHint": "Shows the six Swedish learning boxes (A1, A2) in the box list on the home page. Switching off only hides them; their cards and progress are kept.",
             "germanBoxes": "German learning boxes A1 to C1 in the box list",
-            "germanBoxesHint": "Shows the twelve German learning boxes (A1, A2, B1, B2, C1) in the box list on the home page. Switching off only hides them; their cards and progress are kept.",
+            "germanBoxesHint": "Shows the German learning boxes (levels A1 to C1 and the complete word lists) in the box list on the home page. Switching off only hides them; their cards and progress are kept.",
         },
         "fa": {
             "lang": "زبان توضیحات",
@@ -90,7 +90,7 @@ Page {
             "swedishBoxes": "جعبه‌های یادگیری سوئدی A1 و A2 در فهرست جعبه‌ها",
             "swedishBoxesHint": "شش جعبه یادگیری سوئدی (A1 و A2) را در فهرست جعبه‌های صفحه اصلی نشان می‌دهد. با خاموش کردن، فقط پنهان می‌شوند؛ کارت‌ها و پیشرفت شما می‌ماند.",
             "germanBoxes": "جعبه‌های یادگیری آلمانی A1 تا C1 در فهرست جعبه‌ها",
-            "germanBoxesHint": "دوازده جعبه یادگیری آلمانی (A1، A2، B1، B2، C1) را در فهرست جعبه‌های صفحه اصلی نشان می‌دهد. با خاموش کردن، فقط پنهان می‌شوند؛ کارت‌ها و پیشرفت شما می‌ماند.",
+            "germanBoxesHint": "جعبه‌های یادگیری آلمانی (سطح‌های A1 تا C1 و فهرست‌های کامل واژگان) را در فهرست جعبه‌های صفحه اصلی نشان می‌دهد. با خاموش کردن، فقط پنهان می‌شوند؛ کارت‌ها و پیشرفت شما می‌ماند.",
         },
         "de": {
             "lang": "Sprache der Erklärungen",
@@ -128,7 +128,7 @@ Page {
             "swedishBoxes": "Schwedische A1- und A2-Lernboxen in der Box-Liste",
             "swedishBoxesHint": "Zeigt die sechs schwedischen Lernboxen (A1, A2) in der Liste auf der Startseite. Beim Ausschalten werden sie nur versteckt; Karten und Fortschritt bleiben erhalten.",
             "germanBoxes": "Deutsche Lernboxen A1 bis C1 in der Box-Liste",
-            "germanBoxesHint": "Zeigt die zwölf deutschen Lernboxen (A1, A2, B1, B2, C1) in der Liste auf der Startseite. Beim Ausschalten werden sie nur versteckt; Karten und Fortschritt bleiben erhalten.",
+            "germanBoxesHint": "Zeigt die deutschen Lernboxen (Niveaus A1 bis C1 und die vollständigen Wortlisten) in der Liste auf der Startseite. Beim Ausschalten werden sie nur versteckt; Karten und Fortschritt bleiben erhalten.",
         }
     })
     function tr2(key) { return (tx[lang] && tx[lang][key]) || tx.en[key] }

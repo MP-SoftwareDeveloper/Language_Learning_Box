@@ -3,6 +3,7 @@
 #include "translator.h"
 
 #include <QCoreApplication>
+#include <algorithm>
 #include <QDebug>
 #include <QFile>
 #include <QJSEngine>
@@ -14,6 +15,12 @@ namespace {
 constexpr auto kResource = ":/data/levelpacks/starten_wir_levels.tsv";
 constexpr auto kResourceSv = ":/data/levelpacks/svenska_levels.tsv";
 constexpr auto kResourceAdv = ":/data/levelpacks/deutsch_b1_c1.tsv"; // German B1, B2, C1
+constexpr auto kResourceA1Complete = ":/data/levelpacks/deutsch_a1_complete.tsv"; // "A1_complete": whole A1 word list
+
+bool isComplete(const LevelPack &p)
+{
+    return p.id.endsWith(QLatin1String("-complete"));
+}
 
 QString learningLanguage()
 {
@@ -42,7 +49,7 @@ LevelPacks *LevelPacks::create(QQmlEngine *, QJSEngine *engine)
 LevelPacks::LevelPacks(QObject *parent)
     : QObject(parent)
 {
-    for (const char *resource : {kResource, kResourceAdv, kResourceSv}) {
+    for (const char *resource : {kResource, kResourceA1Complete, kResourceAdv, kResourceSv}) {
         QFile f(QString::fromLatin1(resource));
         QList<LevelPack> packs;
         QString error;
@@ -56,6 +63,15 @@ LevelPacks::LevelPacks(QObject *parent)
     }
     if (!m_error.isEmpty())
         qWarning().noquote() << m_error;
+    // Order for the list: German before Swedish, by CEFR level; a "complete" box follows the levels of its CEFR step.
+    std::stable_sort(m_packs.begin(), m_packs.end(), [](const LevelPack &a, const LevelPack &b) {
+        const bool aSv = a.language != QLatin1String("de"), bSv = b.language != QLatin1String("de");
+        if (aSv != bSv)
+            return bSv;
+        if (a.cefr != b.cefr)
+            return a.cefr < b.cefr;
+        return !a.id.endsWith(QLatin1String("-complete")) && b.id.endsWith(QLatin1String("-complete"));
+    });
 
     connect(CardStore::instance(), &CardStore::changed, this, &LevelPacks::refresh);
     refresh();
@@ -66,7 +82,7 @@ int LevelPacks::totalWords() const
     int n = 0;
     const QString lang = learningLanguage();
     for (const LevelPack &p : m_packs)
-        if (p.language == lang)
+        if (p.language == lang && !isComplete(p)) // the "complete" boxes repeat words of the levels
             n += p.totalWords();
     return n;
 }
@@ -181,15 +197,22 @@ QString boxesKey(const QString &language)
 }
 // First-start flag per group of packs (German A1/A2 keeps its old key), so a deleted box does not come back.
 // German B1-C1 has its own flag, so existing users get those boxes once after an update.
-bool isAdvanced(const LevelPack &p)
+// Groups of German packs: 0 = A1/A2 levels, 1 = B1-C1 levels, 2 = "complete" boxes (A1_complete, ...).
+int packGroup(const LevelPack &p)
 {
-    return p.language == QLatin1String("de") && p.cefr != QLatin1String("A1") && p.cefr != QLatin1String("A2");
+    if (isComplete(p))
+        return 2;
+    return p.language == QLatin1String("de") && p.cefr != QLatin1String("A1") && p.cefr != QLatin1String("A2") ? 1 : 0;
 }
-QString installedKey(const QString &language, bool advanced)
+QString installedKey(const QString &language, int group)
 {
     if (language == QLatin1String("sv"))
         return QStringLiteral("levelpacks/installedSv");
-    return advanced ? QStringLiteral("levelpacks/installedDeAdv") : QStringLiteral("levelpacks/installed");
+    switch (group) {
+    case 1: return QStringLiteral("levelpacks/installedDeAdv");
+    case 2: return QStringLiteral("levelpacks/installedDeComplete");
+    default: return QStringLiteral("levelpacks/installed");
+    }
 }
 } // namespace
 
@@ -226,16 +249,16 @@ int LevelPacks::installBoxes(bool force)
     CardStore *store = CardStore::instance();
     const int original = store->currentCollection();
     int created = 0;
-    const struct { const char *language; bool advanced; } groups[] = {{"de", false}, {"de", true}, {"sv", false}};
+    const struct { const char *language; int group; } groups[] = {{"de", 0}, {"de", 1}, {"de", 2}, {"sv", 0}};
     for (const auto &g : groups) {
         const QString language = QString::fromLatin1(g.language);
-        const QString key = installedKey(language, g.advanced);
+        const QString key = installedKey(language, g.group);
         if (!force && settings.value(key, false).toBool())
             continue;
         // Switched off in Settings: no boxes now; switching on creates them.
         if (boxesOn(language))
             for (const LevelPack &p : std::as_const(m_packs))
-                if (p.language == language && isAdvanced(p) == g.advanced && boxId(p) < 0 && createBox(p) >= 0)
+                if (p.language == language && packGroup(p) == g.group && boxId(p) < 0 && createBox(p) >= 0)
                     ++created;
         settings.setValue(key, true);
     }

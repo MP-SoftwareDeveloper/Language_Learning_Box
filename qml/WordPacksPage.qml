@@ -73,7 +73,7 @@ Page {
                     HintLabel {
                         text: page.swedish
                               ? qsTr("%1 Swedish words and phrases in 6 levels (3 for A1, 3 for A2). Each level is its own learning box, with English and Persian meanings and example sentences.").arg(LevelPacks.totalWords)
-                              : qsTr("%1 words and phrases in 12 levels from A1 to C1. Each level is its own learning box, with English and Persian meanings and example sentences.").arg(LevelPacks.totalWords)
+                              : qsTr("%1 words and phrases in %2 levels from A1 to C1, plus the complete word lists. Each level is its own learning box, with English and Persian meanings and example sentences.").arg(LevelPacks.totalWords).arg(LevelPacks.levels.filter(l => !l.id.endsWith("-complete")).length)
                     }
                 }
                 Button {

@@ -1,0 +1,703 @@
+# LearningBox level packs: "A1_complete" - every entry of the Goethe A1 word list, in alphabetical chapters.
+# Headwords follow the public Goethe-Zertifikat A1 word list (single words only). Meanings (English, Persian) and
+# example sentences are ORIGINAL (the Goethe example sentences are not used). Same format as starten_wir_levels.tsv.
+# Format:  @level<TAB>id<TAB>title<TAB>subtitle   @chapter<TAB>levelId<TAB>number<TAB>title
+#          levelId<TAB>chapter<TAB>German<TAB>plural ("-" = none)<TAB>English<TAB>Persian<TAB>example (de)<TAB>example (en)<TAB>example (fa)
+@level	a1-complete	A1_complete	The complete A1 word list, A to Z
+@chapter	a1-complete	1	ab – aus
+@chapter	a1-complete	2	aus sein – bisschen
+@chapter	a1-complete	3	bitte – duschen
+@chapter	a1-complete	4	E-Mail – fliegen
+@chapter	a1-complete	5	Flughafen – groß
+@chapter	a1-complete	6	Größe – Junge
+@chapter	a1-complete	7	Kaffee – Leute
+@chapter	a1-complete	8	Licht – oder
+@chapter	a1-complete	9	öffnen – Schinken
+@chapter	a1-complete	10	schlafen – Tee
+@chapter	a1-complete	11	Teil – was für ein
+@chapter	a1-complete	12	waschen – zwischen
+a1-complete	1	ab	-	from; off	از؛ از … به بعد	Ab morgen arbeite ich wieder.	From tomorrow I work again.	از فردا دوباره کار می‌کنم.
+a1-complete	1	aber	-	but	اما؛ ولی	Ich bin müde, aber glücklich.	I am tired, but happy.	من خسته‌ام اما خوشحالم.
+a1-complete	1	abfahren	-	to depart; to leave	حرکت کردن (وسیله نقلیه)	Der Bus fährt in fünf Minuten ab.	The bus leaves in five minutes.	اتوبوس پنج دقیقه دیگر حرکت می‌کند.
+a1-complete	1	die Abfahrt	Abfahrten	departure	حرکت؛ زمان حرکت	Die Abfahrt des Zuges ist um acht Uhr.	The train's departure is at eight o'clock.	حرکت قطار ساعت هشت است.
+a1-complete	1	abfliegen	-	to take off; to depart (by plane)	پرواز کردن (از مبدأ)	Das Flugzeug fliegt um acht Uhr ab.	The plane departs at eight o'clock.	هواپیما ساعت هشت پرواز می‌کند.
+a1-complete	1	der Abflug	Abflüge	departure (plane)	پرواز (حرکت هواپیما)	Der Abflug ist um zehn Uhr.	The departure is at ten o'clock.	پرواز ساعت ده است.
+a1-complete	1	abgeben	-	to hand in; to drop off	تحویل دادن	Ich gebe den Schlüssel an der Rezeption ab.	I hand in the key at reception.	کلید را در پذیرش تحویل می‌دهم.
+a1-complete	1	abholen	-	to pick up; to collect	رفتن دنبال (کسی)؛ تحویل گرفتن	Ich hole dich um sechs vom Bahnhof ab.	I pick you up from the station at six.	ساعت شش تو را از ایستگاه می‌برم.
+a1-complete	1	der Absender	Absender	sender	فرستنده	Auf dem Umschlag fehlt der Absender.	The sender is missing on the envelope.	روی پاکت فرستنده نوشته نشده است.
+a1-complete	1	Achtung	-	attention; watch out	توجه؛ مراقب باش	Achtung, die Tür schließt sich!	Attention, the door is closing!	توجه، در بسته می‌شود!
+a1-complete	1	die Adresse	Adressen	address	آدرس	Wie ist deine Adresse?	What is your address?	آدرس تو چیست؟
+a1-complete	1	alle	-	all; everyone	همه؛ همگی	Alle Kinder spielen im Garten.	All the children are playing in the garden.	همه بچه‌ها در باغ بازی می‌کنند.
+a1-complete	1	allein	-	alone	تنها	Er wohnt allein in der Stadt.	He lives alone in the city.	او تنها در شهر زندگی می‌کند.
+a1-complete	1	also	-	so; therefore	پس؛ بنابراین	Es regnet, also bleiben wir zu Hause.	It is raining, so we stay at home.	باران می‌بارد، پس در خانه می‌مانیم.
+a1-complete	1	alt	-	old	پیر؛ قدیمی	Mein Auto ist schon sehr alt.	My car is already very old.	ماشین من خیلی قدیمی است.
+a1-complete	1	das Alter	-	age	سن؛ سن و سال	Was ist Ihr Alter?	What is your age?	سن شما چقدر است؟
+a1-complete	1	an	-	at; on; to	در؛ کنار؛ به	Das Bild hängt an der Wand.	The picture hangs on the wall.	تصویر به دیوار آویزان است.
+a1-complete	1	an sein	-	to be on (light, device)	روشن بودن	Das Licht ist noch an.	The light is still on.	چراغ هنوز روشن است.
+a1-complete	1	anbieten	-	to offer	پیشنهاد دادن؛ تعارف کردن	Darf ich Ihnen einen Kaffee anbieten?	May I offer you a coffee?	می‌توانم یک قهوه به شما تعارف کنم؟
+a1-complete	1	andere	-	other; another	دیگر؛ دیگری	Ich nehme die andere Jacke.	I take the other jacket.	من کت دیگر را برمی‌دارم.
+a1-complete	1	der Anfang	Anfänge	beginning; start	آغاز؛ شروع	Am Anfang war alles neu für mich.	In the beginning everything was new to me.	در آغاز همه چیز برایم تازه بود.
+a1-complete	1	anfangen	-	to begin; to start	شروع کردن؛ شروع شدن	Die Arbeit fängt um acht Uhr an.	Work starts at eight o'clock.	کار ساعت هشت شروع می‌شود.
+a1-complete	1	das Angebot	Angebote	offer; selection	پیشنهاد؛ تخفیف ویژه؛ تنوع کالا	Dieses Angebot gilt nur noch bis Freitag.	This offer is only valid until Friday.	این پیشنهاد فقط تا جمعه معتبر است.
+a1-complete	1	anklicken	-	to click on	کلیک کردن روی	Bitte klicken Sie hier an.	Please click here.	لطفاً اینجا کلیک کنید.
+a1-complete	1	ankommen	-	to arrive	رسیدن	Wir kommen um acht Uhr an.	We arrive at eight o'clock.	ما ساعت هشت می‌رسیم.
+a1-complete	1	ankreuzen	-	to tick; to mark with a cross	علامت زدن؛ ضربدر زدن	Sie müssen die richtige Antwort ankreuzen.	You have to tick the correct answer.	باید پاسخ درست را علامت بزنید.
+a1-complete	1	die Ankunft	Ankünfte	arrival	ورود؛ رسیدن	Die Ankunft des Zuges ist um zehn Uhr.	The train's arrival is at ten o'clock.	ورود قطار ساعت ده است.
+a1-complete	1	anmachen	-	to switch on; to turn on	روشن کردن	Mach bitte das Licht an.	Please turn on the light.	لطفاً چراغ را روشن کن.
+a1-complete	1	sich anmelden	-	to register; to sign up	ثبت‌نام کردن	Ich melde mich für den Kurs an.	I register for the course.	برای دوره ثبت‌نام می‌کنم.
+a1-complete	1	die Anmeldung	Anmeldungen	registration	ثبت‌نام	Die Anmeldung ist am Montag.	Registration is on Monday.	ثبت‌نام دوشنبه است.
+a1-complete	1	die Anrede	Anreden	form of address; salutation	عنوان خطاب	Die Anrede im Brief ist „Sehr geehrte Frau Weber“.	The salutation in the letter is "Dear Mrs Weber".	عنوان خطاب در نامه «خانم وبر محترم» است.
+a1-complete	1	der Anruf	Anrufe	phone call	تماس تلفنی	Ich habe heute einen Anruf von meiner Mutter bekommen.	I got a phone call from my mother today.	امروز از مادرم تماس تلفنی داشتم.
+a1-complete	1	der Anrufbeantworter	Anrufbeantworter	answering machine	پیغام‌گیر تلفن	Bitte sprechen Sie auf den Anrufbeantworter.	Please leave a message on the answering machine.	لطفاً روی پیغام‌گیر پیام بگذارید.
+a1-complete	1	anrufen	-	to call; to phone	زنگ زدن؛ تماس گرفتن	Ich rufe meinen Chef an.	I call my boss.	من به رئیسم زنگ می‌زنم.
+a1-complete	1	die Ansage	Ansagen	announcement	اعلام؛ پیام اعلام‌شده	Hören Sie die Ansage am Bahnhof?	Do you hear the announcement at the station?	اعلامیه ایستگاه را می‌شنوی؟
+a1-complete	1	der Anschluss	Anschlüsse	connection	اتصال؛ ارتباط (حمل‌ونقل)	Ich habe in Köln einen Anschluss nach Bonn.	In Cologne I have a connection to Bonn.	در کلن به بن وصل می‌شوم.
+a1-complete	1	die Antwort	Antworten	answer; reply	جواب؛ پاسخ	Die Antwort ist richtig.	The answer is correct.	جواب درست است.
+a1-complete	1	antworten	-	to answer; to reply	جواب دادن	Bitte antworte mir bald.	Please answer me soon.	لطفاً زود جواب بده.
+a1-complete	1	die Anzeige	Anzeigen	advertisement; notice	آگهی	Ich habe eine Anzeige in der Zeitung gelesen.	I read an advertisement in the newspaper.	من یک آگهی در روزنامه خواندم.
+a1-complete	1	sich anziehen	-	to get dressed; to put on	لباس پوشیدن	Zieh dich bitte warm an!	Please dress warmly!	لطفاً گرم بپوش!
+a1-complete	1	das Apartment	Apartments	apartment; flat	آپارتمان کوچک	Sie wohnt in einem kleinen Apartment.	She lives in a small apartment.	او در یک آپارتمان کوچک زندگی می‌کند.
+a1-complete	1	der Apfel	Äpfel	apple	سیب	Ich esse jeden Tag einen Apfel.	I eat an apple every day.	من هر روز یک سیب می‌خورم.
+a1-complete	1	der Appetit	-	appetite	اشتها	Ich habe heute keinen Appetit.	I have no appetite today.	امروز اشتها ندارم.
+a1-complete	1	die Arbeit	-	work; job	کار	Die Arbeit ist interessant.	The work is interesting.	کار جالب است.
+a1-complete	1	arbeiten	-	to work	کار کردن	Er arbeitet bei einer Bank.	He works at a bank.	او در یک بانک کار می‌کند.
+a1-complete	1	arbeitslos	-	unemployed	بیکار	Mein Bruder ist leider arbeitslos.	My brother is unfortunately unemployed.	برادرم متأسفانه بیکار است.
+a1-complete	1	der Arbeitsplatz	Arbeitsplätze	workplace; job	محل کار؛ شغل	Mein Arbeitsplatz ist im Zentrum.	My workplace is in the centre.	محل کار من در مرکز شهر است.
+a1-complete	1	der Arm	Arme	arm	بازو؛ دست	Er hat sich den Arm gebrochen.	He has broken his arm.	او دستش را شکسته است.
+a1-complete	1	der Arzt	Ärzte	doctor (male)	پزشک؛ دکتر	Der Arzt arbeitet im Krankenhaus.	The doctor works in the hospital.	پزشک در بیمارستان کار می‌کند.
+a1-complete	1	auch	-	also; too	هم؛ همچنین	Ich komme auch.	I am coming too.	من هم می‌آیم.
+a1-complete	1	auf	-	on; on top of	روی	Das Buch liegt auf dem Tisch.	The book is on the table.	کتاب روی میز است.
+a1-complete	1	auf sein	-	to be open	باز بودن	Die Tür ist auf.	The door is open.	در باز است.
+a1-complete	1	die Aufgabe	Aufgaben	task; exercise	وظیفه؛ تمرین	Die erste Aufgabe ist leicht.	The first exercise is easy.	تمرین اول آسان است.
+a1-complete	1	aufhören	-	to stop; to quit	متوقف شدن؛ دست کشیدن	Es hört gleich auf zu regnen.	It will stop raining soon.	به‌زودی باران بند می‌آید.
+a1-complete	1	aufstehen	-	to get up	بلند شدن؛ از خواب بیدار شدن	Ich stehe um sieben Uhr auf.	I get up at seven o'clock.	من ساعت هفت بیدار می‌شوم.
+a1-complete	1	der Aufzug	Aufzüge	lift; elevator	آسانسور	Der Aufzug ist leider kaputt.	Unfortunately the lift is broken.	متأسفانه آسانسور خراب است.
+a1-complete	1	das Auge	Augen	eye	چشم	Sie hat blaue Augen.	She has blue eyes.	او چشم‌‌های آبی دارد.
+a1-complete	1	aus	-	out of; from	از؛ بیرون از	Ich komme aus dem Iran.	I come from Iran.	من اهل ایران هستم.
+a1-complete	2	aus sein	-	to be off	خاموش بودن؛ تمام شده بودن	Das Radio ist aus.	The radio is off.	رادیو خاموش است.
+a1-complete	2	der Ausflug	Ausflüge	trip; excursion	گردش؛ سفر کوتاه	Am Sonntag machen wir einen Ausflug an den See.	On Sunday we are going on a trip to the lake.	یکشنبه برای گردش به کنار دریاچه می‌رویم.
+a1-complete	2	ausfüllen	-	to fill out	پر کردن (فرم)	Ich muss noch den Antrag ausfüllen.	I still have to fill out the application.	هنوز باید درخواست را پر کنم.
+a1-complete	2	der Ausgang	Ausgänge	exit	خروجی	Wo ist der Ausgang?	Where is the exit?	خروجی کجاست؟
+a1-complete	2	die Auskunft	Auskünfte	information; information desk	اطلاعات؛ میز اطلاعات	Die Auskunft ist im Erdgeschoss.	The information desk is on the ground floor.	میز اطلاعات در طبقه همکف است.
+a1-complete	2	das Ausland	-	abroad; foreign country	خارج از کشور	Im Sommer fahren wir ins Ausland.	In summer we go abroad.	تابستان به خارج از کشور می‌رویم.
+a1-complete	2	der Ausländer	Ausländer	foreigner	خارجی (مرد)	Als Ausländer brauche ich ein Visum.	As a foreigner I need a visa.	به‌عنوان خارجی ویزا لازم دارم.
+a1-complete	2	ausländisch	-	foreign	خارجی	Sie mag ausländisches Essen.	She likes foreign food.	او غذای خارجی را دوست دارد.
+a1-complete	2	ausmachen	-	to turn off; to agree on	خاموش کردن؛ قرار گذاشتن	Mach bitte den Fernseher aus.	Please turn off the TV.	لطفاً تلویزیون را خاموش کن.
+a1-complete	2	die Aussage	Aussagen	statement	اظهار؛ گفته	Diese Aussage ist nicht richtig.	This statement is not correct.	این اظهار درست نیست.
+a1-complete	2	aussehen	-	to look (like)	به نظر رسیدن؛ ظاهر داشتن	Du siehst müde aus.	You look tired.	خسته به نظر می‌رسی.
+a1-complete	2	aussteigen	-	to get off	پیاده شدن	Ich steige an der nächsten Haltestelle aus.	I get off at the next stop.	من در ایستگاه بعدی پیاده می‌شوم.
+a1-complete	2	der Ausweis	Ausweise	identity card	کارت شناسایی	Haben Sie Ihren Ausweis dabei?	Do you have your ID with you?	کارت شناسایی‌تان همراه شماست؟
+a1-complete	2	sich ausziehen	-	to undress; to take off	لباس درآوردن	Zieh bitte die Schuhe aus.	Please take off your shoes.	لطفاً کفش‌هایت را در بیاور.
+a1-complete	2	das Auto	Autos	car	ماشین؛ خودرو	Wir haben ein neues Auto.	We have a new car.	ما یک ماشین جدید داریم.
+a1-complete	2	die Autobahn	Autobahnen	motorway; highway	بزرگراه (اتوبان)	Auf der Autobahn gibt es viel Verkehr.	There is a lot of traffic on the motorway.	در بزرگراه ترافیک زیاد است.
+a1-complete	2	der Automat	Automaten	vending machine; machine	دستگاه خودکار	Die Fahrkarte kaufe ich am Automaten.	I buy the ticket at the machine.	بلیط را از دستگاه می‌خرم.
+a1-complete	2	automatisch	-	automatic	خودکار	Die Tür öffnet sich automatisch.	The door opens automatically.	در به‌طور خودکار باز می‌شود.
+a1-complete	2	das Baby	Babys	baby	نوزاد؛ بچه کوچک	Das Baby schläft schon.	The baby is already asleep.	نوزاد خوابیده است.
+a1-complete	2	die Bäckerei	Bäckereien	bakery	نانوایی	In der Bäckerei kaufe ich Brötchen.	I buy bread rolls at the bakery.	از نانوایی نان کوچک می‌خرم.
+a1-complete	2	das Bad	Bäder	bathroom	حمام; دستشویی	Das Bad ist klein, aber sauber.	The bathroom is small but clean.	حمام کوچک ولی تمیز است.
+a1-complete	2	baden	-	to bathe; to swim	حمام کردن؛ شنا کردن	Im Sommer baden wir im See.	In summer we swim in the lake.	تابستان در دریاچه شنا می‌کنیم.
+a1-complete	2	die Bahn	Bahnen	railway; train	راه‌آهن؛ قطار	Ich fahre mit der Bahn zur Arbeit.	I go to work by train.	با قطار سر کار می‌روم.
+a1-complete	2	der Bahnhof	Bahnhöfe	railway station	ایستگاه قطار	Der Bahnhof ist nicht weit.	The station is not far.	ایستگاه قطار دور نیست.
+a1-complete	2	der Bahnsteig	Bahnsteige	platform	سکوی قطار	Der Zug fährt von Bahnsteig drei ab.	The train leaves from platform three.	قطار از سکوی سه حرکت می‌کند.
+a1-complete	2	bald	-	soon	به‌زودی	Bis bald!	See you soon!	به امید دیدار!
+a1-complete	2	der Balkon	Balkone	balcony	بالکن	Auf dem Balkon steht ein Tisch.	There is a table on the balcony.	روی بالکن یک میز هست.
+a1-complete	2	die Banane	Bananen	banana	موز	Die Banane ist gelb.	The banana is yellow.	موز زرد است.
+a1-complete	2	die Bank	Banken	bank	بانک	Die Bank öffnet um neun Uhr.	The bank opens at nine o'clock.	بانک ساعت نه باز می‌شود.
+a1-complete	2	bar	-	in cash	نقد	Kann ich bar bezahlen?	Can I pay in cash?	می‌توانم نقد بپردازم؟
+a1-complete	2	der Bauch	Bäuche	belly; stomach; tummy	شکم؛ دل	Ich habe Bauchschmerzen, mein Bauch tut weh.	I have stomach ache, my belly hurts.	دل‌‌درد دارم، شکمم درد می‌کند.
+a1-complete	2	der Baum	Bäume	tree	درخت	Im Garten steht ein großer Baum.	There is a big tree in the garden.	در باغ یک درخت بزرگ هست.
+a1-complete	2	der Beamte	Beamte	civil servant; official	کارمند دولت	Der Beamte hilft mir am Schalter.	The official helps me at the counter.	کارمند دولت پشت باجه به من کمک می‌کند.
+a1-complete	2	bedeuten	-	to mean	معنی دادن	Was bedeutet dieses Wort?	What does this word mean?	این کلمه چه معنایی دارد؟
+a1-complete	2	beginnen	-	to begin; to start	شروع کردن؛ آغاز شدن	Der Film beginnt um acht Uhr.	The film starts at eight o'clock.	فیلم ساعت هشت شروع می‌شود.
+a1-complete	2	bei	-	at; near; with	نزد؛ کنار؛ در	Ich wohne bei meinen Eltern.	I live with my parents.	من نزد پدر و مادرم زندگی می‌کنم.
+a1-complete	2	beide	-	both	هر دو	Wir sind beide müde.	We are both tired.	ما هر دو خسته‌ایم.
+a1-complete	2	das Bein	Beine	leg	پا	Mein linkes Bein ist müde.	My left leg is tired.	پای چپم خسته است.
+a1-complete	2	das Beispiel	Beispiele	example	مثال	Ein Beispiel, bitte!	An example, please!	لطفاً یک مثال بزنید!
+a1-complete	2	bekannt	-	known; well-known	شناخته‌شده؛ معروف	Das ist ein bekannter Film.	That is a well-known film.	این یک فیلم معروف است.
+a1-complete	2	der Bekannte	Bekannte	acquaintance	آشنا؛ دوست غیرنزدیک	Er ist ein Bekannter von mir.	He is an acquaintance of mine.	او یکی از آشنایان من است.
+a1-complete	2	bekommen	-	to get; to receive	گرفتن؛ دریافت کردن	Ich bekomme morgen einen Brief.	I will get a letter tomorrow.	فردا یک نامه دریافت می‌کنم.
+a1-complete	2	benutzen	-	to use	استفاده کردن	Darf ich Ihr Telefon benutzen?	May I use your phone?	می‌توانم از تلفن شما استفاده کنم؟
+a1-complete	2	der Beruf	Berufe	profession; occupation	شغل؛ حرفه	Was ist dein Beruf?	What is your profession?	شغل تو چیست؟
+a1-complete	2	besetzt	-	occupied; engaged	اشغال؛ مشغول	Die Toilette ist besetzt.	The toilet is occupied.	دستشویی اشغال است.
+a1-complete	2	besichtigen	-	to visit; to tour (a sight)	بازدید کردن	Wir besichtigen morgen das Schloss.	Tomorrow we are visiting the castle.	فردا از قصر بازدید می‌کنیم.
+a1-complete	2	besser	-	better	بهتر	Heute geht es mir besser.	I feel better today.	امروز حالم بهتر است.
+a1-complete	2	beste	-	best	بهترین	Das ist meine beste Freundin.	This is my best friend.	این بهترین دوست من است.
+a1-complete	2	bestellen	-	to order	سفارش دادن	Ich bestelle eine Suppe und ein Wasser.	I am ordering a soup and a water.	من یک سوپ و یک آب سفارش می‌دهم.
+a1-complete	2	besuchen	-	to visit	ملاقات کردن؛ دیدن کردن	Am Sonntag besuche ich meine Oma.	On Sunday I visit my grandma.	یکشنبه به دیدن مادربزرگم می‌روم.
+a1-complete	2	das Bett	Betten	bed	تخت	Das Bett ist sehr bequem.	The bed is very comfortable.	تخت خیلی راحت است.
+a1-complete	2	bezahlen	-	to pay	پرداخت کردن	Ich bezahle mit Karte.	I pay by card.	من با کارت پرداخت می‌کنم.
+a1-complete	2	das Bier	Biere	beer	آبجو	Er trinkt ein Bier.	He drinks a beer.	او یک آبجو می‌نوشد.
+a1-complete	2	das Bild	Bilder	picture; image	تصویر؛ عکس؛ نقاشی	Das Bild gefällt mir.	I like the picture.	این تصویر را دوست دارم.
+a1-complete	2	billig	-	cheap	ارزان	Das Hemd ist billig.	The shirt is cheap.	این پیراهن ارزان است.
+a1-complete	2	die Birne	Birnen	pear; light bulb	گلابی؛ لامپ	Ich esse eine Birne.	I eat a pear.	من یک گلابی می‌خورم.
+a1-complete	2	bis	-	until; to	تا	Ich arbeite bis fünf Uhr.	I work until five o'clock.	تا ساعت پنج کار می‌کنم.
+a1-complete	2	bisschen	-	a little	کمی؛ یک ذره	Sprechen Sie bitte ein bisschen langsamer.	Please speak a little slower.	لطفاً کمی آهسته‌تر صحبت کنید.
+a1-complete	3	bitte	-	please	لطفاً؛ بفرمایید	Einen Kaffee, bitte.	A coffee, please.	یک قهوه، لطفاً.
+a1-complete	3	die Bitte	Bitten	request	درخواست؛ خواهش	Ich habe eine Bitte an Sie.	I have a request for you.	من یک خواهش از شما دارم.
+a1-complete	3	bitten	-	to ask; to request	خواهش کردن؛ درخواست کردن	Ich bitte Sie um Hilfe.	I ask you for help.	از شما کمک می‌خواهم.
+a1-complete	3	bitter	-	bitter	تلخ	Der Kaffee ist bitter.	The coffee is bitter.	قهوه تلخ است.
+a1-complete	3	bleiben	-	to stay; to remain	ماندن	Ich bleibe heute zu Hause.	I stay at home today.	امروز در خانه می‌مانم.
+a1-complete	3	der Bleistift	Bleistifte	pencil	مداد	Ich schreibe mit einem Bleistift.	I write with a pencil.	من با مداد می‌نویسم.
+a1-complete	3	der Blick	Blicke	look; view	نگاه؛ منظره	Vom Balkon hat man einen schönen Blick.	From the balcony there is a nice view.	از بالکن منظره زیبایی دیده می‌شود.
+a1-complete	3	die Blume	Blumen	flower	گل	Ich kaufe Blumen für meine Mutter.	I buy flowers for my mother.	برای مادرم گل می‌خرم.
+a1-complete	3	der Bogen	Bögen	sheet (of paper)	ورق (کاغذ)	Ich brauche einen Bogen Papier.	I need a sheet of paper.	من یک ورق کاغذ لازم دارم.
+a1-complete	3	böse	-	angry; bad; evil	عصبانی؛ بد	Bist du böse auf mich?	Are you angry with me?	از دست من عصبانی هستی؟
+a1-complete	3	brauchen	-	to need	نیاز داشتن	Ich brauche einen Stift.	I need a pen.	من یک خودکار لازم دارم.
+a1-complete	3	breit	-	wide; broad	پهن؛ عریض	Die Straße ist sehr breit.	The street is very wide.	خیابان خیلی پهن است.
+a1-complete	3	der Brief	Briefe	letter	نامه	Ich schreibe einen Brief an meine Freundin.	I write a letter to my friend.	برای دوستم نامه می‌نویسم.
+a1-complete	3	die Briefmarke	Briefmarken	stamp	تمبر	Ich brauche zwei Briefmarken für Postkarten.	I need two stamps for postcards.	برای کارت‌پستال دو تا تمبر لازم دارم.
+a1-complete	3	bringen	-	to bring	آوردن	Bringst du bitte Brot mit?	Will you bring bread, please?	لطفاً نان بیاوری؟
+a1-complete	3	das Brot	Brote	bread	نان	Zum Frühstück esse ich Brot.	For breakfast I eat bread.	برای صبحانه نان می‌خورم.
+a1-complete	3	das Brötchen	Brötchen	bread roll	نان گردِ کوچک	Ich möchte zwei Brötchen, bitte.	I would like two bread rolls, please.	دو تا نان کوچک می‌خواهم، لطفاً.
+a1-complete	3	der Bruder	Brüder	brother	برادر	Mein Bruder ist Lehrer.	My brother is a teacher.	برادرم معلم است.
+a1-complete	3	das Buch	Bücher	book	کتاب	Ich lese ein Buch.	I am reading a book.	من دارم کتاب می‌خوانم.
+a1-complete	3	der Buchstabe	Buchstaben	letter (of the alphabet)	حرف (الفبا)	Das Wort hat fünf Buchstaben.	The word has five letters.	این کلمه پنج حرف دارد.
+a1-complete	3	buchstabieren	-	to spell	هجی کردن	Können Sie das buchstabieren?	Can you spell that?	می‌توانید این را هجی کنید؟
+a1-complete	3	der Bus	Busse	bus	اتوبوس	Der Bus kommt gleich.	The bus is coming soon.	اتوبوس همین حالا می‌رسد.
+a1-complete	3	die Butter	-	butter	کره	Ich esse Brot mit Butter.	I eat bread with butter.	نان با کره می‌خورم.
+a1-complete	3	das Café	Cafés	café	کافه	Wir treffen uns im Café.	We meet in the café.	ما در کافه همدیگر را می‌بینیم.
+a1-complete	3	die CD	CDs	CD	سی‌دی	Ich höre gern diese CD.	I like listening to this CD.	دوست دارم به این سی‌دی گوش بدهم.
+a1-complete	3	der Chef	Chefs	boss (male)	رئیس	Der Chef ist heute nicht da.	The boss is not here today.	رئیس امروز اینجا نیست.
+a1-complete	3	circa	-	about; approximately	حدود؛ تقریباً	Der Weg dauert circa zehn Minuten.	The way takes about ten minutes.	مسیر حدود ده دقیقه طول می‌کشد.
+a1-complete	3	der Computer	Computer	computer	رایانه؛ کامپیوتر	Mein Computer ist neu.	My computer is new.	کامپیوتر من نو است.
+a1-complete	3	da	-	there; here	آنجا؛ اینجا؛ حاضر	Ist Herr Schmidt da?	Is Mr Schmidt there?	آقای اشمیت آنجاست؟
+a1-complete	3	die Dame	Damen	lady	بانو؛ خانم	Die Dame dort wartet auf den Bus.	The lady there is waiting for the bus.	آن خانم آنجا منتظر اتوبوس است.
+a1-complete	3	daneben	-	next to it; beside it	کنار آن	Das Hotel ist daneben.	The hotel is next to it.	هتل کنار آن است.
+a1-complete	3	der Dank	-	thanks	سپاس؛ تشکر	Vielen Dank für das Geschenk!	Many thanks for the present!	بسیار سپاسگزارم برای هدیه!
+a1-complete	3	danke	-	thank you	ممنون؛ متشکرم	Danke, gut.	Thank you, fine.	ممنون، خوبم.
+a1-complete	3	danken	-	to thank	تشکر کردن	Ich danke Ihnen für Ihre Hilfe.	I thank you for your help.	از کمک شما تشکر می‌کنم.
+a1-complete	3	dann	-	then	بعد؛ سپس	Zuerst frühstücke ich, dann gehe ich zur Arbeit.	First I have breakfast, then I go to work.	اول صبحانه می‌خورم، بعد سر کار می‌روم.
+a1-complete	3	das Datum	Daten	date	تاریخ	Welches Datum haben wir heute?	What is the date today?	امروز چندم است؟
+a1-complete	3	dauern	-	to last; to take (time)	طول کشیدن	Wie lange dauert die Fahrt?	How long does the journey take?	سفر چقدر طول می‌کشد؟
+a1-complete	3	dein	-	your (informal)	… تو	Ist das dein Auto?	Is that your car?	این ماشین توست؟
+a1-complete	3	denn	-	because; for	زیرا؛ چون	Ich bleibe zu Hause, denn ich bin krank.	I stay at home because I am ill.	در خانه می‌مانم چون بیمارم.
+a1-complete	3	der	-	the (masculine); who, which	حرف تعریف مذکر؛ که	Der Mann dort ist mein Lehrer.	The man over there is my teacher.	آن مرد آنجا معلم من است.
+a1-complete	3	dich	-	you (accusative, informal)	تو را	Ich liebe dich.	I love you.	دوستت دارم.
+a1-complete	3	dieser	-	this	این	Diesen Kuchen esse ich gern.	I like eating this cake.	این کیک را دوست دارم بخورم.
+a1-complete	3	dir	-	to you (dative, informal)	به تو؛ برای تو	Wie geht es dir?	How are you?	حالت چطور است؟
+a1-complete	3	die Disco	Discos	disco; club	دیسکو	Am Samstag gehen wir in die Disco.	On Saturday we go to the disco.	شنبه به دیسکو می‌رویم.
+a1-complete	3	der Doktor	Doktoren	doctor	دکتر	Der Doktor hat heute keine Zeit.	The doctor has no time today.	دکتر امروز وقت ندارد.
+a1-complete	3	das Doppelzimmer	Doppelzimmer	double room	اتاق دو نفره	Wir möchten ein Doppelzimmer.	We would like a double room.	ما یک اتاق دو نفره می‌خواهیم.
+a1-complete	3	das Dorf	Dörfer	village	روستا	Mein Opa wohnt in einem Dorf.	My grandpa lives in a village.	پدربزرگم در یک روستا زندگی می‌کند.
+a1-complete	3	dort	-	there	آنجا	Dort ist die Post.	The post office is over there.	اداره پست آنجاست.
+a1-complete	3	draußen	-	outside	بیرون	Draußen regnet es.	It is raining outside.	بیرون باران می‌بارد.
+a1-complete	3	drucken	-	to print	چاپ کردن	Ich muss den Brief drucken.	I have to print the letter.	باید نامه را چاپ کنم.
+a1-complete	3	drücken	-	to press; to push	فشار دادن	Bitte drücken Sie die Taste.	Please press the button.	لطفاً دکمه را فشار دهید.
+a1-complete	3	der Drucker	Drucker	printer	چاپگر؛ پرینتر	Der Drucker ist kaputt.	The printer is broken.	پرینتر خراب است.
+a1-complete	3	durch	-	through	از میان؛ از طریق	Wir gehen durch den Park.	We walk through the park.	ما از میان پارک می‌گذریم.
+a1-complete	3	die Durchsage	Durchsagen	announcement (loudspeaker)	اعلام (با بلندگو)	Hören Sie die Durchsage im Bahnhof?	Do you hear the announcement in the station?	اعلام ایستگاه را می‌شنوید؟
+a1-complete	3	dürfen	-	to be allowed to; may	اجازه داشتن	Hier darf man nicht rauchen.	You are not allowed to smoke here.	اینجا اجازه سیگار کشیدن نیست.
+a1-complete	3	der Durst	-	thirst	تشنگی	Ich habe großen Durst.	I am very thirsty.	من خیلی تشنه‌ام.
+a1-complete	3	die Dusche	Duschen	shower	دوش	Die Dusche ist im Bad.	The shower is in the bathroom.	دوش در حمام است.
+a1-complete	3	sich duschen	-	to take a shower	دوش گرفتن	Ich dusche mich jeden Morgen.	I take a shower every morning.	هر صبح دوش می‌گیرم.
+a1-complete	4	die E-Mail	E-Mails	email	ایمیل	Ich schreibe dir eine E-Mail.	I will write you an email.	برایت یک ایمیل می‌نویسم.
+a1-complete	4	die Ecke	Ecken	corner	گوشه؛ نبش	Der Kiosk ist gleich um die Ecke.	The kiosk is just around the corner.	دکه همین دور نبش است.
+a1-complete	4	die Ehefrau	Ehefrauen	wife	همسر (زن)	Seine Ehefrau arbeitet im Krankenhaus.	His wife works in the hospital.	همسرش در بیمارستان کار می‌کند.
+a1-complete	4	der Ehemann	Ehemänner	husband	همسر (مرد)	Ihr Ehemann kocht heute.	Her husband is cooking today.	شوهرش امروز آشپزی می‌کند.
+a1-complete	4	das Ei	Eier	egg	تخم‌مرغ	Ich esse ein Ei zum Frühstück.	I eat an egg for breakfast.	برای صبحانه یک تخم‌مرغ می‌خورم.
+a1-complete	4	eilig	-	hurried; urgent	عجله‌ای؛ فوری	Ich habe es eilig.	I am in a hurry.	عجله دارم.
+a1-complete	4	ein	-	a; an; one	یک	Ich habe ein Auto.	I have a car.	من یک ماشین دارم.
+a1-complete	4	einfach	-	simple; easy	ساده؛ آسان	Die Aufgabe ist einfach.	The task is easy.	این تمرین آسان است.
+a1-complete	4	der Eingang	Eingänge	entrance	ورودی	Der Eingang ist links.	The entrance is on the left.	ورودی سمت چپ است.
+a1-complete	4	einkaufen	-	to shop	خرید کردن	Ich kaufe samstags im Supermarkt ein.	I shop at the supermarket on Saturdays.	شنبه‌ها از سوپرمارکت خرید می‌کنم.
+a1-complete	4	einladen	-	to invite	دعوت کردن	Ich lade dich zu meiner Party ein.	I am inviting you to my party.	من تو را به مهمانی‌‌ام دعوت می‌کنم.
+a1-complete	4	die Einladung	Einladungen	invitation	دعوت‌نامه؛ دعوت	Danke für die Einladung!	Thank you for the invitation!	از دعوتتان ممنونم!
+a1-complete	4	einmal	-	once; one time	یک بار	Ich war schon einmal in Berlin.	I have been to Berlin once.	من یک بار در برلین بوده‌ام.
+a1-complete	4	einsteigen	-	to get on; to board	سوار شدن	Bitte steigen Sie hier ein.	Please get on here.	لطفاً اینجا سوار شوید.
+a1-complete	4	der Eintritt	-	admission; entrance fee	ورودیه؛ بلیت ورود	Der Eintritt kostet fünf Euro.	Admission costs five euros.	ورودیه پنج یورو است.
+a1-complete	4	das Einzelzimmer	Einzelzimmer	single room	اتاق یک نفره	Haben Sie ein Einzelzimmer frei?	Do you have a single room available?	اتاق یک نفره خالی دارید؟
+a1-complete	4	die Eltern	Eltern	parents	پدر و مادر؛ والدین	Meine Eltern sind nett.	My parents are nice.	پدر و مادرم مهربان هستند.
+a1-complete	4	der Empfänger	Empfänger	recipient; receiver	گیرنده	Der Empfänger war leider nicht zu Hause.	The recipient was unfortunately not at home.	متأسفانه گیرنده خانه نبود.
+a1-complete	4	empfehlen	-	to recommend	توصیه کردن	Was können Sie mir empfehlen?	What can you recommend to me?	چه چیزی را به من توصیه می‌کنید؟
+a1-complete	4	das Ende	-	end	پایان؛ آخر	Am Ende des Monats fahre ich weg.	At the end of the month I go away.	آخر ماه به سفر می‌روم.
+a1-complete	4	enden	-	to end	تمام شدن؛ پایان یافتن	Der Kurs endet um vier Uhr.	The course ends at four o'clock.	دوره ساعت چهار تمام می‌شود.
+a1-complete	4	entschuldigen	-	to excuse	عذر خواستن؛ بخشیدن	Entschuldigen Sie bitte, wo ist die Post?	Excuse me, where is the post office?	ببخشید، اداره پست کجاست؟
+a1-complete	4	die Entschuldigung	Entschuldigungen	excuse; apology	عذرخواهی؛ ببخشید	Entschuldigung, wie spät ist es?	Excuse me, what time is it?	ببخشید، ساعت چند است؟
+a1-complete	4	er	-	he	او (مرد)	Er ist mein Bruder.	He is my brother.	او برادر من است.
+a1-complete	4	das Ergebnis	Ergebnisse	result	نتیجه	Das Ergebnis ist gut.	The result is good.	نتیجه خوب است.
+a1-complete	4	erklären	-	to explain	توضیح دادن	Können Sie das bitte erklären?	Can you explain that, please?	می‌توانید این را توضیح دهید؟
+a1-complete	4	erlauben	-	to allow; to permit	اجازه دادن	Das erlaube ich nicht.	I do not allow that.	من این را اجازه نمی‌دهم.
+a1-complete	4	der Erwachsene	Erwachsene	adult	بزرگسال	Das Ticket für Erwachsene kostet zehn Euro.	The ticket for adults costs ten euros.	بلیت بزرگسال ده یورو است.
+a1-complete	4	erzählen	-	to tell; to narrate	تعریف کردن؛ حکایت کردن	Erzähl mir von deinem Urlaub!	Tell me about your holiday!	از تعطیلاتت برایم بگو!
+a1-complete	4	es	-	it	آن؛ این (ضمیر)	Es ist kalt heute.	It is cold today.	امروز هوا سرد است.
+a1-complete	4	essen	-	to eat	خوردن (غذا)	Wir essen um zwölf Uhr.	We eat at twelve o'clock.	ما ساعت دوازده غذا می‌خوریم.
+a1-complete	4	das Essen	-	food; meal	غذا	Das Essen schmeckt gut.	The food tastes good.	غذا خوشمزه است.
+a1-complete	4	euer	-	your (plural informal)	… شما (جمع، غیررسمی)	Ist das euer Haus?	Is that your house?	آن خانه شماست؟
+a1-complete	4	fahren	-	to drive; to go (by vehicle)	رانندگی کردن؛ رفتن (با وسیله)	Wir fahren mit dem Bus in die Stadt.	We go into town by bus.	با اتوبوس به شهر می‌رویم.
+a1-complete	4	der Fahrer	Fahrer	driver	راننده	Der Fahrer wartet vor dem Hotel.	The driver is waiting in front of the hotel.	راننده جلوی هتل منتظر است.
+a1-complete	4	die Fahrkarte	Fahrkarten	ticket (travel)	بلیت (سفر)	Wo kann ich eine Fahrkarte kaufen?	Where can I buy a ticket?	از کجا می‌توانم بلیت بخرم؟
+a1-complete	4	das Fahrrad	Fahrräder	bicycle	دوچرخه	Ich fahre jeden Tag mit dem Fahrrad.	I ride my bicycle every day.	من هر روز با دوچرخه می‌روم.
+a1-complete	4	falsch	-	wrong; false	غلط؛ نادرست	Diese Antwort ist falsch.	This answer is wrong.	این جواب غلط است.
+a1-complete	4	die Familie	Familien	family	خانواده	Meine Familie wohnt in Teheran.	My family lives in Tehran.	خانواده‌ام در تهران زندگی می‌کند.
+a1-complete	4	der Familienname	Familiennamen	surname	نام خانوادگی	Wie ist Ihr Familienname?	What is your surname?	نام خانوادگی شما چیست؟
+a1-complete	4	der Familienstand	-	marital status	وضعیت تأهل	Familienstand: ledig.	Marital status: single.	وضعیت تأهل: مجرد.
+a1-complete	4	die Farbe	Farben	colour	رنگ	Welche Farbe magst du?	Which colour do you like?	چه رنگی را دوست داری؟
+a1-complete	4	das Fax	Faxe	fax	فکس	Bitte schicken Sie mir ein Fax.	Please send me a fax.	لطفاً برایم یک فکس بفرستید.
+a1-complete	4	fehlen	-	to be missing; to be absent	کم بودن؛ غایب بودن	Wer fehlt heute im Kurs?	Who is missing in class today?	امروز چه کسی در کلاس غایب است؟
+a1-complete	4	der Fehler	Fehler	mistake; error	اشتباه؛ خطا	Im Text ist ein Fehler.	There is a mistake in the text.	در متن یک اشتباه هست.
+a1-complete	4	feiern	-	to celebrate	جشن گرفتن	Wir feiern am Samstag meinen Geburtstag.	We celebrate my birthday on Saturday.	شنبه تولدم را جشن می‌گیریم.
+a1-complete	4	der Feiertag	Feiertage	public holiday	روز تعطیل رسمی	Weihnachten ist ein Feiertag.	Christmas is a public holiday.	کریسمس یک تعطیل رسمی است.
+a1-complete	4	fernsehen	-	to watch TV	تلویزیون تماشا کردن	Am Abend sehen wir fern.	In the evening we watch TV.	عصر تلویزیون تماشا می‌کنیم.
+a1-complete	4	fertig	-	finished; ready	تمام شده؛ آماده	Das Essen ist fertig.	The food is ready.	غذا آماده است.
+a1-complete	4	das Feuer	Feuer	fire	آتش	Das Feuer im Kamin ist warm.	The fire in the fireplace is warm.	آتش شومینه گرم است.
+a1-complete	4	das Fieber	-	fever	تب	Das Kind hat hohes Fieber.	The child has a high fever.	بچه تب بالایی دارد.
+a1-complete	4	der Film	Filme	film; movie	فیلم	Der Film war sehr lustig.	The film was very funny.	فیلم خیلی خنده‌دار بود.
+a1-complete	4	finden	-	to find; to think	پیدا کردن؛ فکر کردن (نظر)	Ich finde meinen Schlüssel nicht.	I cannot find my key.	کلیدم را پیدا نمی‌کنم.
+a1-complete	4	die Firma	Firmen	company; firm	شرکت	Die Firma sucht neue Mitarbeiter.	The company is looking for new employees.	شرکت دنبال کارمندان جدید می‌گردد.
+a1-complete	4	der Fisch	Fische	fish	ماهی	Freitags esse ich Fisch.	On Fridays I eat fish.	جمعه‌ها ماهی می‌خورم.
+a1-complete	4	die Flasche	Flaschen	bottle	بطری	Bring bitte eine Flasche Wasser mit.	Please bring a bottle of water.	لطفاً یک بطری آب بیاور.
+a1-complete	4	das Fleisch	-	meat	گوشت	Ich esse kein Fleisch.	I do not eat meat.	من گوشت نمی‌خورم.
+a1-complete	4	fliegen	-	to fly	پرواز کردن	Wir fliegen nach Wien.	We fly to Vienna.	ما به وین پرواز می‌کنیم.
+a1-complete	5	der Flughafen	Flughäfen	airport	فرودگاه	Der Flughafen ist weit von hier.	The airport is far from here.	فرودگاه از اینجا دور است.
+a1-complete	5	das Flugzeug	Flugzeuge	airplane	هواپیما	Das Flugzeug landet um zehn Uhr.	The plane lands at ten o'clock.	هواپیما ساعت ده فرود می‌آید.
+a1-complete	5	das Formular	Formulare	form	فرم؛ برگه	Bitte füllen Sie dieses Formular aus.	Please fill out this form.	لطفاً این فرم را پر کنید.
+a1-complete	5	das Foto	Fotos	photo	عکس	Ich mache ein Foto vom Meer.	I am taking a photo of the sea.	من از دریا عکس می‌گیرم.
+a1-complete	5	die Frage	Fragen	question	سؤال	Ich habe eine Frage.	I have a question.	من یک سؤال دارم.
+a1-complete	5	fragen	-	to ask	پرسیدن	Darf ich Sie etwas fragen?	May I ask you something?	می‌توانم چیزی از شما بپرسم؟
+a1-complete	5	die Frau	Frauen	woman; Mrs	زن؛ خانم	Die Frau dort ist meine Lehrerin.	The woman over there is my teacher.	آن خانم آنجا معلم من است.
+a1-complete	5	frei	-	free; vacant	آزاد؛ خالی	Ist dieser Platz noch frei?	Is this seat still free?	این جا هنوز خالی است؟
+a1-complete	5	die Freizeit	-	free time; leisure	وقت آزاد	In meiner Freizeit lese ich gern.	In my free time I like reading.	در وقت آزادم دوست دارم کتاب بخوانم.
+a1-complete	5	fremd	-	foreign; strange	غریبه؛ بیگانه	Hier ist alles fremd für mich.	Everything here is strange to me.	اینجا همه چیز برایم غریبه است.
+a1-complete	5	sich freuen	-	to be happy; to look forward to	خوشحال بودن؛ مشتاق بودن	Ich freue mich auf den Urlaub.	I am looking forward to the holiday.	مشتاق تعطیلات هستم.
+a1-complete	5	der Freund	Freunde	friend; boyfriend	دوست؛ دوست پسر	Mein Freund heißt Paul.	My friend is called Paul.	دوست من پاول نام دارد.
+a1-complete	5	früher	-	earlier; in the past	قبلاً؛ در گذشته	Früher habe ich in einer kleinen Stadt gewohnt.	In the past I lived in a small town.	قبلاً در یک شهر کوچک زندگی می‌کردم.
+a1-complete	5	das Frühstück	Frühstücke	breakfast	صبحانه	Das Frühstück ist von sieben bis zehn Uhr.	Breakfast is from seven to ten o'clock.	صبحانه از هفت تا ده است.
+a1-complete	5	frühstücken	-	to have breakfast	صبحانه خوردن	Wir frühstücken zusammen.	We have breakfast together.	ما با هم صبحانه می‌خوریم.
+a1-complete	5	die Führung	Führungen	guided tour	تور راهنمایی‌شده	Die Führung beginnt um elf Uhr.	The guided tour starts at eleven o'clock.	تور راهنمایی‌شده ساعت یازده شروع می‌شود.
+a1-complete	5	für	-	for	برای	Das Geschenk ist für dich.	The present is for you.	این هدیه برای توست.
+a1-complete	5	der Fuß	Füße	foot	پا؛ کف پا	Der Fuß ist ganz kalt.	The foot is completely cold.	پایم کاملاً سرد است.
+a1-complete	5	der Fußball	Fußbälle	football; soccer	فوتبال	Mein Sohn spielt gern Fußball.	My son likes playing football.	پسرم دوست دارد فوتبال بازی کند.
+a1-complete	5	der Garten	Gärten	garden	باغ؛ باغچه	Hinter dem Haus gibt es einen großen Garten.	Behind the house there is a big garden.	پشت خانه یک باغ بزرگ هست.
+a1-complete	5	der Gast	Gäste	guest	مهمان	Wir haben heute Abend Gäste.	We have guests tonight.	امشب مهمان داریم.
+a1-complete	5	geben	-	to give	دادن	Kannst du mir bitte das Salz geben?	Can you give me the salt, please?	می‌توانی نمک را به من بدهی؟
+a1-complete	5	geboren	-	born	متولد شده	Ich bin in Teheran geboren.	I was born in Tehran.	من در تهران به دنیا آمده‌ام.
+a1-complete	5	das Geburtsjahr	Geburtsjahre	year of birth	سال تولد	Mein Geburtsjahr ist 1990.	My year of birth is 1990.	سال تولد من ۱۹۹۰ است.
+a1-complete	5	der Geburtsort	Geburtsorte	place of birth	محل تولد	Mein Geburtsort ist Isfahan.	My place of birth is Isfahan.	محل تولد من اصفهان است.
+a1-complete	5	der Geburtstag	Geburtstage	birthday	تولد; روز تولد	Mein Geburtstag ist im Mai.	My birthday is in May.	تولد من در ماه مه است.
+a1-complete	5	gefallen	-	to please; to like	خوشایند بودن؛ خوشم آمدن	Das Kleid gefällt mir.	I like the dress.	این لباس را می‌پسندم.
+a1-complete	5	gegen	-	against; around	علیه؛ در برابر؛ حدود	Das Auto fuhr gegen die Wand.	The car drove into the wall.	ماشین به دیوار خورد.
+a1-complete	5	gehen	-	to go; to walk	رفتن؛ پیاده رفتن	Wir gehen heute ins Kino.	We are going to the cinema today.	امروز به سینما می‌رویم.
+a1-complete	5	gehören	-	to belong to	تعلق داشتن	Das Buch gehört mir.	The book belongs to me.	این کتاب مال من است.
+a1-complete	5	das Geld	-	money	پول	Ich habe kein Geld dabei.	I have no money on me.	پول همراهم ندارم.
+a1-complete	5	das Gemüse	-	vegetables	سبزیجات	Ich esse viel Gemüse.	I eat a lot of vegetables.	من سبزی زیاد می‌خورم.
+a1-complete	5	geöffnet	-	open	باز (مغازه، اداره)	Das Museum ist bis sechs Uhr geöffnet.	The museum is open until six o'clock.	موزه تا ساعت شش باز است.
+a1-complete	5	das Gepäck	-	luggage	بار؛ چمدان‌ها	Mein Gepäck ist leider nicht angekommen.	Unfortunately my luggage didn't arrive.	متأسفانه چمدان‌هایم نرسیدند.
+a1-complete	5	gerade	-	just; right now; straight	همین الان؛ مستقیم	Ich esse gerade.	I am eating right now.	همین الان دارم غذا می‌خورم.
+a1-complete	5	geradeaus	-	straight ahead	مستقیم	Gehen Sie geradeaus bis zur Bank.	Go straight ahead to the bank.	مستقیم تا بانک بروید.
+a1-complete	5	gern	-	gladly; with pleasure (likes to)	با میل؛ دوست داشتن	Sie singt gern.	She likes singing.	او دوست دارد آواز بخواند.
+a1-complete	5	das Geschäft	Geschäfte	shop; store	مغازه؛ فروشگاه	Das Geschäft ist bis 18 Uhr geöffnet.	The shop is open until 6 p.m.	مغازه تا ساعت ۶ عصر باز است.
+a1-complete	5	das Geschenk	Geschenke	gift; present	هدیه؛ کادو	Das Geschenk ist für meine Freundin.	The gift is for my girlfriend.	این هدیه برای دوست دخترم است.
+a1-complete	5	geschlossen	-	closed	بسته	Das Geschäft ist montags geschlossen.	The shop is closed on Mondays.	مغازه دوشنبه‌ها بسته است.
+a1-complete	5	die Geschwister	Geschwister	siblings	خواهر و برادرها	Ich habe zwei Geschwister.	I have two siblings.	من دو خواهر یا برادر دارم.
+a1-complete	5	das Gespräch	Gespräche	conversation	گفتگو؛ مکالمه	Das Gespräch war sehr nett.	The conversation was very nice.	گفتگو خیلی دوستانه بود.
+a1-complete	5	gestern	-	yesterday	دیروز	Gestern war ich im Kino.	Yesterday I was at the cinema.	دیروز در سینما بودم.
+a1-complete	5	gestorben	-	died; deceased	درگذشته	Mein Opa ist letztes Jahr gestorben.	My grandpa died last year.	پدربزرگم پارسال درگذشت.
+a1-complete	5	das Getränk	Getränke	drink; beverage	نوشیدنی	Welches Getränk möchten Sie?	Which drink would you like?	چه نوشیدنی می‌خواهید؟
+a1-complete	5	das Gewicht	Gewichte	weight	وزن	Das Gewicht des Pakets ist zwei Kilo.	The weight of the parcel is two kilos.	وزن بسته دو کیلو است.
+a1-complete	5	gewinnen	-	to win	برنده شدن	Unsere Mannschaft hat gewonnen.	Our team has won.	تیم ما برد.
+a1-complete	5	das Glas	Gläser	glass	لیوان؛ شیشه	Ich trinke ein Glas Wasser.	I drink a glass of water.	یک لیوان آب می‌نوشم.
+a1-complete	5	glauben	-	to believe; to think	باور کردن؛ فکر کردن	Ich glaube, er kommt später.	I think he is coming later.	فکر می‌کنم او دیرتر می‌آید.
+a1-complete	5	gleich	-	same; equal; right away	مثل هم؛ فوراً	Wir haben das gleiche Auto.	We have the same car.	ما ماشین یکسانی داریم.
+a1-complete	5	das Gleis	Gleise	platform; track	سکو; خط ریل	Der Zug fährt von Gleis drei ab.	The train leaves from platform three.	قطار از سکوی سه حرکت می‌کند.
+a1-complete	5	das Glück	-	happiness; luck	خوشبختی؛ شانس	Gesundheit ist das größte Glück.	Health is the greatest happiness.	سلامتی بزرگ‌ترین خوشبختی است.
+a1-complete	5	glücklich	-	happy	خوشحال؛ خوشبخت	Wir sind sehr glücklich.	We are very happy.	ما خیلی خوشحالیم.
+a1-complete	5	der Glückwunsch	Glückwünsche	congratulations	تبریک	Herzlichen Glückwunsch zum Geburtstag!	Happy birthday!	تولدت مبارک!
+a1-complete	5	der Grad	Grade	degree	درجه	Heute sind es zwanzig Grad.	Today it is twenty degrees.	امروز بیست درجه است.
+a1-complete	5	gratulieren	-	to congratulate	تبریک گفتن	Alle haben ihm zum Geburtstag gratuliert.	Everyone congratulated him on his birthday.	همه تولدش را به او تبریک گفتند.
+a1-complete	5	grillen	-	to grill; to barbecue	کباب کردن	Im Sommer grillen wir im Garten.	In summer we barbecue in the garden.	تابستان در باغ کباب درست می‌کنیم.
+a1-complete	5	groß	-	big; tall	بزرگ؛ قدبلند	Meine Schwester ist sehr groß.	My sister is very tall.	خواهرم خیلی قدبلند است.
+a1-complete	6	die Größe	Größen	size; height	اندازه؛ سایز	Haben Sie das Hemd in meiner Größe?	Do you have the shirt in my size?	آیا این پیراهن را در سایز من دارید؟
+a1-complete	6	die Großeltern	Großeltern	grandparents	پدربزرگ و مادربزرگ	Meine Großeltern wohnen auf dem Land.	My grandparents live in the countryside.	پدربزرگ و مادربزرگم در روستا زندگی می‌کنند.
+a1-complete	6	die Großmutter	Großmütter	grandmother	مادربزرگ	Meine Großmutter backt gern Kuchen.	My grandmother likes baking cakes.	مادربزرگم دوست دارد کیک بپزد.
+a1-complete	6	der Großvater	Großväter	grandfather	پدربزرگ	Mein Großvater liest jeden Tag die Zeitung.	My grandfather reads the newspaper every day.	پدربزرگم هر روز روزنامه می‌خواند.
+a1-complete	6	die Gruppe	Gruppen	group	گروه	Unsere Gruppe hat zehn Personen.	Our group has ten people.	گروه ما ده نفر است.
+a1-complete	6	der Gruß	Grüße	greeting	سلام؛ درود	Viele Grüße aus Berlin!	Many greetings from Berlin!	سلام‌های فراوان از برلین!
+a1-complete	6	gültig	-	valid	معتبر	Die Fahrkarte ist zwei Tage gültig.	The ticket is valid for two days.	بلیت دو روز اعتبار دارد.
+a1-complete	6	günstig	-	cheap; favourable	ارزان؛ مناسب	Das Hotel ist sehr günstig.	The hotel is very cheap.	این هتل خیلی ارزان است.
+a1-complete	6	gut	-	good; well	خوب	Das Essen ist gut.	The food is good.	غذا خوب است.
+a1-complete	6	das Haar	Haare	hair	مو	Sie hat lange Haare.	She has long hair.	او موهای بلند دارد.
+a1-complete	6	haben	-	to have	داشتن	Ich habe einen Bruder.	I have a brother.	من یک برادر دارم.
+a1-complete	6	das Hähnchen	Hähnchen	chicken	جوجه؛ مرغ	Heute gibt es Hähnchen mit Reis.	Today there is chicken with rice.	امروز مرغ با برنج داریم.
+a1-complete	6	die Halbpension	-	half board	اقامت با صبحانه و شام	Wir haben das Zimmer mit Halbpension gebucht.	We booked the room with half board.	اتاق را با صبحانه و شام رزرو کردیم.
+a1-complete	6	die Halle	Hallen	hall	سالن	Das Konzert ist in der Halle.	The concert is in the hall.	کنسرت در سالن است.
+a1-complete	6	hallo	-	hello	سلام	Hallo, wie geht's?	Hello, how are you?	سلام، حالت چطور است؟
+a1-complete	6	halten	-	to hold; to stop	نگه داشتن؛ توقف کردن	Der Bus hält vor dem Bahnhof.	The bus stops in front of the station.	اتوبوس جلوی ایستگاه می‌ایستد.
+a1-complete	6	die Haltestelle	Haltestellen	stop (bus, tram)	ایستگاه (اتوبوس، تراموا)	Die Haltestelle ist gleich um die Ecke.	The stop is just around the corner.	ایستگاه همین نزدیکی است.
+a1-complete	6	die Hand	Hände	hand	دست	Gib mir bitte deine Hand.	Give me your hand, please.	لطفاً دستت را به من بده.
+a1-complete	6	das Handy	Handys	mobile phone	تلفن همراه	Mein Handy liegt auf dem Tisch.	My mobile phone is on the table.	تلفن همراهم روی میز است.
+a1-complete	6	das Haus	Häuser	house	خانه	Unser Haus hat einen Garten.	Our house has a garden.	خانه ما باغچه دارد.
+a1-complete	6	die Hausaufgabe	Hausaufgaben	homework	تکلیف خانه	Ich mache meine Hausaufgaben.	I do my homework.	من تکلیفم را انجام می‌دهم.
+a1-complete	6	die Hausfrau	Hausfrauen	housewife	زن خانه‌دار	Meine Tante ist Hausfrau.	My aunt is a housewife.	عمه‌ام خانه‌دار است.
+a1-complete	6	der Hausmann	Hausmänner	househusband	مرد خانه‌دار	Mein Onkel ist Hausmann.	My uncle is a househusband.	دایی‌ام خانه‌دار است.
+a1-complete	6	die Heimat	-	home; homeland	وطن؛ زادگاه	Ich vermisse meine Heimat manchmal sehr.	I sometimes miss my homeland a lot.	گاهی دلم برای وطنم خیلی تنگ می‌شود.
+a1-complete	6	heiraten	-	to marry; to get married	ازدواج کردن	Meine Eltern haben vor dreißig Jahren geheiratet.	My parents got married thirty years ago.	پدر و مادرم سی سال پیش ازدواج کردند.
+a1-complete	6	heißen	-	to be called	نامیده شدن؛ نام داشتن	Wie heißt du?	What is your name?	اسم تو چیست؟
+a1-complete	6	helfen	-	to help	کمک کردن	Kannst du mir helfen?	Can you help me?	می‌توانی به من کمک کنی؟
+a1-complete	6	hell	-	bright; light	روشن	Das Zimmer ist hell.	The room is bright.	اتاق روشن است.
+a1-complete	6	der Herd	Herde	cooker; stove	اجاق گاز؛ اجاق	Vorsicht, der Herd ist noch heiß!	Careful, the stove is still hot!	مواظب باش، اجاق هنوز داغ است!
+a1-complete	6	der Herr	Herren	Mr.; gentleman	آقا	Herr Müller ist mein Lehrer.	Mr. Müller is my teacher.	آقای مولر معلم من است.
+a1-complete	6	herzlich	-	warm; heartfelt	صمیمانه	Herzlich willkommen!	A warm welcome!	صمیمانه خوش آمدید!
+a1-complete	6	heute	-	today	امروز	Heute ist Montag.	Today is Monday.	امروز دوشنبه است.
+a1-complete	6	hier	-	here	اینجا	Hier wohne ich.	I live here.	من اینجا زندگی می‌کنم.
+a1-complete	6	die Hilfe	Hilfen	help	کمک	Danke für Ihre Hilfe!	Thank you for your help!	از کمک شما ممنونم!
+a1-complete	6	hinten	-	at the back	پشت؛ عقب	Der Bus hat hinten eine Tür.	The bus has a door at the back.	اتوبوس در عقب یک در دارد.
+a1-complete	6	das Hobby	Hobbys	hobby	سرگرمی	Mein Hobby ist Fotografieren.	My hobby is photography.	سرگرمی من عکاسی است.
+a1-complete	6	hoch	-	high; tall	بلند؛ مرتفع	Der Turm ist sehr hoch.	The tower is very high.	برج خیلی بلند است.
+a1-complete	6	die Hochzeit	Hochzeiten	wedding	عروسی	Meine Schwester hat im Sommer Hochzeit.	My sister is getting married in summer.	خواهرم تابستان عروسی دارد.
+a1-complete	6	holen	-	to fetch; to get	رفتن و آوردن	Ich hole schnell Wasser.	I quickly fetch some water.	من سریع آب می‌آورم.
+a1-complete	6	hören	-	to hear; to listen	شنیدن؛ گوش دادن	Ich höre gern Musik.	I like listening to music.	دوست دارم موسیقی گوش دهم.
+a1-complete	6	das Hotel	Hotels	hotel	هتل	Das Hotel liegt direkt am Strand.	The hotel is right on the beach.	هتل درست کنار ساحل است.
+a1-complete	6	der Hund	Hunde	dog	سگ	Der Hund spielt im Garten.	The dog plays in the garden.	سگ در باغ بازی می‌کند.
+a1-complete	6	der Hunger	-	hunger	گرسنگی	Ich habe großen Hunger.	I am very hungry.	من خیلی گرسنه‌ام.
+a1-complete	6	ich	-	I	من	Ich komme aus dem Iran.	I come from Iran.	من اهل ایران هستم.
+a1-complete	6	ihr / ihm / ihn	-	her, to him, him	به او (زن)؛ به او (مرد)؛ او را (مرد)	Ich gebe ihm das Buch und sehe ihn morgen.	I give him the book and see him tomorrow.	کتاب را به او می‌دهم و فردا او را می‌بینم.
+a1-complete	6	immer	-	always	همیشه	Er ist immer pünktlich.	He is always on time.	او همیشه سر وقت است.
+a1-complete	6	in	-	in; into	در؛ به	Wir wohnen in einer Stadt.	We live in a city.	ما در یک شهر زندگی می‌کنیم.
+a1-complete	6	die Information	Informationen	information	اطلاعات	Ich brauche mehr Informationen.	I need more information.	اطلاعات بیشتری لازم دارم.
+a1-complete	6	international	-	international	بین‌المللی	Das ist ein internationaler Flughafen.	That is an international airport.	این یک فرودگاه بین‌المللی است.
+a1-complete	6	das Internet	-	internet	اینترنت	Im Hotel gibt es kostenloses Internet.	There is free internet in the hotel.	در هتل اینترنت رایگان هست.
+a1-complete	6	ja	-	yes	بله	Ja, das stimmt.	Yes, that is right.	بله، درست است.
+a1-complete	6	die Jacke	Jacken	jacket	کت؛ ژاکت	Nimm eine Jacke mit, es wird kühl.	Take a jacket with you, it is getting cool.	یک ژاکت با خودت ببر، هوا دارد سرد می‌شود.
+a1-complete	6	jeder	-	every; each	هر؛ هر کدام	Jeder Schüler hat ein Buch.	Every pupil has a book.	هر دانش‌آموز یک کتاب دارد.
+a1-complete	6	jetzt	-	now	حالا	Jetzt habe ich Zeit.	Now I have time.	حالا وقت دارم.
+a1-complete	6	der Job	Jobs	job	کار؛ شغل	Ich suche einen neuen Job.	I am looking for a new job.	دنبال یک کار جدید می‌گردم.
+a1-complete	6	der Jugendliche	Jugendliche	teenager; young person	نوجوان	Die Jugendlichen treffen sich im Park.	The teenagers meet in the park.	نوجوانان در پارک همدیگر را می‌بینند.
+a1-complete	6	jung	-	young	جوان	Mein Bruder ist noch jung.	My brother is still young.	برادرم هنوز جوان است.
+a1-complete	6	der Junge	Jungen	boy	پسر (بچه)	Der Junge spielt Fußball.	The boy plays football.	پسربچه فوتبال بازی می‌کند.
+a1-complete	7	der Kaffee	Kaffees	coffee	قهوه	Ich trinke morgens einen Kaffee.	I drink a coffee in the morning.	صبح‌ها یک قهوه می‌نوشم.
+a1-complete	7	kaputt	-	broken	خراب؛ شکسته	Mein Handy ist kaputt.	My mobile phone is broken.	تلفن همراهم خراب است.
+a1-complete	7	die Karte	Karten	card; map; ticket	کارت؛ نقشه؛ بلیت	Haben Sie eine Karte von der Stadt?	Do you have a map of the city?	نقشه شهر دارید؟
+a1-complete	7	die Kartoffel	Kartoffeln	potato	سیب‌زمینی	Ich koche Kartoffeln.	I am cooking potatoes.	من سیب‌زمینی می‌پزم.
+a1-complete	7	die Kasse	Kassen	checkout; cash register	صندوق	Bitte zahlen Sie an der Kasse.	Please pay at the checkout.	لطفاً در صندوق پرداخت کنید.
+a1-complete	7	kaufen	-	to buy	خریدن	Ich kaufe ein neues Handy.	I buy a new mobile phone.	یک تلفن همراه جدید می‌خرم.
+a1-complete	7	kein	-	no; not a	هیچ؛ نه (نفی اسم)	Ich habe kein Auto.	I do not have a car.	من ماشین ندارم.
+a1-complete	7	kennen	-	to know (a person/place)	شناختن	Kennen Sie Herrn Meier?	Do you know Mr Meier?	آقای مایر را می‌شناسید؟
+a1-complete	7	kennenlernen	-	to get to know	آشنا شدن	Ich möchte dich kennenlernen.	I would like to get to know you.	می‌خواهم با تو آشنا شوم.
+a1-complete	7	das Kind	Kinder	child	بچه؛ کودک	Das Kind spielt im Garten.	The child plays in the garden.	بچه در باغ بازی می‌کند.
+a1-complete	7	der Kindergarten	Kindergärten	kindergarten	مهدکودک	Meine Tochter geht in den Kindergarten.	My daughter goes to kindergarten.	دخترم به مهدکودک می‌رود.
+a1-complete	7	das Kino	Kinos	cinema; movie theater	سینما	Ich gehe heute Abend ins Kino.	I am going to the cinema this evening.	امشب به سینما می‌روم.
+a1-complete	7	der Kiosk	Kioske	kiosk	کیوسک؛ دکه	Am Kiosk kaufe ich eine Zeitung.	At the kiosk I buy a newspaper.	از دکه یک روزنامه می‌خرم.
+a1-complete	7	klar	-	clear; of course	روشن؛ البته	Klar, ich helfe dir!	Of course, I will help you!	البته، من کمکت می‌کنم!
+a1-complete	7	die Klasse	Klassen	class; grade	کلاس؛ پایه	Ich bin in der zweiten Klasse.	I am in the second grade.	من کلاس دوم هستم.
+a1-complete	7	die Kleidung	-	clothes; clothing	لباس؛ پوشاک	Die Kleidung hier ist nicht teuer.	The clothes here are not expensive.	لباس‌‌های اینجا گران نیستند.
+a1-complete	7	klein	-	small; little	کوچک	Die Wohnung ist klein, aber schön.	The flat is small but nice.	آپارتمان کوچک اما قشنگ است.
+a1-complete	7	kochen	-	to cook	آشپزی کردن; پختن	Er kocht gern Suppe.	He likes cooking soup.	او دوست دارد سوپ بپزد.
+a1-complete	7	der Koffer	Koffer	suitcase	چمدان	Mein Koffer ist sehr schwer.	My suitcase is very heavy.	چمدان من خیلی سنگین است.
+a1-complete	7	der Kollege	Kollegen	colleague (male)	همکار	Mein Kollege hilft mir.	My colleague helps me.	همکارم به من کمک می‌کند.
+a1-complete	7	kommen	-	to come	آمدن	Kommst du mit?	Are you coming along?	با ما می‌آیی؟
+a1-complete	7	können	-	can; to be able to	توانستن؛ بلد بودن	Ich kann gut kochen.	I can cook well.	من خوب آشپزی بلدم.
+a1-complete	7	das Konto	Konten	account	حساب (بانکی)	Ich habe ein Konto bei einer deutschen Bank.	I have an account at a German bank.	من در یک بانک آلمانی حساب دارم.
+a1-complete	7	der Kopf	Köpfe	head	سر	Mein Kopf ist heiß.	My head is hot.	سرم داغ است.
+a1-complete	7	kosten	-	to cost	قیمت داشتن؛ خرج داشتن	Wie viel kostet die Banane?	How much does the banana cost?	موز چند است؟
+a1-complete	7	krank	-	sick; ill	بیمار؛ مریض	Mein Sohn ist seit Montag krank.	My son has been sick since Monday.	پسرم از دوشنبه بیمار است.
+a1-complete	7	die Kreditkarte	Kreditkarten	credit card	کارت اعتباری	Kann ich mit Kreditkarte bezahlen?	Can I pay by credit card?	می‌توانم با کارت اعتباری پرداخت کنم؟
+a1-complete	7	kriegen	-	to get (informal)	گرفتن (محاوره‌ای)	Ich kriege noch zwei Euro von dir.	You still owe me two euros.	هنوز دو یورو از تو طلب دارم.
+a1-complete	7	die Küche	Küchen	kitchen	آشپزخانه	Die Küche ist sehr klein.	The kitchen is very small.	آشپزخانه خیلی کوچک است.
+a1-complete	7	der Kuchen	Kuchen	cake	کیک	Ich backe einen Kuchen.	I bake a cake.	من یک کیک می‌پزم.
+a1-complete	7	der Kugelschreiber	Kugelschreiber	ballpoint pen	خودکار	Hast du einen Kugelschreiber?	Do you have a pen?	خودکار داری؟
+a1-complete	7	der Kühlschrank	Kühlschränke	fridge	یخچال	Die Milch steht im Kühlschrank.	The milk is in the fridge.	شیر در یخچال است.
+a1-complete	7	kulturell	-	cultural	فرهنگی	In der Stadt gibt es viele kulturelle Angebote.	There are many cultural events in the city.	در شهر برنامه‌های فرهنگی زیادی هست.
+a1-complete	7	sich kümmern	-	to take care of	رسیدگی کردن؛ مراقبت کردن	Ich kümmere mich um den Garten.	I take care of the garden.	من به باغچه رسیدگی می‌کنم.
+a1-complete	7	der Kunde	Kunden	customer	مشتری	Der Kunde wartet an der Kasse.	The customer is waiting at the till.	مشتری پشت صندوق منتظر است.
+a1-complete	7	der Kurs	Kurse	course	دوره آموزشی؛ کلاس	Ich besuche einen Deutschkurs.	I attend a German course.	من در یک کلاس آلمانی شرکت می‌کنم.
+a1-complete	7	kurz	-	short	کوتاه	Der Weg ist kurz.	The way is short.	مسیر کوتاه است.
+a1-complete	7	lachen	-	to laugh	خندیدن	Wir lachen viel zusammen.	We laugh a lot together.	ما با هم خیلی می‌خندیم.
+a1-complete	7	der Laden	Läden	shop	مغازه	Der Laden öffnet um neun Uhr.	The shop opens at nine o'clock.	مغازه ساعت نه باز می‌شود.
+a1-complete	7	das Land	Länder	country	کشور	Welches Land ist das?	Which country is that?	این کدام کشور است؟
+a1-complete	7	lang	-	long	بلند؛ دراز	Der Film ist sehr lang.	The film is very long.	فیلم خیلی طولانی است.
+a1-complete	7	lange	-	for a long time	مدت طولانی	Wie lange bleibst du?	How long are you staying?	چقدر می‌مانی؟
+a1-complete	7	langsam	-	slow	آهسته	Sprechen Sie bitte langsam.	Please speak slowly.	لطفاً آهسته صحبت کنید.
+a1-complete	7	laufen	-	to run; to walk	دویدن؛ راه رفتن	Ich laufe jeden Morgen im Park.	I run in the park every morning.	هر صبح در پارک می‌دوم.
+a1-complete	7	laut	-	loud	بلند (صدا)	Die Musik ist zu laut.	The music is too loud.	صدای موسیقی زیادی بلند است.
+a1-complete	7	leben	-	to live	زندگی کردن	Er lebt seit zwei Jahren in Berlin.	He has lived in Berlin for two years.	او دو سال است در برلین زندگی می‌کند.
+a1-complete	7	das Leben	Leben	life	زندگی	Das Leben in der Stadt ist teuer.	Life in the city is expensive.	زندگی در شهر گران است.
+a1-complete	7	die Lebensmittel	Lebensmittel	groceries; food	مواد غذایی	Wir kaufen Lebensmittel im Supermarkt.	We buy groceries at the supermarket.	ما مواد غذایی را از سوپرمارکت می‌خریم.
+a1-complete	7	ledig	-	single; unmarried	مجرد	Ich bin ledig.	I am single.	من مجردم.
+a1-complete	7	legen	-	to lay; to put (flat)	گذاشتن؛ قرار دادن (خوابیده)	Ich lege das Buch auf den Tisch.	I put the book on the table.	کتاب را روی میز می‌گذارم.
+a1-complete	7	der Lehrer	Lehrer	teacher (male)	معلم	Mein Lehrer ist sehr freundlich.	My teacher is very friendly.	معلم من خیلی مهربان است.
+a1-complete	7	leicht	-	easy; light	آسان؛ سبک	Die Prüfung war leicht.	The exam was easy.	امتحان آسان بود.
+a1-complete	7	leider	-	unfortunately	متأسفانه	Leider habe ich keine Zeit.	Unfortunately I have no time.	متأسفانه وقت ندارم.
+a1-complete	7	leise	-	quiet; soft	آهسته؛ بی‌صدا	Sei bitte leise, das Baby schläft.	Please be quiet, the baby is sleeping.	لطفاً آرام باش، بچه خوابیده.
+a1-complete	7	lernen	-	to learn; to study	یاد گرفتن؛ درس خواندن	Ich lerne jeden Tag Deutsch.	I learn German every day.	من هر روز آلمانی یاد می‌گیرم.
+a1-complete	7	lesen	-	to read	خواندن	Er liest jeden Abend ein Buch.	He reads a book every evening.	او هر عصر کتاب می‌خواند.
+a1-complete	7	letzter	-	last	آخرین	Der letzte Zug fährt um elf Uhr.	The last train leaves at eleven o'clock.	آخرین قطار ساعت یازده حرکت می‌کند.
+a1-complete	7	die Leute	-	people	مردم	Viele Leute warten am Bahnhof.	Many people are waiting at the station.	مردم زیادی در ایستگاه منتظرند.
+a1-complete	8	das Licht	Lichter	light	نور؛ چراغ	Mach bitte das Licht an.	Please turn on the light.	لطفاً چراغ را روشن کن.
+a1-complete	8	lieb	-	dear; kind	عزیز؛ مهربان	Liebe Anna, danke für deinen Brief!	Dear Anna, thank you for your letter!	آنای عزیز، از نامه‌ات ممنونم!
+a1-complete	8	lieben	-	to love	دوست داشتن؛ عشق ورزیدن	Ich liebe meine Familie.	I love my family.	من خانواده‌ام را دوست دارم.
+a1-complete	8	lieber	-	rather; preferably	ترجیحاً؛ بیشتر دوست داشتن	Ich bleibe lieber zu Hause.	I'd rather stay at home.	من ترجیح می‌دهم در خانه بمانم.
+a1-complete	8	Lieblings-	-	favourite (prefix)	مورد علاقه (پیشوند)	Mein Lieblingsessen ist Pizza.	My favourite food is pizza.	غذای مورد علاقه من پیتزاست.
+a1-complete	8	das Lied	Lieder	song	آهنگ؛ ترانه	Dieses Lied gefällt mir.	I like this song.	این آهنگ را دوست دارم.
+a1-complete	8	liegen	-	to lie; to be located	قرار داشتن؛ خوابیده بودن	Das Buch liegt auf dem Tisch.	The book is lying on the table.	کتاب روی میز است.
+a1-complete	8	links	-	left; on the left	چپ؛ سمت چپ	Das Hotel ist links.	The hotel is on the left.	هتل سمت چپ است.
+a1-complete	8	der Lkw	Lkws	lorry; truck	کامیون	Ein Lkw steht vor dem Haus.	A truck is standing in front of the house.	یک کامیون جلوی خانه ایستاده است.
+a1-complete	8	das Lokal	Lokale	restaurant; pub	رستوران؛ کافه‌رستوران	Wir essen heute in einem Lokal.	We eat in a restaurant today.	امروز در یک رستوران غذا می‌خوریم.
+a1-complete	8	die Lösung	Lösungen	solution	راه‌حل؛ جواب	Die Lösung steht hinten im Buch.	The solution is at the back of the book.	جواب در انتهای کتاب است.
+a1-complete	8	lustig	-	funny; cheerful	بامزه؛ شاد	Der Film war sehr lustig.	The film was very funny.	فیلم خیلی بامزه بود.
+a1-complete	8	machen	-	to do; to make	انجام دادن؛ ساختن	Was machst du am Wochenende?	What are you doing at the weekend?	آخر هفته چه کار می‌کنی؟
+a1-complete	8	das Mädchen	Mädchen	girl	دختر (بچه)	Das Mädchen spielt im Park.	The girl plays in the park.	دختربچه در پارک بازی می‌کند.
+a1-complete	8	man	-	one; you (in general)	آدم؛ آدم‌ها (ضمیر عام)	Hier darf man nicht parken.	You are not allowed to park here.	اینجا اجازه پارک نیست.
+a1-complete	8	der Mann	Männer	man; husband	مرد؛ شوهر	Der Mann dort ist mein Chef.	The man over there is my boss.	آن مرد آنجا رئیس من است.
+a1-complete	8	männlich	-	male	مذکر؛ مرد	Geschlecht: männlich.	Sex: male.	جنسیت: مرد.
+a1-complete	8	die Maschine	Maschinen	machine	ماشین؛ دستگاه	Die Maschine ist kaputt.	The machine is broken.	دستگاه خراب است.
+a1-complete	8	das Meer	Meere	sea; ocean	دریا	Das Meer ist heute ruhig.	The sea is calm today.	دریا امروز آرام است.
+a1-complete	8	mehr	-	more	بیشتر	Ich möchte mehr Wasser.	I would like more water.	بیشتر آب می‌خواهم.
+a1-complete	8	mein	-	my	… من	Das ist mein Bruder.	This is my brother.	این برادر من است.
+a1-complete	8	meiste	-	most	بیشتر؛ اکثر	Die meisten Leute arbeiten hier.	Most people work here.	بیشتر مردم اینجا کار می‌کنند.
+a1-complete	8	der Mensch	Menschen	human being; person	انسان؛ آدم	Jeder Mensch braucht Freunde.	Every person needs friends.	هر انسانی دوست لازم دارد.
+a1-complete	8	die Miete	Mieten	rent	اجاره؛ اجاره‌بها	Die Miete ist in dieser Stadt sehr hoch.	The rent is very high in this city.	اجاره‌بها در این شهر خیلی بالاست.
+a1-complete	8	mieten	-	to rent	اجاره کردن	Ich möchte eine kleine Wohnung in der Stadt mieten.	I would like to rent a small apartment in the city.	می‌خواهم یک آپارتمان کوچک در شهر اجاره کنم.
+a1-complete	8	die Milch	-	milk	شیر	Ich trinke Kaffee mit Milch.	I drink coffee with milk.	قهوه را با شیر می‌نوشم.
+a1-complete	8	mit	-	with	با	Ich fahre mit dem Bus.	I go by bus.	با اتوبوس می‌روم.
+a1-complete	8	mitbringen	-	to bring along	با خود آوردن	Bring bitte Brot mit!	Please bring bread!	لطفاً نان بیاور!
+a1-complete	8	mitkommen	-	to come along	همراه آمدن	Kommst du mit ins Kino?	Are you coming along to the cinema?	با ما به سینما می‌آیی؟
+a1-complete	8	mitmachen	-	to join in; to take part	شرکت کردن؛ همراهی کردن	Willst du bei dem Spiel mitmachen?	Do you want to join in the game?	می‌خواهی در بازی شرکت کنی؟
+a1-complete	8	mitnehmen	-	to take along	همراه بردن	Ich nehme meinen Schirm mit.	I take my umbrella with me.	چترم را با خودم می‌برم.
+a1-complete	8	die Mitte	-	middle; centre	وسط؛ مرکز	Der Tisch steht in der Mitte.	The table is in the middle.	میز وسط است.
+a1-complete	8	die Möbel	-	furniture	مبلمان؛ اثاثیه	Wir kaufen neue Möbel.	We are buying new furniture.	ما مبلمان جدید می‌خریم.
+a1-complete	8	möchten	-	would like to	خواستن (مؤدبانه)	Ich möchte einen Tee, bitte.	I would like a tea, please.	یک چای می‌خواهم، لطفاً.
+a1-complete	8	mögen	-	to like	دوست داشتن	Ich mag Pizza.	I like pizza.	من پیتزا دوست دارم.
+a1-complete	8	möglich	-	possible	ممکن	Ist das möglich?	Is that possible?	آیا این ممکن است؟
+a1-complete	8	der Moment	Momente	moment	لحظه	Einen Moment, bitte.	One moment, please.	یک لحظه، لطفاً.
+a1-complete	8	morgen	-	tomorrow	فردا	Morgen habe ich frei.	Tomorrow I have the day off.	فردا مرخصی دارم.
+a1-complete	8	müde	-	tired	خسته	Ich bin sehr müde.	I am very tired.	من خیلی خسته‌ام.
+a1-complete	8	der Mund	Münder	mouth	دهان	Mach bitte den Mund auf.	Please open your mouth.	لطفاً دهانت را باز کن.
+a1-complete	8	müssen	-	must; to have to	باید؛ مجبور بودن	Ich muss heute lange arbeiten.	I have to work long today.	من امروز باید زیاد کار کنم.
+a1-complete	8	die Mutter	Mütter	mother	مادر	Meine Mutter kocht sehr gut.	My mother cooks very well.	مادرم خیلی خوب آشپزی می‌کند.
+a1-complete	8	nach	-	after; to	بعد از؛ به (شهر)	Nach der Arbeit gehe ich nach Hause.	After work I go home.	بعد از کار به خانه می‌روم.
+a1-complete	8	nächster	-	next; nearest	بعدی؛ نزدیک‌ترین	Der nächste Bus kommt in zehn Minuten.	The next bus comes in ten minutes.	اتوبوس بعدی ده دقیقه دیگر می‌رسد.
+a1-complete	8	der Name	Namen	name	نام؛ اسم	Mein Name ist Tom.	My name is Tom.	اسم من تام است.
+a1-complete	8	nehmen	-	to take	گرفتن؛ برداشتن	Ich nehme den Bus.	I take the bus.	من با اتوبوس می‌روم.
+a1-complete	8	nein	-	no	نه	Nein, ich komme aus Spanien.	No, I come from Spain.	نه، من اهل اسپانیا هستم.
+a1-complete	8	neu	-	new	نو؛ جدید	Wir haben eine neue Wohnung.	We have a new flat.	ما یک آپارتمان جدید داریم.
+a1-complete	8	nicht	-	not	نه؛ نفی	Ich verstehe das nicht.	I do not understand that.	من این را نمی‌فهمم.
+a1-complete	8	nichts	-	nothing	هیچ چیز	Ich habe nichts gegessen.	I have eaten nothing.	هیچ چیز نخورده‌ام.
+a1-complete	8	nie	-	never	هرگز; هیچ‌وقت	Ich trinke nie Kaffee am Abend.	I never drink coffee in the evening.	هیچ‌وقت عصر قهوه نمی‌نوشم.
+a1-complete	8	noch	-	still; yet	هنوز	Ich bin noch müde.	I am still tired.	هنوز خسته‌ام.
+a1-complete	8	normal	-	normal	عادی؛ معمولی	Das ist ganz normal.	That is quite normal.	این کاملاً عادی است.
+a1-complete	8	die Nummer	Nummern	number	شماره	Wie ist Ihre Telefonnummer?	What is your phone number?	شماره تلفن شما چیست؟
+a1-complete	8	nur	-	only; just	فقط	Ich habe nur zehn Euro.	I only have ten euros.	من فقط ده یورو دارم.
+a1-complete	8	oben	-	up; above; upstairs	بالا؛ طبقه بالا	Mein Zimmer ist oben.	My room is upstairs.	اتاق من طبقه بالاست.
+a1-complete	8	das Obst	-	fruit	میوه	Obst ist gesund.	Fruit is healthy.	میوه سالم است.
+a1-complete	8	oder	-	or	یا	Möchtest du Tee oder Kaffee?	Would you like tea or coffee?	چای می‌خواهی یا قهوه؟
+a1-complete	9	öffnen	-	to open	باز کردن	Kannst du bitte das Fenster öffnen?	Can you open the window, please?	لطفاً پنجره را باز می‌کنی؟
+a1-complete	9	oft	-	often	اغلب; زیاد	Ich fahre oft mit dem Fahrrad.	I often ride my bike.	من اغلب با دوچرخه می‌روم.
+a1-complete	9	ohne	-	without	بدون	Ich trinke Kaffee ohne Zucker.	I drink coffee without sugar.	قهوه را بدون شکر می‌نوشم.
+a1-complete	9	das Öl	Öle	oil	روغن؛ نفت	Ich brate das Fleisch in Öl.	I fry the meat in oil.	گوشت را در روغن سرخ می‌کنم.
+a1-complete	9	die Oma	Omas	grandma	مادربزرگ	Meine Oma kocht gern.	My grandma likes cooking.	مادربزرگم عاشق آشپزی است.
+a1-complete	9	der Opa	Opas	grandpa	پدربزرگ	Mein Opa wohnt auf dem Land.	My grandpa lives in the countryside.	پدربزرگم در روستا زندگی می‌کند.
+a1-complete	9	die Ordnung	-	order; tidiness	نظم؛ ترتیب	In meinem Zimmer ist alles in Ordnung.	In my room everything is in order.	در اتاق من همه چیز مرتب است.
+a1-complete	9	der Ort	Orte	place; town	محل؛ شهرک	Mein Heimatort ist sehr klein.	My home town is very small.	زادگاه من بسیار کوچک است.
+a1-complete	9	das Papier	Papiere	paper	کاغذ	Ich brauche ein Blatt Papier.	I need a sheet of paper.	یک ورق کاغذ لازم دارم.
+a1-complete	9	die Papiere	-	papers; documents	مدارک	Haben Sie Ihre Papiere dabei?	Do you have your papers with you?	مدارکتان همراهتان است؟
+a1-complete	9	der Partner	Partner	partner (male)	شریک؛ همسر (مرد)	Mein Partner kommt aus Italien.	My partner comes from Italy.	شریک زندگی‌ام اهل ایتالیاست.
+a1-complete	9	die Partnerin	Partnerinnen	partner (female)	شریک؛ همسر (زن)	Meine Partnerin arbeitet in einer Schule.	My partner works at a school.	همسرم در یک مدرسه کار می‌کند.
+a1-complete	9	die Party	Partys	party	مهمانی	Am Samstag machen wir eine Party.	On Saturday we are having a party.	شنبه ما یک مهمانی می‌گیریم.
+a1-complete	9	der Pass	Pässe	passport	گذرنامه	Mein Pass ist noch gültig.	My passport is still valid.	گذرنامه‌ام هنوز معتبر است.
+a1-complete	9	die Pause	Pausen	break	استراحت؛ تنفس	Wir machen eine Pause.	We take a break.	ما استراحت می‌کنیم.
+a1-complete	9	der Plan	Pläne	plan	برنامه؛ نقشه	Hast du schon Pläne für nächstes Jahr?	Do you already have plans for next year?	آیا برای سال آینده برنامه‌‌ای داری؟
+a1-complete	9	der Platz	Plätze	place; seat; square	جا؛ صندلی؛ میدان	Ist dieser Platz noch frei?	Is this seat still free?	این جا هنوز خالی است؟
+a1-complete	9	die Polizei	-	police	پلیس	Rufen Sie bitte die Polizei!	Please call the police!	لطفاً به پلیس زنگ بزنید!
+a1-complete	9	die Pommes frites	-	chips; French fries	سیب‌زمینی سرخ‌کرده	Ich möchte Hähnchen mit Pommes frites.	I would like chicken with chips.	مرغ با سیب‌زمینی سرخ‌کرده می‌خواهم.
+a1-complete	9	die Post	-	post office; mail	اداره پست; پست	Die Post ist bis 18 Uhr offen.	The post office is open until 6 pm.	اداره پست تا ساعت ۱۸ باز است.
+a1-complete	9	die Postleitzahl	Postleitzahlen	postcode; zip code	کد پستی	Wie lautet Ihre Postleitzahl?	What is your postcode?	کد پستی شما چیست؟
+a1-complete	9	das Praktikum	Praktika	internship	کارآموزی	Ich mache ein Praktikum in einer Firma.	I am doing an internship at a company.	من در یک شرکت کارآموزی می‌کنم.
+a1-complete	9	die Praxis	Praxen	doctor's surgery	مطب	Die Praxis ist am Mittwoch geschlossen.	The surgery is closed on Wednesday.	مطب چهارشنبه تعطیل است.
+a1-complete	9	der Preis	Preise	price	قیمت	Was ist der Preis für die Jacke?	What is the price of the jacket?	قیمت این ژاکت چقدر است؟
+a1-complete	9	das Problem	Probleme	problem	مشکل	Wir haben ein Problem.	We have a problem.	ما یک مشکل داریم.
+a1-complete	9	der Prospekt	Prospekte	brochure; leaflet	بروشور	Ich habe einen Prospekt vom Hotel.	I have a brochure from the hotel.	من یک بروشور از هتل دارم.
+a1-complete	9	die Prüfung	Prüfungen	exam	امتحان	Morgen habe ich eine wichtige Prüfung.	Tomorrow I have an important exam.	فردا یک امتحان مهم دارم.
+a1-complete	9	pünktlich	-	punctual; on time	وقت‌شناس؛ به‌موقع	Der Zug ist pünktlich.	The train is on time.	قطار به‌موقع است.
+a1-complete	9	Rad fahren	-	to cycle	دوچرخه‌سواری کردن	Im Sommer fahre ich gern Rad.	In summer I like cycling.	تابستان دوست دارم دوچرخه‌سواری کنم.
+a1-complete	9	rauchen	-	to smoke	سیگار کشیدن	Hier darf man nicht rauchen.	You must not smoke here.	اینجا نباید سیگار کشید.
+a1-complete	9	der Raum	Räume	room; space	اتاق؛ فضا	Der Raum ist groß und hell.	The room is big and bright.	اتاق بزرگ و روشن است.
+a1-complete	9	die Rechnung	Rechnungen	bill; check	صورت‌حساب	Die Rechnung, bitte!	The bill, please!	صورت‌حساب را لطفاً!
+a1-complete	9	rechts	-	right; on the right	راست; سمت راست	Die Post ist rechts.	The post office is on the right.	اداره پست سمت راست است.
+a1-complete	9	der Regen	-	rain	باران	Der Regen hört bald auf.	The rain will stop soon.	باران به‌زودی بند می‌آید.
+a1-complete	9	regnen	-	to rain	باران آمدن	Es regnet schon den ganzen Tag.	It has been raining all day.	از صبح تا حالا باران می‌بارد.
+a1-complete	9	der Reis	-	rice	برنج	Wir essen heute Reis mit Gemüse.	We eat rice with vegetables today.	ما امروز برنج با سبزیجات می‌خوریم.
+a1-complete	9	die Reise	Reisen	trip; journey	سفر	Die Reise nach Italien war toll.	The trip to Italy was great.	سفر به ایتالیا عالی بود.
+a1-complete	9	das Reisebüro	Reisebüros	travel agency	آژانس مسافرتی	Das Reisebüro öffnet um neun Uhr.	The travel agency opens at nine o'clock.	آژانس مسافرتی ساعت نه باز می‌شود.
+a1-complete	9	der Reiseführer	Reiseführer	guidebook; tour guide	کتاب راهنمای سفر؛ راهنمای تور	Im Reiseführer stehen viele gute Tipps.	The guidebook has many good tips.	در کتاب راهنمای سفر نکته‌های خوب زیادی هست.
+a1-complete	9	reisen	-	to travel	سفر کردن	Wir reisen gern nach Italien.	We like travelling to Italy.	ما دوست داریم به ایتالیا سفر کنیم.
+a1-complete	9	die Reparatur	Reparaturen	repair	تعمیر	Die Reparatur dauert leider drei Tage.	The repair unfortunately takes three days.	متأسفانه تعمیر سه روز طول می‌کشد.
+a1-complete	9	reparieren	-	to repair	تعمیر کردن	Mein Vater repariert das Fahrrad.	My father repairs the bicycle.	پدرم دوچرخه را تعمیر می‌کند.
+a1-complete	9	das Restaurant	Restaurants	restaurant	رستوران	Wir essen heute im Restaurant.	We eat at the restaurant today.	امروز در رستوران غذا می‌خوریم.
+a1-complete	9	die Rezeption	Rezeptionen	reception	پذیرش	Fragen Sie bitte an der Rezeption.	Please ask at reception.	لطفاً از پذیرش بپرسید.
+a1-complete	9	richtig	-	correct; right	درست	Das ist richtig.	That is correct.	این درست است.
+a1-complete	9	riechen	-	to smell	بو کردن؛ بو دادن	Es riecht gut in der Küche.	It smells good in the kitchen.	در آشپزخانه بوی خوبی می‌آید.
+a1-complete	9	ruhig	-	quiet; calm	آرام	Die Wohnung ist sehr ruhig.	The flat is very quiet.	آپارتمان خیلی آرام است.
+a1-complete	9	die S-Bahn	S-Bahnen	suburban train	قطار حومه‌ای	Ich nehme die S-Bahn zur Arbeit.	I take the suburban train to work.	با قطار حومه‌ای سر کار می‌روم.
+a1-complete	9	der Saft	Säfte	juice	آب‌میوه	Der Saft ist sehr kalt.	The juice is very cold.	آب‌میوه خیلی سرد است.
+a1-complete	9	sagen	-	to say; to tell	گفتن	Was sagst du?	What are you saying?	چه می‌گویی؟
+a1-complete	9	der Salat	Salate	salad	سالاد	Zum Essen gibt es einen Salat.	With the meal there is a salad.	همراه غذا سالاد داریم.
+a1-complete	9	das Salz	-	salt	نمک	Gibst du mir bitte das Salz?	Can you pass me the salt, please?	لطفاً نمک را به من می‌دهی؟
+a1-complete	9	der Satz	Sätze	sentence	جمله	Bitte schreiben Sie einen Satz.	Please write a sentence.	لطفاً یک جمله بنویسید.
+a1-complete	9	der Schalter	Schalter	counter; switch	باجه؛ کلید (برق)	Die Fahrkarten gibt es am Schalter.	The tickets are available at the counter.	بلیت‌ها در باجه فروخته می‌شوند.
+a1-complete	9	scheinen	-	to shine; to seem	تابیدن؛ به نظر رسیدن	Heute scheint die Sonne.	The sun is shining today.	امروز آفتاب می‌تابد.
+a1-complete	9	schicken	-	to send	فرستادن	Ich schicke dir eine Nachricht.	I will send you a message.	برایت یک پیام می‌فرستم.
+a1-complete	9	das Schild	Schilder	sign	تابلو؛ علامت	Auf dem Schild steht „Ausgang“.	The sign says "Exit".	روی تابلو «خروج» نوشته شده است.
+a1-complete	9	der Schinken	Schinken	ham	ژامبون	Ich esse ein Brot mit Schinken.	I eat a sandwich with ham.	نان با ژامبون می‌خورم.
+a1-complete	10	schlafen	-	to sleep	خوابیدن	Das Baby schläft schon.	The baby is already sleeping.	بچه خوابیده است.
+a1-complete	10	schlecht	-	bad	بد	Das Wetter ist heute schlecht.	The weather is bad today.	هوا امروز بد است.
+a1-complete	10	schließen	-	to close	بستن	Bitte schließen Sie die Tür.	Please close the door.	لطفاً در را ببندید.
+a1-complete	10	der Schluss	-	end; conclusion	پایان	Am Schluss sagen alle „Danke“.	At the end everyone says "thank you".	در پایان همه «ممنون» می‌گویند.
+a1-complete	10	der Schlüssel	Schlüssel	key	کلید	Wo ist mein Schlüssel?	Where is my key?	کلید من کجاست؟
+a1-complete	10	schmecken	-	to taste	مزه دادن؛ خوشمزه بودن	Das Essen schmeckt sehr gut.	The food tastes very good.	غذا خیلی خوشمزه است.
+a1-complete	10	schnell	-	fast; quick	سریع	Der Zug ist sehr schnell.	The train is very fast.	قطار خیلی سریع است.
+a1-complete	10	schon	-	already	قبلاً؛ همین حالا	Ich habe schon gegessen.	I have already eaten.	من قبلاً غذا خورده‌ام.
+a1-complete	10	schön	-	beautiful; nice	زیبا؛ قشنگ	Das Wetter ist heute schön.	The weather is nice today.	هوا امروز خوب است.
+a1-complete	10	der Schrank	Schränke	cupboard; wardrobe	کمد; قفسه	Die Jacke hängt im Schrank.	The jacket is hanging in the wardrobe.	کاپشن در کمد آویزان است.
+a1-complete	10	schreiben	-	to write	نوشتن	Ich schreibe eine E-Mail.	I am writing an email.	دارم یک ایمیل می‌نویسم.
+a1-complete	10	der Schuh	Schuhe	shoe	کفش	Meine Schuhe sind nass geworden.	My shoes got wet.	کفش‌هایم خیس شده‌اند.
+a1-complete	10	die Schule	Schulen	school	مدرسه	Die Schule beginnt um acht Uhr.	School starts at eight o'clock.	مدرسه ساعت هشت شروع می‌شود.
+a1-complete	10	der Schüler	Schüler	pupil; student (school)	دانش‌آموز	Der Schüler macht seine Hausaufgaben.	The pupil does his homework.	دانش‌آموز تکلیفش را انجام می‌دهد.
+a1-complete	10	schwer	-	heavy; difficult	سنگین؛ سخت	Der Koffer ist sehr schwer.	The suitcase is very heavy.	چمدان خیلی سنگین است.
+a1-complete	10	die Schwester	Schwestern	sister	خواهر	Meine Schwester wohnt in Wien.	My sister lives in Vienna.	خواهرم در وین زندگی می‌کند.
+a1-complete	10	das Schwimmbad	Schwimmbäder	swimming pool	استخر	Wir gehen heute ins Schwimmbad.	We are going to the swimming pool today.	امروز به استخر می‌رویم.
+a1-complete	10	schwimmen	-	to swim	شنا کردن	Ich schwimme gern im Sommer.	I like swimming in summer.	من تابستان‌ها دوست دارم شنا کنم.
+a1-complete	10	der See	Seen	lake	دریاچه	Im Sommer schwimmen wir im See.	In summer we swim in the lake.	تابستان در دریاچه شنا می‌کنیم.
+a1-complete	10	sehen	-	to see	دیدن	Ich sehe dich morgen.	I will see you tomorrow.	فردا تو را می‌بینم.
+a1-complete	10	die Sehenswürdigkeit	Sehenswürdigkeiten	sight; tourist attraction	جاذبه گردشگری؛ دیدنی	Berlin hat viele Sehenswürdigkeiten.	Berlin has many sights.	برلین جاذبه‌‌های گردشگری زیادی دارد.
+a1-complete	10	sehr	-	very	خیلی؛ بسیار	Das Essen ist sehr gut.	The food is very good.	غذا خیلی خوب است.
+a1-complete	10	sein	-	to be	بودن	Ich bin Student.	I am a student.	من دانشجو هستم.
+a1-complete	10	seit	-	since; for (time)	از؛ از وقتی؛ به مدت	Ich lerne seit einem Jahr Deutsch.	I have been learning German for a year.	من یک سال است که آلمانی یاد می‌گیرم.
+a1-complete	10	selbstständig	-	self-employed; independent	مستقل؛ خوداشتغال	Er ist selbstständig und arbeitet zu Hause.	He is self-employed and works at home.	او خوداشتغال است و در خانه کار می‌کند.
+a1-complete	10	sich	-	himself; herself; themselves	خود؛ خودش (ضمیر بازتابی)	Er wäscht sich die Hände.	He washes his hands.	او دست‌هایش را می‌شوید.
+a1-complete	10	sie	-	she; they	او (زن)؛ آن‌ها	Sie wohnt in Hamburg.	She lives in Hamburg.	او در هامبورگ زندگی می‌کند.
+a1-complete	10	Sie	-	you (formal)	شما (رسمی)	Wie heißen Sie?	What is your name?	اسم شما چیست؟
+a1-complete	10	sitzen	-	to sit	نشستن	Wir sitzen im Café.	We are sitting in the café.	ما در کافه نشسته‌ایم.
+a1-complete	10	so	-	so; like this	این‌طور؛ خیلی	Es ist so kalt heute.	It is so cold today.	امروز خیلی سرد است.
+a1-complete	10	das Sofa	Sofas	sofa; couch	مبل; کاناپه	Das Sofa ist sehr bequem.	The sofa is very comfortable.	مبل خیلی راحت است.
+a1-complete	10	sofort	-	immediately	فوراً	Komm bitte sofort her!	Please come here immediately!	لطفاً فوراً بیا اینجا!
+a1-complete	10	der Sohn	Söhne	son	پسر (فرزند)	Mein Sohn ist fünf Jahre alt.	My son is five years old.	پسرم پنج ساله است.
+a1-complete	10	sollen	-	to be supposed to; should	باید؛ قرار بودن	Ich soll morgen früher kommen.	I am supposed to come earlier tomorrow.	قرار است فردا زودتر بیایم.
+a1-complete	10	die Sonne	-	sun; sunshine	خورشید; آفتاب	Die Sonne scheint heute.	The sun is shining today.	امروز آفتاب است.
+a1-complete	10	spät	-	late	دیر	Es ist schon spät.	It is already late.	دیر شده است.
+a1-complete	10	später	-	later	بعداً	Bis später!	See you later!	بعداً می‌بینمت!
+a1-complete	10	die Speisekarte	Speisekarten	menu	منو؛ فهرست غذا	Die Speisekarte, bitte.	The menu, please.	منو را لطفاً.
+a1-complete	10	spielen	-	to play	بازی کردن	Die Kinder spielen im Garten.	The children are playing in the garden.	بچه‌ها در باغ بازی می‌کنند.
+a1-complete	10	der Sport	-	sport	ورزش	Ich mache zweimal pro Woche Sport.	I do sport twice a week.	هفته‌ای دو بار ورزش می‌کنم.
+a1-complete	10	die Sprache	Sprachen	language	زبان	Ich spreche zwei Sprachen.	I speak two languages.	من دو زبان صحبت می‌کنم.
+a1-complete	10	sprechen	-	to speak	صحبت کردن	Sprechen Sie Englisch?	Do you speak English?	انگلیسی صحبت می‌کنید؟
+a1-complete	10	die Stadt	Städte	city; town	شهر	Berlin ist eine große Stadt.	Berlin is a big city.	برلین یک شهر بزرگ است.
+a1-complete	10	stehen	-	to stand	ایستادن	Der Bus steht vor dem Haus.	The bus is standing in front of the house.	اتوبوس جلوی خانه ایستاده است.
+a1-complete	10	die Stelle	Stellen	job; position	شغل؛ موقعیت شغلی	Die Stelle ist schon besetzt.	The position is already filled.	این موقعیت شغلی قبلاً پر شده است.
+a1-complete	10	stellen	-	to put; to place (upright)	گذاشتن؛ قرار دادن (ایستاده)	Stell die Flasche bitte auf den Tisch.	Please put the bottle on the table.	لطفاً بطری را روی میز بگذار.
+a1-complete	10	der Stock	Stockwerke	floor; storey	طبقه	Ich wohne im dritten Stock.	I live on the third floor.	من در طبقه سوم زندگی می‌کنم.
+a1-complete	10	die Straße	Straßen	street; road	خیابان	Die Straße ist sehr laut.	The street is very loud.	خیابان خیلی پرسروصدا است.
+a1-complete	10	die Straßenbahn	Straßenbahnen	tram	تراموا	Ich nehme die Straßenbahn zur Arbeit.	I take the tram to work.	من با تراموا سر کار می‌روم.
+a1-complete	10	der Student	Studenten	student (male)	دانشجو	Der Student lernt in der Bibliothek.	The student is studying in the library.	دانشجو در کتابخانه درس می‌خواند.
+a1-complete	10	studieren	-	to study (at university)	درس خواندن (دانشگاه)	Meine Schwester studiert Medizin.	My sister studies medicine.	خواهرم پزشکی می‌خواند.
+a1-complete	10	das Studium	-	studies; degree course	تحصیلات دانشگاهی؛ دورهٔ تحصیل	Mein Studium dauert drei Jahre.	My degree course lasts three years.	دورهٔ تحصیل من سه سال طول می‌کشد.
+a1-complete	10	die Stunde	Stunden	hour; lesson	ساعت؛ درس	Der Kurs dauert zwei Stunden.	The course lasts two hours.	دوره دو ساعت طول می‌کشد.
+a1-complete	10	suchen	-	to look for	جستجو کردن	Ich suche meinen Schlüssel.	I am looking for my key.	دنبال کلیدم می‌گردم.
+a1-complete	10	tanzen	-	to dance	رقصیدن	Sie tanzt auf der Party.	She is dancing at the party.	او در مهمانی می‌رقصد.
+a1-complete	10	die Tasche	Taschen	bag; pocket	کیف؛ جیب	Meine Tasche ist schwer.	My bag is heavy.	کیفم سنگین است.
+a1-complete	10	das Taxi	Taxis	taxi	تاکسی	Wir nehmen ein Taxi zum Bahnhof.	We take a taxi to the station.	ما با تاکسی به ایستگاه می‌رویم.
+a1-complete	10	der Tee	Tees	tea	چای	Möchten Sie Tee oder Kaffee?	Would you like tea or coffee?	چای می‌خواهید یا قهوه؟
+a1-complete	11	der Teil	Teile	part	بخش؛ قسمت	Ein Teil des Textes ist schwer.	Part of the text is difficult.	بخشی از متن سخت است.
+a1-complete	11	das Telefon	Telefone	telephone	تلفن	Das Telefon klingelt.	The telephone is ringing.	تلفن زنگ می‌زند.
+a1-complete	11	telefonieren	-	to phone; to make a call	تلفن زدن؛ تلفنی صحبت کردن	Ich telefoniere jeden Abend mit meiner Mutter.	I phone my mother every evening.	هر عصر با مادرم تلفنی صحبت می‌کنم.
+a1-complete	11	der Termin	Termine	appointment	قرار ملاقات؛ وقت	Ich habe morgen einen Termin.	I have an appointment tomorrow.	من فردا یک قرار ملاقات دارم.
+a1-complete	11	der Test	Tests	test	آزمون؛ تست	Morgen schreiben wir einen Test.	Tomorrow we are writing a test.	فردا آزمون می‌نویسیم.
+a1-complete	11	teuer	-	expensive	گران	Das Hotel ist zu teuer.	The hotel is too expensive.	هتل خیلی گران است.
+a1-complete	11	der Text	Texte	text	متن	Lesen Sie bitte den Text.	Please read the text.	لطفاً متن را بخوانید.
+a1-complete	11	das Thema	Themen	topic; subject	موضوع؛ مبحث	Das Thema ist interessant.	The topic is interesting.	موضوع جالب است.
+a1-complete	11	das Ticket	Tickets	ticket	بلیت	Ich brauche ein Ticket nach Hamburg.	I need a ticket to Hamburg.	من یک بلیت به مقصد هامبورگ لازم دارم.
+a1-complete	11	der Tisch	Tische	table	میز	Das Buch liegt auf dem Tisch.	The book is lying on the table.	کتاب روی میز است.
+a1-complete	11	die Tochter	Töchter	daughter	دختر (فرزند)	Ihre Tochter heißt Lena.	Her daughter is called Lena.	دخترش لنا نام دارد.
+a1-complete	11	die Toilette	Toiletten	toilet	توالت؛ دستشویی	Entschuldigung, wo ist die Toilette?	Excuse me, where is the toilet?	ببخشید، دستشویی کجاست؟
+a1-complete	11	die Tomate	Tomaten	tomato	گوجه‌فرنگی	Die Tomaten sind frisch.	The tomatoes are fresh.	گوجه‌فرنگی‌ها تازه هستند.
+a1-complete	11	tot	-	dead	مرده	Die Blumen sind tot.	The flowers are dead.	گل‌ها مرده‌اند.
+a1-complete	11	sich treffen	-	to meet	همدیگر را دیدن؛ ملاقات کردن	Wir treffen uns um drei Uhr.	We meet at three o'clock.	ساعت سه همدیگر را می‌بینیم.
+a1-complete	11	die Treppe	Treppen	stairs	پله	Nehmen Sie die Treppe oder den Aufzug?	Do you take the stairs or the lift?	از پله می‌روید یا از آسانسور؟
+a1-complete	11	trinken	-	to drink	نوشیدن	Ich trinke gern Wasser.	I like drinking water.	دوست دارم آب بنوشم.
+a1-complete	11	tschüss	-	bye	خداحافظ (دوستانه)	Tschüss, bis morgen!	Bye, see you tomorrow!	خداحافظ، تا فردا!
+a1-complete	11	tun	-	to do	کردن؛ انجام دادن	Was kann ich für Sie tun?	What can I do for you?	چه کاری می‌توانم برای شما انجام دهم؟
+a1-complete	11	über	-	over; about	روی؛ بالای؛ درباره	Wir sprechen über das Wetter.	We are talking about the weather.	ما درباره هوا صحبت می‌کنیم.
+a1-complete	11	übernachten	-	to stay overnight	شب را ماندن	Wir übernachten in einem kleinen Hotel.	We stay overnight in a small hotel.	ما شب را در یک هتل کوچک می‌مانیم.
+a1-complete	11	überweisen	-	to transfer (money)	حواله کردن (پول)	Ich überweise die Miete am Montag.	I transfer the rent on Monday.	اجاره را دوشنبه حواله می‌کنم.
+a1-complete	11	die Uhr	Uhren	clock; watch; o'clock	ساعت	Wie viel Uhr ist es?	What time is it?	ساعت چند است؟
+a1-complete	11	um	-	at (time); around	ساعت … ؛ دور تا دور	Der Kurs beginnt um neun Uhr.	The course begins at nine o'clock.	دوره ساعت نه شروع می‌شود.
+a1-complete	11	umziehen	-	to move (house)	اسباب‌کشی کردن؛ نقل مکان کردن	Nächsten Monat ziehen wir nach Berlin um.	Next month we are moving to Berlin.	ماه آینده به برلین اسباب‌کشی می‌کنیم.
+a1-complete	11	und	-	and	و	Ich esse Brot und Käse.	I eat bread and cheese.	نان و پنیر می‌خورم.
+a1-complete	11	unser	-	our	… ما	Das ist unser Haus.	This is our house.	این خانه ماست.
+a1-complete	11	unten	-	down; below; downstairs	پایین؛ طبقه پایین	Die Küche ist unten.	The kitchen is downstairs.	آشپزخانه پایین است.
+a1-complete	11	unter	-	under; below	زیر	Die Katze schläft unter dem Bett.	The cat sleeps under the bed.	گربه زیر تخت می‌خوابد.
+a1-complete	11	der Unterricht	-	lessons; class	کلاس؛ تدریس	Der Unterricht beginnt um acht Uhr.	Class begins at eight o'clock.	کلاس ساعت هشت شروع می‌شود.
+a1-complete	11	unterschreiben	-	to sign	امضا کردن	Hier müssen Sie bitte unterschreiben.	You have to sign here, please.	اینجا لطفاً باید امضا کنید.
+a1-complete	11	die Unterschrift	Unterschriften	signature	امضا	Hier fehlt noch Ihre Unterschrift.	Your signature is still missing here.	امضای شما اینجا هنوز نیست.
+a1-complete	11	der Urlaub	-	vacation; holiday	تعطیلات؛ مرخصی	Wir machen im Juli Urlaub am Meer.	We are going on holiday by the sea in July.	ما در ماه ژوئیه کنار دریا تعطیلات می‌گذرانیم.
+a1-complete	11	der Vater	Väter	father	پدر	Mein Vater arbeitet bei einer Firma.	My father works at a company.	پدرم در یک شرکت کار می‌کند.
+a1-complete	11	verboten	-	forbidden	ممنوع	Rauchen ist hier verboten.	Smoking is forbidden here.	سیگار کشیدن اینجا ممنوع است.
+a1-complete	11	verdienen	-	to earn	درآمد داشتن؛ کسب کردن	Sie verdient gut.	She earns a good wage.	او درآمد خوبی دارد.
+a1-complete	11	der Verein	Vereine	club; association	باشگاه؛ انجمن	Er ist in einem Fußballverein.	He is in a football club.	او عضو یک باشگاه فوتبال است.
+a1-complete	11	verheiratet	-	married	متأهل	Sie ist verheiratet.	She is married.	او متأهل است.
+a1-complete	11	verkaufen	-	to sell	فروختن	Ich verkaufe mein altes Fahrrad.	I am selling my old bicycle.	دوچرخه قدیمی‌ام را می‌فروشم.
+a1-complete	11	der Verkäufer	Verkäufer	shop assistant (male)	فروشنده	Der Verkäufer ist sehr nett.	The shop assistant is very nice.	فروشنده خیلی مهربان است.
+a1-complete	11	vermieten	-	to rent out	اجاره دادن	Wir vermieten ein Zimmer.	We rent out a room.	ما یک اتاق اجاره می‌دهیم.
+a1-complete	11	der Vermieter	Vermieter	landlord	صاحب‌خانه؛ مؤجر	Der Vermieter wohnt im Erdgeschoss.	The landlord lives on the ground floor.	صاحب‌خانه در طبقه‌ی همکف زندگی می‌کند.
+a1-complete	11	verstehen	-	to understand	فهمیدن	Ich verstehe dich nicht.	I do not understand you.	من تو را نمی‌فهمم.
+a1-complete	11	der Verwandte	Verwandte	relative	خویشاوند	Meine Verwandten wohnen in Köln.	My relatives live in Cologne.	خویشاوندانم در کلن زندگی می‌کنند.
+a1-complete	11	viel	-	much; a lot	زیاد	Ich habe viel Arbeit.	I have a lot of work.	من کار زیادی دارم.
+a1-complete	11	vielleicht	-	maybe; perhaps	شاید	Vielleicht komme ich morgen.	Maybe I will come tomorrow.	شاید فردا بیایم.
+a1-complete	11	von	-	from; of	از؛ مال	Das ist ein Geschenk von meiner Mutter.	That is a present from my mother.	این هدیه‌ای از طرف مادرم است.
+a1-complete	11	vor	-	in front of; before	جلوی؛ قبل از	Vor dem Essen wasche ich die Hände.	Before eating I wash my hands.	قبل از غذا دست‌هایم را می‌شویم.
+a1-complete	11	der Vorname	Vornamen	first name	نام کوچک	Mein Vorname ist Anna.	My first name is Anna.	نام کوچک من آنا است.
+a1-complete	11	die Vorsicht	-	caution	احتیاط	Vorsicht, die Treppe ist nass!	Careful, the stairs are wet!	احتیاط کنید، پله‌ها خیس است!
+a1-complete	11	sich vorstellen	-	to introduce oneself	خود را معرفی کردن	Ich möchte mich kurz vorstellen.	I would like to introduce myself briefly.	می‌خواهم خودم را کوتاه معرفی کنم.
+a1-complete	11	die Vorwahl	Vorwahlen	area code	پیش‌شماره	Die Vorwahl von Berlin ist 030.	The area code of Berlin is 030.	پیش‌شماره برلین ۰۳۰ است.
+a1-complete	11	wandern	-	to hike	کوهنوردی کردن؛ پیاده‌روی طولانی	Am Wochenende wandern wir in den Bergen.	At the weekend we hike in the mountains.	آخر هفته در کوه‌ها پیاده‌روی می‌کنیم.
+a1-complete	11	wann	-	when	کی؛ چه زمانی	Wann beginnt der Film?	When does the film begin?	فیلم کی شروع می‌شود؟
+a1-complete	11	warten	-	to wait	منتظر ماندن	Ich warte auf den Bus.	I am waiting for the bus.	منتظر اتوبوس هستم.
+a1-complete	11	warum	-	why	چرا	Warum lernst du Deutsch?	Why are you learning German?	چرا آلمانی یاد می‌گیری؟
+a1-complete	11	was	-	what	چه؛ چی	Was ist das?	What is that?	این چیست؟
+a1-complete	11	was für ein	-	what kind of	چه جور؛ چگونه	Was für ein Auto hast du?	What kind of car do you have?	چه جور ماشینی داری؟
+a1-complete	12	sich waschen	-	to wash (oneself)	خود را شستن	Ich wasche mich jeden Morgen.	I wash every morning.	هر صبح خودم را می‌شویم.
+a1-complete	12	das Wasser	-	water	آب	Ich trinke viel Wasser.	I drink a lot of water.	من آب زیاد می‌نوشم.
+a1-complete	12	weg sein	-	to be gone; to be away	رفته بودن؛ نبودن	Meine Brille ist weg.	My glasses are gone.	عینکم گم شده است.
+a1-complete	12	weh tun	-	to hurt	درد کردن	Mein Kopf tut weh.	My head hurts.	سرم درد می‌کند.
+a1-complete	12	weiblich	-	female	مؤنث؛ زن	Geschlecht: weiblich.	Sex: female.	جنسیت: زن.
+a1-complete	12	der Wein	Weine	wine	شراب	Er trinkt gern ein Glas Wein.	He likes a glass of wine.	او دوست دارد یک لیوان شراب بنوشد.
+a1-complete	12	weit	-	far; wide	دور؛ پهن	Der Bahnhof ist nicht weit.	The station is not far.	ایستگاه دور نیست.
+a1-complete	12	weiter	-	further; on	ادامه؛ جلوتر	Gehen Sie bitte weiter geradeaus.	Please keep going straight on.	لطفاً مستقیم ادامه دهید.
+a1-complete	12	welcher	-	which	کدام	Welches Buch möchtest du?	Which book would you like?	کدام کتاب را می‌خواهی؟
+a1-complete	12	die Welt	Welten	world	دنیا؛ جهان	Er reist um die Welt.	He travels around the world.	او دور دنیا سفر می‌کند.
+a1-complete	12	wenig	-	little; few	کم	Ich habe wenig Zeit.	I have little time.	وقت کمی دارم.
+a1-complete	12	wer	-	who	چه کسی؛ کی	Wer ist das?	Who is that?	این کیست؟
+a1-complete	12	werden	-	to become	شدن	Es wird kalt.	It is getting cold.	هوا سرد می‌شود.
+a1-complete	12	das Wetter	-	weather	هوا (آب‌وهوا)	Wie ist das Wetter heute?	What is the weather like today?	امروز هوا چطور است؟
+a1-complete	12	wichtig	-	important	مهم	Das ist sehr wichtig.	That is very important.	این خیلی مهم است.
+a1-complete	12	wie	-	how; like	چگونه؛ مثل	Wie geht es dir?	How are you?	حالت چطور است؟
+a1-complete	12	wie viel	-	how much	چقدر	Wie viel kostet das?	How much does that cost?	این چقدر قیمت دارد؟
+a1-complete	12	wiederholen	-	to repeat	تکرار کردن	Können Sie das bitte wiederholen?	Can you repeat that, please?	می‌توانید لطفاً تکرار کنید؟
+a1-complete	12	das Wiederhören	-	goodbye (on the phone)	خداحافظ (تلفنی)	Auf Wiederhören!	Goodbye!	خداحافظ! (در تلفن)
+a1-complete	12	das Wiedersehen	-	seeing again; goodbye	دیدار دوباره	Auf Wiedersehen!	Goodbye!	به امید دیدار!
+a1-complete	12	willkommen	-	welcome	خوش آمدید	Herzlich willkommen in Berlin!	A warm welcome to Berlin!	به برلین خوش آمدید!
+a1-complete	12	der Wind	Winde	wind	باد	Heute weht ein starker Wind.	There is a strong wind today.	امروز باد شدیدی می‌وزد.
+a1-complete	12	wir	-	we	ما	Wir wohnen in Hamburg.	We live in Hamburg.	ما در هامبورگ زندگی می‌کنیم.
+a1-complete	12	wissen	-	to know (a fact)	دانستن	Ich weiß es nicht.	I do not know.	من نمی‌دانم.
+a1-complete	12	wo	-	where	کجا	Wo wohnst du?	Where do you live?	کجا زندگی می‌کنی؟
+a1-complete	12	woher	-	where from	از کجا	Woher kommen Sie?	Where do you come from?	اهل کجا هستید؟
+a1-complete	12	wohin	-	where to	به کجا	Wohin fahren Sie?	Where are you going?	به کجا می‌روید؟
+a1-complete	12	wohnen	-	to live; to reside	ساکن بودن؛ زندگی کردن	Ich wohne in der Stadt.	I live in the city.	من در شهر زندگی می‌کنم.
+a1-complete	12	die Wohnung	Wohnungen	flat; apartment	آپارتمان	Unsere Wohnung hat drei Zimmer.	Our flat has three rooms.	آپارتمان ما سه اتاق دارد.
+a1-complete	12	wollen	-	to want to	خواستن؛ قصد داشتن	Ich will nach der Arbeit schlafen.	I want to sleep after work.	من می‌خواهم بعد از کار بخوابم.
+a1-complete	12	das Wort	Wörter	word	کلمه؛ واژه	Das Wort kenne ich nicht.	I do not know this word.	این کلمه را نمی‌شناسم.
+a1-complete	12	wunderbar	-	wonderful	فوق‌العاده	Das Essen war wunderbar.	The meal was wonderful.	غذا فوق‌العاده بود.
+a1-complete	12	zahlen	-	to pay	پرداخت کردن	Ich möchte bitte zahlen.	I would like to pay, please.	می‌خواهم پرداخت کنم، لطفاً.
+a1-complete	12	die Zeit	Zeiten	time	زمان؛ وقت	Hast du heute Zeit?	Do you have time today?	امروز وقت داری؟
+a1-complete	12	die Zeitung	Zeitungen	newspaper	روزنامه	Mein Opa liest jeden Morgen die Zeitung.	My grandpa reads the newspaper every morning.	پدربزرگم هر صبح روزنامه می‌خواند.
+a1-complete	12	die Zigarette	Zigaretten	cigarette	سیگار	Er raucht eine Zigarette.	He smokes a cigarette.	او یک سیگار می‌کشد.
+a1-complete	12	das Zimmer	Zimmer	room	اتاق	Das Zimmer hat einen Balkon.	The room has a balcony.	اتاق بالکن دارد.
+a1-complete	12	der Zoll	-	customs	گمرک	Am Zoll mussten wir unsere Taschen öffnen.	At customs we had to open our bags.	در گمرک باید کیف‌هایمان را باز می‌کردیم.
+a1-complete	12	zu	-	to; too; closed	به؛ خیلی؛ بسته	Das Wasser ist zu kalt.	The water is too cold.	آب خیلی سرد است.
+a1-complete	12	zu sein	-	to be closed	بسته بودن	Die Bank ist heute zu.	The bank is closed today.	بانک امروز بسته است.
+a1-complete	12	zufrieden	-	satisfied; content	راضی؛ خشنود	Ich bin mit meinem Leben zufrieden.	I am content with my life.	من از زندگی‌ام راضی هستم.
+a1-complete	12	der Zug	Züge	train	قطار	Der Zug kommt um acht Uhr an.	The train arrives at eight o'clock.	قطار ساعت هشت می‌رسد.
+a1-complete	12	zum	-	to the; at the (zu dem)	به؛ به‌سوی (zu dem)	Ich gehe zum Arzt.	I go to the doctor.	من پیش دکتر می‌روم.
+a1-complete	12	zurück	-	back	برگشت؛ عقب	Ich bin um fünf Uhr zurück.	I will be back at five o'clock.	ساعت پنج برمی‌گردم.
+a1-complete	12	zurzeit	-	at the moment	در حال حاضر	Zurzeit arbeite ich in Berlin.	At the moment I work in Berlin.	در حال حاضر در برلین کار می‌کنم.
+a1-complete	12	zusammen	-	together	با هم	Wir lernen zusammen.	We are studying together.	ما با هم درس می‌خوانیم.
+a1-complete	12	zwischen	-	between	بین	Das Café ist zwischen der Bank und der Post.	The café is between the bank and the post office.	کافه بین بانک و پست است.
