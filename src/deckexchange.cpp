@@ -200,6 +200,12 @@ void DeckExchange::openFile(const QUrl &source)
         setPackage(p, {});
         return;
     }
+    if (f.size() > kMaxDownload) { // same limit as for a link
+        deckformats::Package p;
+        p.error = tr("This file is too large.");
+        setPackage(p, {});
+        return;
+    }
     const QByteArray data = f.readAll();
     setPackage(deckformats::read(data, path, tempDir()), QFileInfo(source.fileName()).completeBaseName());
 }
@@ -210,6 +216,12 @@ void DeckExchange::openLink(const QString &link)
     if (!url.isValid() || url.host().isEmpty()) {
         deckformats::Package p;
         p.error = tr("That doesn't look like a link.");
+        setPackage(p, {});
+        return;
+    }
+    if (url.scheme() != QLatin1String("https")) { // links are fetched over an encrypted connection only
+        deckformats::Package p;
+        p.error = tr("Only https links are supported.");
         setPackage(p, {});
         return;
     }

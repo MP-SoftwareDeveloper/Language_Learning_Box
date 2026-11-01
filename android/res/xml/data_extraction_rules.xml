@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Android 12+: the same rule for the cloud backup and for moving to a new phone. Only the cards (database +
+     pictures); the settings file with the user's own Azure keys is never included. -->
+<data-extraction-rules>
+    <cloud-backup>
+        <include domain="file" path="learningbox.sqlite"/>
+        <include domain="file" path="learningbox.sqlite-wal"/>
+        <include domain="file" path="images"/>
+    </cloud-backup>
+    <device-transfer>
+        <include domain="file" path="learningbox.sqlite"/>
+        <include domain="file" path="learningbox.sqlite-wal"/>
+        <include domain="file" path="images"/>
+    </device-transfer>
+</data-extraction-rules>

@@ -304,3 +304,5 @@ app goes to the background. A new installation finds that copy and offers to bri
 silently when the folder can be read). Android 11+ needs the one-time "Allow access to manage all files" switch
 (asked with an explanation on the first start); Android 10 and older use the normal storage permission. The copy is
 never overwritten until the user has decided about restoring. Code: `src/backup.*`, dialogs in `qml/Main.qml`.
+Android's own Auto Backup is limited by `android/res/xml/backup_rules.xml` / `data_extraction_rules.xml` to the database and
+pictures only, so the settings file with the user's own Azure keys is never backed up or moved to another phone.

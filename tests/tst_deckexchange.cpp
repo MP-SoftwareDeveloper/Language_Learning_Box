@@ -7,6 +7,11 @@
 
 #include "cardstore.h"
 #include "deckexchange.h"
+#if __has_include(<QtCore/private/qzipwriter_p.h>)
+#include <QtCore/private/qzipwriter_p.h>
+#else
+#include <QtGui/private/qzipwriter_p.h>
+#endif
 
 // Export -> delete -> import round trips against a throw-away database (test mode paths).
 class TstDeckExchange : public QObject
@@ -127,6 +132,28 @@ private slots:
         QCOMPARE(s->currentCollectionName(), QStringLiteral("From Sara"));
         QCOMPARE(s->totalCount(), 2);
         s->selectCollection(before);
+    }
+
+    void oversizedZipEntryIsRefused()
+    {
+        // A tiny file that claims a 70 MB cards.json (zeros compress to almost nothing)
+        const QString path = tmp.filePath(QStringLiteral("bomb.lbox"));
+        {
+            QFile f(path);
+            QVERIFY(f.open(QIODevice::WriteOnly));
+            QZipWriter zip(&f);
+            zip.addFile(QStringLiteral("cards.json"), QByteArray(70 * 1024 * 1024, '\0'));
+            zip.close();
+        }
+        ex->openFile(QUrl::fromLocalFile(path));
+        QVERIFY(!ex->preview().value(QStringLiteral("error")).toString().isEmpty());
+        QCOMPARE(ex->preview().value(QStringLiteral("count")).toInt(), 0);
+    }
+
+    void plainHttpLinkIsRefused()
+    {
+        ex->openLink(QStringLiteral("http://example.com/cards.lbox"));
+        QVERIFY(!ex->preview().value(QStringLiteral("error")).toString().isEmpty());
     }
 
     void badFileIsReported()

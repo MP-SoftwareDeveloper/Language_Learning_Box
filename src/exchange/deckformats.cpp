@@ -27,6 +27,51 @@ namespace {
 
 constexpr int kLboxVersion = 1;
 
+// Limits for files that come from outside (a link, a friend): a small zip can claim to hold gigabytes.
+constexpr qint64 kMaxJsonBytes = 64 * 1024 * 1024;        // cards.json
+constexpr qint64 kMaxDbBytes = 128 * 1024 * 1024;         // the Anki database
+constexpr qint64 kMaxImageBytes = 8 * 1024 * 1024;        // one picture
+constexpr qint64 kMaxUnpackedBytes = 1024LL * 1024 * 1024; // all entries together, as the zip states them
+constexpr int kMaxZipEntries = 100000;
+constexpr int kMaxCards = 100000;
+
+// The sizes a zip states for its entries, checked before anything is unpacked.
+struct ZipSizes
+{
+    QHash<QString, qint64> size;
+    bool ok = true;           // false: too many entries or too much data
+    mutable bool exceeded = false; // an entry asked for was larger than its limit
+    explicit ZipSizes(const QZipReader &zip)
+    {
+        qint64 total = 0;
+        const auto list = zip.fileInfoList();
+        if (list.size() > kMaxZipEntries) {
+            ok = false;
+            return;
+        }
+        for (const QZipReader::FileInfo &fi : list) {
+            size.insert(fi.filePath, fi.size);
+            total += fi.size;
+            if (total > kMaxUnpackedBytes) {
+                ok = false;
+                return;
+            }
+        }
+    }
+    // Data of one entry; nothing when it is missing or larger than `limit`.
+    QByteArray data(const QZipReader &zip, const QString &name, qint64 limit) const
+    {
+        const auto it = size.constFind(name);
+        if (it == size.constEnd())
+            return {};
+        if (it.value() > limit) {
+            exceeded = true;
+            return {};
+        }
+        return zip.fileData(name);
+    }
+};
+
 QString csvField(const QString &s)
 {
     if (s.contains(u',') || s.contains(u'"') || s.contains(u'\n') || s.contains(u'\r') || s.contains(u';'))
@@ -308,7 +353,16 @@ Package readLbox(const QByteArray &data)
         p.error = QStringLiteral("Not a LearningBox file.");
         return p;
     }
-    const QJsonObject root = QJsonDocument::fromJson(zip.fileData(QStringLiteral("cards.json"))).object();
+    const ZipSizes sizes(zip);
+    if (!sizes.ok) {
+        p.error = QStringLiteral("This file is too large.");
+        return p;
+    }
+    const QJsonObject root = QJsonDocument::fromJson(sizes.data(zip, QStringLiteral("cards.json"), kMaxJsonBytes)).object();
+    if (sizes.exceeded) {
+        p.error = QStringLiteral("This file is too large.");
+        return p;
+    }
     if (root.value(QStringLiteral("format")).toString() != QLatin1String("learningbox")) {
         p.error = QStringLiteral("Not a LearningBox file.");
         return p;
@@ -321,6 +375,8 @@ Package readLbox(const QByteArray &data)
     p.hasProgress = root.value(QStringLiteral("withProgress")).toBool();
     p.language = root.value(QStringLiteral("language")).toString(QStringLiteral("de")); // version 1 files: German
     for (const QJsonValue &v : root.value(QStringLiteral("cards")).toArray()) {
+        if (p.items.size() >= kMaxCards)
+            break;
         const QJsonObject c = v.toObject();
         Item it;
         it.front = c.value(QStringLiteral("front")).toString().trimmed();
@@ -329,7 +385,7 @@ Package readLbox(const QByteArray &data)
         it.deck = c.value(QStringLiteral("deck")).toString();
         const QString img = c.value(QStringLiteral("image")).toString();
         if (!img.isEmpty() && !p.images.contains(img)) {
-            const QByteArray bytes = zip.fileData(img);
+            const QByteArray bytes = sizes.data(zip, img, kMaxImageBytes);
             if (!bytes.isEmpty())
                 p.images.insert(img, bytes);
         }
@@ -362,6 +418,11 @@ Package readApkg(const QByteArray &data, const QString &tempDir)
         p.error = QStringLiteral("Not an Anki package.");
         return p;
     }
+    const ZipSizes sizes(zip);
+    if (!sizes.ok) {
+        p.error = QStringLiteral("This file is too large.");
+        return p;
+    }
     QStringList names;
     for (const QZipReader::FileInfo &fi : zip.fileInfoList())
         names << fi.filePath;
@@ -383,14 +444,14 @@ Package readApkg(const QByteArray &data, const QString &tempDir)
     const QString dbPath = tempDir + QStringLiteral("/anki-") + QUuid::createUuid().toString(QUuid::Id128) + QStringLiteral(".db");
     {
         QFile f(dbPath);
-        if (!f.open(QIODevice::WriteOnly) || f.write(zip.fileData(dbName)) <= 0) {
-            p.error = QStringLiteral("Could not unpack the Anki deck.");
+        if (!f.open(QIODevice::WriteOnly) || f.write(sizes.data(zip, dbName, kMaxDbBytes)) <= 0) {
+            p.error = sizes.exceeded ? QStringLiteral("This file is too large.") : QStringLiteral("Could not unpack the Anki deck.");
             return p;
         }
     }
     // media: {"0": "haus.jpg", ...} (older/compatible exports; newer binary lists are skipped)
     QHash<QString, QString> entryOfName;
-    const QJsonObject media = QJsonDocument::fromJson(zip.fileData(QStringLiteral("media"))).object();
+    const QJsonObject media = QJsonDocument::fromJson(sizes.data(zip, QStringLiteral("media"), kMaxJsonBytes)).object();
     for (auto it = media.begin(); it != media.end(); ++it)
         entryOfName.insert(it.value().toString(), it.key());
 
@@ -406,6 +467,8 @@ Package readApkg(const QByteArray &data, const QString &tempDir)
                                                   QRegularExpression::CaseInsensitiveOption);
             if (q.exec(QStringLiteral("SELECT flds FROM notes ORDER BY id"))) {
                 while (q.next()) {
+                    if (p.items.size() >= kMaxCards)
+                        break;
                     const QStringList f = q.value(0).toString().split(QChar(0x1f));
                     Item it;
                     it.front = plainText(f.value(0)).replace(u'\n', u' ');
@@ -418,7 +481,7 @@ Package readApkg(const QByteArray &data, const QString &tempDir)
                         const QString name = QUrl::fromPercentEncoding(m.captured(1).toUtf8());
                         const QString entry = entryOfName.value(name);
                         if (!entry.isEmpty() && !p.images.contains(name)) {
-                            const QByteArray bytes = zip.fileData(entry);
+                            const QByteArray bytes = sizes.data(zip, entry, kMaxImageBytes);
                             if (!bytes.isEmpty())
                                 p.images.insert(name, bytes);
                         }

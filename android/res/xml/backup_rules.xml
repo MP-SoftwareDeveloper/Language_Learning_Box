@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Android 6-11 Auto Backup. Only the cards (database + pictures) are backed up: as soon as one <include> exists,
+     everything else is left out, so the settings file with the user's own Azure keys never leaves the phone. -->
+<full-backup-content>
+    <include domain="file" path="learningbox.sqlite"/>
+    <include domain="file" path="learningbox.sqlite-wal"/>
+    <include domain="file" path="images"/>
+</full-backup-content>
