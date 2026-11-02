@@ -225,6 +225,35 @@ void setLanguageVisible(const QString &language, bool visible)
             store->setCollectionHidden(m.value(QStringLiteral("id")).toInt(), !visible);
     }
 }
+// false only when the switch was turned off on purpose (a language never touched keeps its boxes, e.g. own Swedish boxes)
+bool languageOn(const QString &language)
+{
+    return QSettings().value(boxesKey(language), true).toBool();
+}
+// The selected learning box always stays in the list, even when hidden: if its language is switched off,
+// select the most recently used box of a language that is on instead.
+void leaveSwitchedOffLanguage()
+{
+    CardStore *store = CardStore::instance();
+    const int current = store->currentCollection();
+    const QVariantList all = store->collections(); // most recently used first
+    bool move = false;
+    for (const QVariant &v : all) {
+        const QVariantMap m = v.toMap();
+        if (m.value(QStringLiteral("id")).toInt() == current)
+            move = !languageOn(m.value(QStringLiteral("language")).toString());
+    }
+    if (!move)
+        return;
+    for (const QVariant &v : all) {
+        const QVariantMap m = v.toMap();
+        const int id = m.value(QStringLiteral("id")).toInt();
+        if (id != current && languageOn(m.value(QStringLiteral("language")).toString()) && !store->isCollectionHidden(id)) {
+            store->selectCollection(id);
+            return;
+        }
+    }
+}
 // First-start flag per group of packs (German A1/A2 keeps its old key), so a deleted box does not come back.
 // German B1-C1 has its own flag, so existing users get those boxes once after an update.
 // Groups of German packs: 0 = A1/A2 levels, 1 = B1-C1 levels, 2 = "complete" boxes (A1_complete, ...), 3 = "Alltag" (original everyday-conversation words).
@@ -274,6 +303,7 @@ void LevelPacks::setBoxesOn(const QString &language, bool on)
     setLanguageVisible(language, on); // also the user's own boxes of this language
     if (original >= 0)
         store->selectCollection(original);
+    leaveSwitchedOffLanguage();
     refresh();
 }
 
@@ -313,6 +343,7 @@ int LevelPacks::installBoxes(bool force)
     }
     if (original >= 0)
         store->selectCollection(original);
+    leaveSwitchedOffLanguage();
     refresh();
     return created;
 }
