@@ -117,7 +117,7 @@ public:
     int currentCollection() const { return m_collection; }
     QString currentCollectionName() const;
     QVariantList collections() const; // [{id, name, language, meaning, boxCounts, learned, total, due, current}]
-    QVariantList visibleCollections() const; // collections() without the hidden ones (the selected one always stays)
+    QVariantList visibleCollections() const; // collections() without the hidden ones (also when one of them is selected)
     // Hides or shows a learning box in the box list. Cards and progress are kept; remembered across starts.
     Q_INVOKABLE void setCollectionHidden(int id, bool hidden);
     Q_INVOKABLE bool isCollectionHidden(int id) const;

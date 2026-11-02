@@ -1010,7 +1010,7 @@ QVariantList CardStore::visibleCollections() const
     QVariantList out;
     for (const QVariant &v : std::as_const(all)) {
         const int id = v.toMap().value(QStringLiteral("id")).toInt();
-        if (!hidden.contains(id) || id == m_collection)
+        if (!hidden.contains(id)) // a hidden box is not listed even when it is the selected one
             out.append(v);
     }
     return out;

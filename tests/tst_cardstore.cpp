@@ -33,6 +33,7 @@ private slots:
     {
         QStandardPaths::setTestModeEnabled(true);
         QDir(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)).removeRecursively();
+        QSettings().remove(QStringLiteral("learningbox/hiddenCollections")); // ids are reused by a fresh database
         QSettings().remove(QStringLiteral("review")); // settings outlive the throw-away database
         QSettings().remove(QStringLiteral("translation"));
         QVERIFY2(CardStore::instance()->ready(), qPrintable(CardStore::instance()->lastError()));
@@ -212,8 +213,8 @@ private slots:
         s->deleteCollection(de);
     }
 
-    // A hidden learning box leaves the QML list (collections property) but not collections(); the
-    // selected one always stays visible.
+    // A hidden learning box leaves the QML list (collections property) but not collections(), also when it is
+    // the selected one (a language that is switched off shows nothing).
     void hiddenBoxes()
     {
         auto *s = CardStore::instance();
@@ -225,7 +226,7 @@ private slots:
         QCOMPARE(s->visibleCollections().size(), before - 1);
         QCOMPARE(s->collections().size(), before);          // still there, with its cards
         s->selectCollection(extra);
-        QCOMPARE(s->visibleCollections().size(), before);   // the selected one is shown
+        QCOMPARE(s->visibleCollections().size(), before - 1); // hidden stays hidden, even when selected
         s->selectCollection(first);
         QCOMPARE(s->visibleCollections().size(), before - 1);
         s->setCollectionHidden(extra, false);

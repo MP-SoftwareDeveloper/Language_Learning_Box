@@ -230,13 +230,13 @@ void setLanguageVisible(const QString &language, bool visible)
             store->setCollectionHidden(m.value(QStringLiteral("id")).toInt(), !visible);
     }
 }
-// false only when the switch was turned off on purpose (a language never touched keeps its boxes, e.g. own Swedish boxes)
+// The switch as Settings shows it: English on by default, German and Swedish off.
 bool languageOn(const QString &language)
 {
-    return QSettings().value(boxesKey(language), true).toBool();
+    return QSettings().value(boxesKey(language), language == QLatin1String("en")).toBool();
 }
-// The selected learning box always stays in the list, even when hidden: if its language is switched off,
-// select the most recently used box of a language that is on instead.
+// If the selected box belongs to a language that is switched off, select the most recently used box of a
+// language that is on instead. When every language is off the selection stays but the chooser shows nothing.
 void leaveSwitchedOffLanguage()
 {
     CardStore *store = CardStore::instance();
@@ -295,6 +295,12 @@ void LevelPacks::setBoxesOn(const QString &language, bool on)
 {
     if (on == boxesOn(language)) {
         QSettings().setValue(boxesKey(language), on); // remember the choice itself (e.g. made in the first-run setup)
+        if (!on) { // already off: make sure nothing of this language is in the list
+            CardStore *s = CardStore::instance();
+            setLanguageVisible(language, false);
+            leaveSwitchedOffLanguage();
+            emit s->changed();
+        }
         return;
     }
     QSettings().setValue(boxesKey(language), on);
@@ -332,14 +338,10 @@ int LevelPacks::installBoxes(bool force)
     QHash<QString, int> idOf;
     for (const QVariant &v : store->collections())
         idOf.insert(v.toMap().value(QStringLiteral("name")).toString(), v.toMap().value(QStringLiteral("id")).toInt());
-    // Once, for installations from before the switches covered all boxes of a language: a language that is
-    // switched off hides all its boxes, not only the level boxes.
-    if (!settings.value(QStringLiteral("levelpacks/hideByLanguage"), false).toBool()) {
-        for (const char *lang : {"de", "sv", "en"})
-            if (settings.contains(boxesKey(QString::fromLatin1(lang))) && !boxesOn(QString::fromLatin1(lang))) // switched off on purpose
-                setLanguageVisible(QString::fromLatin1(lang), false);
-        settings.setValue(QStringLiteral("levelpacks/hideByLanguage"), true);
-    }
+    // A language whose switch is off has no boxes in the list (see leaveSwitchedOffLanguage for the selected box).
+    for (const char *lang : {"de", "sv", "en"})
+        if (!boxesOn(QString::fromLatin1(lang)))
+            setLanguageVisible(QString::fromLatin1(lang), false);
     const struct { const char *language; int group; } groups[] = {{"de", 0}, {"de", 1}, {"de", 2}, {"de", 3}, {"en", 0}, {"sv", 0}};
     for (const auto &g : groups) {
         const QString language = QString::fromLatin1(g.language);

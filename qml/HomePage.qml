@@ -60,6 +60,10 @@ Page {
         return lang === "en" ? "\uD83C\uDDFA\uD83C\uDDF8" : lang === "sv" ? "\uD83C\uDDF8\uD83C\uDDEA" : "\uD83C\uDDE9\uD83C\uDDEA"
     }
     readonly property bool english: CardStore.learningLanguage === "en"
+    // The selected box is only shown when it is not hidden (all languages off: the chooser stays empty).
+    readonly property bool currentShown: CardStore.currentCollectionName !== "" && !CardStore.isCollectionHidden(CardStore.currentCollection)
+    // Index in CardStore.collections of the box shown on the second line (the selected one is first when it is shown)
+    readonly property int secondIndex: currentShown ? 1 : 0
     property int menuId: 0
     property string menuName: ""
 
@@ -110,7 +114,7 @@ Page {
                         // Selected learning box
                         Label {
                             width: Math.min(implicitWidth, boxCombo.availableWidth - 8)
-                            visible: CardStore.currentCollectionName !== "" // no box selected: nothing in the box chooser
+                            visible: page.currentShown // no box selected (or hidden): nothing in the box chooser
                             text: page.flag(CardStore.learningLanguage) + "  " + CardStore.currentCollectionName
                             elide: Text.ElideRight
                             font.pixelSize: 17
@@ -124,10 +128,10 @@ Page {
                         // Second option, shown without opening the list.
                         Label {
                             width: boxCombo.availableWidth - 8
-                            visible: CardStore.collections.length > 1
-                            text: CardStore.collections.length > 1
-                                  ? page.flag(CardStore.collections[1].language) + "  " + CardStore.collections[1].name
-                                    + "  ·  " + qsTr("%n due", "", CardStore.collections[1].due)
+                            visible: CardStore.collections.length > page.secondIndex
+                            text: CardStore.collections.length > page.secondIndex
+                                  ? page.flag(CardStore.collections[page.secondIndex].language) + "  " + CardStore.collections[page.secondIndex].name
+                                    + "  ·  " + qsTr("%n due", "", CardStore.collections[page.secondIndex].due)
                                   : ""
                             elide: Text.ElideRight
                             leftPadding: 6
@@ -137,7 +141,7 @@ Page {
                                 id: secondTap
                                 anchors.fill: parent
                                 onClicked: {
-                                    CardStore.selectCollection(CardStore.collections[1].id)
+                                    CardStore.selectCollection(CardStore.collections[page.secondIndex].id)
                                     boxCombo.currentIndex = 0
                                 }
                             }
