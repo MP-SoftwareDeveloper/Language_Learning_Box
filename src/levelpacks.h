@@ -27,7 +27,8 @@ class LevelPacks : public QObject
     Q_PROPERTY(int wordsInBox READ wordsInBox NOTIFY changed)
     Q_PROPERTY(bool available READ available NOTIFY changed) // the current learning box is German or Swedish
     Q_PROPERTY(QString error READ error CONSTANT)
-    // Settings switches (German on, Swedish off by default): the six German / Swedish A1/A2 learning boxes are in the box list
+    // Settings switches (English on, German and Swedish off by default; the first-run setup sets them for the language
+    // being learned): the level boxes (and the user's own boxes) of a language are in the box list
     // of the home page. On creates the missing ones and shows them; off only hides them (cards and
     // progress are kept).
     Q_PROPERTY(bool germanBoxes READ germanBoxes WRITE setGermanBoxes NOTIFY changed)

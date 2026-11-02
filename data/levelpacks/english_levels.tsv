@@ -1,0 +1,202 @@
+# LearningBox level packs: English A1 vocabulary in 3 levels (4 themed chapters each) for learners of English.
+# Vocabulary, phrases and example sentences are ORIGINAL (not copied from any book or word list). American spelling.
+# Level ids start with "en-". The front of a card is the English word (verbs with "to"); the plural column holds the
+# English plural. The meaning languages of an English box are German and Persian; the column order is the same as in the
+# other packs, so the 5th column holds the GERMAN meaning and the example columns are English / German / Persian.
+# Format:  @level<TAB>id<TAB>title<TAB>subtitle   @chapter<TAB>levelId<TAB>number<TAB>title
+#          levelId<TAB>chapter<TAB>English<TAB>plural ("-" = none)<TAB>German<TAB>Persian<TAB>example (en)<TAB>example (de)<TAB>example (fa)
+@level	en-a1-1	English A1 · Level 1	Greetings, family, numbers and days
+@chapter	en-a1-1	1	Hello! · Greetings and introductions
+@chapter	en-a1-1	2	People · Family and friends
+@chapter	en-a1-1	3	Numbers and colors
+@chapter	en-a1-1	4	Days and time
+@level	en-a1-2	English A1 · Level 2	Food, home, things and animals
+@chapter	en-a1-2	1	Food and drink
+@chapter	en-a1-2	2	At home
+@chapter	en-a1-2	3	Things and clothes
+@chapter	en-a1-2	4	Animals and nature
+@level	en-a1-3	English A1 · Level 3	Verbs, places, describing words and phrases
+@chapter	en-a1-3	1	Everyday verbs
+@chapter	en-a1-3	2	Places
+@chapter	en-a1-3	3	Describing words
+@chapter	en-a1-3	4	Questions and useful phrases
+en-a1-1	1	hello	-	hallo	سلام	Hello! My name is Anna.	Hallo! Ich heiße Anna.	سلام! اسم من آنا است.
+en-a1-1	1	goodbye	-	auf Wiedersehen; tschüss	خداحافظ	Goodbye, see you tomorrow!	Tschüss, bis morgen!	خداحافظ، فردا می‌بینمت!
+en-a1-1	1	please	-	bitte	لطفاً	Water, please.	Wasser, bitte.	آب، لطفاً.
+en-a1-1	1	thank you	-	danke	ممنون؛ متشکرم	Thank you for your help.	Danke für deine Hilfe.	از کمکت ممنونم.
+en-a1-1	1	sorry	-	Entschuldigung; tut mir leid	ببخشید؛ متأسفم	Sorry, I am late.	Entschuldigung, ich bin zu spät.	ببخشید، دیر کردم.
+en-a1-1	1	excuse me	-	Entschuldigung (um jemanden anzusprechen)	ببخشید (برای جلب توجه)	Excuse me, where is the station?	Entschuldigung, wo ist der Bahnhof?	ببخشید، ایستگاه کجاست؟
+en-a1-1	1	yes	-	ja	بله	Yes, I like it.	Ja, das gefällt mir.	بله، دوستش دارم.
+en-a1-1	1	no	-	nein	نه	No, thank you.	Nein, danke.	نه، ممنون.
+en-a1-1	1	good morning	-	guten Morgen	صبح بخیر	Good morning! How are you?	Guten Morgen! Wie geht es dir?	صبح بخیر! حالت چطور است؟
+en-a1-1	1	good night	-	gute Nacht	شب بخیر	Good night, sleep well.	Gute Nacht, schlaf gut.	شب بخیر، خوب بخوابی.
+en-a1-1	1	How are you?	-	Wie geht es dir?	حالت چطور است؟	Hi Tom! How are you?	Hallo Tom! Wie geht es dir?	سلام تام! حالت چطور است؟
+en-a1-1	1	I'm fine	-	Mir geht es gut	من خوبم	I'm fine, thank you.	Mir geht es gut, danke.	من خوبم، ممنون.
+en-a1-1	1	Nice to meet you	-	Schön, dich kennenzulernen	از آشنایی با شما خوشوقتم	Nice to meet you, Sara.	Schön, dich kennenzulernen, Sara.	از آشنایی با تو خوشحالم، سارا.
+en-a1-1	1	my name is	-	ich heiße	اسم من ... است	My name is Ali.	Ich heiße Ali.	اسم من علی است.
+en-a1-1	1	welcome	-	willkommen	خوش آمدید	Welcome to my home!	Willkommen in meinem Zuhause!	به خانه‌ام خوش آمدی!
+en-a1-1	2	mother	mothers	die Mutter	مادر	My mother is a nurse.	Meine Mutter ist Krankenschwester.	مادرم پرستار است.
+en-a1-1	2	father	fathers	der Vater	پدر	My father works in a bank.	Mein Vater arbeitet in einer Bank.	پدرم در یک بانک کار می‌کند.
+en-a1-1	2	brother	brothers	der Bruder	برادر	I have one brother.	Ich habe einen Bruder.	من یک برادر دارم.
+en-a1-1	2	sister	sisters	die Schwester	خواهر	My sister is ten years old.	Meine Schwester ist zehn Jahre alt.	خواهرم ده ساله است.
+en-a1-1	2	son	sons	der Sohn	پسر (فرزند)	Their son is a student.	Ihr Sohn ist Student.	پسرشان دانشجو است.
+en-a1-1	2	daughter	daughters	die Tochter	دختر (فرزند)	Her daughter likes music.	Ihre Tochter mag Musik.	دخترش موسیقی دوست دارد.
+en-a1-1	2	friend	friends	der Freund; die Freundin	دوست	He is my friend.	Er ist mein Freund.	او دوست من است.
+en-a1-1	2	man	men	der Mann	مرد	The man is in the car.	Der Mann sitzt im Auto.	مرد در ماشین است.
+en-a1-1	2	woman	women	die Frau	زن	The woman is a doctor.	Die Frau ist Ärztin.	آن زن پزشک است.
+en-a1-1	2	boy	boys	der Junge	پسر (بچه)	The boy plays football.	Der Junge spielt Fußball.	پسر فوتبال بازی می‌کند.
+en-a1-1	2	girl	girls	das Mädchen	دختر (بچه)	The girl reads a book.	Das Mädchen liest ein Buch.	دختر کتاب می‌خواند.
+en-a1-1	2	child	children	das Kind	کودک	The child is asleep.	Das Kind schläft.	کودک خواب است.
+en-a1-1	2	husband	husbands	der Ehemann	شوهر	Her husband is from Spain.	Ihr Ehemann kommt aus Spanien.	شوهرش اهل اسپانیا است.
+en-a1-1	2	wife	wives	die Ehefrau	همسر (زن)	His wife is very kind.	Seine Frau ist sehr nett.	همسرش خیلی مهربان است.
+en-a1-1	2	teacher	teachers	der Lehrer; die Lehrerin	معلم	Our teacher is friendly.	Unser Lehrer ist freundlich.	معلم ما مهربان است.
+en-a1-1	3	one	-	eins	یک	I have one brother.	Ich habe einen Bruder.	من یک برادر دارم.
+en-a1-1	3	two	-	zwei	دو	We have two cats.	Wir haben zwei Katzen.	ما دو گربه داریم.
+en-a1-1	3	three	-	drei	سه	There are three books on the table.	Auf dem Tisch liegen drei Bücher.	سه کتاب روی میز است.
+en-a1-1	3	four	-	vier	چهار	The room has four chairs.	Das Zimmer hat vier Stühle.	اتاق چهار صندلی دارد.
+en-a1-1	3	five	-	fünf	پنج	I wait five minutes.	Ich warte fünf Minuten.	پنج دقیقه صبر می‌کنم.
+en-a1-1	3	six	-	sechs	شش	It is six o'clock.	Es ist sechs Uhr.	ساعت شش است.
+en-a1-1	3	seven	-	sieben	هفت	A week has seven days.	Eine Woche hat sieben Tage.	هفته هفت روز دارد.
+en-a1-1	3	eight	-	acht	هشت	The shop opens at eight.	Das Geschäft öffnet um acht.	مغازه ساعت هشت باز می‌شود.
+en-a1-1	3	nine	-	neun	نه (عدد)	My son is nine.	Mein Sohn ist neun.	پسرم نُه ساله است.
+en-a1-1	3	ten	-	zehn	ده	I have ten euros.	Ich habe zehn Euro.	من ده یورو دارم.
+en-a1-1	3	red	-	rot	قرمز	The apple is red.	Der Apfel ist rot.	سیب قرمز است.
+en-a1-1	3	blue	-	blau	آبی	The sea is blue.	Das Meer ist blau.	دریا آبی است.
+en-a1-1	3	green	-	grün	سبز	The tree is green.	Der Baum ist grün.	درخت سبز است.
+en-a1-1	3	black	-	schwarz	سیاه؛ مشکی	I like my black bag.	Ich mag meine schwarze Tasche.	کیف مشکی‌ام را دوست دارم.
+en-a1-1	3	white	-	weiß	سفید	The milk is white.	Die Milch ist weiß.	شیر سفید است.
+en-a1-1	4	Monday	Mondays	Montag	دوشنبه	On Monday I go to work.	Am Montag gehe ich zur Arbeit.	دوشنبه سر کار می‌روم.
+en-a1-1	4	Tuesday	Tuesdays	Dienstag	سه‌شنبه	Tuesday is a busy day.	Dienstag ist ein voller Tag.	سه‌شنبه روز شلوغی است.
+en-a1-1	4	Wednesday	Wednesdays	Mittwoch	چهارشنبه	We have English class on Wednesday.	Am Mittwoch haben wir Englischunterricht.	چهارشنبه کلاس انگلیسی داریم.
+en-a1-1	4	Thursday	Thursdays	Donnerstag	پنجشنبه	I see my friend on Thursday.	Am Donnerstag treffe ich meinen Freund.	پنجشنبه دوستم را می‌بینم.
+en-a1-1	4	Friday	Fridays	Freitag	جمعه	Friday is my favorite day.	Freitag ist mein Lieblingstag.	جمعه روز مورد علاقه من است.
+en-a1-1	4	Saturday	Saturdays	Samstag	شنبه	On Saturday we go shopping.	Am Samstag gehen wir einkaufen.	شنبه به خرید می‌رویم.
+en-a1-1	4	Sunday	Sundays	Sonntag	یکشنبه	On Sunday I rest.	Am Sonntag ruhe ich mich aus.	یکشنبه استراحت می‌کنم.
+en-a1-1	4	today	-	heute	امروز	Today is a nice day.	Heute ist ein schöner Tag.	امروز روز خوبی است.
+en-a1-1	4	tomorrow	-	morgen	فردا	See you tomorrow!	Bis morgen!	فردا می‌بینمت!
+en-a1-1	4	yesterday	-	gestern	دیروز	Yesterday I was at home.	Gestern war ich zu Hause.	دیروز خانه بودم.
+en-a1-1	4	morning	mornings	der Morgen	صبح	I drink tea in the morning.	Am Morgen trinke ich Tee.	صبح چای می‌نوشم.
+en-a1-1	4	evening	evenings	der Abend	عصر؛ غروب	We eat at seven in the evening.	Am Abend essen wir um sieben.	عصر ساعت هفت غذا می‌خوریم.
+en-a1-1	4	week	weeks	die Woche	هفته	I work five days a week.	Ich arbeite fünf Tage in der Woche.	من هفته‌ای پنج روز کار می‌کنم.
+en-a1-1	4	weekend	weekends	das Wochenende	آخر هفته	Have a nice weekend!	Schönes Wochenende!	آخر هفتهٔ خوبی داشته باشی!
+en-a1-1	4	year	years	das Jahr	سال	I live here for one year.	Ich wohne seit einem Jahr hier.	من یک سال است اینجا زندگی می‌کنم.
+en-a1-2	1	water	-	das Wasser	آب	I drink a glass of water.	Ich trinke ein Glas Wasser.	یک لیوان آب می‌نوشم.
+en-a1-2	1	bread	-	das Brot	نان	We buy fresh bread.	Wir kaufen frisches Brot.	نان تازه می‌خریم.
+en-a1-2	1	milk	-	die Milch	شیر	The milk is in the fridge.	Die Milch ist im Kühlschrank.	شیر در یخچال است.
+en-a1-2	1	coffee	-	der Kaffee	قهوه	I like coffee in the morning.	Morgens trinke ich gern Kaffee.	صبح‌ها قهوه دوست دارم.
+en-a1-2	1	tea	-	der Tee	چای	Would you like some tea?	Möchtest du einen Tee?	چای می‌خواهی؟
+en-a1-2	1	apple	apples	der Apfel	سیب	She eats an apple.	Sie isst einen Apfel.	او یک سیب می‌خورد.
+en-a1-2	1	egg	eggs	das Ei	تخم‌مرغ	I eat an egg for breakfast.	Zum Frühstück esse ich ein Ei.	برای صبحانه تخم‌مرغ می‌خورم.
+en-a1-2	1	rice	-	der Reis	برنج؛ پلو	We have rice for dinner.	Wir essen Reis zum Abendessen.	برای شام پلو داریم.
+en-a1-2	1	meat	-	das Fleisch	گوشت	He does not eat meat.	Er isst kein Fleisch.	او گوشت نمی‌خورد.
+en-a1-2	1	fish	-	der Fisch	ماهی	The fish is very good.	Der Fisch ist sehr gut.	ماهی خیلی خوب است.
+en-a1-2	1	cheese	-	der Käse	پنیر	I want bread and cheese.	Ich möchte Brot und Käse.	نان و پنیر می‌خواهم.
+en-a1-2	1	juice	-	der Saft	آب‌میوه	A glass of orange juice, please.	Ein Glas Orangensaft, bitte.	یک لیوان آب‌پرتقال، لطفاً.
+en-a1-2	1	breakfast	breakfasts	das Frühstück	صبحانه	Breakfast is at seven.	Das Frühstück ist um sieben.	صبحانه ساعت هفت است.
+en-a1-2	1	lunch	lunches	das Mittagessen	ناهار	We have lunch at noon.	Wir essen mittags zu Mittag.	ظهر ناهار می‌خوریم.
+en-a1-2	1	dinner	dinners	das Abendessen	شام	Dinner is ready!	Das Abendessen ist fertig!	شام آماده است!
+en-a1-2	2	house	houses	das Haus	خانه	They have a big house.	Sie haben ein großes Haus.	آن‌ها خانهٔ بزرگی دارند.
+en-a1-2	2	room	rooms	das Zimmer	اتاق	My room is small.	Mein Zimmer ist klein.	اتاق من کوچک است.
+en-a1-2	2	kitchen	kitchens	die Küche	آشپزخانه	Mom is in the kitchen.	Mama ist in der Küche.	مامان در آشپزخانه است.
+en-a1-2	2	bedroom	bedrooms	das Schlafzimmer	اتاق خواب	The bedroom is upstairs.	Das Schlafzimmer ist oben.	اتاق خواب طبقهٔ بالا است.
+en-a1-2	2	bathroom	bathrooms	das Badezimmer	حمام؛ سرویس بهداشتی	The bathroom is on the left.	Das Badezimmer ist links.	حمام سمت چپ است.
+en-a1-2	2	bed	beds	das Bett	تخت؛ رختخواب	I go to bed at ten.	Ich gehe um zehn ins Bett.	ساعت ده به رختخواب می‌روم.
+en-a1-2	2	table	tables	der Tisch	میز	The book is on the table.	Das Buch liegt auf dem Tisch.	کتاب روی میز است.
+en-a1-2	2	chair	chairs	der Stuhl	صندلی	Please sit on this chair.	Bitte setz dich auf diesen Stuhl.	لطفاً روی این صندلی بنشین.
+en-a1-2	2	door	doors	die Tür	در	Please close the door.	Bitte schließ die Tür.	لطفاً در را ببند.
+en-a1-2	2	window	windows	das Fenster	پنجره	Open the window, please.	Mach bitte das Fenster auf.	لطفاً پنجره را باز کن.
+en-a1-2	2	key	keys	der Schlüssel	کلید	Where is my key?	Wo ist mein Schlüssel?	کلید من کجاست؟
+en-a1-2	2	lamp	lamps	die Lampe	چراغ؛ لامپ	The lamp is on the desk.	Die Lampe steht auf dem Schreibtisch.	چراغ روی میز تحریر است.
+en-a1-2	2	phone	phones	das Telefon	تلفن؛ گوشی	My phone is new.	Mein Telefon ist neu.	گوشی من نو است.
+en-a1-2	2	clock	clocks	die Uhr	ساعت (دیواری)	The clock says nine.	Die Uhr zeigt neun.	ساعت نُه را نشان می‌دهد.
+en-a1-2	2	garden	gardens	der Garten	باغچه؛ باغ	We eat in the garden.	Wir essen im Garten.	ما در باغچه غذا می‌خوریم.
+en-a1-2	3	book	books	das Buch	کتاب	I read a book every week.	Ich lese jede Woche ein Buch.	من هر هفته یک کتاب می‌خوانم.
+en-a1-2	3	bag	bags	die Tasche	کیف	My bag is heavy.	Meine Tasche ist schwer.	کیفم سنگین است.
+en-a1-2	3	pen	pens	der Stift	خودکار	Can I use your pen?	Kann ich deinen Stift benutzen?	می‌توانم از خودکارت استفاده کنم؟
+en-a1-2	3	paper	-	das Papier	کاغذ	I need some paper.	Ich brauche etwas Papier.	کمی کاغذ لازم دارم.
+en-a1-2	3	computer	computers	der Computer	کامپیوتر	The computer is on the desk.	Der Computer steht auf dem Schreibtisch.	کامپیوتر روی میز تحریر است.
+en-a1-2	3	car	cars	das Auto	ماشین	My father has a red car.	Mein Vater hat ein rotes Auto.	پدرم یک ماشین قرمز دارد.
+en-a1-2	3	bike	bikes	das Fahrrad	دوچرخه	I go to school by bike.	Ich fahre mit dem Fahrrad zur Schule.	با دوچرخه به مدرسه می‌روم.
+en-a1-2	3	shirt	shirts	das Hemd; das T-Shirt	پیراهن؛ تی‌شرت	He wears a white shirt.	Er trägt ein weißes Hemd.	او پیراهن سفید پوشیده است.
+en-a1-2	3	shoe	shoes	der Schuh	کفش	My shoes are new.	Meine Schuhe sind neu.	کفش‌هایم نو هستند.
+en-a1-2	3	hat	hats	der Hut; die Mütze	کلاه	It is cold, wear a hat.	Es ist kalt, setz eine Mütze auf.	هوا سرد است، کلاه بگذار.
+en-a1-2	3	coat	coats	der Mantel; die Jacke	پالتو؛ کاپشن	Where is your coat?	Wo ist dein Mantel?	پالتویت کجاست؟
+en-a1-2	3	dress	dresses	das Kleid	پیراهن زنانه؛ لباس	She wears a blue dress.	Sie trägt ein blaues Kleid.	او لباس آبی پوشیده است.
+en-a1-2	3	money	-	das Geld	پول	I have no money today.	Ich habe heute kein Geld.	امروز پول ندارم.
+en-a1-2	3	ticket	tickets	die Fahrkarte; das Ticket	بلیت	I need a ticket to Berlin.	Ich brauche eine Fahrkarte nach Berlin.	برای برلین بلیت لازم دارم.
+en-a1-2	3	gift	gifts	das Geschenk	هدیه	This gift is for you.	Dieses Geschenk ist für dich.	این هدیه برای تو است.
+en-a1-2	4	dog	dogs	der Hund	سگ	The dog is in the garden.	Der Hund ist im Garten.	سگ در باغچه است.
+en-a1-2	4	cat	cats	die Katze	گربه	The cat sleeps on the bed.	Die Katze schläft auf dem Bett.	گربه روی تخت می‌خوابد.
+en-a1-2	4	bird	birds	der Vogel	پرنده	A bird sits on the tree.	Ein Vogel sitzt auf dem Baum.	پرنده‌ای روی درخت نشسته است.
+en-a1-2	4	horse	horses	das Pferd	اسب	The horse is very fast.	Das Pferd ist sehr schnell.	اسب خیلی سریع است.
+en-a1-2	4	cow	cows	die Kuh	گاو	The cow gives milk.	Die Kuh gibt Milch.	گاو شیر می‌دهد.
+en-a1-2	4	sheep	sheep	das Schaf	گوسفند	The sheep are on the hill.	Die Schafe sind auf dem Hügel.	گوسفندها روی تپه هستند.
+en-a1-2	4	tree	trees	der Baum	درخت	There is a big tree in front of the house.	Vor dem Haus steht ein großer Baum.	جلوی خانه یک درخت بزرگ هست.
+en-a1-2	4	flower	flowers	die Blume	گل	She likes red flowers.	Sie mag rote Blumen.	او گل‌های قرمز دوست دارد.
+en-a1-2	4	sun	-	die Sonne	خورشید؛ آفتاب	The sun is hot today.	Die Sonne ist heute heiß.	امروز آفتاب داغ است.
+en-a1-2	4	moon	-	der Mond	ماه (آسمان)	The moon is bright tonight.	Der Mond ist heute Nacht hell.	امشب ماه روشن است.
+en-a1-2	4	rain	-	der Regen	باران	I don't like the rain.	Ich mag den Regen nicht.	من باران را دوست ندارم.
+en-a1-2	4	snow	-	der Schnee	برف	The snow is white and cold.	Der Schnee ist weiß und kalt.	برف سفید و سرد است.
+en-a1-2	4	sea	seas	das Meer	دریا	We swim in the sea.	Wir schwimmen im Meer.	ما در دریا شنا می‌کنیم.
+en-a1-2	4	river	rivers	der Fluss	رودخانه	The river is long.	Der Fluss ist lang.	رودخانه بلند است.
+en-a1-2	4	mountain	mountains	der Berg	کوه	The mountain is very high.	Der Berg ist sehr hoch.	کوه خیلی بلند است.
+en-a1-3	1	to be	-	sein	بودن	I am from Iran.	Ich komme aus dem Iran.	من اهل ایران هستم.
+en-a1-3	1	to have	-	haben	داشتن	I have a new phone.	Ich habe ein neues Telefon.	من یک گوشی جدید دارم.
+en-a1-3	1	to go	-	gehen; fahren	رفتن	I go to school every day.	Ich gehe jeden Tag zur Schule.	من هر روز به مدرسه می‌روم.
+en-a1-3	1	to come	-	kommen	آمدن	Please come here.	Bitte komm hierher.	لطفاً اینجا بیا.
+en-a1-3	1	to eat	-	essen	خوردن (غذا)	We eat dinner at seven.	Wir essen um sieben zu Abend.	ما ساعت هفت شام می‌خوریم.
+en-a1-3	1	to drink	-	trinken	نوشیدن	I drink a lot of water.	Ich trinke viel Wasser.	من خیلی آب می‌نوشم.
+en-a1-3	1	to sleep	-	schlafen	خوابیدن	The baby sleeps all night.	Das Baby schläft die ganze Nacht.	نوزاد تمام شب می‌خوابد.
+en-a1-3	1	to work	-	arbeiten	کار کردن	My mother works in a hospital.	Meine Mutter arbeitet in einem Krankenhaus.	مادرم در بیمارستان کار می‌کند.
+en-a1-3	1	to read	-	lesen	خواندن	I read a book before bed.	Ich lese vor dem Schlafen ein Buch.	قبل از خواب کتاب می‌خوانم.
+en-a1-3	1	to write	-	schreiben	نوشتن	Please write your name here.	Bitte schreib deinen Namen hier hin.	لطفاً اسمت را اینجا بنویس.
+en-a1-3	1	to speak	-	sprechen	صحبت کردن	I speak a little English.	Ich spreche ein bisschen Englisch.	من کمی انگلیسی صحبت می‌کنم.
+en-a1-3	1	to like	-	mögen; gernhaben	دوست داشتن	I like this song.	Ich mag dieses Lied.	این آهنگ را دوست دارم.
+en-a1-3	1	to want	-	wollen; möchten	خواستن	I want a cup of tea.	Ich möchte eine Tasse Tee.	یک فنجان چای می‌خواهم.
+en-a1-3	1	to live	-	wohnen; leben	زندگی کردن	We live in a small town.	Wir wohnen in einer kleinen Stadt.	ما در یک شهر کوچک زندگی می‌کنیم.
+en-a1-3	1	to play	-	spielen	بازی کردن	The children play in the park.	Die Kinder spielen im Park.	بچه‌ها در پارک بازی می‌کنند.
+en-a1-3	2	school	schools	die Schule	مدرسه	The school is near my house.	Die Schule ist nah bei meinem Haus.	مدرسه نزدیک خانهٔ من است.
+en-a1-3	2	shop	shops	das Geschäft; der Laden	مغازه	The shop is open.	Das Geschäft ist geöffnet.	مغازه باز است.
+en-a1-3	2	city	cities	die Stadt	شهر	Berlin is a big city.	Berlin ist eine große Stadt.	برلین یک شهر بزرگ است.
+en-a1-3	2	street	streets	die Straße	خیابان	I live on this street.	Ich wohne in dieser Straße.	من در این خیابان زندگی می‌کنم.
+en-a1-3	2	park	parks	der Park	پارک	We walk in the park.	Wir gehen im Park spazieren.	ما در پارک قدم می‌زنیم.
+en-a1-3	2	hospital	hospitals	das Krankenhaus	بیمارستان	My aunt works at the hospital.	Meine Tante arbeitet im Krankenhaus.	عمه‌ام در بیمارستان کار می‌کند.
+en-a1-3	2	bank	banks	die Bank	بانک	The bank opens at nine.	Die Bank öffnet um neun.	بانک ساعت نُه باز می‌شود.
+en-a1-3	2	station	stations	der Bahnhof	ایستگاه؛ ایستگاه قطار	The station is near here.	Der Bahnhof ist hier in der Nähe.	ایستگاه این نزدیکی است.
+en-a1-3	2	restaurant	restaurants	das Restaurant	رستوران	We eat at a restaurant tonight.	Heute Abend essen wir in einem Restaurant.	امشب در یک رستوران غذا می‌خوریم.
+en-a1-3	2	airport	airports	der Flughafen	فرودگاه	The airport is far from the city.	Der Flughafen liegt weit von der Stadt entfernt.	فرودگاه از شهر دور است.
+en-a1-3	2	supermarket	supermarkets	der Supermarkt	سوپرمارکت	I buy milk at the supermarket.	Ich kaufe Milch im Supermarkt.	شیر را از سوپرمارکت می‌خرم.
+en-a1-3	2	office	offices	das Büro	دفتر؛ اداره	My office is on the second floor.	Mein Büro ist im zweiten Stock.	دفتر من طبقهٔ دوم است.
+en-a1-3	2	library	libraries	die Bibliothek	کتابخانه	I study in the library.	Ich lerne in der Bibliothek.	من در کتابخانه درس می‌خوانم.
+en-a1-3	2	country	countries	das Land	کشور	Which country are you from?	Aus welchem Land kommst du?	اهل کدام کشور هستی؟
+en-a1-3	2	hotel	hotels	das Hotel	هتل	The hotel is next to the beach.	Das Hotel liegt neben dem Strand.	هتل کنار ساحل است.
+en-a1-3	3	big	-	groß	بزرگ	This is a big house.	Das ist ein großes Haus.	این یک خانهٔ بزرگ است.
+en-a1-3	3	small	-	klein	کوچک	My room is small.	Mein Zimmer ist klein.	اتاق من کوچک است.
+en-a1-3	3	good	-	gut	خوب	This is a good book.	Das ist ein gutes Buch.	این کتاب خوبی است.
+en-a1-3	3	bad	-	schlecht	بد	The weather is bad today.	Das Wetter ist heute schlecht.	امروز هوا بد است.
+en-a1-3	3	new	-	neu	جدید؛ نو	I have a new bag.	Ich habe eine neue Tasche.	من یک کیف نو دارم.
+en-a1-3	3	old	-	alt	قدیمی؛ پیر	My car is old.	Mein Auto ist alt.	ماشین من قدیمی است.
+en-a1-3	3	hot	-	heiß	داغ؛ گرم	The soup is hot.	Die Suppe ist heiß.	سوپ داغ است.
+en-a1-3	3	cold	-	kalt	سرد	The water is cold.	Das Wasser ist kalt.	آب سرد است.
+en-a1-3	3	happy	-	glücklich; froh	خوشحال	I am happy today.	Ich bin heute glücklich.	امروز خوشحالم.
+en-a1-3	3	sad	-	traurig	غمگین	Why are you sad?	Warum bist du traurig?	چرا غمگینی؟
+en-a1-3	3	fast	-	schnell	سریع؛ تند	The train is fast.	Der Zug ist schnell.	قطار سریع است.
+en-a1-3	3	slow	-	langsam	آهسته؛ کند	The bus is slow today.	Der Bus ist heute langsam.	اتوبوس امروز کند است.
+en-a1-3	3	easy	-	einfach; leicht	آسان	The test is easy.	Die Prüfung ist einfach.	امتحان آسان است.
+en-a1-3	3	difficult	-	schwierig; schwer	سخت؛ دشوار	This word is difficult.	Dieses Wort ist schwierig.	این کلمه سخت است.
+en-a1-3	3	beautiful	-	schön	زیبا	What a beautiful day!	Was für ein schöner Tag!	چه روز زیبایی!
+en-a1-3	4	What?	-	Was?	چه؟؛ چی؟	What is your name?	Wie heißt du?	اسمت چیست؟
+en-a1-3	4	Where?	-	Wo?; Wohin?	کجا؟	Where do you live?	Wo wohnst du?	کجا زندگی می‌کنی؟
+en-a1-3	4	When?	-	Wann?	کی؟؛ چه وقت؟	When is the lesson?	Wann ist der Unterricht?	کلاس کی است؟
+en-a1-3	4	Who?	-	Wer?	چه کسی؟؛ کی؟	Who is that man?	Wer ist dieser Mann?	آن مرد کیست؟
+en-a1-3	4	Why?	-	Warum?	چرا؟	Why are you late?	Warum bist du zu spät?	چرا دیر کردی؟
+en-a1-3	4	How old are you?	-	Wie alt bist du?	چند سالته؟؛ چند ساله‌ای؟	How old are you? – I am twenty.	Wie alt bist du? – Ich bin zwanzig.	چند ساله‌ای؟ – بیست ساله‌ام.
+en-a1-3	4	Do you speak English?	-	Sprichst du Englisch?	انگلیسی صحبت می‌کنی؟	Excuse me, do you speak English?	Entschuldigung, sprichst du Englisch?	ببخشید، انگلیسی صحبت می‌کنید؟
+en-a1-3	4	I don't understand	-	Ich verstehe nicht	نمی‌فهمم	Sorry, I don't understand.	Entschuldigung, ich verstehe nicht.	ببخشید، نمی‌فهمم.
+en-a1-3	4	Can you help me?	-	Kannst du mir helfen?	می‌توانی کمکم کنی؟	Can you help me, please?	Kannst du mir bitte helfen?	لطفاً می‌توانی کمکم کنی؟
+en-a1-3	4	I'm hungry	-	Ich habe Hunger	گرسنه‌ام	I'm hungry. Let's eat!	Ich habe Hunger. Lass uns essen!	گرسنه‌ام. بیا غذا بخوریم!
+en-a1-3	4	I'm thirsty	-	Ich habe Durst	تشنه‌ام	I'm thirsty. I want some water.	Ich habe Durst. Ich möchte Wasser.	تشنه‌ام. آب می‌خواهم.
+en-a1-3	4	How much is it?	-	Was kostet das?	قیمتش چقدر است؟	How much is it? – Five dollars.	Was kostet das? – Fünf Dollar.	قیمتش چقدر است؟ – پنج دلار.
+en-a1-3	4	I would like ...	-	Ich möchte ...	... می‌خواهم	I would like a coffee, please.	Ich möchte bitte einen Kaffee.	یک قهوه می‌خواهم، لطفاً.
+en-a1-3	4	Where is the toilet?	-	Wo ist die Toilette?	دستشویی کجاست؟	Excuse me, where is the toilet?	Entschuldigung, wo ist die Toilette?	ببخشید، دستشویی کجاست؟
+en-a1-3	4	Can you repeat that?	-	Kannst du das wiederholen?	می‌توانی تکرار کنی؟	Can you repeat that, please?	Kannst du das bitte wiederholen?	لطفاً می‌توانی تکرار کنی؟

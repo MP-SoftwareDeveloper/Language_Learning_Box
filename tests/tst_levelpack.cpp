@@ -43,6 +43,38 @@ private slots:
         QCOMPARE(packs[1].language, QStringLiteral("de"));
         QCOMPARE(packs[1].cefr, QStringLiteral("A2"));
     }
+    void englishIdsGetEnglishLanguage()
+    {
+        QList<LevelPack> packs;
+        QString err;
+        QVERIFY2(parseLevelPacks(QStringLiteral("@level\ten-a1-2\tEnglish A1 · Level 2\tSub\n"), &packs, &err), qPrintable(err));
+        QCOMPARE(packs.first().language, QStringLiteral("en"));
+        QCOMPARE(packs.first().cefr, QStringLiteral("A1"));
+    }
+    void shippedEnglishDataIsComplete()
+    {
+        QFile f(QStringLiteral(LB_LEVELPACK_EN_FILE));
+        QVERIFY(f.open(QIODevice::ReadOnly));
+        QList<LevelPack> packs;
+        QString err;
+        QVERIFY2(parseLevelPacks(QString::fromUtf8(f.readAll()), &packs, &err), qPrintable(err));
+        QCOMPARE(packs.size(), 3);
+        for (const LevelPack &p : packs) {
+            QCOMPARE(p.language, QStringLiteral("en"));
+            QCOMPARE(p.cefr, QStringLiteral("A1"));
+            QCOMPARE(p.chapters.size(), 4);
+            QSet<QString> seen;
+            for (const LevelChapter &c : p.chapters) {
+                QVERIFY2(c.words.size() >= 10, qPrintable(p.id));
+                for (const LevelWord &w : c.words) {
+                    QVERIFY(!w.german.isEmpty() && !w.english.isEmpty() && !w.persian.isEmpty());
+                    QVERIFY(!w.exampleDe.isEmpty() && !w.exampleEn.isEmpty() && !w.exampleFa.isEmpty());
+                    QVERIFY2(!seen.contains(w.german.toCaseFolded()), qPrintable(w.german));
+                    seen.insert(w.german.toCaseFolded());
+                }
+            }
+        }
+    }
     void rejectsUnknownLevel()
     {
         QList<LevelPack> packs;

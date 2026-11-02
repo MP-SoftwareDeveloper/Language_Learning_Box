@@ -56,7 +56,7 @@ Page {
             "germanBoxes": "German learning boxes in the box list",
             "germanBoxesHint": "Shows your German learning boxes (levels A1 to C1, the complete word lists, the “Alltag” everyday-conversation box and your own) in the box list on the home page. Switching off hides all of them; their cards and progress are kept.",
             "englishBoxes": "English learning boxes in the box list",
-            "englishBoxesHint": "Shows your English learning boxes in the box list on the home page. Switching off hides all of them; their cards and progress are kept.",
+            "englishBoxesHint": "Shows your English learning boxes (A1 levels and your own) in the box list on the home page. Switching off hides all of them; their cards and progress are kept.",
         },
         "fa": {
             "lang": "زبان توضیحات",
@@ -96,7 +96,7 @@ Page {
             "germanBoxes": "جعبه‌های یادگیری آلمانی در فهرست جعبه‌ها",
             "germanBoxesHint": "جعبه‌های یادگیری آلمانی شما (سطح‌های A1 تا C1، فهرست‌های کامل واژگان، جعبهٔ «Alltag» برای مکالمهٔ روزمره و جعبه‌های خودتان) را در فهرست جعبه‌های صفحه اصلی نشان می‌دهد. با خاموش کردن، همهٔ آن‌ها پنهان می‌شوند؛ کارت‌ها و پیشرفت شما می‌ماند.",
             "englishBoxes": "جعبه‌های یادگیری انگلیسی در فهرست جعبه‌ها",
-            "englishBoxesHint": "جعبه‌های یادگیری انگلیسی شما را در فهرست جعبه‌های صفحه اصلی نشان می‌دهد. با خاموش کردن، همهٔ آن‌ها پنهان می‌شوند؛ کارت‌ها و پیشرفت شما می‌ماند.",
+            "englishBoxesHint": "جعبه‌های یادگیری انگلیسی شما (سطح A1 و جعبه‌های خودتان) را در فهرست جعبه‌های صفحه اصلی نشان می‌دهد. با خاموش کردن، همهٔ آن‌ها پنهان می‌شوند؛ کارت‌ها و پیشرفت شما می‌ماند.",
         },
         "de": {
             "lang": "Sprache der Erklärungen",
@@ -136,7 +136,7 @@ Page {
             "germanBoxes": "Deutsche Lernboxen in der Box-Liste",
             "germanBoxesHint": "Zeigt deine deutschen Lernboxen (Niveaus A1 bis C1, die vollständigen Wortlisten, die Alltags-Box für Gespräche und deine eigenen) in der Liste auf der Startseite. Beim Ausschalten werden alle versteckt; Karten und Fortschritt bleiben erhalten.",
             "englishBoxes": "Englische Lernboxen in der Box-Liste",
-            "englishBoxesHint": "Zeigt deine englischen Lernboxen in der Liste auf der Startseite. Beim Ausschalten werden alle versteckt; Karten und Fortschritt bleiben erhalten.",
+            "englishBoxesHint": "Zeigt deine englischen Lernboxen (A1-Niveaus und deine eigenen) in der Liste auf der Startseite. Beim Ausschalten werden alle versteckt; Karten und Fortschritt bleiben erhalten.",
         }
     })
     function tr2(key) { return (tx[lang] && tx[lang][key]) || tx.en[key] }

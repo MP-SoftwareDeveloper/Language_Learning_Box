@@ -19,7 +19,8 @@ Page {
         default: return qsTr("C1 \u2013 Advanced")
         }
     }
-    title: CardStore.learningLanguage === "sv" ? qsTr("A1 and A2 levels") : qsTr("Levels A1 to C1")
+    title: CardStore.learningLanguage === "en" ? qsTr("A1 levels")
+           : CardStore.learningLanguage === "sv" ? qsTr("A1 and A2 levels") : qsTr("Levels A1 to C1")
 
     Component { id: levelPage; LevelPage {} }
 
@@ -38,7 +39,9 @@ Page {
             Layout.bottomMargin: 8
             wrapMode: Text.WordWrap
             opacity: 0.75
-            text: CardStore.learningLanguage === "sv"
+            text: CardStore.learningLanguage === "en"
+                  ? qsTr("Three learning boxes of simple English words for A1: greetings and family, food and home, everyday verbs and phrases. Each one has its own Boxes 1\u20135, so you can track every level separately. Tap \u201COpen box\u201D to start; it then also appears in the list on the home page.")
+                  : CardStore.learningLanguage === "sv"
                   ? qsTr("Six learning boxes of Swedish words, three for A1 and three for A2. Each one has its own Boxes 1–5, so you can track every level separately. Tap “Open box” to start; it then also appears in the list on the home page.")
                   : qsTr("Learning boxes of German words from A1 to C1. A1 and A2 follow the lesson themes of “Starten wir!”; B1, B2 and C1 are grouped by everyday and academic topics; the “complete” boxes hold the whole word list of a level, A to Z; the “Alltag” box holds core words for real everyday conversation. Each one has its own Boxes 1–5, so you can track every level separately. Choose one in the list on the home page, or tap “Open box”.")
         }

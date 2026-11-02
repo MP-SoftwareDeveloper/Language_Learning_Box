@@ -9,6 +9,8 @@ Page {
     id: page
     title: qsTr("Word packs")
     readonly property bool swedish: CardStore.learningLanguage === "sv" // Swedish: only the A1 and A2 levels
+    readonly property bool english: CardStore.learningLanguage === "en" // English: only the A1 levels
+    readonly property bool levelsOnly: swedish || english // no German word packs / starter words
 
     Component { id: chapterPage; WordPackChapterPage {} }
     Component { id: levelsPage; LevelPacksPage {} }
@@ -24,7 +26,7 @@ Page {
 
         // Starter words: 100 common words with English and Persian meanings
         Pane {
-            visible: !page.swedish
+            visible: !page.levelsOnly
             Layout.fillWidth: true
             Layout.margins: 12
             Layout.bottomMargin: 0
@@ -68,10 +70,12 @@ Page {
                         Layout.fillWidth: true
                         wrapMode: Text.WordWrap
                         font.bold: true
-                        text: page.swedish ? qsTr("A1 and A2 levels") : qsTr("Levels A1 to C1")
+                        text: page.english ? qsTr("A1 levels") : page.swedish ? qsTr("A1 and A2 levels") : qsTr("Levels A1 to C1")
                     }
                     HintLabel {
-                        text: page.swedish
+                        text: page.english
+                              ? qsTr("%1 English words and phrases in 3 levels for A1. Each level is its own learning box, with German and Persian meanings and example sentences.").arg(LevelPacks.totalWords)
+                              : page.swedish
                               ? qsTr("%1 Swedish words and phrases in 6 levels (3 for A1, 3 for A2). Each level is its own learning box, with English and Persian meanings and example sentences.").arg(LevelPacks.totalWords)
                               : qsTr("%1 words and phrases in %2 levels from A1 to C1, plus the complete word lists and the “Alltag” everyday-conversation box. Each level is its own learning box, with English and Persian meanings and example sentences.").arg(LevelPacks.totalWords).arg(LevelPacks.levels.filter(l => !l.id.endsWith("-complete") && !l.id.startsWith("core-")).length)
                     }
@@ -85,7 +89,7 @@ Page {
         }
 
         Label {
-            visible: !page.swedish
+            visible: !page.levelsOnly
             Layout.fillWidth: true
             Layout.margins: 16
             Layout.bottomMargin: 4
@@ -94,7 +98,7 @@ Page {
             font.bold: true
         }
         Label {
-            visible: !page.swedish
+            visible: !page.levelsOnly
             Layout.fillWidth: true
             Layout.leftMargin: 16
             Layout.rightMargin: 16
@@ -114,7 +118,7 @@ Page {
 
         ListView {
             id: list
-            visible: !page.swedish
+            visible: !page.levelsOnly
             Layout.fillWidth: true
             Layout.fillHeight: true
             clip: true

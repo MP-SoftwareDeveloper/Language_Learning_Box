@@ -113,7 +113,7 @@ qt_add_qml_module(appLearningBox
 qt_add_resources(appLearningBox "wordpacks"
     PREFIX "/"
     FILES data/wordpacks/netzwerk_neu_a1.tsv data/starter/starter_100.tsv data/levelpacks/starten_wir_levels.tsv
-          data/levelpacks/svenska_levels.tsv data/levelpacks/deutsch_b1_c1.tsv data/levelpacks/deutsch_a1_complete.tsv data/levelpacks/deutsch_core.tsv
+          data/levelpacks/svenska_levels.tsv data/levelpacks/deutsch_b1_c1.tsv data/levelpacks/deutsch_a1_complete.tsv data/levelpacks/deutsch_core.tsv data/levelpacks/english_levels.tsv
 )
 
 target_include_directories(appLearningBox PRIVATE src)
@@ -240,6 +240,7 @@ if (LEARNINGBOX_BUILD_TESTS AND NOT ANDROID AND NOT IOS)
             LB_LEVELPACK_SV_FILE="${CMAKE_CURRENT_SOURCE_DIR}/data/levelpacks/svenska_levels.tsv"
             LB_LEVELPACK_ADV_FILE="${CMAKE_CURRENT_SOURCE_DIR}/data/levelpacks/deutsch_b1_c1.tsv"
             LB_LEVELPACK_A1C_FILE="${CMAKE_CURRENT_SOURCE_DIR}/data/levelpacks/deutsch_a1_complete.tsv"
+            LB_LEVELPACK_EN_FILE="${CMAKE_CURRENT_SOURCE_DIR}/data/levelpacks/english_levels.tsv"
             LB_LEVELPACK_CORE_FILE="${CMAKE_CURRENT_SOURCE_DIR}/data/levelpacks/deutsch_core.tsv")
         set_target_properties(tst_levelpack PROPERTIES WIN32_EXECUTABLE FALSE)
         add_test(NAME tst_levelpack COMMAND tst_levelpack)

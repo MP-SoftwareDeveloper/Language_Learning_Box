@@ -59,10 +59,9 @@ Page {
         }
         AppMode.lensEnabled = page.lensWanted
         // Only the boxes of the language being learned are in the list (the others can be switched on in Settings)
-        if (!german)
-            LevelPacks.germanBoxes = false
-        if (swedish)
-            LevelPacks.swedishBoxes = true
+        LevelPacks.germanBoxes = german
+        LevelPacks.swedishBoxes = swedish
+        LevelPacks.englishBoxes = english
         AppMode.setupDone = true
         page.finished()
     }

@@ -661,10 +661,11 @@ Page {
             }
         }
         MenuItem {
-            text: CardStore.learningLanguage === "sv" ? qsTr("Swedish A1 and A2 levels")
-                                                      : qsTr("Word packs · %1").arg(WordPacks.title)
-            // German and Swedish words: Full app, German or Swedish learning boxes
-            enabled: AppMode.full && (CardStore.learningLanguage === "de" || CardStore.learningLanguage === "sv")
+            text: CardStore.learningLanguage === "en" ? qsTr("English A1 levels")
+                  : CardStore.learningLanguage === "sv" ? qsTr("Swedish A1 and A2 levels")
+                                                        : qsTr("Word packs · %1").arg(WordPacks.title)
+            // Level packs for German, Swedish and English boxes (Full app)
+            enabled: AppMode.full
             height: enabled ? implicitHeight : 0
             visible: enabled
             onTriggered: page.packsRequested()
