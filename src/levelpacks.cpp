@@ -209,8 +209,21 @@ namespace {
 // Settings switches "German / Swedish A1 and A2 learning boxes in the box list" (German on, Swedish off by default).
 QString boxesKey(const QString &language)
 {
-    return language == QLatin1String("sv") ? QStringLiteral("levelpacks/swedishBoxes")
-                                           : QStringLiteral("levelpacks/germanBoxes");
+    if (language == QLatin1String("sv"))
+        return QStringLiteral("levelpacks/swedishBoxes");
+    if (language == QLatin1String("en"))
+        return QStringLiteral("levelpacks/englishBoxes");
+    return QStringLiteral("levelpacks/germanBoxes");
+}
+// Shows or hides every learning box of a language in the box list (the level boxes and the user's own ones).
+void setLanguageVisible(const QString &language, bool visible)
+{
+    CardStore *store = CardStore::instance();
+    for (const QVariant &v : store->collections()) {
+        const QVariantMap m = v.toMap();
+        if (m.value(QStringLiteral("language")).toString() == language)
+            store->setCollectionHidden(m.value(QStringLiteral("id")).toInt(), !visible);
+    }
 }
 // First-start flag per group of packs (German A1/A2 keeps its old key), so a deleted box does not come back.
 // German B1-C1 has its own flag, so existing users get those boxes once after an update.
@@ -238,8 +251,8 @@ QString installedKey(const QString &language, int group)
 
 bool LevelPacks::boxesOn(const QString &language) const
 {
-    // German boxes are on by default, Swedish ones off (switched on in Settings)
-    return QSettings().value(boxesKey(language), language == QLatin1String("de")).toBool();
+    // German and English boxes are on by default, Swedish ones off (switched on in Settings)
+    return QSettings().value(boxesKey(language), language != QLatin1String("sv")).toBool();
 }
 
 void LevelPacks::setBoxesOn(const QString &language, bool on)
@@ -258,6 +271,7 @@ void LevelPacks::setBoxesOn(const QString &language, bool on)
         if (id >= 0)
             store->setCollectionHidden(id, !on);
     }
+    setLanguageVisible(language, on); // also the user's own boxes of this language
     if (original >= 0)
         store->selectCollection(original);
     refresh();
@@ -269,6 +283,14 @@ int LevelPacks::installBoxes(bool force)
     CardStore *store = CardStore::instance();
     const int original = store->currentCollection();
     int created = 0;
+    // Once, for installations from before the switches covered all boxes of a language: a language that is
+    // switched off hides all its boxes, not only the level boxes.
+    if (!settings.value(QStringLiteral("levelpacks/hideByLanguage"), false).toBool()) {
+        for (const char *lang : {"de", "sv", "en"})
+            if (settings.contains(boxesKey(QString::fromLatin1(lang))) && !boxesOn(QString::fromLatin1(lang))) // switched off on purpose
+                setLanguageVisible(QString::fromLatin1(lang), false);
+        settings.setValue(QStringLiteral("levelpacks/hideByLanguage"), true);
+    }
     const struct { const char *language; int group; } groups[] = {{"de", 0}, {"de", 1}, {"de", 2}, {"de", 3}, {"sv", 0}};
     for (const auto &g : groups) {
         const QString language = QString::fromLatin1(g.language);

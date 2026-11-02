@@ -32,6 +32,8 @@ class LevelPacks : public QObject
     // progress are kept).
     Q_PROPERTY(bool germanBoxes READ germanBoxes WRITE setGermanBoxes NOTIFY changed)
     Q_PROPERTY(bool swedishBoxes READ swedishBoxes WRITE setSwedishBoxes NOTIFY changed)
+    // Same for the learning boxes of English (on by default; there are no level packs, only the user's own boxes)
+    Q_PROPERTY(bool englishBoxes READ englishBoxes WRITE setEnglishBoxes NOTIFY changed)
 
 public:
     static LevelPacks *create(QQmlEngine *, QJSEngine *);
@@ -45,6 +47,8 @@ public:
     void setGermanBoxes(bool on) { setBoxesOn(QStringLiteral("de"), on); }
     bool swedishBoxes() const { return boxesOn(QStringLiteral("sv")); }
     void setSwedishBoxes(bool on) { setBoxesOn(QStringLiteral("sv"), on); }
+    bool englishBoxes() const { return boxesOn(QStringLiteral("en")); }
+    void setEnglishBoxes(bool on) { setBoxesOn(QStringLiteral("en"), on); }
 
     // Adds the words that are not already in the current learning box, with the meaning in the
     // chosen language (Settings), and saves the English and Persian meanings and example

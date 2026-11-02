@@ -51,10 +51,12 @@ Page {
             "keyboard": "Keyboard",
             "germanKeys": "German / Swedish letter keys (ä ö ü ß · å ä ö)",
             "germanKeysHint": "Shows ä ö ü ß (German) or å ä ö (Swedish) under the text box while you type, for phone keyboards that do not have them.",
-            "swedishBoxes": "Swedish A1 and A2 learning boxes in the box list",
-            "swedishBoxesHint": "Shows the six Swedish learning boxes (A1, A2) in the box list on the home page. Switching off only hides them; their cards and progress are kept.",
-            "germanBoxes": "German learning boxes A1 to C1 in the box list",
-            "germanBoxesHint": "Shows the German learning boxes (levels A1 to C1 the complete word lists and the “Alltag” everyday-conversation box) in the box list on the home page. Switching off only hides them; their cards and progress are kept.",
+            "swedishBoxes": "Swedish learning boxes in the box list",
+            "swedishBoxesHint": "Shows your Swedish learning boxes (A1, A2 and your own) in the box list on the home page. Switching off hides all of them; their cards and progress are kept.",
+            "germanBoxes": "German learning boxes in the box list",
+            "germanBoxesHint": "Shows your German learning boxes (levels A1 to C1, the complete word lists, the “Alltag” everyday-conversation box and your own) in the box list on the home page. Switching off hides all of them; their cards and progress are kept.",
+            "englishBoxes": "English learning boxes in the box list",
+            "englishBoxesHint": "Shows your English learning boxes in the box list on the home page. Switching off hides all of them; their cards and progress are kept.",
         },
         "fa": {
             "lang": "زبان توضیحات",
@@ -89,10 +91,12 @@ Page {
             "keyboard": "صفحه‌کلید",
             "germanKeys": "کلیدهای حروف آلمانی و سوئدی (ä ö ü ß · å ä ö)",
             "germanKeysHint": "هنگام تایپ، ä ö ü ß (آلمانی) یا å ä ö (سوئدی) را زیر کادر متن نشان می‌دهد؛ برای صفحه‌کلیدهایی که این حروف را ندارند.",
-            "swedishBoxes": "جعبه‌های یادگیری سوئدی A1 و A2 در فهرست جعبه‌ها",
-            "swedishBoxesHint": "شش جعبه یادگیری سوئدی (A1 و A2) را در فهرست جعبه‌های صفحه اصلی نشان می‌دهد. با خاموش کردن، فقط پنهان می‌شوند؛ کارت‌ها و پیشرفت شما می‌ماند.",
-            "germanBoxes": "جعبه‌های یادگیری آلمانی A1 تا C1 در فهرست جعبه‌ها",
-            "germanBoxesHint": "جعبه‌های یادگیری آلمانی (سطح‌های A1 تا C1 فهرست‌های کامل واژگان و جعبهٔ «Alltag» برای مکالمهٔ روزمره) را در فهرست جعبه‌های صفحه اصلی نشان می‌دهد. با خاموش کردن، فقط پنهان می‌شوند؛ کارت‌ها و پیشرفت شما می‌ماند.",
+            "swedishBoxes": "جعبه‌های یادگیری سوئدی در فهرست جعبه‌ها",
+            "swedishBoxesHint": "جعبه‌های یادگیری سوئدی شما (A1، A2 و جعبه‌های خودتان) را در فهرست جعبه‌های صفحه اصلی نشان می‌دهد. با خاموش کردن، همهٔ آن‌ها پنهان می‌شوند؛ کارت‌ها و پیشرفت شما می‌ماند.",
+            "germanBoxes": "جعبه‌های یادگیری آلمانی در فهرست جعبه‌ها",
+            "germanBoxesHint": "جعبه‌های یادگیری آلمانی شما (سطح‌های A1 تا C1، فهرست‌های کامل واژگان، جعبهٔ «Alltag» برای مکالمهٔ روزمره و جعبه‌های خودتان) را در فهرست جعبه‌های صفحه اصلی نشان می‌دهد. با خاموش کردن، همهٔ آن‌ها پنهان می‌شوند؛ کارت‌ها و پیشرفت شما می‌ماند.",
+            "englishBoxes": "جعبه‌های یادگیری انگلیسی در فهرست جعبه‌ها",
+            "englishBoxesHint": "جعبه‌های یادگیری انگلیسی شما را در فهرست جعبه‌های صفحه اصلی نشان می‌دهد. با خاموش کردن، همهٔ آن‌ها پنهان می‌شوند؛ کارت‌ها و پیشرفت شما می‌ماند.",
         },
         "de": {
             "lang": "Sprache der Erklärungen",
@@ -127,10 +131,12 @@ Page {
             "keyboard": "Tastatur",
             "germanKeys": "Tasten für deutsche / schwedische Buchstaben (ä ö ü ß · å ä ö)",
             "germanKeysHint": "Zeigt ä ö ü ß (Deutsch) oder å ä ö (Schwedisch) unter dem Textfeld, wenn du tippst – für Handy-Tastaturen ohne diese Buchstaben.",
-            "swedishBoxes": "Schwedische A1- und A2-Lernboxen in der Box-Liste",
-            "swedishBoxesHint": "Zeigt die sechs schwedischen Lernboxen (A1, A2) in der Liste auf der Startseite. Beim Ausschalten werden sie nur versteckt; Karten und Fortschritt bleiben erhalten.",
-            "germanBoxes": "Deutsche Lernboxen A1 bis C1 in der Box-Liste",
-            "germanBoxesHint": "Zeigt die deutschen Lernboxen (Niveaus A1 bis C1 die vollständigen Wortlisten und die Alltags-Box für Gespräche) in der Liste auf der Startseite. Beim Ausschalten werden sie nur versteckt; Karten und Fortschritt bleiben erhalten.",
+            "swedishBoxes": "Schwedische Lernboxen in der Box-Liste",
+            "swedishBoxesHint": "Zeigt deine schwedischen Lernboxen (A1, A2 und deine eigenen) in der Liste auf der Startseite. Beim Ausschalten werden alle versteckt; Karten und Fortschritt bleiben erhalten.",
+            "germanBoxes": "Deutsche Lernboxen in der Box-Liste",
+            "germanBoxesHint": "Zeigt deine deutschen Lernboxen (Niveaus A1 bis C1, die vollständigen Wortlisten, die Alltags-Box für Gespräche und deine eigenen) in der Liste auf der Startseite. Beim Ausschalten werden alle versteckt; Karten und Fortschritt bleiben erhalten.",
+            "englishBoxes": "Englische Lernboxen in der Box-Liste",
+            "englishBoxesHint": "Zeigt deine englischen Lernboxen in der Liste auf der Startseite. Beim Ausschalten werden alle versteckt; Karten und Fortschritt bleiben erhalten.",
         }
     })
     function tr2(key) { return (tx[lang] && tx[lang][key]) || tx.en[key] }
@@ -175,6 +181,20 @@ Page {
                 visible: AppMode.full
                 horizontalAlignment: page.hAlign
                 text: page.tr2("swedishBoxesHint")
+            }
+            SwitchDelegate {
+                Layout.fillWidth: true
+                visible: AppMode.full
+                text: page.tr2("englishBoxes")
+                checked: LevelPacks.englishBoxes
+                onToggled: LevelPacks.englishBoxes = checked
+            }
+            HintLabel {
+                Layout.leftMargin: 16
+                Layout.rightMargin: 16
+                visible: AppMode.full
+                horizontalAlignment: page.hAlign
+                text: page.tr2("englishBoxesHint")
             }
 
             Label {

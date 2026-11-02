@@ -58,6 +58,11 @@ Page {
             WordPacks.addStarterCards()
         }
         AppMode.lensEnabled = page.lensWanted
+        // Only the boxes of the language being learned are in the list (the others can be switched on in Settings)
+        if (!german)
+            LevelPacks.germanBoxes = false
+        if (swedish)
+            LevelPacks.swedishBoxes = true
         AppMode.setupDone = true
         page.finished()
     }
