@@ -39,6 +39,7 @@ qt_add_qml_module(appLearningBox
         src/ocr/textselect.h   src/ocr/textselect.cpp
         src/translator.h       src/translator.cpp
         src/devicetilt.h       src/devicetilt.cpp
+        src/paragraphalign.h   src/paragraphalign.cpp
         src/cloudocr.h         src/cloudocr.cpp
         src/ocr/azureread.h    src/ocr/azureread.cpp
         src/translation/googletranslate.h src/translation/googletranslate.cpp
@@ -257,6 +258,12 @@ if (LEARNINGBOX_BUILD_TESTS AND NOT ANDROID AND NOT IOS)
         target_link_libraries(tst_textselect PRIVATE Qt6::Test)
         set_target_properties(tst_textselect PROPERTIES WIN32_EXECUTABLE FALSE)
         add_test(NAME tst_textselect COMMAND tst_textselect)
+
+        qt_add_executable(tst_paragraphalign tests/tst_paragraphalign.cpp src/paragraphalign.cpp)
+        target_include_directories(tst_paragraphalign PRIVATE src)
+        target_link_libraries(tst_paragraphalign PRIVATE Qt6::Test Qt6::Gui Qt6::Qml Qt6::Quick)
+        set_target_properties(tst_paragraphalign PROPERTIES WIN32_EXECUTABLE FALSE)
+        add_test(NAME tst_paragraphalign COMMAND tst_paragraphalign)
 
         qt_add_executable(tst_deckformats tests/tst_deckformats.cpp src/exchange/deckformats.cpp)
         target_include_directories(tst_deckformats PRIVATE src)

@@ -31,6 +31,14 @@ Page {
     property string meaningFor: ""
     property var wordSuggestions: []
     property bool pickedWord: false
+    // Editing an existing card: suggestions appear once the person types in the front field (not when the
+    // page opens with the saved word).
+    property bool frontEdited: false
+    readonly property bool suggesting: AppMode.full && (isNew || frontEdited)
+    // New card, or an existing card whose word was changed: the same lookups as for a new card (meaning,
+    // article, forms, examples). The old meaning and example are replaced as long as the person has not
+    // edited them by hand (see the front field).
+    readonly property bool live: isNew || frontEdited
     property bool exampleAuto: true     // example field is empty or was filled from the suggestions
     property bool settingExample: false
     function setExample(t) { settingExample = true; exampleField.text = t; settingExample = false }
@@ -43,7 +51,7 @@ Page {
     // Front of the card as it will be saved: the article is added for a single noun typed without one
     readonly property string cardFront: {
         const t = frontField.text.trim()
-        if (isNew && articleFront !== "" && !/^(der|die|das)\s/i.test(t)
+        if (live && articleFront !== "" && !/^(der|die|das)\s/i.test(t)
                 && articleFront.replace(/^(der|die|das)\s+/i, "").toLowerCase() === t.toLowerCase())
             return articleFront
         return frontField.text
@@ -60,7 +68,7 @@ Page {
     }
 
     onTypedChanged: {
-        if (!isNew || !AppMode.full) // Simple app: no suggestions
+        if (!live || !AppMode.full) // Simple app: no suggestions
             return
         if (pickedWord) {
             pickedWord = false
@@ -88,7 +96,7 @@ Page {
         suggestTimer.restart()
     }
     function fillMeaning() {
-        if (!isNew || !backAuto)
+        if (!live || !backAuto)
             return
         // An ambiguous spelling (Berichten: noun or verb) is translated as the chosen word, see WordLookup
         const w = wordInfo.meaningText !== "" ? wordInfo.meaningText : typed
@@ -132,7 +140,7 @@ Page {
     WordLookup {
         id: wordInfo
         word: page.typed
-        active: page.isNew && AppMode.full
+        active: page.live && AppMode.full
         autoPick: page.exampleAuto
         onCapitalise: (text) => {
             const pos = frontField.cursorPosition
@@ -149,12 +157,12 @@ Page {
     Connections {
         target: wordInfo
         function onFormsChanged() {
-            if (page.isNew && page.backAuto)
+            if (page.live && page.backAuto)
                 page.setBack(page.withoutPlural(backField.text))
         }
         // The word is now known to be two (noun / verb), or the choice changed: translate the chosen one
         function onMeaningTextChanged() {
-            if (page.isNew && AppMode.full && page.backAuto)
+            if (page.live && AppMode.full && page.backAuto)
                 suggestTimer.restart()
         }
     }
@@ -309,6 +317,18 @@ Page {
                                      : CardStore.learningLanguage === "sv" ? qsTr("Swedish word or sentence")
                                      : qsTr("German word or sentence")
                     onAccepted: backField.forceActiveFocus()
+                    onTextChanged: {
+                        if (page.isNew || !activeFocus || !AppMode.full)
+                            return
+                        if (!page.frontEdited) { // first change of the saved word: its meaning and example no longer fit
+                            page.frontEdited = true
+                            if (backField.text === (page.original.back ?? ""))
+                                page.backAuto = true
+                            if (exampleField.text === (page.original.example ?? ""))
+                                page.exampleAuto = true
+                            suggestTimer.restart() // look up the new word's meaning (also if this was the only change)
+                        }
+                    }
                 }
                 GenderMark { word: page.cardFront }
                 SpeakButton { speakText: frontField.text }
@@ -326,7 +346,7 @@ Page {
             }
             Label {
                 Layout.leftMargin: 16
-                visible: page.isNew && page.cardFront.trim() !== frontField.text.trim()
+                visible: page.live && page.cardFront.trim() !== frontField.text.trim()
                 opacity: 0.7
                 text: qsTr("Saved as: %1").arg(page.cardFront.trim())
             }
@@ -344,8 +364,8 @@ Page {
                 Layout.fillWidth: true
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
-                enabled: page.isNew && AppMode.full
-                text: page.isNew && AppMode.full ? frontField.text : ""
+                enabled: page.suggesting
+                text: page.suggesting ? frontField.text : ""
                 language: CardStore.learningLanguage
                 onPicked: (entry) => page.pickWord(entry)
             }
@@ -356,7 +376,7 @@ Page {
                 Layout.fillWidth: true
                 Layout.leftMargin: 16
                 Layout.rightMargin: 8
-                visible: page.isNew
+                visible: page.live
                 info: wordInfo
             }
 
@@ -376,7 +396,11 @@ Page {
                     // alignment, so with Persian text the label was drawn through the border line.
                     horizontalAlignment: /^[^A-Za-z\u00C0-\u024F\u0600-\u06FF\uFB50-\uFEFF]*[\u0600-\u06FF\uFB50-\uFEFF]/.test(text)
                                          ? TextEdit.AlignRight : TextEdit.AlignLeft
-                    onTextChanged: if (!page.settingBack) page.backAuto = text.trim() === ""
+                    onTextChanged: {
+                        if (!page.settingBack) page.backAuto = text.trim() === ""
+                        backAlign.apply() // Persian lines to the right, English / German lines to the left
+                    }
+                    ParagraphAlign { id: backAlign; document: backField.textDocument }
                 }
                 // English / German meaning can be listened to (first line); no Persian voice
                 SpeakButton {
@@ -400,7 +424,7 @@ Page {
             Label {
                 Layout.leftMargin: 20
                 Layout.topMargin: -8
-                visible: page.isNew && (page.meaningRequest >= 0 || (page.backAuto && backField.text !== ""))
+                visible: page.live && (page.meaningRequest >= 0 || (page.backAuto && backField.text !== ""))
                 font.pixelSize: 12
                 opacity: 0.6
                 text: page.meaningRequest >= 0 ? qsTr("Looking up the meaning\u2026")
@@ -412,7 +436,7 @@ Page {
                 Layout.fillWidth: true
                 Layout.leftMargin: 20
                 Layout.rightMargin: 8
-                text: page.isNew ? "" : backField.text // new cards: the forms are in the block under the word
+                text: page.live ? "" : backField.text // new or changed word: the forms are in the block under the word
                 word: page.cardFront
                 pixelSize: 15
             }
