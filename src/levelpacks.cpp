@@ -7,9 +7,11 @@
 #include <QDebug>
 #include <QFile>
 #include <QJSEngine>
+#include <QHash>
 #include <QQmlEngine>
 #include <QSet>
 #include <QSettings>
+#include <QSignalBlocker>
 
 namespace {
 constexpr auto kResource = ":/data/levelpacks/starten_wir_levels.tsv";
@@ -291,20 +293,23 @@ void LevelPacks::setBoxesOn(const QString &language, bool on)
     QSettings().setValue(boxesKey(language), on);
     CardStore *store = CardStore::instance();
     const int original = store->currentCollection();
-    for (const LevelPack &p : std::as_const(m_packs)) {
-        if (p.language != language)
-            continue;
-        int id = boxId(p);
-        if (id < 0 && on)
-            id = createBox(p); // creates, selects and fills it
-        if (id >= 0)
-            store->setCollectionHidden(id, !on);
+    // One change notification at the end instead of one per card and box (each one rebuilds the lists in the UI),
+    // and the boxes are looked up once (collections() counts the cards of every box).
+    QSignalBlocker block(store);
+    QHash<QString, int> idOf;
+    for (const QVariant &v : store->collections())
+        idOf.insert(v.toMap().value(QStringLiteral("name")).toString(), v.toMap().value(QStringLiteral("id")).toInt());
+    if (on) {
+        for (const LevelPack &p : std::as_const(m_packs))
+            if (p.language == language && !idOf.contains(p.title))
+                createBox(p); // creates, selects and fills it
     }
-    setLanguageVisible(language, on); // also the user's own boxes of this language
+    setLanguageVisible(language, on); // the level boxes and the user's own boxes of this language
     if (original >= 0)
         store->selectCollection(original);
     leaveSwitchedOffLanguage();
-    refresh();
+    block.unblock();
+    emit store->changed(); // refreshes the levels too
 }
 
 int LevelPacks::installBoxes(bool force)
@@ -313,6 +318,10 @@ int LevelPacks::installBoxes(bool force)
     CardStore *store = CardStore::instance();
     const int original = store->currentCollection();
     int created = 0;
+    QSignalBlocker block(store); // one change notification at the end (see setBoxesOn)
+    QHash<QString, int> idOf;
+    for (const QVariant &v : store->collections())
+        idOf.insert(v.toMap().value(QStringLiteral("name")).toString(), v.toMap().value(QStringLiteral("id")).toInt());
     // Once, for installations from before the switches covered all boxes of a language: a language that is
     // switched off hides all its boxes, not only the level boxes.
     if (!settings.value(QStringLiteral("levelpacks/hideByLanguage"), false).toBool()) {
@@ -331,7 +340,7 @@ int LevelPacks::installBoxes(bool force)
         if (boxesOn(language))
             for (const LevelPack &p : std::as_const(m_packs))
                 if (p.language == language && packGroup(p) == g.group) {
-                    const int existingBox = boxId(p);
+                    const int existingBox = idOf.value(p.title, -1);
                     if (existingBox < 0) {
                         if (createBox(p) >= 0)
                             ++created;
@@ -344,7 +353,8 @@ int LevelPacks::installBoxes(bool force)
     if (original >= 0)
         store->selectCollection(original);
     leaveSwitchedOffLanguage();
-    refresh();
+    block.unblock();
+    emit store->changed();
     return created;
 }
 
