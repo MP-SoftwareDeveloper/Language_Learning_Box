@@ -110,6 +110,7 @@ Page {
                         // Selected learning box
                         Label {
                             width: Math.min(implicitWidth, boxCombo.availableWidth - 8)
+                            visible: CardStore.currentCollectionName !== "" // no box selected: nothing in the box chooser
                             text: page.flag(CardStore.learningLanguage) + "  " + CardStore.currentCollectionName
                             elide: Text.ElideRight
                             font.pixelSize: 17
