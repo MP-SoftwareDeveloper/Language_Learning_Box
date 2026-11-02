@@ -14,8 +14,8 @@ Page {
     // Language of the explanations on this page: the switch at the top (shared with the help pages).
     readonly property string lang: pageLang.lang
     readonly property bool rtl: lang === "fa"
-    function tl(en, fa, de) { return lang === "fa" ? fa : (lang === "de" ? de : en) }
-    title: page.tl("Send or back up cards", "ارسال یا پشتیبان‌گیری از کارت‌ها", "Karten senden oder sichern")
+    function tl(en, fa, de, sv) { return lang === "fa" ? fa : lang === "de" ? de : lang === "sv" ? sv : en }
+    title: page.tl("Send or back up cards", "ارسال یا پشتیبان‌گیری از کارت‌ها", "Karten senden oder sichern", "Skicka eller säkerhetskopiera kort")
 
     readonly property bool forLearningBox: lboxFormat.checked
     // 0 = all cards of all learning boxes, a learning box id, or -1 = favorite cards (all boxes)
@@ -59,12 +59,12 @@ Page {
                     Label {
                         Layout.fillWidth: true
                         wrapMode: Text.WordWrap
-                        text: page.tl("Tip: to give your cards to a friend, tap “Share” and choose WhatsApp, Telegram or e-mail. Your friend opens the file in LearningBox → Get cards.", "نکته: برای دادن کارت‌ها به دوستتان روی «اشتراک‌گذاری» بزنید و واتس‌اپ، تلگرام یا ایمیل را انتخاب کنید. دوستتان فایل را در LearningBox ← دریافت کارت‌ها باز می‌کند.", "Tipp: Um deine Karten einem Freund zu geben, tippe auf „Teilen“ und wähle WhatsApp, Telegram oder E-Mail. Dein Freund öffnet die Datei in LearningBox → Karten holen.")
+                        text: page.tl("Tip: to give your cards to a friend, tap “Share” and choose WhatsApp, Telegram or e-mail. Your friend opens the file in LearningBox → Get cards.", "نکته: برای دادن کارت‌ها به دوستتان روی «اشتراک‌گذاری» بزنید و واتس‌اپ، تلگرام یا ایمیل را انتخاب کنید. دوستتان فایل را در LearningBox ← دریافت کارت‌ها باز می‌کند.", "Tipp: Um deine Karten einem Freund zu geben, tippe auf „Teilen“ und wähle WhatsApp, Telegram oder E-Mail. Dein Freund öffnet die Datei in LearningBox → Karten holen.", "Tips: för att ge dina kort till en vän trycker du på ”Share” och väljer WhatsApp, Telegram eller e-post. Din vän öppnar filen i LearningBox → Hämta kort.")
                     }
                     Button {
                         Layout.alignment: Qt.AlignRight
                         flat: true
-                        text: page.tl("Got it", "متوجه شدم", "Verstanden")
+                        text: page.tl("Got it", "متوجه شدم", "Verstanden", "Uppfattat")
                         onClicked: firstVisitTip.show = false
                     }
                 }
@@ -79,7 +79,7 @@ Page {
             Label {
                 Layout.leftMargin: 16
                 Layout.topMargin: 8
-                text: page.tl("1. Who is it for?", "۱. برای چه کسی است؟", "1. Für wen ist es?")
+                text: page.tl("1. Who is it for?", "۱. برای چه کسی است؟", "1. Für wen ist es?", "1. Vem är det till?")
                 font.pixelSize: 16
                 font.bold: true
             }
@@ -89,30 +89,30 @@ Page {
                 Layout.leftMargin: 8
                 ButtonGroup.group: formatGroup
                 checked: true
-                text: page.tl("Another LearningBox app", "برنامهٔ LearningBox دیگر", "Eine andere LearningBox-App")
+                text: page.tl("Another LearningBox app", "برنامهٔ LearningBox دیگر", "Eine andere LearningBox-App", "En annan LearningBox-app")
             }
             HintLabel {
                 Layout.leftMargin: 48
                 Layout.rightMargin: 16
-                text: page.tl("For a friend, a new phone or a backup. A .lbox file that keeps pictures; it opens in LearningBox → Get cards.", "برای دوست، گوشی جدید یا پشتیبان. یک فایل ‎lbox.‎ که تصاویر را نگه می‌دارد؛ در LearningBox ← دریافت کارت‌ها باز می‌شود.", "Für einen Freund, ein neues Handy oder als Sicherung. Eine .lbox-Datei, die Bilder behält; sie öffnet sich in LearningBox → Karten holen.")
+                text: page.tl("For a friend, a new phone or a backup. A .lbox file that keeps pictures; it opens in LearningBox → Get cards.", "برای دوست، گوشی جدید یا پشتیبان. یک فایل ‎lbox.‎ که تصاویر را نگه می‌دارد؛ در LearningBox ← دریافت کارت‌ها باز می‌شود.", "Für einen Freund, ein neues Handy oder als Sicherung. Eine .lbox-Datei, die Bilder behält; sie öffnet sich in LearningBox → Karten holen.", "För en vän, en ny telefon eller som säkerhetskopia. En .lbox-fil som behåller bilderna; den öppnas i LearningBox → Hämta kort.")
             }
             RadioButton {
                 id: csvFormat
                 Layout.leftMargin: 8
                 ButtonGroup.group: formatGroup
-                text: page.tl("Excel, Anki or Quizlet", "اکسل، Anki یا Quizlet", "Excel, Anki oder Quizlet")
+                text: page.tl("Excel, Anki or Quizlet", "اکسل، Anki یا Quizlet", "Excel, Anki oder Quizlet", "Excel, Anki eller Quizlet")
             }
             HintLabel {
                 Layout.leftMargin: 48
                 Layout.rightMargin: 16
-                text: page.tl("A .csv table: German | meaning | example. No pictures.", "یک جدول ‎csv.‎: آلمانی | معنی | مثال. بدون تصویر.", "Eine .csv-Tabelle: Deutsch | Bedeutung | Beispiel. Keine Bilder.")
+                text: page.tl("A .csv table: German | meaning | example. No pictures.", "یک جدول ‎csv.‎: آلمانی | معنی | مثال. بدون تصویر.", "Eine .csv-Tabelle: Deutsch | Bedeutung | Beispiel. Keine Bilder.", "En .csv-tabell: tyska | betydelse | exempel. Inga bilder.")
             }
 
             // ---- 2. Which cards? ----
             Label {
                 Layout.leftMargin: 16
                 Layout.topMargin: 12
-                text: page.tl("2. Which cards?", "۲. کدام کارت‌ها؟", "2. Welche Karten?")
+                text: page.tl("2. Which cards?", "۲. کدام کارت‌ها؟", "2. Welche Karten?", "2. Vilka kort?")
                 font.pixelSize: 16
                 font.bold: true
             }
@@ -121,14 +121,14 @@ Page {
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
                 Layout.fillWidth: true
-                model: [page.tl("All cards (all learning boxes)", "همهٔ کارت‌ها (همهٔ جعبه‌های یادگیری)", "Alle Karten (alle Lernboxen)")]
+                model: [page.tl("All cards (all learning boxes)", "همهٔ کارت‌ها (همهٔ جعبه‌های یادگیری)", "Alle Karten (alle Lernboxen)", "Alla kort (alla inlärningslådor)")]
                        .concat(CardStore.collections.map(col => col.name))
-                       .concat([page.tl("Favorite cards (all learning boxes)", "کارت‌های مورد علاقه (همهٔ جعبه‌های یادگیری)", "Favoritenkarten (alle Lernboxen)")])
+                       .concat([page.tl("Favorite cards (all learning boxes)", "کارت‌های مورد علاقه (همهٔ جعبه‌های یادگیری)", "Favoritenkarten (alle Lernboxen)", "Favoritkort (alla inlärningslådor)")])
             }
             HintLabel {
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
-                text: page.tl("%1 card(s)", "%1 کارت", "%1 Karte(n)").arg(page.cardCount)
+                text: page.tl("%1 card(s)", "%1 کارت", "%1 Karte(n)", "%1 kort").arg(page.cardCount)
             }
 
             // ---- 3. Keep my progress? ----
@@ -136,7 +136,7 @@ Page {
                 Layout.leftMargin: 16
                 Layout.topMargin: 12
                 visible: page.forLearningBox
-                text: page.tl("3. Keep my progress?", "۳. پیشرفت من حفظ شود؟", "3. Fortschritt behalten?")
+                text: page.tl("3. Keep my progress?", "۳. پیشرفت من حفظ شود؟", "3. Fortschritt behalten?", "3. Behålla mina framsteg?")
                 font.pixelSize: 16
                 font.bold: true
             }
@@ -144,13 +144,13 @@ Page {
                 id: keepProgress
                 Layout.leftMargin: 8
                 visible: page.forLearningBox
-                text: checked ? page.tl("Yes, keep the boxes", "بله، جعبه‌ها حفظ شوند", "Ja, Boxen behalten") : page.tl("No, start in %1", "نه، از %1 شروع شود", "Nein, in %1 beginnen").arg(BoxNames.name(1))
+                text: checked ? page.tl("Yes, keep the boxes", "بله، جعبه‌ها حفظ شوند", "Ja, Boxen behalten", "Ja, behåll lådorna") : page.tl("No, start in %1", "نه، از %1 شروع شود", "Nein, in %1 beginnen", "Nej, börja i %1").arg(BoxNames.name(1))
             }
             HintLabel {
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
                 visible: page.forLearningBox
-                text: page.tl("On: the cards stay in their boxes — right for a backup or a new phone. Off: your friend starts every card in %1.", "روشن: کارت‌ها در جعبه‌های خود می‌مانند — مناسب پشتیبان یا گوشی جدید. خاموش: دوستتان هر کارت را از %1 شروع می‌کند.", "An: Die Karten bleiben in ihren Boxen — richtig für eine Sicherung oder ein neues Handy. Aus: Dein Freund beginnt jede Karte in %1.").arg(BoxNames.name(1))
+                text: page.tl("On: the cards stay in their boxes — right for a backup or a new phone. Off: your friend starts every card in %1.", "روشن: کارت‌ها در جعبه‌های خود می‌مانند — مناسب پشتیبان یا گوشی جدید. خاموش: دوستتان هر کارت را از %1 شروع می‌کند.", "An: Die Karten bleiben in ihren Boxen — richtig für eine Sicherung oder ein neues Handy. Aus: Dein Freund beginnt jede Karte in %1.", "På: korten stannar i sina lådor — rätt för en säkerhetskopia eller en ny telefon. Av: din vän börjar varje kort i %1.").arg(BoxNames.name(1))
             }
 
             // ---- Actions ----
@@ -164,26 +164,26 @@ Page {
                     Layout.fillWidth: true
                     highlighted: true
                     enabled: page.cardCount > 0
-                    text: page.tl("Share…", "اشتراک‌گذاری…", "Teilen…")
+                    text: page.tl("Share…", "اشتراک‌گذاری…", "Teilen…", "Dela…")
                     onClicked: {
                         const r = DeckExchange.shareCards(page.format, page.withProgress, page.scope)
                         if (!r.ok)
                             page.say(r.error, false)
                         else
-                            page.say(page.tl("Ready to send: %1 (%2 card(s))", "آمادهٔ ارسال: %1 (%2 کارت)", "Bereit zum Senden: %1 (%2 Karte(n))").arg(r.file).arg(r.count), true)
+                            page.say(page.tl("Ready to send: %1 (%2 card(s))", "آمادهٔ ارسال: %1 (%2 کارت)", "Bereit zum Senden: %1 (%2 Karte(n))", "Redo att skicka: %1 (%2 kort)").arg(r.file).arg(r.count), true)
                     }
                 }
                 Button {
                     Layout.fillWidth: true
                     enabled: page.cardCount > 0
-                    text: page.tl("Save file…", "ذخیرهٔ فایل…", "Datei speichern…")
+                    text: page.tl("Save file…", "ذخیرهٔ فایل…", "Datei speichern…", "Spara fil…")
                     onClicked: saveDialog.open()
                 }
             }
             HintLabel {
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
-                text: page.tl("Share: send it now with WhatsApp, Telegram, e-mail or Drive. Save file: keep it in a folder on this phone.", "اشتراک‌گذاری: همین حالا با واتس‌اپ، تلگرام، ایمیل یا Drive بفرستید. ذخیرهٔ فایل: آن را در پوشه‌ای روی این گوشی نگه دارید.", "Teilen: jetzt per WhatsApp, Telegram, E-Mail oder Drive senden. Datei speichern: in einem Ordner auf diesem Handy aufbewahren.")
+                text: page.tl("Share: send it now with WhatsApp, Telegram, e-mail or Drive. Save file: keep it in a folder on this phone.", "اشتراک‌گذاری: همین حالا با واتس‌اپ، تلگرام، ایمیل یا Drive بفرستید. ذخیرهٔ فایل: آن را در پوشه‌ای روی این گوشی نگه دارید.", "Teilen: jetzt per WhatsApp, Telegram, E-Mail oder Drive senden. Datei speichern: in einem Ordner auf diesem Handy aufbewahren.", "Dela: skicka den nu med WhatsApp, Telegram, e-post eller Drive. Spara fil: behåll den i en mapp på den här telefonen.")
             }
 
             Label {
@@ -202,7 +202,7 @@ Page {
 
     FileDialog {
         id: saveDialog
-        title: page.tl("Save cards as", "ذخیرهٔ کارت‌ها به‌عنوان", "Karten speichern als")
+        title: page.tl("Save cards as", "ذخیرهٔ کارت‌ها به‌عنوان", "Karten speichern als", "Spara kort som")
         fileMode: FileDialog.SaveFile
         defaultSuffix: page.format
         nameFilters: page.forLearningBox ? [qsTr("LearningBox (*.lbox)")] : [qsTr("CSV (*.csv)")]
@@ -212,7 +212,7 @@ Page {
             const r = DeckExchange.exportCards(selectedFile, page.format, page.withProgress, page.scope)
             if (r.ok) {
                 const name = decodeURIComponent(selectedFile.toString().split("/").pop())
-                page.say(page.tl("Saved: %1 (%2 card(s))", "ذخیره شد: %1 (%2 کارت)", "Gespeichert: %1 (%2 Karte(n))").arg(name).arg(r.count), true)
+                page.say(page.tl("Saved: %1 (%2 card(s))", "ذخیره شد: %1 (%2 کارت)", "Gespeichert: %1 (%2 Karte(n))", "Sparat: %1 (%2 kort)").arg(name).arg(r.count), true)
             } else {
                 page.say(r.error, false)
             }

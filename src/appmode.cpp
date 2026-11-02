@@ -79,7 +79,7 @@ void AppMode::setSetupDone(bool done)
 
 void AppMode::setHelpLanguage(const QString &lang)
 {
-    if (lang != QLatin1String("en") && lang != QLatin1String("fa") && lang != QLatin1String("de"))
+    if (lang != QLatin1String("en") && lang != QLatin1String("fa") && lang != QLatin1String("de") && lang != QLatin1String("sv"))
         return;
     if (lang == m_helpLanguage)
         return;

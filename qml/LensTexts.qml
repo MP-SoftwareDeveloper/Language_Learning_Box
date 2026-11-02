@@ -1,6 +1,6 @@
 import QtQuick
 
-// Texts about Lens (words from a photo) in the three help languages: the setup question, the "Lens is turned off"
+// Texts about Lens (words from a photo) in the four help languages: the setup question, the "Lens is turned off"
 // message on Home and the Settings switch. t(key, lang) falls back to English.
 QtObject {
     readonly property var tx: ({
@@ -39,9 +39,21 @@ QtObject {
             "close": "Schließen",
             "setLens": "Lens verwenden (Wörter aus einem Foto)",
             "setLensHint": "Zeigt den Lens-Knopf auf Home. Ausschalten, wenn du die Kamera nicht nutzen möchtest."
+        },
+        "sv": {
+            "askTitle": "Använda Lens?",
+            "askBody": "Lens läser tryckt text från ett foto (en boksida, en skylt, en meny). Du trycker på de ord du vill ha och de blir kort med betydelse. Kameran används bara när du öppnar Lens, och fotona stannar på din telefon (om du inte slår på igenkänning online i Inställningar).",
+            "askSwitch": "Ja, använd Lens (rekommenderas)",
+            "askHint": "Du kan ändra det när som helst i Inställningar.",
+            "offTitle": "Lens är avstängt",
+            "offBody": "Du valde att inte använda Lens. Slå på det för att läsa ord från ett foto.",
+            "turnOn": "Slå på Lens",
+            "close": "Stäng",
+            "setLens": "Använd Lens (ord från ett foto)",
+            "setLensHint": "Visar Lens-knappen på startsidan. Stäng av om du inte vill använda kameran."
         }
     })
-    // "en" | "fa" | "de" for any language code
-    function langOf(code) { return code === "fa" || code === "de" ? code : "en" }
+    // "en" | "fa" | "de" | "sv" for any language code
+    function langOf(code) { return code === "fa" || code === "de" || code === "sv" ? code : "en" }
     function t(key, lang) { return (tx[lang] && tx[lang][key]) || tx.en[key] }
 }

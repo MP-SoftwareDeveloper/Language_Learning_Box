@@ -137,6 +137,46 @@ Page {
             "germanBoxesHint": "Zeigt deine deutschen Lernboxen (Niveaus A1 bis C1, die vollständigen Wortlisten, die Alltags-Box für Gespräche und deine eigenen) in der Liste auf der Startseite. Beim Ausschalten werden alle versteckt; Karten und Fortschritt bleiben erhalten.",
             "englishBoxes": "Englische Lernboxen in der Box-Liste",
             "englishBoxesHint": "Zeigt deine englischen Lernboxen (A1-Niveaus und deine eigenen) in der Liste auf der Startseite. Beim Ausschalten werden alle versteckt; Karten und Fortschritt bleiben erhalten.",
+        },
+        "sv": {
+            "lang": "Språk för förklaringarna",
+            "app": "App",
+            "simple": "Enkel",
+            "simpleHint": "Bara Leitner-kort. Offline, inga behörigheter.",
+            "full": "Fullständig",
+            "fullHint": "Lägger till Lens, ifyllda betydelser och exempelmeningar, ordpaket, bilder och Anki-lekar.",
+            "switchHint": "Att byta läge visar eller döljer bara funktioner. Dina kort och dina framsteg behålls.",
+            "compare": "Jämför",
+            "translation": "Översättning",
+            "meaningsIn": "Betydelser i ”%1” (inlärningsspråk: %2) visas på:",
+            "usedFull": "Används för baksidan av nya kort, repetitionen och Lens-översättningar; engelska och tyska betydelser kan lyssnas på (🔊). ",
+            "usedSimple": "Används för baksidan av nya kort och repetitionen; engelska och tyska betydelser kan lyssnas på (🔊). ",
+            "eachBox": "Varje inlärningslåda kommer ihåg sitt eget val. Hjälpen följer det (persiska, annars engelska).",
+            "online": "Översätt online när du är ansluten",
+            "simpleOffline": "Den enkla appen fungerar offline: den använder betydelserna på dina kort och tidigare sparade översättningar.",
+            "nowOff": "Just nu: offline (online är avstängt).",
+            "nowOn": "Just nu: online (Google Translate).",
+            "nowMaybe": "Just nu: online när en anslutning finns (Google Translate).",
+            "offlineNote": "Offline använder appen tidigare sparade översättningar och ordpaketets persiska betydelser.",
+            "saved": "Sparade översättningar: %1",
+            "clear": "Rensa",
+            "lens": "Textigenkänning (Lens)",
+            "onlineOcr": "Igenkänning online (handskrift)",
+            "ocrHint": "Foton skickas till Azure AI Vision för att läsas. Med den gratis nivån (F0) kostar det aldrig något: 5000 foton i månaden, därefter vägrar Azure och den offline-läsaren används. Den används också offline eller när tjänsten misslyckas.",
+            "howKey": "Så får du en gratis nyckel",
+            "test": "Testa",
+            "azure": "Azure Translator (valfritt)",
+            "azureHint": "Med din egen gratis Azure-nyckel går översättningarna först via Azure (2 miljoner tecken i månaden; därefter vägrar Azure och inget debiteras). Utan nyckel används Google och MyMemory som förut.",
+            "azureOn": "Azure används först; Google och MyMemory är reserv.",
+            "keyboard": "Tangentbord",
+            "germanKeys": "Tangenter för tyska / svenska bokstäver (ä ö ü ß · å ä ö)",
+            "germanKeysHint": "Visar ä ö ü ß (tyska) eller å ä ö (svenska) under textfältet medan du skriver, för mobiltangentbord som saknar dem.",
+            "swedishBoxes": "Svenska inlärningslådor i låd-listan",
+            "swedishBoxesHint": "Visar dina svenska inlärningslådor (A1, A2 och dina egna) i listan på startsidan. När du stänger av döljs alla; deras kort och framsteg behålls.",
+            "germanBoxes": "Tyska inlärningslådor i låd-listan",
+            "germanBoxesHint": "Visar dina tyska inlärningslådor (nivåerna A1 till C1, de kompletta ordlistorna, vardagslådan ”Alltag” för samtal och dina egna) i listan på startsidan. När du stänger av döljs alla; deras kort och framsteg behålls.",
+            "englishBoxes": "Engelska inlärningslådor i låd-listan",
+            "englishBoxesHint": "Visar dina engelska inlärningslådor (A1-nivåerna och dina egna) i listan på startsidan. När du stänger av döljs alla; deras kort och framsteg behålls.",
         }
     })
     function tr2(key) { return (tx[lang] && tx[lang][key]) || tx.en[key] }
@@ -154,7 +194,7 @@ Page {
             Item { Layout.preferredHeight: 4 }
 
             // ---------- A1 / A2 learning boxes in the box list ----------
-            SwitchDelegate {
+            WrapSwitch {
                 Layout.fillWidth: true
                 visible: AppMode.full
                 text: page.tr2("germanBoxes")
@@ -168,7 +208,7 @@ Page {
                 horizontalAlignment: page.hAlign
                 text: page.tr2("germanBoxesHint")
             }
-            SwitchDelegate {
+            WrapSwitch {
                 Layout.fillWidth: true
                 visible: AppMode.full
                 text: page.tr2("swedishBoxes")
@@ -182,7 +222,7 @@ Page {
                 horizontalAlignment: page.hAlign
                 text: page.tr2("swedishBoxesHint")
             }
-            SwitchDelegate {
+            WrapSwitch {
                 Layout.fillWidth: true
                 visible: AppMode.full
                 text: page.tr2("englishBoxes")
@@ -293,7 +333,7 @@ Page {
                 text: (AppMode.full ? page.tr2("usedFull") : page.tr2("usedSimple")) + page.tr2("eachBox")
             }
 
-            SwitchDelegate {
+            WrapSwitch {
                 Layout.fillWidth: true
                 visible: AppMode.full
                 text: page.tr2("online")
@@ -385,11 +425,12 @@ Page {
                 inputMethodHints: Qt.ImhNoPredictiveText | Qt.ImhNoAutoUppercase | Qt.ImhLatinOnly
                 onEditingFinished: Translator.azureRegion = text
             }
-            RowLayout {
+            Flow { // wraps: the German button texts do not fit side by side on a phone
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
                 Layout.fillWidth: true
                 visible: AppMode.full
+                spacing: 8
                 Button {
                     text: Translator.azureTesting ? qsTr("Testing\u2026") : page.tr2("test")
                     enabled: !Translator.azureTesting && azureKeyField.text.trim() !== ""
@@ -433,7 +474,7 @@ Page {
                 font.pixelSize: 16
                 font.bold: true
             }
-            SwitchDelegate {
+            WrapSwitch {
                 Layout.fillWidth: true
                 visible: AppMode.full
                 text: lensTexts.t("setLens", page.lang)
@@ -450,7 +491,7 @@ Page {
                 horizontalAlignment: page.hAlign
                 text: lensTexts.t("setLensHint", page.lang)
             }
-            SwitchDelegate {
+            WrapSwitch {
                 Layout.fillWidth: true
                 visible: AppMode.full
                 text: page.tr2("onlineOcr")
@@ -500,11 +541,12 @@ Page {
                     ToolTip.text: checked ? qsTr("Hide key") : qsTr("Show key")
                 }
             }
-            RowLayout {
+            Flow { // wraps: the German button texts do not fit side by side on a phone
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
                 Layout.fillWidth: true
                 visible: AppMode.full && CloudOcr.enabled
+                spacing: 8
                 Button {
                     text: CloudOcr.testing ? qsTr("Testing\u2026") : page.tr2("test")
                     enabled: !CloudOcr.testing && keyField.text.trim() !== "" && endpointField.text.trim() !== ""
@@ -547,7 +589,7 @@ Page {
                 font.pixelSize: 16
                 font.bold: true
             }
-            SwitchDelegate {
+            WrapSwitch {
                 Layout.fillWidth: true
                 text: page.tr2("germanKeys")
                 checked: KeyboardPrefs.germanKeys

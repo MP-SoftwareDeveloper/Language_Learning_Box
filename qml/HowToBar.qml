@@ -5,7 +5,7 @@ import QtQuick.Controls.Material
 import LearningBox
 
 // A "?" row at the top of the Export and Import pages. Tapping it opens a short how-to
-// in English, Persian or German (the same language choice as the Help page).
+// in English, Persian, German or Swedish (the same language choice as the Help page).
 RowLayout {
     id: root
     property bool exporting: true
@@ -68,6 +68,23 @@ RowLayout {
                 hint: "Dein Fortschritt bei Wörtern, die du schon hast, bleibt erhalten.",
                 fileTitle: "Eigene Textdatei erstellen (.txt)",
                 fileIntro: "Schreibe jede Karte so: deutsches Wort, englische Bedeutung, deutscher Beispielsatz – und beende die Karte mit ;\nJeder Teil steht in einer eigenen Zeile, oder die ganze Karte steht in einer Zeile, durch Kommas getrennt. Verwende kein ; innerhalb eines Satzes. Speichere die Datei als .txt (UTF-8) und wähle sie mit Choose a file aus.",
+                fileExample: "Haus\nhouse\nDas Haus ist groß.;\n\nBaum, tree, Der Baum ist alt.;"
+            }
+        },
+        sv: {
+            exp: {
+                title: "Så exporterar du dina kort",
+                intro: "Spara din inlärningslåda som en fil – till en vän, en ny telefon eller som säkerhetskopia.",
+                steps: "1. Välj vem den är till: en annan LearningBox-app (.lbox, med bilder) eller Excel / Anki / Quizlet (.csv-tabell).\n2. Välj vilka kort: alla, bara en låda eller bara inlärda kort.\n3. Välj om dina framsteg (lådorna) ska behållas.\n4. Tryck på Share för att skicka filen med WhatsApp, Telegram, e-post eller Drive – eller på Save file för att spara den på den här telefonen.",
+                hint: "Din vän öppnar filen i LearningBox → Import."
+            },
+            imp: {
+                title: "Så importerar du kort",
+                intro: "Lägg till kort som en vän har skickat till dig, eller som kommer från Quizlet, Excel eller (fullversionen) Anki.",
+                steps: "1. Välj en fil (.lbox, .csv, .txt eller, i fullversionen, .apkg) – eller klistra in en länk från Google Drive, Dropbox eller GitHub och tryck på Get.\n2. Kontrollera förhandsvisningen: hur många kort som är nya och vilka du redan har.\n3. Välj vart korten ska: i en ny inlärningslåda eller i den här, och i vilken låda de börjar.\n4. Tryck på Add för att lägga till korten.",
+                hint: "Dina framsteg för ord du redan har behålls.",
+                fileTitle: "Gör din egen textfil (.txt)",
+                fileIntro: "Skriv varje kort så här: tyskt ord, engelsk betydelse, tysk exempelmening – och avsluta kortet med ;\nVarje del står på en egen rad, eller hela kortet på en rad åtskilt med kommatecken. Använd inte ; inuti en mening. Spara filen som .txt (UTF-8) och välj den med Choose a file.",
                 fileExample: "Haus\nhouse\nDas Haus ist groß.;\n\nBaum, tree, Der Baum ist alt.;"
             }
         }

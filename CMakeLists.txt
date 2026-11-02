@@ -73,6 +73,7 @@ qt_add_qml_module(appLearningBox
         qml/ModeComparison.qml
         qml/ResetDialog.qml
         qml/HintLabel.qml
+        qml/WrapSwitch.qml
         qml/DirectionLabel.qml
         qml/DictionaryPage.qml
         qml/GermanKeys.qml

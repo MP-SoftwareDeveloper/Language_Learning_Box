@@ -719,7 +719,13 @@ Page {
                   mastered: "Alle Karten dieser Lernbox sind gemeistert.",
                   rule: "So funktioniert die Lernbox: Eine Karte wird erst gefragt, wenn ihre Box an der Reihe ist. %1: jeden Tag, %2: alle 2 Tage, %3: alle 4 Tage, %4: alle 8 Tage, %5: alle 16 Tage.",
                   miss: "Eine Karte, die du nicht wusstest, kommt zurück in %1 und wird morgen wieder gefragt. Eine Karte, die du wusstest, rückt eine Box weiter und wartet länger.",
-                  tip: "Du willst jetzt üben? Öffne eine Box, hake die Karten an, schiebe sie eine Box vor und wieder zurück: Eine Karte, die nach %1 verschoben wird, ist sofort fällig." }
+                  tip: "Du willst jetzt üben? Öffne eine Box, hake die Karten an, schiebe sie eine Box vor und wieder zurück: Eine Karte, die nach %1 verschoben wird, ist sofort fällig." },
+            sv: { title: "Inga kort ska repeteras i dag",
+                  waiting: "De %n kort som fortfarande ligger i lådorna väntar på sin repetitionsdag.",
+                  mastered: "Alla kort i den här inlärningslådan är behärskade.",
+                  rule: "Så fungerar inlärningslådan: ett kort förhörs först när dess låda står på tur. %1: varje dag, %2: var 2:a dag, %3: var 4:e dag, %4: var 8:e dag, %5: var 16:e dag.",
+                  miss: "Ett kort som du inte kunde går tillbaka till %1 och förhörs igen i morgon. Ett kort som du kunde flyttas upp en låda och väntar längre.",
+                  tip: "Vill du öva nu? Öppna en låda, bocka i korten, flytta dem en låda framåt och sedan tillbaka: ett kort som flyttas till %1 ska repeteras direkt." }
         })
         // Box names are Latin text: keep them as one left-to-right run inside Persian sentences.
         function nm(b) { return (rtl ? "\u200E" : "") + BoxNames.name(b) + (rtl ? "\u200E" : "") }

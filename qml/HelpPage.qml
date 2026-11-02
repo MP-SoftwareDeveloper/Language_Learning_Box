@@ -4,17 +4,17 @@ import QtQuick.Layouts
 import QtQuick.Controls.Material
 import LearningBox
 
-// How to use the app, in English, Persian or German (switch at the top; the choice is shared with
+// How to use the app, in English, Persian, German or Swedish (switch at the top; the choice is shared with
 // the how-to on the Export / Import pages). Starts in Persian when Persian is the translation
 // language in Settings, otherwise in English.
 Page {
     id: page
     objectName: "helpPage"
-    title: lang === "fa" ? "راهنما" : lang === "de" ? "Hilfe" : qsTr("Help")
+    title: lang === "fa" ? "راهنما" : lang === "de" ? "Hilfe" : lang === "sv" ? "Hjälp" : qsTr("Help")
 
     readonly property string lang: langBar.lang
     readonly property bool rtl: lang === "fa"
-    readonly property var sections: lang === "fa" ? faSections : lang === "de" ? deSections : enSections
+    readonly property var sections: lang === "fa" ? faSections : lang === "de" ? deSections : lang === "sv" ? svSections : enSections
 
     readonly property var enSections: [
         { title: "The idea: a Leitner box",
@@ -44,7 +44,7 @@ Page {
         { title: "Dictionary",
           body: "Home \u2192 Dictionary looks up a word or sentence between the language of the selected learning box and its meaning language, in both directions \u2013 the arrows button swaps them. You get the translation, other meanings, example sentences and \uD83D\uDD0A for German and English; + Add puts the word straight into the learning box. German words from the word pack are found offline; everything else needs online translation (Full app) and is then saved for offline use." },
         { title: "Export and import cards",
-          body: "Home \u2192 Export: choose who it is for (another LearningBox app \u2192 .lbox file with pictures; Excel, Anki or Quizlet \u2192 .csv table), which cards, and whether to keep your progress. Share sends the file straight away with WhatsApp, Telegram, e-mail or Drive; Save file keeps it on the phone.\n\nHome \u2192 Import: choose a .lbox, .csv/.txt or (Full app) Anki .apkg file, or paste a Google Drive, Dropbox or GitHub link. The preview shows how many cards are new and the first cards, so you can check which side is German. Choose a new learning box or the selected one, what to do with words you already have, and press Add.\n\nTap the ? on the Export and Import pages for a short guide in English, Persian or German. The Import guide also shows how to write your own .txt card file: German word, English meaning, German example sentence, each card ending with ;" },
+          body: "Home \u2192 Export: choose who it is for (another LearningBox app \u2192 .lbox file with pictures; Excel, Anki or Quizlet \u2192 .csv table), which cards, and whether to keep your progress. Share sends the file straight away with WhatsApp, Telegram, e-mail or Drive; Save file keeps it on the phone.\n\nHome \u2192 Import: choose a .lbox, .csv/.txt or (Full app) Anki .apkg file, or paste a Google Drive, Dropbox or GitHub link. The preview shows how many cards are new and the first cards, so you can check which side is German. Choose a new learning box or the selected one, what to do with words you already have, and press Add.\n\nTap the ? on the Export and Import pages for a short guide in English, Persian, German or Swedish. The Import guide also shows how to write your own .txt card file: German word, English meaning, German example sentence, each card ending with ;" },
         { title: "Settings (gear icon)",
           body: "Translation: Persian or English as the meaning language, and whether to translate online when connected. Offline, saved translations and the word pack are used.\n\nText recognition: optional Azure AI Vision key for handwriting (free tier). If no German voice is installed, install it in Android Settings → Text-to-speech." },
         { title: "Tips",
@@ -121,11 +121,46 @@ Page {
           body: "• Wiederhole jeden Tag ein wenig – die Boxen übernehmen die Planung.\n• Lerne Nomen mit Artikel (der / die / das) und Plural.\n• Sprich den Beispielsatz nach dem Lautsprecher laut nach.\n• Führe eine Lernbox pro Buch oder Kurs." }
     ]
 
+    readonly property var svSections: [
+        { title: "Idén: en Leitner-låda",
+          body: "Varje ord är ett kort. Nya kort börjar i Låda 1. När du kan ett kort vid en repetition flyttas det upp en låda; när du inte kan det går det tillbaka till Låda 1.\n\nVarje låda väntar längre innan kortet förhörs igen: Låda 1 = 1 dag, Låda 2 = 2 dagar, Låda 3 = 4 dagar, Låda 4 = 8 dagar, Låda 5 = 16 dagar. Ett kort du kan i Låda 5 är Learned (inlärt) och förhörs inte mer." },
+        { title: "Enkel och fullständig app",
+          body: "Den enkla appen är bara Leitner-kort: lägga till kort, repetera, lyssna, skicka och hämta kort. Den fungerar offline och ber inte om några behörigheter.\n\nDen fullständiga appen lägger till Lens (ord från foton), handskriftsigenkänning, betydelser och exempelmeningar som fylls i medan du skriver, översättning online, ordpaketet Netzwerk neu A1, bilder på korten och Anki-lekar.\n\nByt när som helst i Settings → App. Dina kort och dina framsteg behålls." },
+        { title: "Inlärningslådor",
+          body: "Du kan ha flera separata inlärningslådor, t.ex. en per bok (”Netzwerk neu A2”). Lådan högst upp på Home är den valda; den du använde förut visas under den – tryck på den för att byta. Pilen öppnar hela listan.\n\n+ skapar en ny inlärningslåda (tom, eller startad med ett ordpaket). ⋮ byter namn på eller tar bort den valda. Repetition, Add card, Lens, All cards, ordpaket och export gäller alltid den valda inlärningslådan. Appen kommer ihåg ditt val." },
+        { title: "Lära sig engelska",
+          body: "En inlärningslåda kan också gälla engelska: + → I want to learn: 🇺🇸 English. I en engelsk låda läses orden upp med amerikansk röst och Lens läser engelsk text. För varje inlärningslåda väljer du betydelsernas språk (Settings → Translation, eller omkopplaren på svarssidan): tyska lådor persiska eller engelska, engelska lådor persiska eller tyska. Engelska och tyska betydelser och översatta exempelmeningar har också en 🔊-knapp; persiska läses inte upp. De tyska startorden och ordpaketen används inte där. Flaggan framför varje inlärningslåda visar dess språk." },
+        { title: "Repetition",
+          body: "Home → Start visar korten som ska repeteras i dag. Försök minnas betydelsen, tryck sedan på Show the meaning (eller Show the German word) och välj Got it! eller Not yet. Kort du inte kunde går tillbaka till Låda 1 och förhörs igen i morgon.\n\nPå svarssidan kan du växla betydelsen mellan فارسی och English. Högtalarknapparna läser upp ordet och exemplet; Auto-speak läser upp varje nytt kort.\n\nOmkopplaren högst upp väljer riktning: Deutsch → betydelse (du ser det tyska ordet – vet du vad det betyder?), betydelse → Deutsch (du ser betydelsen – kan du säga det på tyska, med der / die / das och plural?) eller 🔀 Mix (varje kort från endera sidan). Valet sparas för varje inlärningslåda; lådorna och framstegen är desamma oavsett. Tryck sedan på Got it! eller Not yet.\n\nEdit öppnar kortet så att du kan rätta det. Lådmenyn (uppe till vänster) lägger kortet i valfri låda för hand; nästa kort följer." },
+        { title: "Låda 1–5 och Learned",
+          body: "Tryck på en färgad låda på Home för att se dess kort. ‹ och › flyttar ett kort en låda bakåt eller framåt (Undo visas några sekunder). Tryck på ett kort för att redigera det. ★ lägger till det i Favorite words.\n\nFlera kort på en gång: tryck och håll på ett kort (eller tryck på Select) – kryssrutor visas. Bocka i korten och tryck sedan på Delete eller ★; rutan högst upp markerar alla. Done avslutar markeringen.\n\n+ lägger ett nytt kort direkt i den lådan.\n\nLådorna heter New (reg1), Started (reg2), Familiar (reg3), Practised (reg4), Strong (reg5) och Mastered (reg6)." },
+        { title: "Favorite words",
+          body: "Tryck på stjärnan ★ på ett kort – på repetitionskortet, i en låda, i kortredigeraren eller i Lens för de markerade orden – så hamnar det i Favorite words (en knapp på Home, med antalet ord). Tryck på stjärnan igen för att ta bort det; själva kortet ligger kvar i sin låda. I Lens läggs ord som ännu inte är kort först till i inlärningslådan. Varje inlärningslåda har sina egna favoriter." },
+        { title: "Börja om",
+          body: "Home → ⋮ → Start over lägger tillbaka alla kort i den valda inlärningslådan i Låda 1 – bra efter ett långt uppehåll eller för att gå igenom en bok igen. Själva korten behålls. Du kan låta inlärda kort vara kvar, sprida ut korten över flera dagar (t.ex. 10 dagar ≈ 30 kort om dagen) och rensa statistiken. En lådsida (Låda 2 … Learned) har samma sak för en enda låda: Move all to Box 1. Undo erbjuds i 10 sekunder." },
+        { title: "Lägga till ett kort",
+          body: "Home → Add card. Skriv det tyska ordet: appen föreslår ord, fyller i betydelsen (från ordpaketet, från sparade översättningar eller online) och erbjuder exempelmeningar – tryck på en för att använda den.\n\nBilder: 📷 Take photo använder kameran, Add picture väljer en från ditt galleri. Välj i vilken låda kortet ska börja. Om ordet redan finns i din inlärningslåda frågar appen om det befintliga kortet ska uppdateras." },
+        { title: "Lens: ord från ett foto",
+          body: "Home → Lens. Fotografera tysk text (eller välj ett foto från galleriet). Håll texten plan och väl belyst; liggande foton vrids automatiskt rätt.\n\nTryck på ord för att markera dem, håll på ett ord för att markera hela meningen. Översättningen visas under markeringen. Create card sparar de markerade orden (med betydelse) i den valda inlärningslådan – eller läs bara översättningen utan att spara.\n\nFör handskrift ställer du in igenkänning online i Settings (gratis Azure-nyckel)." },
+        { title: "Ordpaket",
+          body: "Home → ⋮ (bredvid inlärningslådans namn) → Word packs: färdigt ordförråd ur Netzwerk neu A1 per kapitel, med persiska betydelser och exempelmeningar. Lägg till enskilda kapitel eller alla (fullversionen).\n\n100 startord: vardagsord med engelska och persiska betydelser och exempelmeningar – lägg till dem i valfri inlärningslåda från Word packs, eller välj dem när du skapar en ny inlärningslåda (+)." },
+        { title: "Alla kort",
+          body: "Sök bland alla kort i den valda inlärningslådan (tyska, persiska eller engelska). Tryck på ett kort för att redigera det, håll på det för att ta bort det." },
+        { title: "Ordbok",
+          body: "Home → Dictionary slår upp ett ord eller en mening mellan den valda inlärningslådans språk och dess betydelsespråk, i båda riktningarna – pilknappen byter riktning. Du får översättningen, andra betydelser, exempelmeningar och 🔊 för tyska och engelska; + Add lägger ordet direkt i inlärningslådan. Tyska ord från ordpaketet hittas offline; allt annat kräver översättning online (fullversionen) och sparas sedan för offlineanvändning." },
+        { title: "Exportera och importera kort",
+          body: "Home → Export: välj vem det är till (en annan LearningBox-app → .lbox-fil med bilder; Excel, Anki eller Quizlet → .csv-tabell), vilka kort och om dina framsteg ska behållas. Share skickar filen direkt med WhatsApp, Telegram, e-post eller Drive; Save file sparar den på telefonen.\n\nHome → Import: välj en .lbox-, .csv/.txt- eller (fullversionen) Anki .apkg-fil, eller klistra in en länk från Google Drive, Dropbox eller GitHub. Förhandsvisningen visar hur många kort som är nya och de första korten, så att du kan kontrollera vilken sida som är tyska. Välj en ny inlärningslåda eller den valda, vad som ska hända med ord du redan har, och tryck på Add.\n\nTryck på ? på sidorna Export och Import för en kort guide på engelska, persiska, tyska eller svenska. Import-guiden visar också hur du skriver din egen .txt-kortfil: tyskt ord, engelsk betydelse, tysk exempelmening, varje kort avslutas med ;" },
+        { title: "Settings (kugghjulsikonen)",
+          body: "Translation: persiska eller engelska som betydelsespråk, och om det ska översättas online när du är ansluten. Offline används sparade översättningar och ordpaketet.\n\nText recognition: valfri Azure AI Vision-nyckel för handskrift (gratis nivå). Om ingen tysk röst är installerad installerar du den i Androids Settings → Text-to-speech." },
+        { title: "Tips",
+          body: "• Repetera lite varje dag – lådorna sköter planeringen.\n• Lär dig substantiv med artikel (der / die / das) och plural.\n• Säg exempelmeningen högt efter högtalaren.\n• Ha en inlärningslåda per bok eller kurs." }
+    ]
+
     ColumnLayout {
         anchors.fill: parent
         spacing: 0
 
-        // Language switch (English / فارسی / Deutsch)
+        // Language switch (English / فارسی / Deutsch / Svenska)
         HelpLanguageBar {
             id: langBar
             Layout.alignment: Qt.AlignHCenter

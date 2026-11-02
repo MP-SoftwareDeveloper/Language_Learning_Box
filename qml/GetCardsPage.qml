@@ -13,8 +13,8 @@ Page {
     // Language of the explanations on this page: the switch at the top (shared with the help pages).
     readonly property string lang: pageLang.lang
     readonly property bool rtl: lang === "fa"
-    function tl(en, fa, de) { return lang === "fa" ? fa : (lang === "de" ? de : en) }
-    title: page.tl("Get cards", "دریافت کارت‌ها", "Karten holen")
+    function tl(en, fa, de, sv) { return lang === "fa" ? fa : lang === "de" ? de : lang === "sv" ? sv : en }
+    title: page.tl("Get cards", "دریافت کارت‌ها", "Karten holen", "Hämta kort")
 
     readonly property var preview: DeckExchange.preview
     readonly property bool hasPreview: preview.count !== undefined || (preview.error ?? "") !== ""
@@ -71,21 +71,21 @@ Page {
                     Layout.preferredHeight: 56
                     highlighted: true
                     enabled: !DeckExchange.busy
-                    text: page.tl("Choose a file", "انتخاب فایل", "Datei wählen")
+                    text: page.tl("Choose a file", "انتخاب فایل", "Datei wählen", "Välj en fil")
                     onClicked: { page.message = ""; openDialog.open() }
                 }
                 HintLabel {
-                    text: AppMode.full ? page.tl("Files ending in .lbox (LearningBox), .csv or .txt (Excel, Quizlet) or .apkg (Anki).", "فایل‌هایی با پسوند ‎lbox.‎ (LearningBox)، ‎csv.‎ یا ‎txt.‎ (اکسل، Quizlet) یا ‎apkg.‎ (Anki).", "Dateien mit der Endung .lbox (LearningBox), .csv oder .txt (Excel, Quizlet) oder .apkg (Anki).")
-                                       : page.tl("Files ending in .lbox (LearningBox), .csv or .txt (Excel, Quizlet).", "فایل‌هایی با پسوند ‎lbox.‎ (LearningBox)، ‎csv.‎ یا ‎txt.‎ (اکسل، Quizlet).", "Dateien mit der Endung .lbox (LearningBox), .csv oder .txt (Excel, Quizlet).")
+                    text: AppMode.full ? page.tl("Files ending in .lbox (LearningBox), .csv or .txt (Excel, Quizlet) or .apkg (Anki).", "فایل‌هایی با پسوند ‎lbox.‎ (LearningBox)، ‎csv.‎ یا ‎txt.‎ (اکسل، Quizlet) یا ‎apkg.‎ (Anki).", "Dateien mit der Endung .lbox (LearningBox), .csv oder .txt (Excel, Quizlet) oder .apkg (Anki).", "Filer som slutar på .lbox (LearningBox), .csv eller .txt (Excel, Quizlet) eller .apkg (Anki).")
+                                       : page.tl("Files ending in .lbox (LearningBox), .csv or .txt (Excel, Quizlet).", "فایل‌هایی با پسوند ‎lbox.‎ (LearningBox)، ‎csv.‎ یا ‎txt.‎ (اکسل، Quizlet).", "Dateien mit der Endung .lbox (LearningBox), .csv oder .txt (Excel, Quizlet).", "Filer som slutar på .lbox (LearningBox), .csv eller .txt (Excel, Quizlet).")
                 }
                 HintLabel {
-                    text: page.tl("Your own list as a .txt file: German word, English meaning, German example sentence, each card ending with ; — tap ? above for the format.", "فهرست خودتان در یک فایل ‎txt.‎: واژهٔ آلمانی، معنی انگلیسی، جملهٔ مثال آلمانی، و هر کارت با ‎;‎ تمام شود — برای دیدن قالب، بالا روی ? بزنید.", "Deine eigene Liste als .txt-Datei: deutsches Wort, englische Bedeutung, deutscher Beispielsatz, jede Karte endet mit ; — tippe oben auf ? für das Format.")
+                    text: page.tl("Your own list as a .txt file: German word, English meaning, German example sentence, each card ending with ; — tap ? above for the format.", "فهرست خودتان در یک فایل ‎txt.‎: واژهٔ آلمانی، معنی انگلیسی، جملهٔ مثال آلمانی، و هر کارت با ‎;‎ تمام شود — برای دیدن قالب، بالا روی ? بزنید.", "Deine eigene Liste als .txt-Datei: deutsches Wort, englische Bedeutung, deutscher Beispielsatz, jede Karte endet mit ; — tippe oben auf ? für das Format.", "Din egen lista som .txt-fil: tyskt ord, engelsk betydelse, tysk exempelmening, varje kort avslutas med ; — tryck på ? ovan för formatet.")
                 }
 
                 Label {
                     Layout.topMargin: 16
                     visible: AppMode.full
-                    text: page.tl("… or paste a link", "… یا یک لینک بچسبانید", "… oder einen Link einfügen")
+                    text: page.tl("… or paste a link", "… یا یک لینک بچسبانید", "… oder einen Link einfügen", "… eller klistra in en länk")
                     font.bold: true
                 }
                 RowLayout {
@@ -99,14 +99,14 @@ Page {
                         onAccepted: if (text.trim() !== "") { page.message = ""; DeckExchange.openLink(text) }
                     }
                     Button {
-                        text: page.tl("Get", "دریافت", "Holen")
+                        text: page.tl("Get", "دریافت", "Holen", "Hämta")
                         enabled: !DeckExchange.busy && linkField.text.trim() !== ""
                         onClicked: { page.message = ""; DeckExchange.openLink(linkField.text) }
                     }
                 }
                 HintLabel {
                     visible: AppMode.full
-                    text: page.tl("A Google Drive, Dropbox or GitHub link. In Google Drive choose Share → “Anyone with the link” first.", "یک لینک Google Drive، Dropbox یا GitHub. در Google Drive ابتدا Share ← «Anyone with the link» را انتخاب کنید.", "Ein Google-Drive-, Dropbox- oder GitHub-Link. Wähle in Google Drive zuerst Share → „Anyone with the link“.")
+                    text: page.tl("A Google Drive, Dropbox or GitHub link. In Google Drive choose Share → “Anyone with the link” first.", "یک لینک Google Drive، Dropbox یا GitHub. در Google Drive ابتدا Share ← «Anyone with the link» را انتخاب کنید.", "Ein Google-Drive-, Dropbox- oder GitHub-Link. Wähle in Google Drive zuerst Share → „Anyone with the link“.", "En länk från Google Drive, Dropbox eller GitHub. I Google Drive väljer du först Share → ”Anyone with the link”.")
                 }
             }
 
@@ -148,8 +148,8 @@ Page {
                             font.bold: true
                             font.pixelSize: 16
                             text: (page.preview.title ? "“" + page.preview.title + "” · " : "")
-                                  + page.tl("%1 card(s)", "%1 کارت", "%1 Karte(n)").arg(page.preview.count ?? 0)
-                                  + ((page.preview.pictures ?? 0) > 0 ? " · " + page.tl("%1 picture(s)", "%1 تصویر", "%1 Bild(er)").arg(page.preview.pictures) : "")
+                                  + page.tl("%1 card(s)", "%1 کارت", "%1 Karte(n)", "%1 kort").arg(page.preview.count ?? 0)
+                                  + ((page.preview.pictures ?? 0) > 0 ? " · " + page.tl("%1 picture(s)", "%1 تصویر", "%1 Bild(er)", "%1 bild(er)").arg(page.preview.pictures) : "")
                         }
                         // First cards, so the user can check which side is German
                         Repeater {
@@ -166,55 +166,55 @@ Page {
                         CheckBox {
                             id: swapSides
                             visible: page.preview.format !== "lbox"
-                            text: page.tl("German is in the second column", "آلمانی در ستون دوم است", "Deutsch steht in der zweiten Spalte")
+                            text: page.tl("German is in the second column", "آلمانی در ستون دوم است", "Deutsch steht in der zweiten Spalte", "Tyskan står i andra kolumnen")
                         }
                         HintLabel {
                             visible: swapSides.visible
                             leftPadding: 8
-                            text: page.tl("Tick this if the lines above show the meaning first.", "اگر خطوط بالا ابتدا معنی را نشان می‌دهند این را علامت بزنید.", "Hake an, wenn die Zeilen oben zuerst die Bedeutung zeigen.")
+                            text: page.tl("Tick this if the lines above show the meaning first.", "اگر خطوط بالا ابتدا معنی را نشان می‌دهند این را علامت بزنید.", "Hake an, wenn die Zeilen oben zuerst die Bedeutung zeigen.", "Bocka i om raderna ovan visar betydelsen först.")
                         }
 
                         Label {
                             Layout.topMargin: 8
-                            text: page.tl("Where should the cards go?", "کارت‌ها کجا بروند؟", "Wohin sollen die Karten?")
+                            text: page.tl("Where should the cards go?", "کارت‌ها کجا بروند؟", "Wohin sollen die Karten?", "Vart ska korten ta vägen?")
                             font.bold: true
                         }
                         ButtonGroup { id: targetGroup }
                         RadioButton {
                             id: intoNew
                             ButtonGroup.group: targetGroup
-                            text: page.tl("A new learning box", "یک جعبهٔ یادگیری جدید", "Eine neue Lernbox")
+                            text: page.tl("A new learning box", "یک جعبهٔ یادگیری جدید", "Eine neue Lernbox", "En ny inlärningslåda")
                         }
                         TextField {
                             id: newBoxName
                             visible: intoNew.checked
                             Layout.fillWidth: true
                             Layout.leftMargin: 8
-                            placeholderText: page.tl("Name, e.g. Netzwerk neu A2", "نام، مثلاً Netzwerk neu A2", "Name, z. B. Netzwerk neu A2")
+                            placeholderText: page.tl("Name, e.g. Netzwerk neu A2", "نام، مثلاً Netzwerk neu A2", "Name, z. B. Netzwerk neu A2", "Namn, t.ex. Netzwerk neu A2")
                         }
                         HintLabel {
                             visible: intoNew.checked
                             leftPadding: 8
-                            text: page.preview.language === "en" ? page.tl("Learning language: \uD83C\uDDFA\uD83C\uDDF8 English", "زبان یادگیری: \uD83C\uDDFA\uD83C\uDDF8 انگلیسی", "Lernsprache: \uD83C\uDDFA\uD83C\uDDF8 Englisch")
-                                                                 : page.preview.language === "sv" ? page.tl("Learning language: \uD83C\uDDF8\uD83C\uDDEA Swedish", "زبان یادگیری: \uD83C\uDDF8\uD83C\uDDEA سوئدی", "Lernsprache: \uD83C\uDDF8\uD83C\uDDEA Schwedisch")
-                                                                 : page.tl("Learning language: \uD83C\uDDE9\uD83C\uDDEA German", "زبان یادگیری: \uD83C\uDDE9\uD83C\uDDEA آلمانی", "Lernsprache: \uD83C\uDDE9\uD83C\uDDEA Deutsch")
+                            text: page.preview.language === "en" ? page.tl("Learning language: \uD83C\uDDFA\uD83C\uDDF8 English", "زبان یادگیری: \uD83C\uDDFA\uD83C\uDDF8 انگلیسی", "Lernsprache: \uD83C\uDDFA\uD83C\uDDF8 Englisch", "Inlärningsspråk: \uD83C\uDDFA\uD83C\uDDF8 engelska")
+                                                                 : page.preview.language === "sv" ? page.tl("Learning language: \uD83C\uDDF8\uD83C\uDDEA Swedish", "زبان یادگیری: \uD83C\uDDF8\uD83C\uDDEA سوئدی", "Lernsprache: \uD83C\uDDF8\uD83C\uDDEA Schwedisch", "Inlärningsspråk: \uD83C\uDDF8\uD83C\uDDEA svenska")
+                                                                 : page.tl("Learning language: \uD83C\uDDE9\uD83C\uDDEA German", "زبان یادگیری: \uD83C\uDDE9\uD83C\uDDEA آلمانی", "Lernsprache: \uD83C\uDDE9\uD83C\uDDEA Deutsch", "Inlärningsspråk: \uD83C\uDDE9\uD83C\uDDEA tyska")
                         }
                         RadioButton {
                             id: intoCurrent
                             ButtonGroup.group: targetGroup
                             checked: true
-                            text: page.tl("This learning box: %1", "این جعبهٔ یادگیری: %1", "Diese Lernbox: %1").arg(CardStore.currentCollectionName)
+                            text: page.tl("This learning box: %1", "این جعبهٔ یادگیری: %1", "Diese Lernbox: %1", "Den här inlärningslådan: %1").arg(CardStore.currentCollectionName)
                         }
                         HintLabel {
                             visible: intoCurrent.checked
                             leftPadding: 8
-                            text: page.tl("%1 new · %2 you already have", "%1 جدید · %2 را از قبل دارید", "%1 neu · %2 hast du schon").arg(page.preview.newCount ?? 0).arg(page.preview.existingCount ?? 0)
+                            text: page.tl("%1 new · %2 you already have", "%1 جدید · %2 را از قبل دارید", "%1 neu · %2 hast du schon", "%1 nya · %2 har du redan").arg(page.preview.newCount ?? 0).arg(page.preview.existingCount ?? 0)
                         }
 
                         Label {
                             Layout.topMargin: 8
                             visible: intoCurrent.checked && (page.preview.existingCount ?? 0) > 0
-                            text: page.tl("Words you already have", "واژه‌هایی که از قبل دارید", "Wörter, die du schon hast")
+                            text: page.tl("Words you already have", "واژه‌هایی که از قبل دارید", "Wörter, die du schon hast", "Ord du redan har")
                             font.bold: true
                         }
                         ButtonGroup { id: dupGroup }
@@ -223,17 +223,17 @@ Page {
                             visible: intoCurrent.checked && (page.preview.existingCount ?? 0) > 0
                             ButtonGroup.group: dupGroup
                             checked: true
-                            text: page.tl("Keep mine", "مال من بماند", "Meine behalten")
+                            text: page.tl("Keep mine", "مال من بماند", "Meine behalten", "Behåll mina")
                         }
                         RadioButton {
                             visible: intoCurrent.checked && (page.preview.existingCount ?? 0) > 0
                             ButtonGroup.group: dupGroup
-                            text: page.tl("Use the file's meaning and example", "معنی و مثال فایل استفاده شود", "Bedeutung und Beispiel aus der Datei verwenden")
+                            text: page.tl("Use the file's meaning and example", "معنی و مثال فایل استفاده شود", "Bedeutung und Beispiel aus der Datei verwenden", "Använd filens betydelse och exempel")
                         }
                         HintLabel {
                             visible: intoCurrent.checked && (page.preview.existingCount ?? 0) > 0
                             leftPadding: 8
-                            text: page.tl("Your progress for these words is kept either way.", "پیشرفت شما برای این واژه‌ها در هر صورت حفظ می‌شود.", "Dein Fortschritt für diese Wörter bleibt in jedem Fall erhalten.")
+                            text: page.tl("Your progress for these words is kept either way.", "پیشرفت شما برای این واژه‌ها در هر صورت حفظ می‌شود.", "Dein Fortschritt für diese Wörter bleibt in jedem Fall erhalten.", "Dina framsteg för de här orden behålls i vilket fall.")
                         }
 
                         CheckBox {
@@ -241,17 +241,17 @@ Page {
                             Layout.topMargin: 4
                             visible: page.preview.hasProgress === true
                             checked: true
-                            text: page.tl("Keep the progress from the file", "پیشرفت فایل حفظ شود", "Fortschritt aus der Datei behalten")
+                            text: page.tl("Keep the progress from the file", "پیشرفت فایل حفظ شود", "Fortschritt aus der Datei behalten", "Behåll framstegen från filen")
                         }
                         HintLabel {
                             visible: keepProgress.visible
                             leftPadding: 8
-                            text: page.tl("On: cards go into the boxes they had. Off: they start in the box below.", "روشن: کارت‌ها به جعبه‌هایی که داشتند می‌روند. خاموش: از جعبهٔ زیر شروع می‌شوند.", "An: Die Karten kommen in die Boxen, in denen sie waren. Aus: Sie beginnen in der Box unten.")
+                            text: page.tl("On: cards go into the boxes they had. Off: they start in the box below.", "روشن: کارت‌ها به جعبه‌هایی که داشتند می‌روند. خاموش: از جعبهٔ زیر شروع می‌شوند.", "An: Die Karten kommen in die Boxen, in denen sie waren. Aus: Sie beginnen in der Box unten.", "På: korten hamnar i de lådor de hade. Av: de börjar i lådan nedan.")
                         }
                         RowLayout {
                             Layout.topMargin: 4
                             visible: !(keepProgress.visible && keepProgress.checked)
-                            Label { text: page.tl("Start in", "شروع از", "Beginnen in") }
+                            Label { text: page.tl("Start in", "شروع از", "Beginnen in", "Börja i") }
                             ComboBox {
                                 id: importBox
                                 Layout.preferredWidth: 160
@@ -261,7 +261,7 @@ Page {
                         HintLabel {
                             visible: !(keepProgress.visible && keepProgress.checked)
                             leftPadding: 8
-                            text: page.tl("New cards are asked from this box.", "کارت‌های جدید از این جعبه پرسیده می‌شوند.", "Neue Karten werden ab dieser Box gefragt.")
+                            text: page.tl("New cards are asked from this box.", "کارت‌های جدید از این جعبه پرسیده می‌شوند.", "Neue Karten werden ab dieser Box gefragt.", "Nya kort förhörs från den här lådan.")
                         }
                     }
 
@@ -270,7 +270,7 @@ Page {
                         Layout.topMargin: 8
                         Button {
                             flat: true
-                            text: page.tl("Choose another file", "انتخاب فایل دیگر", "Andere Datei wählen")
+                            text: page.tl("Choose another file", "انتخاب فایل دیگر", "Andere Datei wählen", "Välj en annan fil")
                             onClicked: DeckExchange.clearPreview()
                         }
                         Item { Layout.fillWidth: true }
@@ -278,8 +278,8 @@ Page {
                             highlighted: true
                             visible: page.ready
                             enabled: page.addCount + page.updateCount > 0
-                            text: page.updateCount > 0 ? page.tl("Add %1 · update %2", "افزودن %1 · به‌روزرسانی %2", "%1 hinzufügen · %2 aktualisieren").arg(page.addCount).arg(page.updateCount)
-                                                       : page.tl("Add %1 card(s)", "افزودن %1 کارت", "%1 Karte(n) hinzufügen").arg(page.addCount)
+                            text: page.updateCount > 0 ? page.tl("Add %1 · update %2", "افزودن %1 · به‌روزرسانی %2", "%1 hinzufügen · %2 aktualisieren", "Lägg till %1 · uppdatera %2").arg(page.addCount).arg(page.updateCount)
+                                                       : page.tl("Add %1 card(s)", "افزودن %1 کارت", "%1 Karte(n) hinzufügen", "Lägg till %1 kort").arg(page.addCount)
                             onClicked: {
                                 const r = DeckExchange.applyImport(skipExisting.checked ? "skip" : "update",
                                                                    keepProgress.visible && keepProgress.checked,
@@ -288,7 +288,7 @@ Page {
                                 if (r.error) {
                                     page.say(r.error, false)
                                 } else {
-                                    page.say(page.tl("Added %1 · updated %2 · skipped %3", "افزوده شد %1 · به‌روز شد %2 · ردشده %3", "Hinzugefügt %1 · aktualisiert %2 · übersprungen %3").arg(r.added).arg(r.updated).arg(r.skipped), true)
+                                    page.say(page.tl("Added %1 · updated %2 · skipped %3", "افزوده شد %1 · به‌روز شد %2 · ردشده %3", "Hinzugefügt %1 · aktualisiert %2 · übersprungen %3", "Tillagda %1 · uppdaterade %2 · hoppade över %3").arg(r.added).arg(r.updated).arg(r.skipped), true)
                                     page.imported = true
                                     DeckExchange.clearPreview()
                                 }
@@ -311,7 +311,7 @@ Page {
             Button {
                 Layout.leftMargin: 16
                 visible: page.imported
-                text: page.tl("Open “%1”", "باز کردن «%1»", "„%1“ öffnen").arg(CardStore.currentCollectionName)
+                text: page.tl("Open “%1”", "باز کردن «%1»", "„%1“ öffnen", "Öppna ”%1”").arg(CardStore.currentCollectionName)
                 onClicked: page.StackView.view.pop(null)
             }
             Item { Layout.preferredHeight: 16 }
@@ -320,7 +320,7 @@ Page {
 
     FileDialog {
         id: openDialog
-        title: page.tl("Choose a card file", "انتخاب فایل کارت", "Kartendatei wählen")
+        title: page.tl("Choose a card file", "انتخاب فایل کارت", "Kartendatei wählen", "Välj en kortfil")
         fileMode: FileDialog.OpenFile
         // Android matches filters by file type; .lbox/.apkg are unknown there, so show all files.
         nameFilters: Qt.platform.os === "android" ? []
