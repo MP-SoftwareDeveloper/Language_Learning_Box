@@ -435,8 +435,11 @@ private slots:
         }
         QVERIFY(listed);
         QSet<int> favIds;
-        for (const QVariant &v : s->favorites())
+        for (const QVariant &v : s->favorites()) {
             favIds.insert(v.toMap().value(QStringLiteral("id")).toInt());
+            const QString lang = v.toMap().value(QStringLiteral("language")).toString();
+            QVERIFY(lang == QLatin1String("de") || lang == QLatin1String("en") || lang == QLatin1String("sv"));
+        }
         QVERIFY(favIds.contains(a) && favIds.contains(b) && !favIds.contains(c));
         QVERIFY(s->setFavorite(a, false));
         QVERIFY(!s->isFavorite(a));

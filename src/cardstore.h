@@ -102,7 +102,8 @@ public:
     // Favorites (★): any card can be starred; the favorites list spans all learning boxes
     Q_INVOKABLE bool isFavorite(int id) const;
     Q_INVOKABLE bool setFavorite(int id, bool favorite);
-    // Starred cards of all learning boxes, newest star first: [{id, front, back, example, box, imageUrl, collection}]
+    // Starred cards of all learning boxes, newest star first:
+    // [{id, front, back, example, box, imageUrl, collection, language}] (language: "de", "en" or "sv", the box's)
     Q_INVOKABLE QVariantList favorites() const;
     Q_INVOKABLE bool resetCard(int id); // back to box 1, due now
     // Manual move to another box (1..5, 6 = Learned), scheduled with that box's interval.

@@ -358,10 +358,15 @@ bool CardStore::setFavorite(int id, bool favorite)
 QVariantList CardStore::favorites() const
 {
     QHash<int, QString> names;
+    QHash<int, QString> languages;
     QSqlQuery nq(db());
-    nq.exec(QStringLiteral("SELECT id, name FROM collections"));
-    while (nq.next())
+    nq.exec(QStringLiteral("SELECT id, name, language FROM collections"));
+    while (nq.next()) {
+        const QString l = nq.value(2).toString();
         names.insert(nq.value(0).toInt(), nq.value(1).toString());
+        // same rule as learningLanguage(): anything but English and Swedish is German
+        languages.insert(nq.value(0).toInt(), l == QLatin1String("en") || l == QLatin1String("sv") ? l : QStringLiteral("de"));
+    }
 
     QVariantList out;
     QSqlQuery q(db());
@@ -377,6 +382,7 @@ QVariantList CardStore::favorites() const
             {QStringLiteral("box"), c.box},
             {QStringLiteral("imageUrl"), imageUrl(c.image)},
             {QStringLiteral("collection"), names.value(q.value(10).toInt())},
+            {QStringLiteral("language"), languages.value(q.value(10).toInt(), QStringLiteral("de"))},
         });
     }
     return out;

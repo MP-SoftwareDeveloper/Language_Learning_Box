@@ -4,17 +4,51 @@ import QtQuick.Layouts
 import QtQuick.Controls.Material
 import LearningBox
 
-// Favorite words: every starred card of all learning boxes, newest star first.
+// Favorite words: the starred cards of the learning boxes, newest star first. The language chips filter by language
+// (German / English / Swedish): at first only the language of the selected learning box; the others can be switched on.
 // Tap a word to edit it; the star removes it from the list (the card itself stays).
 Page {
     id: page
     title: qsTr("Favorite words")
 
-    property var cards: []
+    property var all: []        // every favorite, sorted
+    property var cards: []      // the ones in the switched-on languages
+    property var languages: []  // [{code, name, count}] of the languages that have favorites
+    property var shown: ({})    // {code: true}: the switched-on languages; set when the page opens
+    property bool filterSet: false
+    readonly property var langNames: ({ "de": "Deutsch", "en": "English", "sv": "Svenska" })
+
+    function applyFilter() {
+        cards = all.filter(c => shown[c.language] === true)
+    }
+    function toggleLanguage(code) {
+        const s = Object.assign({}, shown)
+        s[code] = !s[code]
+        shown = s
+        applyFilter()
+    }
     function reload() {
         // Keep the scroll position when a star is removed (a new list would jump to the top)
         const y = list.contentY
-        cards = sortButton.apply(CardStore.favorites())
+        all = sortButton.apply(CardStore.favorites())
+        const counts = ({})
+        for (const c of all)
+            counts[c.language] = (counts[c.language] ?? 0) + 1
+        languages = ["de", "en", "sv"].filter(l => counts[l] > 0).map(l => ({ code: l, name: langNames[l], count: counts[l] }))
+        if (!filterSet) {
+            // First: the language of the selected learning box. Without favorites in it: all that have some,
+            // so the page is not empty.
+            const s = ({})
+            const learn = CardStore.learningLanguage
+            if (counts[learn] > 0)
+                s[learn] = true
+            else
+                for (const l of languages)
+                    s[l.code] = true
+            shown = s
+            filterSet = all.length > 0
+        }
+        applyFilter()
         list.forceLayout()
         list.contentY = Math.max(list.originY, Math.min(y, list.originY + list.contentHeight - list.height))
     }
@@ -38,7 +72,7 @@ Page {
         anchors.top: parent.top
         anchors.left: parent.left
         anchors.right: parent.right
-        height: page.cards.length > 0 ? sortButton.implicitHeight + 12 : 0
+        height: page.all.length > 0 ? sortButton.implicitHeight + 12 : 0
         clip: true
         // Light-blue line under Sort, edge to edge
         Rectangle {
@@ -56,9 +90,36 @@ Page {
         }
     }
 
+    // Language filter: one chip per language that has favorites; tap to switch it on or off
+    Flow {
+        id: langBar
+        anchors.top: sortBar.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.leftMargin: 8
+        anchors.rightMargin: 8
+        anchors.topMargin: visible ? 4 : 0
+        spacing: 8
+        visible: page.languages.length > 1
+        height: visible ? implicitHeight : 0
+        Repeater {
+            model: page.languages
+            delegate: Button {
+                required property var modelData
+                objectName: "langChip_" + modelData.code
+                flat: !checked
+                checkable: true
+                checked: page.shown[modelData.code] === true
+                highlighted: checked
+                text: modelData.name + " (" + modelData.count + ")"
+                onClicked: page.toggleLanguage(modelData.code)
+            }
+        }
+    }
+
     ListView {
         id: list
-        anchors.top: sortBar.bottom
+        anchors.top: langBar.bottom
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: parent.bottom
@@ -113,7 +174,7 @@ Page {
         ColumnLayout {
             anchors.centerIn: parent
             width: Math.min(parent.width - 48, 320)
-            visible: list.count === 0
+            visible: list.count === 0 && page.all.length === 0
             spacing: 8
             StarIcon {
                 Layout.alignment: Qt.AlignHCenter
@@ -129,6 +190,16 @@ Page {
                 opacity: 0.7
                 text: qsTr("No favorite words yet.\nTap ★ on any card — in review, in a box, in the editor or in Lens — to add it here.")
             }
+        }
+        // Favorites exist, but none in the switched-on languages
+        Label {
+            anchors.centerIn: parent
+            width: Math.min(parent.width - 48, 320)
+            visible: list.count === 0 && page.all.length > 0
+            horizontalAlignment: Text.AlignHCenter
+            wrapMode: Text.WordWrap
+            opacity: 0.7
+            text: qsTr("No favorite words in the selected languages.\nSwitch a language on above.")
         }
     }
 }
