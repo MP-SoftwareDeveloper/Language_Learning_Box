@@ -115,8 +115,17 @@ Page {
                 // the language's tint when on, gray when off; the text is always black
                 Material.background: checked ? Qt.alpha(page.langColor(modelData.code), 0.6) : "#BDBDBD"
                 Material.elevation: 0
-                Material.foreground: "black"
                 text: modelData.name + " (" + modelData.count + ")"
+                // Own label: the Material style colors the text of a checked button itself (accent), whatever
+                // Material.foreground says
+                contentItem: Label {
+                    text: parent.text
+                    font: parent.font
+                    color: "black"
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    elide: Text.ElideRight
+                }
                 onClicked: page.toggleLanguage(modelData.code)
             }
         }
