@@ -645,35 +645,33 @@ Page {
                         letterSet: page.cardLang === "sv" ? "sv" : "de"
                     }
 
-                    // Which learning box (of this language) the card goes to; the choice is remembered
+                    // "+ Add to" and the learning box (of this language) it goes to, on one line; the choice is
+                    // remembered. With one box only there is nothing to choose: the button names it.
                     RowLayout {
                         Layout.fillWidth: true
                         Layout.topMargin: 4
-                        visible: page.canAdd && page.boxChoices.length > 1
-                        Label {
-                            text: qsTr("Save in")
-                            opacity: 0.7
+                        visible: page.canAdd
+                        spacing: 8
+                        // Like Lens: save straight into the learning box (asks if the word is already a card)
+                        Button {
+                            readonly property bool choose: page.boxChoices.length > 1
+                            highlighted: true
+                            // also when nothing was found: the card is saved without a meaning (or, looked up from the
+                            // meaning side, the editor opens with it)
+                            text: choose ? (page.result !== "" ? qsTr("+ Add to") : qsTr("+ Add without translation to"))
+                                         : (page.result !== "" ? qsTr("+ Add to “%1”").arg(page.targetName)
+                                                               : qsTr("+ Add without translation to “%1”").arg(page.targetName))
+                            onClicked: page.quickAdd(false)
                         }
                         ComboBox {
                             objectName: "saveBox"
                             Layout.fillWidth: true
+                            visible: page.boxChoices.length > 1
                             model: page.boxChoices
                             textRole: "name"
                             currentIndex: page.boxChoices.findIndex(b => b.id === page.targetBox)
                             onActivated: (i) => page.chooseBox(page.boxChoices[i].id)
                         }
-                    }
-
-                    // Like Lens: save straight into the learning box (asks if the word is already a card)
-                    Button {
-                        Layout.topMargin: 4
-                        highlighted: true
-                        // also when nothing was found: the card is saved without a meaning (or, looked up from the
-                        // meaning side, the editor opens with it)
-                        visible: page.canAdd
-                        text: page.result !== "" ? qsTr("+ Add to “%1”").arg(page.targetName)
-                                                 : qsTr("+ Add without translation to “%1”").arg(page.targetName)
-                        onClicked: page.quickAdd(false)
                     }
                 }
             }
