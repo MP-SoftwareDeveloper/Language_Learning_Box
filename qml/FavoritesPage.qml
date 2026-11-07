@@ -17,6 +17,9 @@ Page {
     property var shown: ({})    // {code: true}: the switched-on languages; set when the page opens
     property bool filterSet: false
     readonly property var langNames: ({ "de": "Deutsch", "en": "English", "sv": "Svenska" })
+    // One tint per language: its chip, and the background of its words
+    readonly property var langColors: ({ "de": "#FFB300", "en": "#42A5F5", "sv": "#66BB6A" })
+    function langColor(code) { return langColors[code] ?? "#9E9E9E" }
 
     function applyFilter() {
         cards = all.filter(c => shown[c.language] === true)
@@ -107,10 +110,11 @@ Page {
             delegate: Button {
                 required property var modelData
                 objectName: "langChip_" + modelData.code
-                flat: !checked
                 checkable: true
                 checked: page.shown[modelData.code] === true
-                highlighted: checked
+                // the language's tint: strong when on, faint when off
+                Material.background: Qt.alpha(page.langColor(modelData.code), checked ? 0.6 : 0.2)
+                Material.elevation: 0
                 text: modelData.name + " (" + modelData.count + ")"
                 onClicked: page.toggleLanguage(modelData.code)
             }
@@ -150,6 +154,10 @@ Page {
             rightPadding: 4
             topPadding: 8
             bottomPadding: 8
+            // Tinted like the language's chip
+            background: Rectangle {
+                color: Qt.alpha(page.langColor(row.modelData.language), row.down ? 0.28 : 0.14)
+            }
             // The whole card: front, meaning and example, each with 🔊
             contentItem: CardFace {
                 card: row.modelData
