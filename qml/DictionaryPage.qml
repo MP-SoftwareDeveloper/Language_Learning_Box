@@ -141,6 +141,11 @@ Page {
                                                                  : CardStore.currentCollection)
     readonly property string targetName: revision < 0 ? ""
         : targetBox >= 0 ? CardStore.collectionName(targetBox) : qsTr("My German words")
+    // The word's language (the card's) has its learning boxes switched off in Settings: say so, the card is still saved
+    readonly property bool cardBoxesOff: cardLang === "de" ? !LevelPacks.germanBoxes
+        : cardLang === "sv" ? !LevelPacks.swedishBoxes
+        : cardLang === "en" ? !LevelPacks.englishBoxes : false
+    readonly property string cardLangEnglish: cardLang === "de" ? qsTr("German") : cardLang === "sv" ? qsTr("Swedish") : qsTr("English")
     function targetId() {
         if (targetBox >= 0)
             return targetBox
@@ -674,6 +679,16 @@ Page {
                             currentIndex: page.boxChoices.findIndex(b => b.id === page.targetBox)
                             onActivated: (i) => page.chooseBox(page.boxChoices[i].id)
                         }
+                    }
+
+                    Label {
+                        Layout.fillWidth: true
+                        visible: page.canAdd && page.cardBoxesOff
+                        wrapMode: Text.WordWrap
+                        font.pixelSize: 13
+                        color: Material.color(Material.Orange)
+                        text: qsTr("%1 learning boxes are switched off in Settings, so “%2” is not in your box list. The card is saved there anyway; switch %1 boxes on in Settings to see it.")
+                                  .arg(page.cardLangEnglish).arg(page.targetName)
                     }
                 }
             }
