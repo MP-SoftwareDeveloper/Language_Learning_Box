@@ -19,7 +19,9 @@ Item {
     property bool active: true          // false: no lookups (e.g. editing an existing card)
     property string meaning: Translator.meaningLanguage // language of the example translations
     property bool autoPick: true        // choose the first example sentence on its own
-    readonly property string lang: CardStore.learningLanguage
+    // Language of the word. The learning box's, unless the user of this item says otherwise (the Dictionary looks
+    // German words up as German, whichever learning box is selected).
+    property string lang: CardStore.learningLanguage
 
     // The word should stand in the box with a capital first letter (German nouns, first letter of a sentence)
     signal capitalise(string text)
@@ -212,8 +214,8 @@ Item {
         deselected = list.length === 0
         for (const i of fresh) {
             const e = examples[i]
-            if (e && e.translation && meaning === Translator.meaningLanguage)
-                Translator.remember(e.text, e.translation)
+            if (e && e.translation) // in the meaning language: the examples are asked for / filtered that way
+                Translator.rememberBetween(lang, meaning, e.text, e.translation)
         }
         exampleChosen(chosen, byUser === true)
     }
@@ -243,7 +245,7 @@ Item {
         if (examples.length > 0 && autoPick)
             pickAll([0], false) // the first one is ticked to start with; tick more or untick it
         if (Translator.useOnline)
-            examplesRequest = Translator.suggestExamples(q)
+            examplesRequest = Translator.suggestExamplesFor(q, lang, meaning)
     }
 
     // ---- when ----
@@ -274,6 +276,11 @@ Item {
         }
     }
     onActiveChanged: if (active) debounce.restart()
+    onLangChanged: {
+        grammarFor = "" // the article and forms of the word are the other language's now
+        if (active)
+            debounce.restart()
+    }
 
     Connections {
         target: Translator

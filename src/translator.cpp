@@ -379,10 +379,21 @@ void Translator::rememberIn(const QString &language, const QString &text, const 
         store(sourceLanguage(), language, text.simplified(), translation.trimmed(), {});
 }
 
+void Translator::rememberBetween(const QString &source, const QString &target, const QString &text,
+                                 const QString &translation)
+{
+    if (!source.isEmpty() && !target.isEmpty() && !text.trimmed().isEmpty() && !translation.trimmed().isEmpty())
+        store(source, target, text.simplified(), translation.trimmed(), {});
+}
+
 int Translator::suggestExamples(const QString &word)
 {
+    return suggestExamplesFor(word, sourceLanguage(), meaningLanguage());
+}
+
+int Translator::suggestExamplesFor(const QString &word, const QString &source, const QString &target)
+{
     const int id = m_nextId++;
-    const QString source = sourceLanguage();
     const QString w = tatoeba::searchWord(word, source);
     if (w.isEmpty() || !useOnline()) {
         QTimer::singleShot(0, this, [=, this] {
@@ -390,7 +401,6 @@ int Translator::suggestExamples(const QString &word)
         });
         return id;
     }
-    const QString target = meaningLanguage();
     QNetworkRequest req(tatoeba::searchUrl(w, target, 10, source));
     req.setHeader(QNetworkRequest::UserAgentHeader, QStringLiteral("LearningBox (Qt)"));
     QNetworkReply *reply = m_nam->get(req);

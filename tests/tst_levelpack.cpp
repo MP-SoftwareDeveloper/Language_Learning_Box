@@ -29,6 +29,34 @@ private slots:
         QCOMPARE(levelWordBack(c->words[0], QStringLiteral("en")), QStringLiteral("house\nPl. die Häuser"));
         QCOMPARE(levelWordBack(c->words[1], QStringLiteral("fa")), QStringLiteral("رفتن"));
     }
+    void findsGermanWords()
+    {
+        const QString text = QStringLiteral(
+            "@level\ta1-1\tA1 · Level 1\tSub\n"
+            "@chapter\ta1-1\t1\tHallo\n"
+            "a1-1\t1\tder Satz\tSätze\tsentence\tجمله\tIch lese den Satz.\tI read the sentence.\tمن جمله را می‌خوانم.\n"
+            "a1-1\t1\tgehen\t-\tto go\tرفتن\tIch gehe.\tI go.\tمن می‌روم.\n"
+            "a1-1\t1\tder Morgen\tMorgen\tmorning\tصبح\tGuten Morgen.\tGood morning.\tصبح بخیر.\n"
+            "a1-1\t1\tmorgen\t-\ttomorrow\tفردا\tBis morgen.\tSee you tomorrow.\tفردا می‌بینمت.\n"
+            "@level\tsv-a2-1\tSvenska A2 · Nivå 1\tSub\n"
+            "@chapter\tsv-a2-1\t1\tHej\n"
+            "sv-a2-1\t1\ten bil\tbilar\tcar\tماشین\tEn bil.\tA car.\tیک ماشین.\n");
+        QList<LevelPack> packs;
+        QString err;
+        QVERIFY2(parseLevelPacks(text, &packs, &err), qPrintable(err));
+        const LevelWord *w = findGermanWord(packs, QStringLiteral("Satz"));
+        QVERIFY(w);
+        QCOMPARE(w->german, QStringLiteral("der Satz"));
+        QCOMPARE(levelWordBack(*w, QStringLiteral("en")), QStringLiteral("sentence\nPl. Sätze"));
+        QVERIFY(findGermanWord(packs, QStringLiteral("der Satz")));
+        QVERIFY(findGermanWord(packs, QStringLiteral("SATZ")));
+        QVERIFY(!findGermanWord(packs, QStringLiteral("die Satz"))); // wrong article: not that word
+        QVERIFY(findGermanWord(packs, QStringLiteral("gehen")));
+        QCOMPARE(findGermanWord(packs, QStringLiteral("morgen"))->english, QStringLiteral("tomorrow")); // as typed
+        QCOMPARE(findGermanWord(packs, QStringLiteral("Morgen"))->english, QStringLiteral("morning"));
+        QVERIFY(!findGermanWord(packs, QStringLiteral("bil"))); // only German packs count
+        QVERIFY(!findGermanWord(packs, QString()));
+    }
     void swedishIdsGetSwedishLanguage()
     {
         const QString text = QStringLiteral(

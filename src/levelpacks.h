@@ -66,6 +66,11 @@ public:
     Q_INVOKABLE bool openLevel(const QString &levelId);
     // Words of one chapter for a preview: [{front, back, example, exampleFa, exampleEn, inBox}]
     Q_INVOKABLE QVariantList chapterWords(const QString &levelId, int number) const;
+    // Curated meaning of a German word from the German level lists (A1 to C1, the complete lists, "Alltag"):
+    // {front: "der Satz", meaning: "sentence", back: "sentence\nPl. Sätze"} for `language` ("fa" = Persian, anything
+    // else = English). An empty map when the word is not in them. The Dictionary shows it first, before the
+    // translator's guess for a lone word.
+    Q_INVOKABLE QVariantMap germanMeaning(const QString &word, const QString &language) const;
 
 signals:
     void changed();

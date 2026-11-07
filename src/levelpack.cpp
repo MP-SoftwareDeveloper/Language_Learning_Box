@@ -102,3 +102,45 @@ QString levelWordBack(const LevelWord &w, const QString &language)
         back += QStringLiteral("\nPl. ") + w.plural;
     return back;
 }
+
+namespace {
+// "der Satz" -> article "der" (lower case), bare "Satz" (as written); no article -> article "".
+void splitArticle(const QString &text, QString *article, QString *bare)
+{
+    const QString t = text.simplified();
+    const int blank = t.indexOf(QLatin1Char(' '));
+    const QString first = blank > 0 ? t.left(blank).toCaseFolded() : QString();
+    if (first == QLatin1String("der") || first == QLatin1String("die") || first == QLatin1String("das")) {
+        *article = first;
+        *bare = t.mid(blank + 1).simplified();
+    } else {
+        article->clear();
+        *bare = t;
+    }
+}
+} // namespace
+
+const LevelWord *findGermanWord(const QList<LevelPack> &packs, const QString &word)
+{
+    QString article, bare;
+    splitArticle(word, &article, &bare);
+    if (bare.isEmpty())
+        return nullptr;
+    // First the spelling as typed ("morgen" is tomorrow, "Morgen" the morning), then any case ("satz")
+    for (const Qt::CaseSensitivity cs : {Qt::CaseSensitive, Qt::CaseInsensitive}) {
+        for (const LevelPack &pack : packs) {
+            if (pack.language != QLatin1String("de"))
+                continue;
+            for (const LevelChapter &chapter : pack.chapters) {
+                for (const LevelWord &w : chapter.words) {
+                    QString a, b;
+                    splitArticle(w.german, &a, &b);
+                    // "die Satz" is not "der Satz": a typed article has to agree with the entry's
+                    if (b.compare(bare, cs) == 0 && (article.isEmpty() || a.isEmpty() || a == article))
+                        return &w;
+                }
+            }
+        }
+    }
+    return nullptr;
+}

@@ -8,7 +8,8 @@ import LearningBox
 // Dictionary: look up a word or sentence between any two languages (Deutsch, English, فارسی), picked in
 // two combo boxes at the top: the input language and the output language (remembered). The default is the
 // learning language of the selected box and its meaning language. Cards can be added when one of the two
-// languages is the learning language.
+// languages is the card language: the selected box's language, except that German is always a German card
+// (cardLang), added to a German box whichever box is selected (targetBox).
 // Word pack (German → Persian, offline), saved translations, online translation (Full app),
 // example sentences, 🔊 for German / English, and "Add to learning box".
 Page {
@@ -16,6 +17,10 @@ Page {
     title: qsTr("Dictionary")
 
     readonly property string learn: CardStore.learningLanguage   // "de" / "en" / "sv"
+    // Language of the card the Dictionary makes: the learning box's language, except for German. A German word is
+    // always looked up as a German card (article, plural, German examples), also while an English or Swedish box
+    // is selected or the German boxes are switched off in Settings; the card goes into a German box (targetBox).
+    readonly property string cardLang: from === learn ? learn : ((from === "de" || to === "de") ? "de" : learn)
     readonly property string boxMeaning: Translator.meaningLanguage // "fa" / "en" / "de"
     readonly property var languages: [
         { code: "de", name: "Deutsch" }, { code: "en", name: "English" }, { code: "sv", name: "Svenska" }, { code: "fa", name: "فارسی" }
@@ -63,11 +68,12 @@ Page {
         category: "dictionary"
         property string fromLang: ""
         property string toLang: ""
+        property string saveBoxes: "{}" // JSON {"de": box id, ...}: the box chosen in "Save in", per language
     }
     // learn → other language (the card's front is the typed word) / other language → learn (the front is the answer)
     // / free: neither is the learning language (no cards, no grammar block)
-    readonly property bool reverse: from !== learn && to === learn
-    readonly property bool free: from !== learn && to !== learn
+    readonly property bool reverse: from !== cardLang && to === cardLang
+    readonly property bool free: from !== cardLang && to !== cardLang
     // The language the meaning (card back) is in
     readonly property string meaning: reverse ? from : to
 
@@ -94,7 +100,81 @@ Page {
         return lines.join("\n")
     }
 
-    // Save the looked-up word as a card in the selected learning box, with the chosen sentence.
+    // Bumped whenever boxes, cards or favorites change: the bindings below that use it look again. (Each one uses
+    // the number in its expression: a binding that only "reads" a property can be optimised away, see StarButton.)
+    property int revision: 0
+    Connections {
+        target: CardStore
+        function onChanged() { page.revision++ }
+        function onFavoritesChanged() { page.revision++ }
+    }
+
+    // The learning box a card goes to. The user can choose among the boxes of the card's language ("Save in", also
+    // the ones the box list hides, Settings); the choice is remembered per language. Without a choice: the selected
+    // box, or - when the Dictionary works in another language than the selected box (German words while an English
+    // box is selected) - the most recently used box of that language. With no such box, "Add" creates one.
+    readonly property bool otherBox: cardLang !== learn
+    readonly property var boxChoices: revision < 0 ? [] : CardStore.collectionsFor(cardLang) // [{id, name}]
+    function savedBox(language) {
+        try {
+            return JSON.parse(prefs.saveBoxes)[language] ?? -1
+        } catch (e) {
+            return -1
+        }
+    }
+    function chooseBox(id) {
+        let all = ({})
+        try {
+            all = JSON.parse(prefs.saveBoxes)
+        } catch (e) {
+        }
+        all[cardLang] = id
+        prefs.saveBoxes = JSON.stringify(all)
+    }
+    readonly property int chosenBox: {
+        const id = savedBox(cardLang)
+        return boxChoices.some(b => b.id === id) ? id : -1 // -1: no choice, or that box is gone
+    }
+    readonly property int targetBox: chosenBox >= 0 ? chosenBox
+        : revision < 0 ? -1 : (otherBox ? CardStore.latestCollection(cardLang) : CardStore.currentCollection)
+    readonly property string targetName: revision < 0 ? ""
+        : targetBox >= 0 ? CardStore.collectionName(targetBox) : qsTr("My German words")
+    function targetId() {
+        if (targetBox >= 0)
+            return targetBox
+        const created = CardStore.createCollection(qsTr("My German words"), cardLang)
+        if (created >= 0 && !LevelPacks.germanBoxes)
+            CardStore.setCollectionHidden(created, true) // German boxes are switched off (Settings): not in the list
+        return created
+    }
+
+    // The word as a card in the target box (-1: not a card there), and whether it is a favorite (★)
+    readonly property int cardId: {
+        const front = cardFront.trim()
+        return revision < 0 || targetBox < 0 || front === "" ? -1 : CardStore.findByFrontIn(targetBox, front)
+    }
+    readonly property bool starred: revision >= 0 && cardId >= 0 && CardStore.isFavorite(cardId)
+    // ★ tapped: a card is starred / unstarred; a word that is not a card yet is added to the target box, starred
+    function toggleFavorite() {
+        const front = cardFront.trim()
+        if (front === "")
+            return
+        if (cardId >= 0) {
+            CardStore.setFavorite(cardId, !starred)
+            return
+        }
+        const box = targetId()
+        const id = box >= 0 ? CardStore.addCardIn(box, front, cardBack, cardExample) : -1
+        if (id < 0) {
+            toast.show(qsTr("Could not save"))
+            return
+        }
+        CardStore.setFavorite(id, true)
+        ownExampleField.clear()
+        toast.show(qsTr("Card added to “%1” as a favorite").arg(CardStore.collectionName(box)))
+    }
+
+    // Save the looked-up word as a card in its learning box (targetBox), with the chosen sentence.
     // A word that is already a card is only touched when the user says so (updateExisting).
     // Also works without a translation (nothing found, offline, Google blocked): the card is saved with an
     // empty meaning, to be filled in later. Looked up from the meaning side with no German found, the card
@@ -102,12 +182,21 @@ Page {
     function quickAdd(updateExisting) {
         const front = cardFront.trim()
         if (front === "" && reverse && query !== "") {
+            if (targetBox !== CardStore.currentCollection) { // the editor adds to the selected box only
+                toast.show(qsTr("No word found to add"))
+                return
+            }
             page.StackView.view.push(editPage, { initialBack: query, initialExample: cardExample })
             return
         }
         if (front === "")
             return
-        const id = CardStore.findByFront(front)
+        const box = targetId()
+        if (box < 0) {
+            toast.show(qsTr("Could not save"))
+            return
+        }
+        const id = CardStore.findByFrontIn(box, front)
         if (id >= 0 && !updateExisting) {
             existsDialog.existing = CardStore.card(id)
             existsDialog.open()
@@ -121,8 +210,11 @@ Page {
             if (ok)
                 ownExampleField.clear()
         } else {
-            const added = CardStore.addCard(front, cardBack, cardExample) >= 0
-            toast.show(added ? (cardBack === "" ? qsTr("Card added without a meaning") : qsTr("Card added"))
+            const added = CardStore.addCardIn(box, front, cardBack, cardExample) >= 0
+            toast.show(added ? (cardBack === "" ? qsTr("Card added without a meaning")
+                                                : box !== CardStore.currentCollection
+                                                  ? qsTr("Card added to “%1”").arg(CardStore.collectionName(box))
+                                                           : qsTr("Card added"))
                              : qsTr("Could not save"))
             if (added)
                 ownExampleField.clear()
@@ -161,7 +253,7 @@ Page {
     property string meaningQuery: ""
     property bool inLookup: false
     function requestMeaning() {
-        const q = from === learn && wordInfo.meaningText !== "" ? wordInfo.meaningText : query
+        const q = from === cardLang && wordInfo.meaningText !== "" ? wordInfo.meaningText : query
         meaningQuery = q
         requestId = Translator.translateBetween(q, from, to)
     }
@@ -182,11 +274,21 @@ Page {
             return
         }
         // Offline first: the German word pack with its curated Persian meaning
-        if (from === learn && learn === "de" && to === "fa") {
+        if (from === cardLang && cardLang === "de" && to === "fa") {
             const known = WordPacks.lookup(query)
             if (known.back) {
                 headword = known.front
                 result = known.back
+                source = "pack"
+            }
+        }
+        // The German level lists (A1 to C1) have a curated first meaning, better than the translator's guess for a
+        // lone word ("Satz" -> "Set", not "sentence"); what the translator finds follows as "Also"
+        if (source === "" && from === cardLang && cardLang === "de" && (to === "en" || to === "fa")) {
+            const curated = LevelPacks.germanMeaning(query, to)
+            if (curated.back) {
+                headword = curated.front
+                result = curated.back
                 source = "pack"
             }
         }
@@ -226,10 +328,11 @@ Page {
         id: wordInfo
         word: page.free ? "" : page.reverse ? page.result.split("\n")[0] : page.query
         meaning: page.meaning
+        lang: page.cardLang
         onMeaningTextChanged: {
             // The word turned out to be two (noun / verb), or the choice changed: translate the chosen one
             if (page.inLookup || page.reverse || page.free || page.query === "" || page.source === "pack"
-                    || page.from !== page.learn || meaningText === page.meaningQuery || word.trim() !== page.query)
+                    || page.from !== page.cardLang || meaningText === page.meaningQuery || word.trim() !== page.query)
                 return
             page.result = ""; page.alternatives = []; page.source = ""
             page.requestMeaning()
@@ -442,6 +545,27 @@ Page {
                             speakText: page.headword || page.query
                             languageTag: page.tag(page.from)
                         }
+                        // ★ Favorite words: for a card in the target box; a word that is not a card yet is added, starred
+                        ToolButton {
+                            visible: page.canAdd && page.cardFront.trim() !== ""
+                            focusPolicy: Qt.NoFocus
+                            implicitWidth: 40
+                            contentItem: Item {
+                                implicitWidth: 24
+                                implicitHeight: 24
+                                StarIcon {
+                                    anchors.centerIn: parent
+                                    width: 24
+                                    height: 24
+                                    filled: page.starred
+                                    color: page.starred ? "#F5B301" : Material.foreground
+                                    opacity: page.starred ? 1 : 0.6
+                                }
+                            }
+                            ToolTip.visible: hovered
+                            ToolTip.text: page.starred ? qsTr("Remove from Favorite words") : qsTr("Add to Favorite words")
+                            onClicked: page.toggleFavorite()
+                        }
                     }
 
                     Label {
@@ -507,9 +631,9 @@ Page {
                         }
                         SpeakButton {
                             Layout.alignment: Qt.AlignTop
-                            visible: page.learn !== "fa"
+                            visible: page.cardLang !== "fa"
                             speakText: ownExampleField.text
-                            languageTag: page.tag(page.learn)
+                            languageTag: page.tag(page.cardLang)
                         }
                     }
 
@@ -517,8 +641,27 @@ Page {
                         id: keysOwn
                         Layout.fillWidth: true
                         target: ownExampleField
-                        forLanguage: page.learn === "de" || page.learn === "sv"
-                        letterSet: page.learn === "sv" ? "sv" : "de"
+                        forLanguage: page.cardLang === "de" || page.cardLang === "sv"
+                        letterSet: page.cardLang === "sv" ? "sv" : "de"
+                    }
+
+                    // Which learning box (of this language) the card goes to; the choice is remembered
+                    RowLayout {
+                        Layout.fillWidth: true
+                        Layout.topMargin: 4
+                        visible: page.canAdd && page.boxChoices.length > 1
+                        Label {
+                            text: qsTr("Save in")
+                            opacity: 0.7
+                        }
+                        ComboBox {
+                            objectName: "saveBox"
+                            Layout.fillWidth: true
+                            model: page.boxChoices
+                            textRole: "name"
+                            currentIndex: page.boxChoices.findIndex(b => b.id === page.targetBox)
+                            onActivated: (i) => page.chooseBox(page.boxChoices[i].id)
+                        }
                     }
 
                     // Like Lens: save straight into the learning box (asks if the word is already a card)
@@ -528,8 +671,8 @@ Page {
                         // also when nothing was found: the card is saved without a meaning (or, looked up from the
                         // meaning side, the editor opens with it)
                         visible: page.canAdd
-                        text: page.result !== "" ? qsTr("+ Add to “%1”").arg(CardStore.currentCollectionName)
-                                                 : qsTr("+ Add without translation to “%1”").arg(CardStore.currentCollectionName)
+                        text: page.result !== "" ? qsTr("+ Add to “%1”").arg(page.targetName)
+                                                 : qsTr("+ Add without translation to “%1”").arg(page.targetName)
                         onClicked: page.quickAdd(false)
                     }
                 }

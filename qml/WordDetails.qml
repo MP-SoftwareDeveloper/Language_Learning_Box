@@ -123,7 +123,8 @@ ColumnLayout {
                 Layout.fillWidth: true
                 example: modelData.text
                 target: root.info.meaning
-                knownTranslation: root.info.meaning === Translator.meaningLanguage ? (modelData.translation ?? "") : ""
+                sourceLang: root.info.lang
+                knownTranslation: modelData.translation ?? "" // already in the meaning language (see WordLookup)
                 pixelSize: 15
                 TapHandler { onTapped: exRow.toggle() }
             }

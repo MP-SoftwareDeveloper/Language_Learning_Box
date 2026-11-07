@@ -62,3 +62,8 @@ bool parseLevelPacks(QStringView text, QList<LevelPack> *out, QString *error = n
 // Back side of a card for the meaning language ("fa" = Persian, anything else = English),
 // with the plural on a second line for nouns: "house\nPl. Häuser".
 QString levelWordBack(const LevelWord &word, const QString &language);
+
+// The entry of a German word in the German packs (language "de"): `word` with or without der / die / das, any case.
+// The first pack that has it wins; nullptr when none has. The pointer points into `packs`. Used by the Dictionary
+// for the curated first meaning (the translator can pick a wrong one for a lone word: "Satz" -> "Set").
+const LevelWord *findGermanWord(const QList<LevelPack> &packs, const QString &word);

@@ -99,6 +99,19 @@ bool LevelPacks::available() const
     return lang == QLatin1String("de") || lang == QLatin1String("sv") || lang == QLatin1String("en");
 }
 
+QVariantMap LevelPacks::germanMeaning(const QString &word, const QString &language) const
+{
+    const LevelWord *w = findGermanWord(m_packs, word);
+    if (!w)
+        return {};
+    const QString meaning = language == QLatin1String("fa") ? w->persian : w->english;
+    if (meaning.isEmpty())
+        return {};
+    return {{QStringLiteral("front"), w->german},
+            {QStringLiteral("meaning"), meaning},
+            {QStringLiteral("back"), levelWordBack(*w, language)}};
+}
+
 void LevelPacks::refresh()
 {
     const QSet<QString> inBox = CardStore::instance()->frontKeys();

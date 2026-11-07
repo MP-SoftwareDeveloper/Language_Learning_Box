@@ -20,6 +20,8 @@ ColumnLayout {
     spacing: 2
 
     property string target: ""    // translation language; "" = the learning box's meaning language
+    property string sourceLang: "" // language of the sentence (with target); "" = the learning box's language
+    readonly property string srcLang: sourceLang !== "" ? sourceLang : Translator.sourceLanguage
     readonly property string lang: target !== "" ? target : Translator.meaningLanguage
     readonly property bool persian: lang === "fa"
     readonly property bool wanted: example.trim() !== ""
@@ -35,7 +37,7 @@ ColumnLayout {
         if (!wanted || packTranslation !== "")
             return
         const saved = root.target === "" ? Translator.saved(example)
-                                         : Translator.savedBetween(example, Translator.sourceLanguage, root.lang)
+                                         : Translator.savedBetween(example, root.srcLang, root.lang)
         if (saved !== "")
             fetched = saved
         else if (Translator.useOnline && onlineLookup)
@@ -43,6 +45,7 @@ ColumnLayout {
     }
     onExampleChanged: lookup()
     onLangChanged: lookup()
+    onSrcLangChanged: lookup()
     onWantedChanged: lookup()
     Component.onCompleted: lookup()
 
@@ -50,7 +53,7 @@ ColumnLayout {
         id: debounce
         interval: 700
         onTriggered: if (root.wanted) root.requestId = root.target === "" ? Translator.translate(root.example)
-                    : Translator.translateBetween(root.example, Translator.sourceLanguage, root.lang)
+                    : Translator.translateBetween(root.example, root.srcLang, root.lang)
     }
     Connections {
         target: Translator

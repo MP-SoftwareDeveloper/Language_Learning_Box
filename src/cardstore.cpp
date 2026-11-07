@@ -430,6 +430,19 @@ int CardStore::addCard(const QString &front, const QString &back, const QString 
 int CardStore::addCardToDeck(const QString &front, const QString &back, const QString &example,
                              const QString &deck, const QString &image)
 {
+    return addCardInCollection(m_collection, front, back, example, deck, image);
+}
+
+int CardStore::addCardIn(int collection, const QString &front, const QString &back, const QString &example)
+{
+    if (!collectionExists(collection))
+        return -1;
+    return addCardInCollection(collection, front, back, example, QString(), QString());
+}
+
+int CardStore::addCardInCollection(int collection, const QString &front, const QString &back,
+                                   const QString &example, const QString &deck, const QString &image)
+{
     const QString f = front.trimmed();
     if (f.isEmpty())
         return -1;
@@ -445,7 +458,7 @@ int CardStore::addCardToDeck(const QString &front, const QString &back, const QS
     q.addBindValue(now); // new cards are due immediately
     q.addBindValue(now);
     q.addBindValue(now);
-    q.addBindValue(m_collection);
+    q.addBindValue(collection);
     if (!q.exec()) {
         fail(QStringLiteral("addCard"), q.lastError().text());
         return -1;
@@ -594,12 +607,17 @@ QVariantMap CardStore::card(int id) const
 
 int CardStore::findByFront(const QString &front) const
 {
+    return findByFrontIn(m_collection, front);
+}
+
+int CardStore::findByFrontIn(int collection, const QString &front) const
+{
     // Case-insensitive, Unicode-aware compare in C++ (SQLite's NOCASE is ASCII-only).
     const QString needle = front.trimmed();
     if (needle.isEmpty())
         return -1;
     QSqlQuery q(db());
-    q.exec(QStringLiteral("SELECT id, front FROM cards WHERE 1%1").arg(scope()));
+    q.exec(QStringLiteral("SELECT id, front FROM cards WHERE collection_id = %1").arg(collection));
     while (q.next()) {
         if (q.value(1).toString().trimmed().toCaseFolded() == needle.toCaseFolded())
             return q.value(0).toInt();
@@ -1049,6 +1067,35 @@ QString CardStore::learningLanguage() const
     q.addBindValue(m_collection);
     const QString l = q.exec() && q.next() ? q.value(0).toString() : QString();
     return isLearningLanguage(l) ? l : QStringLiteral("de");
+}
+
+QVariantList CardStore::collectionsFor(const QString &language) const
+{
+    QVariantList out;
+    QSqlQuery q(db());
+    q.exec(QStringLiteral("SELECT id, name, language FROM collections ORDER BY last_used_at DESC, id ASC"));
+    while (q.next()) {
+        const QString l = q.value(2).toString();
+        if ((isLearningLanguage(l) ? l : QStringLiteral("de")) != language) // same rule as learningLanguage()
+            continue;
+        out.append(QVariantMap{{QStringLiteral("id"), q.value(0).toInt()},
+                               {QStringLiteral("name"), q.value(1).toString()}});
+    }
+    return out;
+}
+
+int CardStore::latestCollection(const QString &language) const
+{
+    const QVariantList boxes = collectionsFor(language);
+    return boxes.isEmpty() ? -1 : boxes.first().toMap().value(QStringLiteral("id")).toInt();
+}
+
+QString CardStore::collectionName(int id) const
+{
+    QSqlQuery q(db());
+    q.prepare(QStringLiteral("SELECT name FROM collections WHERE id = ?"));
+    q.addBindValue(id);
+    return q.exec() && q.next() ? q.value(0).toString() : QString();
 }
 
 namespace {

@@ -85,6 +85,9 @@ public:
     Q_INVOKABLE void clearSaved();
     // Saves a known translation (e.g. from Tatoeba) so saved() / offline use find it.
     Q_INVOKABLE void remember(const QString &text, const QString &translation);
+    // Same for an explicit pair of languages: `text` in `source` means `translation` in `target`.
+    Q_INVOKABLE void rememberBetween(const QString &source, const QString &target, const QString &text,
+                                     const QString &translation);
     // Same for a given language ("fa" / "en"), e.g. the starter cards save both languages.
     void rememberIn(const QString &language, const QString &text, const QString &translation);
     // Many rememberIn() calls in one database transaction (much faster; e.g. filling a level box).
@@ -93,6 +96,9 @@ public:
     // Example sentences with `word` from Tatoeba (online only). Answers through
     // examplesSuggested(id, [{text, translation}], error); translations are also saved.
     Q_INVOKABLE int suggestExamples(const QString &word);
+    // Same for any pair of languages, not the selected learning box's (the Dictionary): `word` in `source`,
+    // translations in `target` ("de", "en", "sv", "fa").
+    Q_INVOKABLE int suggestExamplesFor(const QString &word, const QString &source, const QString &target);
     // Gender (der / die / das) and plural of a German noun from the German Wiktionary (online only; every
     // answer is saved, so the word is found offline later). Answers through
     // grammarFound(id, {front, lemma, plural, pluralLine, forms}, error); the map is empty when the

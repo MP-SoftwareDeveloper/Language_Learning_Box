@@ -112,6 +112,17 @@ public:
     Q_INVOKABLE QVariantList cardsInBox(int box) const;
     Q_INVOKABLE QVariantMap card(int id) const;
     Q_INVOKABLE int findByFront(const QString &front) const; // -1 if none
+    // For a given learning box, whichever one is selected (the Dictionary adds a German word to a German box while
+    // an English box is selected): findByFront / addCard there. The selected box stays selected.
+    Q_INVOKABLE int findByFrontIn(int collection, const QString &front) const; // -1 if none
+    Q_INVOKABLE int addCardIn(int collection, const QString &front, const QString &back, const QString &example);
+    // The most recently used learning box of a language ("de", "en", "sv"), also when the box list hides it
+    // (Settings); -1 when there is none. collectionName: its name ("" for an unknown id).
+    Q_INVOKABLE int latestCollection(const QString &language) const;
+    // All learning boxes of a language, most recently used first, also the ones the list hides: [{id, name}]
+    // (the Dictionary's "Save in" choice).
+    Q_INVOKABLE QVariantList collectionsFor(const QString &language) const;
+    Q_INVOKABLE QString collectionName(int id) const;
     Q_INVOKABLE void refresh() { emit changed(); }
 
     int currentCollection() const { return m_collection; }
@@ -180,6 +191,8 @@ signals:
 
 private:
     explicit CardStore(QObject *parent = nullptr);
+    int addCardInCollection(int collection, const QString &front, const QString &back, const QString &example,
+                            const QString &deck, const QString &image);
     bool open();
     bool migrate();
     void fail(const QString &where, const QString &what);
