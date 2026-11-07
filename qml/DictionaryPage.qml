@@ -68,7 +68,6 @@ Page {
         category: "dictionary"
         property string fromLang: ""
         property string toLang: ""
-        property string saveBoxes: "{}" // JSON {"de": box id, ...}: the box chosen in "Save in", per language
     }
     // learn → other language (the card's front is the typed word) / other language → learn (the front is the answer)
     // / free: neither is the learning language (no cards, no grammar block)
@@ -109,32 +108,21 @@ Page {
         function onFavoritesChanged() { page.revision++ }
     }
 
-    // The learning box a card goes to. The user can choose among the boxes of the card's language that the box list
-    // shows (not the ones hidden in Settings); the choice is remembered per language. Without a choice: the selected
-    // box, or - when the Dictionary works in another language than the selected box (German words while an English
-    // box is selected) - the most recently used box of that language, a hidden one only when it has no other. With
-    // no such box, "Add" creates one.
+    // The learning box a card goes to: by default the selected learning box. The user can choose another among the
+    // boxes of the card's language that the box list shows (not the ones hidden in Settings); the choice holds until
+    // another learning box is selected. When the Dictionary works in another language than the selected box (German
+    // words while an English box is selected): the most recently used box of that language, a hidden one only when
+    // it has no other. With no such box, "Add" creates one.
     readonly property bool otherBox: cardLang !== learn
     readonly property var boxChoices: revision < 0 ? [] : CardStore.collectionsFor(cardLang, true) // [{id, name}]
-    function savedBox(language) {
-        try {
-            return JSON.parse(prefs.saveBoxes)[language] ?? -1
-        } catch (e) {
-            return -1
-        }
-    }
+    property var picked: ({ box: -1, base: -1, lang: "" }) // the box chosen in the combo, for which selected box / language
     function chooseBox(id) {
-        let all = ({})
-        try {
-            all = JSON.parse(prefs.saveBoxes)
-        } catch (e) {
-        }
-        all[cardLang] = id
-        prefs.saveBoxes = JSON.stringify(all)
+        picked = { box: id, base: CardStore.currentCollection, lang: cardLang }
     }
     readonly property int chosenBox: {
-        const id = savedBox(cardLang)
-        return boxChoices.some(b => b.id === id) ? id : -1 // -1: no choice, or that box is gone
+        const p = picked
+        // -1: no choice, or it is for another selected box / language, or that box is gone
+        return p.lang === cardLang && p.base === CardStore.currentCollection && boxChoices.some(b => b.id === p.box) ? p.box : -1
     }
     readonly property int targetBox: chosenBox >= 0 ? chosenBox
         : revision < 0 ? -1 : (otherBox ? (boxChoices.length > 0 ? boxChoices[0].id : CardStore.latestCollection(cardLang))
