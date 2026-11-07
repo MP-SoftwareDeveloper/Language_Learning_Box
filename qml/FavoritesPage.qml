@@ -112,9 +112,10 @@ Page {
                 objectName: "langChip_" + modelData.code
                 checkable: true
                 checked: page.shown[modelData.code] === true
-                // the language's tint: strong when on, faint when off
-                Material.background: Qt.alpha(page.langColor(modelData.code), checked ? 0.6 : 0.2)
+                // the language's tint when on, gray when off; the text is always black
+                Material.background: checked ? Qt.alpha(page.langColor(modelData.code), 0.6) : "#BDBDBD"
                 Material.elevation: 0
+                Material.foreground: "black"
                 text: modelData.name + " (" + modelData.count + ")"
                 onClicked: page.toggleLanguage(modelData.code)
             }
