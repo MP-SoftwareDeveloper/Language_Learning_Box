@@ -109,12 +109,13 @@ Page {
         function onFavoritesChanged() { page.revision++ }
     }
 
-    // The learning box a card goes to. The user can choose among the boxes of the card's language ("Save in", also
-    // the ones the box list hides, Settings); the choice is remembered per language. Without a choice: the selected
+    // The learning box a card goes to. The user can choose among the boxes of the card's language that the box list
+    // shows (not the ones hidden in Settings); the choice is remembered per language. Without a choice: the selected
     // box, or - when the Dictionary works in another language than the selected box (German words while an English
-    // box is selected) - the most recently used box of that language. With no such box, "Add" creates one.
+    // box is selected) - the most recently used box of that language, a hidden one only when it has no other. With
+    // no such box, "Add" creates one.
     readonly property bool otherBox: cardLang !== learn
-    readonly property var boxChoices: revision < 0 ? [] : CardStore.collectionsFor(cardLang) // [{id, name}]
+    readonly property var boxChoices: revision < 0 ? [] : CardStore.collectionsFor(cardLang, true) // [{id, name}]
     function savedBox(language) {
         try {
             return JSON.parse(prefs.saveBoxes)[language] ?? -1
@@ -136,7 +137,8 @@ Page {
         return boxChoices.some(b => b.id === id) ? id : -1 // -1: no choice, or that box is gone
     }
     readonly property int targetBox: chosenBox >= 0 ? chosenBox
-        : revision < 0 ? -1 : (otherBox ? CardStore.latestCollection(cardLang) : CardStore.currentCollection)
+        : revision < 0 ? -1 : (otherBox ? (boxChoices.length > 0 ? boxChoices[0].id : CardStore.latestCollection(cardLang))
+                                                                 : CardStore.currentCollection)
     readonly property string targetName: revision < 0 ? ""
         : targetBox >= 0 ? CardStore.collectionName(targetBox) : qsTr("My German words")
     function targetId() {

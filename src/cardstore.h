@@ -119,9 +119,9 @@ public:
     // The most recently used learning box of a language ("de", "en", "sv"), also when the box list hides it
     // (Settings); -1 when there is none. collectionName: its name ("" for an unknown id).
     Q_INVOKABLE int latestCollection(const QString &language) const;
-    // All learning boxes of a language, most recently used first, also the ones the list hides: [{id, name}]
-    // (the Dictionary's "Save in" choice).
-    Q_INVOKABLE QVariantList collectionsFor(const QString &language) const;
+    // The learning boxes of a language, most recently used first: [{id, name}] (the Dictionary's "Save in" choice).
+    // visibleOnly leaves out the ones the box list hides (Settings).
+    Q_INVOKABLE QVariantList collectionsFor(const QString &language, bool visibleOnly) const;
     Q_INVOKABLE QString collectionName(int id) const;
     Q_INVOKABLE void refresh() { emit changed(); }
 

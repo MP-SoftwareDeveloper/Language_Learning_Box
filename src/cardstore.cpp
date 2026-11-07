@@ -1069,14 +1069,17 @@ QString CardStore::learningLanguage() const
     return isLearningLanguage(l) ? l : QStringLiteral("de");
 }
 
-QVariantList CardStore::collectionsFor(const QString &language) const
+QVariantList CardStore::collectionsFor(const QString &language, bool visibleOnly) const
 {
     QVariantList out;
+    const QSet<int> hidden = visibleOnly ? hiddenCollectionIds() : QSet<int>();
     QSqlQuery q(db());
     q.exec(QStringLiteral("SELECT id, name, language FROM collections ORDER BY last_used_at DESC, id ASC"));
     while (q.next()) {
         const QString l = q.value(2).toString();
         if ((isLearningLanguage(l) ? l : QStringLiteral("de")) != language) // same rule as learningLanguage()
+            continue;
+        if (hidden.contains(q.value(0).toInt()))
             continue;
         out.append(QVariantMap{{QStringLiteral("id"), q.value(0).toInt()},
                                {QStringLiteral("name"), q.value(1).toString()}});
@@ -1086,7 +1089,7 @@ QVariantList CardStore::collectionsFor(const QString &language) const
 
 int CardStore::latestCollection(const QString &language) const
 {
-    const QVariantList boxes = collectionsFor(language);
+    const QVariantList boxes = collectionsFor(language, false);
     return boxes.isEmpty() ? -1 : boxes.first().toMap().value(QStringLiteral("id")).toInt();
 }
 
