@@ -62,8 +62,6 @@ Page {
     readonly property bool english: CardStore.learningLanguage === "en"
     // The selected box is only shown when it is not hidden (all languages off: the chooser stays empty).
     readonly property bool currentShown: CardStore.currentCollectionName !== "" && !CardStore.isCollectionHidden(CardStore.currentCollection)
-    // Index in CardStore.collections of the box shown on the second line (the selected one is first when it is shown)
-    readonly property int secondIndex: currentShown ? 1 : 0
     property int menuId: 0
     property string menuName: ""
 
@@ -78,10 +76,9 @@ Page {
             Item { Layout.preferredHeight: 4 }
 
             // ---- Learning box chooser ----
-            // A ComboBox whose closed state already shows the first two learning boxes
-            // (the selected one, highlighted, and the one used before it — tap to switch).
-            // The arrow opens the full list. The list is ordered by last use, so the
-            // selected box is always first and stays first after a restart.
+            // A ComboBox whose closed state shows the selected learning box only; the arrow opens
+            // the full list. The list is ordered by last use, so the selected box is always first
+            // and stays first after a restart.
             RowLayout {
                 Layout.fillWidth: true
                 Layout.leftMargin: 16
@@ -124,27 +121,6 @@ Page {
                             rightPadding: 6
                             topPadding: 2
                             bottomPadding: 2
-                        }
-                        // Second option, shown without opening the list.
-                        Label {
-                            width: boxCombo.availableWidth - 8
-                            visible: CardStore.collections.length > page.secondIndex
-                            text: CardStore.collections.length > page.secondIndex
-                                  ? page.flag(CardStore.collections[page.secondIndex].language) + "  " + CardStore.collections[page.secondIndex].name
-                                    + "  ·  " + qsTr("%n due", "", CardStore.collections[page.secondIndex].due)
-                                  : ""
-                            elide: Text.ElideRight
-                            leftPadding: 6
-                            color: page.selectedText
-                            opacity: secondTap.pressed ? 0.4 : 0.75
-                            MouseArea {
-                                id: secondTap
-                                anchors.fill: parent
-                                onClicked: {
-                                    CardStore.selectCollection(CardStore.collections[page.secondIndex].id)
-                                    boxCombo.currentIndex = 0
-                                }
-                            }
                         }
                     }
 
