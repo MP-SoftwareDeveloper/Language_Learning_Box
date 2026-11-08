@@ -368,12 +368,24 @@ Page {
                         Layout.fillWidth: true
                         visible: page.germanFirst || page.revealed
                         Label {
+                            id: frontLabel
                             Layout.fillWidth: true
+                            Layout.minimumWidth: 0
                             text: session.front
-                            wrapMode: Text.WordWrap
+                            wrapMode: Text.Wrap
                             horizontalAlignment: Text.AlignHCenter
-                            font.pixelSize: 28
                             font.bold: true
+                            // Long compound words ("die Versionsverwaltung") are wider than the card: shrink the
+                            // text until the longest word fits (down to 16 px), then it may break inside the word.
+                            readonly property string longestWord: session.front.split(/\s+/).reduce((a, b) => b.length > a.length ? b : a, "")
+                            font.pixelSize: frontMetrics.width > width && width > 0
+                                            ? Math.max(16, Math.floor(28 * width / frontMetrics.width)) : 28
+                            TextMetrics {
+                                id: frontMetrics
+                                font.pixelSize: 28
+                                font.bold: true
+                                text: frontLabel.longestWord
+                            }
                         }
                         GenderMark { word: session.front }
                         SpeakButton { speakText: session.front }
