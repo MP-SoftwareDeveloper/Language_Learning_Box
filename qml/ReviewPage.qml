@@ -6,6 +6,10 @@ import LearningBox
 
 Page {
     id: page
+
+    // A tap anywhere takes the focus away from a selected example sentence, so its highlight disappears
+    // (a passive handler: buttons and scrolling work as before).
+    TapHandler { onTapped: page.forceActiveFocus() }
     title: session.finished ? qsTr("Done")
                             : qsTr("Review · %1 left").arg(session.remaining)
 

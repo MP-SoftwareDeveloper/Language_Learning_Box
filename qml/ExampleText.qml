@@ -84,12 +84,12 @@ ColumnLayout {
         text: root.example
         readOnly: true
         selectByMouse: true
-        persistentSelection: true
         textFormat: TextEdit.PlainText
         wrapMode: TextEdit.Wrap
         color: germanLabel.color
         selectionColor: germanLabel.palette.highlight
         selectedTextColor: germanLabel.palette.highlightedText
+        onActiveFocusChanged: if (!activeFocus) deselect() // tapping elsewhere removes the highlight
         font.italic: true
         font.pixelSize: root.pixelSize
         opacity: root.germanOpacity
@@ -114,12 +114,12 @@ ColumnLayout {
             text: root.translation
             readOnly: true
             selectByMouse: true
-            persistentSelection: true
-            textFormat: TextEdit.PlainText
+                textFormat: TextEdit.PlainText
             wrapMode: TextEdit.Wrap
             color: translationLabel.color
             selectionColor: translationLabel.palette.highlight
             selectedTextColor: translationLabel.palette.highlightedText
+            onActiveFocusChanged: if (!activeFocus) deselect()
             horizontalAlignment: root.persian ? TextEdit.AlignRight : TextEdit.AlignLeft
             font.pixelSize: root.pixelSize - 1
             opacity: 0.75
