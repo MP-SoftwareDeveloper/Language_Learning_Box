@@ -20,12 +20,13 @@ constexpr auto kResourceEn = ":/data/levelpacks/english_levels.tsv"; // English 
 constexpr auto kResourceAdv = ":/data/levelpacks/deutsch_b1_c1.tsv"; // German B1, B2, C1
 constexpr auto kResourceA1Complete = ":/data/levelpacks/deutsch_a1_complete.tsv"; // "A1_complete": whole A1 word list
 constexpr auto kResourceCore = ":/data/levelpacks/deutsch_core.tsv"; // "Alltag": original core words for everyday conversation
+constexpr auto kResourceJob = ":/data/levelpacks/deutsch_job.tsv"; // "Job-Wortschatz": job ads, applications, interviews, work
 
-// Extra boxes next to the A1-C1 levels ("-complete" word lists, the "core-" everyday-conversation box):
+// Extra boxes next to the A1-C1 levels ("-complete" word lists, the "core-" everyday-conversation box, the "job-" job vocabulary box):
 // they repeat or go beyond the level words, so they are not counted in the totals.
 bool isComplete(const LevelPack &p)
 {
-    return p.id.endsWith(QLatin1String("-complete")) || p.id.startsWith(QLatin1String("core-"));
+    return p.id.endsWith(QLatin1String("-complete")) || p.id.startsWith(QLatin1String("core-")) || p.id.startsWith(QLatin1String("job-"));
 }
 
 QString learningLanguage()
@@ -55,7 +56,7 @@ LevelPacks *LevelPacks::create(QQmlEngine *, QJSEngine *engine)
 LevelPacks::LevelPacks(QObject *parent)
     : QObject(parent)
 {
-    for (const char *resource : {kResource, kResourceA1Complete, kResourceAdv, kResourceCore, kResourceEn, kResourceSv}) {
+    for (const char *resource : {kResource, kResourceA1Complete, kResourceAdv, kResourceCore, kResourceJob, kResourceEn, kResourceSv}) {
         QFile f(QString::fromLatin1(resource));
         QList<LevelPack> packs;
         QString error;
@@ -274,11 +275,14 @@ void leaveSwitchedOffLanguage()
 }
 // First-start flag per group of packs (German A1/A2 keeps its old key), so a deleted box does not come back.
 // German B1-C1 has its own flag, so existing users get those boxes once after an update.
-// Groups of German packs: 0 = A1/A2 levels, 1 = B1-C1 levels, 2 = "complete" boxes (A1_complete, ...), 3 = "Alltag" (original everyday-conversation words).
+// Groups of German packs: 0 = A1/A2 levels, 1 = B1-C1 levels, 2 = "complete" boxes (A1_complete, ...), 3 = "Alltag" (original everyday-conversation words),
+// 4 = "Job-Wortschatz" (job ads, applications, interviews).
 int packGroup(const LevelPack &p)
 {
     if (p.id.startsWith(QLatin1String("core-")))
         return 3;
+    if (p.id.startsWith(QLatin1String("job-")))
+        return 4;
     if (isComplete(p))
         return 2;
     return p.language == QLatin1String("de") && p.cefr != QLatin1String("A1") && p.cefr != QLatin1String("A2") ? 1 : 0;
@@ -293,6 +297,7 @@ QString installedKey(const QString &language, int group)
     case 1: return QStringLiteral("levelpacks/installedDeAdv");
     case 2: return QStringLiteral("levelpacks/installedDeComplete2"); // "2": completes boxes that were cut off
     case 3: return QStringLiteral("levelpacks/installedDeCore"); // installs "Alltag" once for existing users
+    case 4: return QStringLiteral("levelpacks/installedDeJob"); // installs "Job-Wortschatz" once for existing users
     default: return QStringLiteral("levelpacks/installed");
     }
 }
@@ -355,7 +360,7 @@ int LevelPacks::installBoxes(bool force)
     for (const char *lang : {"de", "sv", "en"})
         if (!boxesOn(QString::fromLatin1(lang)))
             setLanguageVisible(QString::fromLatin1(lang), false);
-    const struct { const char *language; int group; } groups[] = {{"de", 0}, {"de", 1}, {"de", 2}, {"de", 3}, {"en", 0}, {"sv", 0}};
+    const struct { const char *language; int group; } groups[] = {{"de", 0}, {"de", 1}, {"de", 2}, {"de", 3}, {"de", 4}, {"en", 0}, {"sv", 0}};
     for (const auto &g : groups) {
         const QString language = QString::fromLatin1(g.language);
         const QString key = installedKey(language, g.group);

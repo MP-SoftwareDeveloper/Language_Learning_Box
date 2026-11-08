@@ -1,0 +1,587 @@
+# LearningBox level pack: "Job-Wortschatz" - German vocabulary for job ads, applications, interviews and the first days at work.
+# Terms come from German job ads for embedded / robotics / control engineers and from typical rejection and acceptance letters.
+# English and Persian meanings and all example sentences were written for this app (no text copied from ads or letters).
+# The example translations (columns 8 and 9) are empty: the app translates examples online and caches them.
+# Format:  @level<TAB>id<TAB>title<TAB>subtitle   @chapter<TAB>levelId<TAB>number<TAB>title
+#          levelId<TAB>chapter<TAB>German<TAB>plural ("-" = none)<TAB>English<TAB>Persian<TAB>example (de)<TAB>example (en)<TAB>example (fa)
+@level	job-1	Job-Wortschatz	Job ads, applications, interviews and work
+@chapter	job-1	1	Technik und Entwicklung
+@chapter	job-1	2	Aufgaben im Job
+@chapter	job-1	3	Rollen und Berufe
+@chapter	job-1	4	Persönliches Profil
+@chapter	job-1	5	Qualifikation und Erfahrung
+@chapter	job-1	6	Bewerbung und Stellenanzeige
+@chapter	job-1	7	Vorstellungsgespräch
+@chapter	job-1	8	Alltag im Büro
+@chapter	job-1	9	Angebot und Benefits
+@chapter	job-1	10	Absage
+@chapter	job-1	11	Zusage und Vertrag
+job-1	1	der Mikrocontroller	-	microcontroller	میکروکنترلر	Wir programmieren Mikrocontroller von STM32.		
+job-1	1	die hardwarenahe Programmierung	-	low-level (hardware-near) programming	برنامه‌نویسی نزدیک به سخت‌افزار	Hardwarenahe Programmierung macht mir Spaß.		
+job-1	1	das Echtzeitsystem	-	real-time system	سیستم بلادرنگ	Ein Echtzeitsystem muss pünktlich reagieren.		
+job-1	1	das Echtzeitbetriebssystem	-	real-time operating system	سیستم‌عامل بلادرنگ	FreeRTOS ist ein Echtzeitbetriebssystem.		
+job-1	1	das Betriebssystem	-	operating system	سیستم‌عامل	Linux ist ein freies Betriebssystem.		
+job-1	1	die Schnittstelle	-	interface	رابط، اینترفیس	Die Schnittstelle zwischen Hard- und Software ist wichtig.		
+job-1	1	das Kommunikationsprotokoll	-	communication protocol	پروتکل ارتباطی	CAN ist ein Kommunikationsprotokoll im Auto.		
+job-1	1	das Bussystem	-	bus system	سیستم باس	Wir nutzen Bussysteme wie CAN und SPI.		
+job-1	1	der Treiber / die Treiberentwicklung	-	driver / driver development	درایور / توسعه درایور	Die Treiberentwicklung für Sensoren ist anspruchsvoll.		
+job-1	1	die Zielhardware	-	target hardware	سخت‌افزار هدف	Der Code läuft auf der Zielhardware.		
+job-1	1	ressourcenbeschränkte Hardware	-	resource-constrained hardware	سخت‌افزار با منابع محدود	C und C++ auf ressourcenbeschränkter Hardware.		
+job-1	1	das Steuergerät	-	control unit (ECU)	واحد کنترل (ECU)	Das Steuergerät steuert den Antrieb.		
+job-1	1	die funktionale Sicherheit	-	functional safety	ایمنی عملکردی	Funktionale Sicherheit ist im Fahrzeug Pflicht.		
+job-1	1	die Sensorik	-	sensor technology	فناوری حسگر	Die Sensorik erfasst die Position.		
+job-1	1	der Sensor	-	sensor	حسگر	Der Sensor misst die Temperatur.		
+job-1	1	der Aktor	-	actuator	عملگر	Der Aktor bewegt den Arm des Roboters.		
+job-1	1	die Leistungselektronik	-	power electronics	الکترونیک قدرت	Er entwickelt Software für die Leistungselektronik.		
+job-1	1	der Umrichter	-	inverter / converter	اینورتر / مبدل	Der Umrichter steuert den Elektromotor.		
+job-1	1	die Messtechnik	-	measurement technology	فناوری اندازه‌گیری	Messtechnik ist unser Kerngeschäft.		
+job-1	1	die Bildverarbeitung	-	image processing	پردازش تصویر	Wir arbeiten an der Bildverarbeitung für Roboter.		
+job-1	1	die Signalverarbeitung	-	signal processing	پردازش سیگنال	Die Signalverarbeitung läuft auf einem DSP.		
+job-1	1	die Datenverarbeitung	-	data processing	پردازش داده	Die Datenverarbeitung erfolgt in Echtzeit.		
+job-1	1	der Schaltplan	-	circuit diagram	نقشه مدار	Ich kann einen Schaltplan lesen.		
+job-1	1	die Platine	-	circuit board (PCB)	برد مدار چاپی	Die Platine wird in Deutschland gefertigt.		
+job-1	1	die Stromversorgung	-	power supply	منبع تغذیه	Die Stromversorgung liefert fünf Volt.		
+job-1	1	die Benutzeroberfläche	-	user interface	رابط کاربری	Wir entwickeln die Benutzeroberfläche mit Qt und QML.		
+job-1	1	die Maschinensteuerung	-	machine control	کنترل ماشین	Er programmiert die Maschinensteuerung.		
+job-1	1	die Steuerungstechnik	-	control (PLC) technology	فناوری کنترل (PLC)	Steuerungstechnik ist ein wichtiges Fachgebiet.		
+job-1	1	die SPS (speicherprogrammierbare Steuerung)	-	PLC	کنترلر منطقی برنامه‌پذیر (PLC)	Die SPS steuert die Fertigungsanlage.		
+job-1	1	die Antriebstechnik	-	drive technology	فناوری محرک (درایو)	In der Antriebstechnik regeln wir Motoren.		
+job-1	1	der Regelkreis	-	control loop	حلقه کنترل	Der Regelkreis hält die Drehzahl konstant.		
+job-1	1	der Regelungsalgorithmus	-	control algorithm	الگوریتم کنترل	Wir entwickeln einen neuen Regelungsalgorithmus.		
+job-1	1	der Roboter / die mobile Robotik	-	robot / mobile robotics	ربات / رباتیک سیار	Die mobile Robotik wächst schnell.		
+job-1	1	die Simulation	-	simulation	شبیه‌سازی	Wir testen zuerst in der Simulation.		
+job-1	1	das autonome System	-	autonomous system	سیستم خودمختار	Autonome Systeme brauchen zuverlässige Sensoren.		
+job-1	1	die Sensorfusion	-	sensor fusion	ترکیب داده حسگرها	Sensorfusion verbessert die Positionsschätzung.		
+job-1	1	die Steuerungssoftware	-	control software	نرم‌افزار کنترل	Die Steuerungssoftware läuft auf dem Roboter.		
+job-1	1	der Zustandsautomat	-	state machine	ماشین حالت	Der Zustandsautomat steuert den Ablauf.		
+job-1	1	die Flottensteuerung	-	fleet control	کنترل ناوگان	Die Flottensteuerung koordiniert alle Roboter.		
+job-1	1	der Regler	-	controller (control engineering)	کنترل‌کننده (رگولاتور)	Der Regler hält die Temperatur konstant.		
+job-1	1	die Regelstrecke	-	plant (controlled system)	فرایند تحت کنترل (پلانت)	Die Regelstrecke ist nichtlinear.		
+job-1	1	der Sollwert	-	setpoint	مقدار مطلوب	Der Sollwert beträgt 100 Umdrehungen pro Minute.		
+job-1	1	der Istwert	-	actual value	مقدار واقعی	Der Istwert weicht vom Sollwert ab.		
+job-1	1	die Regelabweichung	-	control error	خطای کنترل	Die Regelabweichung soll gegen null gehen.		
+job-1	1	die Stellgröße	-	manipulated variable	کمیت کنترلی (ورودی کنترل)	Der Regler berechnet die Stellgröße.		
+job-1	1	die Störgröße	-	disturbance variable	اغتشاش	Eine Störgröße wirkt auf das System.		
+job-1	1	die Rückkopplung	-	feedback	بازخورد (فیدبک)	Die Rückkopplung stabilisiert das System.		
+job-1	1	die Stabilität	-	stability	پایداری	Wir prüfen die Stabilität des Regelkreises.		
+job-1	1	die Übertragungsfunktion	-	transfer function	تابع تبدیل	Die Übertragungsfunktion beschreibt das Verhalten.		
+job-1	1	der PID-Regler	-	PID controller	کنترل‌کننده PID	Ich habe einen PID-Regler für den Motor abgestimmt.		
+job-1	1	die Zustandsregelung	-	state-space control	کنترل فضای حالت	Die Zustandsregelung benötigt ein gutes Modell.		
+job-1	1	die Abtastrate	-	sampling rate	نرخ نمونه‌برداری	Die Abtastrate beträgt ein Kilohertz.		
+job-1	1	das Rauschen	-	noise	نویز	Das Rauschen des Sensors stört die Messung.		
+job-1	1	der Filter	-	filter	فیلتر	Ein Kalman-Filter schätzt den Zustand.		
+job-1	1	die Zustandsschätzung	-	state estimation	تخمین حالت	Die Zustandsschätzung nutzt mehrere Sensoren.		
+job-1	1	die Modellbildung	-	modeling	مدل‌سازی	Die Modellbildung ist der erste Schritt.		
+job-1	1	die Regelungsalgorithmen (Pl.)	-	control algorithms	الگوریتم‌های کنترل	Wir entwickeln Regelungsalgorithmen für Landmaschinen.		
+job-1	1	die Echtzeitprogrammierung	-	real-time programming	برنامه‌نویسی بلادرنگ	Echtzeitprogrammierung erfordert genaues Zeitverhalten.		
+job-1	1	das Multithreading	-	multithreading	چندنخی	Multithreading kann zu Race Conditions führen.		
+job-1	1	das Multitasking	-	multitasking	چندوظیفگی	Das Betriebssystem unterstützt Multitasking.		
+job-1	1	der Interrupt	-	interrupt	وقفه (اینتراپت)	Der Interrupt wird vom Timer ausgelöst.		
+job-1	1	der Zeitgeber	-	timer	تایمر	Der Zeitgeber löst alle zehn Millisekunden aus.		
+job-1	1	der Speicher	-	memory, storage	حافظه	Der Speicher des Mikrocontrollers ist knapp.		
+job-1	1	der Zeiger	-	pointer	اشاره‌گر (پوینتر)	Ein Zeiger zeigt auf eine Speicheradresse.		
+job-1	1	die Speicherverwaltung	-	memory management	مدیریت حافظه	Die Speicherverwaltung muss sicher sein.		
+job-1	1	der Compiler	-	compiler	کامپایلر	Der Compiler meldet einen Fehler.		
+job-1	1	der Debugger	-	debugger	اشکال‌زدا (دیباگر)	Mit dem Debugger finde ich den Fehler.		
+job-1	1	das Oszilloskop	-	oscilloscope	اسیلوسکوپ	Ich messe das Signal mit dem Oszilloskop.		
+job-1	1	der Logikanalysator	-	logic analyzer	تحلیل‌گر منطقی	Der Logikanalysator zeigt das SPI-Signal.		
+job-1	1	das Entwicklungsboard	-	development board	برد توسعه	Ich teste auf einem Entwicklungsboard.		
+job-1	1	die Firmware	-	firmware	فریمور	Wir aktualisieren die Firmware per Funk.		
+job-1	1	das Bootloader-Update	-	bootloader update	به‌روزرسانی بوت‌لودر	Das Bootloader-Update ist sicherheitskritisch.		
+job-1	1	die Over-the-Air-Aktualisierung	-	over-the-air update	به‌روزرسانی از راه دور	Die Over-the-Air-Aktualisierung spart Servicebesuche.		
+job-1	1	das eingebettete System	-	embedded system	سیستم نهفته	Ein eingebettetes System erfüllt eine feste Aufgabe.		
+job-1	1	Embedded Linux	-	embedded Linux	لینوکس نهفته	Wir portieren Embedded Linux auf ein neues Board.		
+job-1	1	die Treiberentwicklung unter Linux	-	Linux driver development	توسعه درایور در لینوکس	Treiberentwicklung unter Linux ist mein Schwerpunkt.		
+job-1	1	die Kommunikation über CAN	-	communication via CAN	ارتباط از طریق CAN	Die Kommunikation über CAN ist robust.		
+job-1	1	der Datenbus	-	data bus	باس داده	Alle Steuergeräte hängen am Datenbus.		
+job-1	1	die serielle Schnittstelle	-	serial interface	رابط سریال	Das Gerät hat eine serielle Schnittstelle.		
+job-1	1	die Funkverbindung	-	radio link	ارتباط بی‌سیم	Die Funkverbindung ist gestört.		
+job-1	1	das Funkmodul	-	radio module	ماژول رادیویی	Das Funkmodul unterstützt Bluetooth Low Energy.		
+job-1	1	das Internet der Dinge	-	Internet of Things	اینترنت اشیا	Das Internet der Dinge vernetzt Geräte.		
+job-1	1	die Cybersicherheit	-	cybersecurity	امنیت سایبری	Cybersicherheit wird immer wichtiger.		
+job-1	1	die Verschlüsselung	-	encryption	رمزنگاری	Die Verschlüsselung schützt die Daten.		
+job-1	1	der Sicherheitsstandard	-	safety / security standard	استاندارد ایمنی	Das Produkt erfüllt den Sicherheitsstandard.		
+job-1	1	die Norm	-	standard (norm)	استاندارد، هنجار	Wir entwickeln nach der Norm ISO 26262.		
+job-1	1	die Zertifizierung	-	certification	گواهینامه‌دهی	Die Zertifizierung dauert mehrere Monate.		
+job-1	1	die Steuerungssoftware für Roboter	-	robot control software	نرم‌افزار کنترل ربات	Wir schreiben die Steuerungssoftware für Roboter in C++.		
+job-1	1	der Greifer	-	gripper	گریپر (دست ربات)	Der Greifer nimmt das Werkstück auf.		
+job-1	1	der Roboterarm	-	robot arm	بازوی ربات	Der Roboterarm hat sechs Achsen.		
+job-1	1	die Achse	-	axis	محور	Jede Achse hat einen eigenen Motor.		
+job-1	1	die Bahnplanung	-	path planning	برنامه‌ریزی مسیر	Die Bahnplanung vermeidet Hindernisse.		
+job-1	1	die Navigation	-	navigation	ناوبری	Die Navigation des Roboters funktioniert gut.		
+job-1	1	die Kartierung	-	mapping	نقشه‌برداری	Die Kartierung erfolgt mit einem Laserscanner.		
+job-1	1	der Schrittmotor	-	stepper motor	موتور پله‌ای	Der Schrittmotor dreht sich in kleinen Schritten.		
+job-1	1	der Elektromotor	-	electric motor	موتور الکتریکی	Der Elektromotor treibt das Fahrzeug an.		
+job-1	1	die Drehzahl	-	rotational speed	سرعت دورانی	Die Drehzahl wird geregelt.		
+job-1	1	das Drehmoment	-	torque	گشتاور	Das Drehmoment ist zu gering.		
+job-1	1	die Batterie / der Akku	-	battery	باتری	Der Akku hält acht Stunden.		
+job-1	1	die Messung / messen	-	measurement / to measure	اندازه‌گیری	Wir messen die Spannung am Eingang.		
+job-1	1	die Spannung	-	voltage	ولتاژ	Die Spannung beträgt fünf Volt.		
+job-1	1	der Strom	-	current	جریان	Der Strom darf nicht zu hoch sein.		
+job-1	1	der Widerstand	-	resistor, resistance	مقاومت	Ein Widerstand begrenzt den Strom.		
+job-1	1	der Kondensator	-	capacitor	خازن	Der Kondensator glättet die Spannung.		
+job-1	1	die Leiterplatte	-	printed circuit board	برد مدار چاپی	Die Leiterplatte wird bestückt.		
+job-1	1	die Bestückung	-	component placement (assembly)	مونتاژ قطعات روی برد	Die Bestückung erfolgt automatisch.		
+job-1	1	das Löten	-	soldering	لحیم‌کاری	Löten gehört zu meinen Aufgaben im Labor.		
+job-1	1	das Labor	-	laboratory	آزمایشگاه	Im Labor testen wir die Prototypen.		
+job-1	1	der Prüfstand	-	test bench	میز تست	Der Motor läuft auf dem Prüfstand.		
+job-1	1	der Feldtest	-	field test	آزمون میدانی	Der Feldtest startet im Sommer.		
+job-1	1	die Fertigung	-	manufacturing	تولید	Die Fertigung sitzt in Baden-Württemberg.		
+job-1	1	die Qualitätskontrolle	-	quality control	کنترل کیفیت	Die Qualitätskontrolle prüft jedes Gerät.		
+job-1	1	die Anwendungsentwicklung	-	application development	توسعه برنامه کاربردی	Ich arbeite in der Anwendungsentwicklung.		
+job-1	1	die Fahrzeugsoftware	-	vehicle software	نرم‌افزار خودرو	Wir entwickeln die Fahrzeugsoftware für Roboter.		
+job-1	1	die Industrie 4.0	-	Industry 4.0	صنعت ۴٫۰	Industrie 4.0 vernetzt Maschinen.		
+job-1	1	die Intralogistik	-	intralogistics	لجستیک درون‌سازمانی	Die Intralogistik setzt auf mobile Roboter.		
+job-1	1	die künstliche Intelligenz (KI)	-	artificial intelligence (AI)	هوش مصنوعی	KI wird in der Bildverarbeitung eingesetzt.		
+job-1	1	das maschinelle Lernen	-	machine learning	یادگیری ماشین	Wir nutzen maschinelles Lernen zur Fehlererkennung.		
+job-1	1	die Medizintechnik	-	medical technology	فناوری پزشکی	Die Medizintechnik stellt hohe Anforderungen.		
+job-1	1	die Luft- und Raumfahrt	-	aerospace	هوافضا	Er arbeitet in der Luft- und Raumfahrt.		
+job-1	1	die Verteidigungstechnik	-	defence technology	فناوری دفاعی	Die Verteidigungstechnik unterliegt Auflagen.		
+job-1	1	die Kraftfahrzeugtechnik / Automobilindustrie	-	automotive industry	صنعت خودرو	Die Automobilindustrie sucht Embedded-Entwickler.		
+job-1	1	die Bahntechnik	-	railway technology	فناوری راه‌آهن	Die Bahntechnik braucht sichere Software.		
+job-1	1	die Energietechnik	-	energy technology	فناوری انرژی	Die Energietechnik ist ein Wachstumsmarkt.		
+job-1	1	die Gebäudeautomation	-	building automation	اتوماسیون ساختمان	Die Gebäudeautomation steuert Heizung und Licht.		
+job-1	1	die Landmaschine	-	agricultural machine	ماشین کشاورزی	Die Landmaschine fährt zentimetergenau.		
+job-1	1	der digitale Zwilling	-	digital twin	دوقلوی دیجیتال	Wir nutzen einen digitalen Zwilling zur Simulation.		
+job-1	1	die Steuerungs- und Regelungstechnik	-	control and automation engineering	مهندسی کنترل و اتوماسیون	Ich habe Kenntnisse in der Steuerungs- und Regelungstechnik.		
+job-1	1	die Motorregelung	-	motor control	کنترل موتور	Die Motorregelung läuft auf einem Mikrocontroller.		
+job-1	1	der Drehfeldmotor	-	three-phase (AC induction) motor	موتور القایی سه‌فاز	Der Drehfeldmotor wird mit einem Umrichter geregelt.		
+job-1	1	der Stromrichter	-	power converter	مبدل توان	Ich kenne mich mit Stromrichtern aus.		
+job-1	1	die digitale Signalverarbeitung	-	digital signal processing (DSP)	پردازش سیگنال دیجیتال	Digitale Signalverarbeitung ist ein Teil des Studiums.		
+job-1	1	die modellbasierte Softwareentwicklung	-	model-based software development	توسعه نرم‌افزار مبتنی بر مدل	Wir arbeiten mit modellbasierter Softwareentwicklung in Simulink.		
+job-1	1	das Steuergerät (ECU)	-	control unit (ECU)	واحد کنترل (ECU)	Das Steuergerät kommuniziert über den CAN-Bus.		
+job-1	1	die Seriensoftwareentwicklung	-	series (production) software development	توسعه نرم‌افزار سری/تولیدی	Er arbeitet in der Seriensoftwareentwicklung für Automotive.		
+job-1	1	die Basissoftware	-	basic software (BSW)	نرم‌افزار پایه	Wir entwickeln die Basissoftware für das Steuergerät.		
+job-1	1	die Diagnosefunktionalität	-	diagnostic functionality	قابلیت تشخیص/عیب‌یابی	Die Diagnosefunktionalität wird mit UDS umgesetzt.		
+job-1	1	die Sicherheitstechnik	-	safety technology	فناوری ایمنی	Er arbeitet im Bereich industrielle Sicherheitstechnik.		
+job-1	1	die Personensicherheit	-	personal safety	ایمنی افراد	Die Personensicherheit steht bei uns an erster Stelle.		
+job-1	1	der Feldbus	-	fieldbus	فیلدباس	Wir konfigurieren Feldbussysteme wie EtherCAT und Profinet.		
+job-1	1	EtherCAT	-	EtherCAT (industrial Ethernet bus)	اترکت (باس اترنت صنعتی)	Die Antriebe werden über EtherCAT angesteuert.		
+job-1	1	die SPS-Programmierung nach IEC 61131-3	-	PLC programming per IEC 61131-3	برنامه‌نویسی PLC مطابق IEC 61131-3	Ich kenne die SPS-Programmierung nach IEC 61131-3.		
+job-1	1	das TIA Portal	-	TIA Portal (Siemens engineering software)	تیا پورتال (نرم‌افزار زیمنس)	Ich programmiere die Steuerung im TIA Portal.		
+job-1	1	die Visualisierung	-	visualization (HMI screens)	مصورسازی (صفحات HMI)	Die Visualisierung zeigt den Status der Anlage.		
+job-1	1	der Schaltschrank	-	control cabinet	تابلوی برق/کنترل	Der Schaltschrank wird im Werk aufgebaut.		
+job-1	1	die Antriebssysteme	-	drive systems	سیستم‌های محرکه	Wir parametrieren die Antriebssysteme der Anlage.		
+job-1	1	die Robotersteuerung	-	robot controller	کنترلر ربات	Die Robotersteuerung wird mit der Vision verbunden.		
+job-1	1	die Roboterprogrammierung	-	robot programming	برنامه‌نویسی ربات	Gute Kenntnisse in der Roboterprogrammierung sind wünschenswert.		
+job-1	1	die mobile Robotik	-	mobile robotics	رباتیک متحرک	Er arbeitet in der mobilen Robotik.		
+job-1	1	die Robotik-Software	-	robotics software	نرم‌افزار رباتیک	Wir entwickeln die Robotik-Software für verschiedene Plattformen.		
+job-1	1	die Roboter-Plattform	-	robot platform	پلتفرم ربات	Die Software läuft auf verschiedenen Roboter-Plattformen.		
+job-1	1	der Versuchsaufbau	-	experimental setup	چیدمان آزمایش	Der Versuchsaufbau steht im Labor.		
+job-1	1	das Prüffeld	-	test field/test bench area	محوطه/آزمایشگاه تست	Wir testen im eigenen Prüffeld.		
+job-1	1	der Logic Analyzer	-	logic analyzer	آنالایزر منطقی	Mit dem Logic Analyzer prüfe ich das SPI-Signal.		
+job-1	1	die Schnittstellen I2C, SPI, UART	-	I2C, SPI, UART interfaces	رابط‌های I2C، SPI، UART	Ich kenne die Schnittstellen I2C, SPI und UART.		
+job-1	1	die Leiterplattenentwicklung (PCB)	-	PCB development	توسعه برد مدار چاپی	Er macht Leiterplattenentwicklung mit Altium.		
+job-1	1	die Baugruppe	-	assembly, module	مجموعه/ماژول	Wir testen die elektronische Baugruppe.		
+job-1	1	die Umwelt- und Lebensdauertests	-	environmental and lifetime tests	آزمون‌های محیطی و طول عمر	Die Umwelt- und Lebensdauertests dauern mehrere Wochen.		
+job-1	1	die EMV-Messung	-	EMC measurement	اندازه‌گیری سازگاری الکترومغناطیسی	Die EMV-Messung findet im Labor statt.		
+job-1	1	die Middleware	-	middleware	میان‌افزار	Ich entwickle Middleware-Anwendungen.		
+job-1	1	die objektorientierte Programmierung (OOP)	-	object-oriented programming (OOP)	برنامه‌نویسی شیءگرا	Gute Kenntnisse in objektorientierter Programmierung sind wichtig.		
+job-1	1	die Design Patterns	-	design patterns	الگوهای طراحی	Wir verwenden Design Patterns im Code.		
+job-1	1	der Clean Code	-	clean code	کد تمیز	Clean Code erleichtert die Wartung.		
+job-1	1	die Unit- und Integrationstests	-	unit and integration tests	آزمون‌های واحد و یکپارچگی	Unit- und Integrationstests laufen automatisch.		
+job-1	1	das Unit-Testing	-	unit testing	آزمون واحد	Ich unterstütze beim Debugging und Unit-Testing.		
+job-1	1	die UML-Modellierung	-	UML modeling	مدل‌سازی UML	Die Software-Architektur modellieren wir mit UML.		
+job-1	1	die verteilten Systeme	-	distributed systems	سیستم‌های توزیع‌شده	Kenntnisse über verteilte Systeme sind wünschenswert.		
+job-1	1	die Bildverarbeitung (2D/3D)	-	image processing (2D/3D)	پردازش تصویر (دوبعدی/سه‌بعدی)	Wir entwickeln Algorithmen für die Bildverarbeitung.		
+job-1	1	das Deep Learning	-	deep learning	یادگیری عمیق	Kenntnisse in Robotik und Deep Learning sind ein Plus.		
+job-1	1	die Zielplattform	-	target platform	پلتفرم هدف	Wir optimieren die Algorithmen auf der Zielplattform.		
+job-1	1	der Planungsalgorithmus	-	planning algorithm	الگوریتم برنامه‌ریزی/مسیریابی	Solide Grundlagen bei Planungsalgorithmen sind wichtig.		
+job-1	1	das Embedded-Betriebssystem	-	embedded operating system	سیستم‌عامل امبدد	Wir konfigurieren das Embedded-Betriebssystem.		
+job-1	1	die Linux-Konsole	-	Linux console (shell)	کنسول لینوکس	Ich bin sicher im Umgang mit der Linux-Konsole.		
+job-1	1	das Bedienkonzept	-	operating concept	مفهوم کاربری/بهره‌برداری	Das Bedienkonzept entwickeln wir mit UI-Designern.		
+job-1	2	entwickeln	-	to develop	توسعه دادن	Sie entwickeln Software für Mikrocontroller.		
+job-1	2	implementieren	-	to implement	پیاده‌سازی کردن	Wir implementieren neue Funktionen im Steuergerät.		
+job-1	2	testen	-	to test	آزمون کردن	Sie testen die Software auf der Zielhardware.		
+job-1	2	debuggen	-	to debug	اشکال‌زدایی کردن	Du debuggst Fehler direkt auf dem Gerät.		
+job-1	2	integrieren / die Integration	-	to integrate / integration	یکپارچه‌سازی	Sie integrieren neue Sensoren in das System.		
+job-1	2	optimieren	-	to optimize	بهینه‌سازی کردن	Wir optimieren die Performance der Anwendung.		
+job-1	2	analysieren	-	to analyze	تحلیل کردن	Sie analysieren bestehende Software.		
+job-1	2	dokumentieren / die Dokumentation	-	to document / documentation	مستندسازی	Sie dokumentieren Ihre Ergebnisse sorgfältig.		
+job-1	2	warten / die Wartung	-	to maintain / maintenance	نگهداری	Die Wartung der Software gehört zu Ihren Aufgaben.		
+job-1	2	pflegen / die Pflege	-	to maintain, look after (e.g. code)	نگهداری و به‌روز نگه‌داشتن	Sie pflegen den bestehenden Code.		
+job-1	2	weiterentwickeln / die Weiterentwicklung	-	to develop further / further development	توسعه بیشتر	Wir entwickeln unsere Produkte ständig weiter.		
+job-1	2	konzipieren / die Konzeption	-	to design (concept) / conception	طراحی مفهومی	Sie konzipieren neue Softwarearchitekturen.		
+job-1	2	entwerfen	-	to design, draft	طراحی کردن	Wir entwerfen den Regler für den Antrieb.		
+job-1	2	die Inbetriebnahme	-	commissioning	راه‌اندازی	Sie begleiten die Inbetriebnahme beim Kunden.		
+job-1	2	ansteuern	-	to control, drive (hardware)	کنترل و راه‌اندازی (سخت‌افزار)	Die Software steuert den Motor an.		
+job-1	2	programmieren	-	to program	برنامه‌نویسی کردن	Ich programmiere seit zehn Jahren in C.		
+job-1	2	mitarbeiten / die Mitarbeit	-	to contribute / contribution	مشارکت کردن	Sie arbeiten bei der Hardwareentwicklung mit.		
+job-1	2	unterstützen	-	to support	پشتیبانی کردن	Sie unterstützen unser Team bei der Entwicklung.		
+job-1	2	die Zusammenarbeit	-	collaboration	همکاری	Die Zusammenarbeit im Team ist uns wichtig.		
+job-1	2	sich abstimmen / die Abstimmung	-	to coordinate / coordination	هماهنگ کردن	Sie stimmen sich eng mit dem Vertrieb ab.		
+job-1	2	umsetzen	-	to implement, realize	عملی کردن	Sie setzen Projekte erfolgreich um.		
+job-1	2	die Verantwortung	-	responsibility	مسئولیت	Sie übernehmen Verantwortung für Ihr Modul.		
+job-1	2	erstellen	-	to create, produce	ایجاد کردن	Sie erstellen Testberichte und Dokumentationen.		
+job-1	2	die Spezifikation	-	specification	مشخصات فنی	Von der Spezifikation bis zum Test.		
+job-1	2	die Anforderung / das Anforderungsmanagement	-	requirement / requirements management	نیازمندی / مدیریت نیازمندی‌ها	Das Anforderungsmanagement ist Teil der Rolle.		
+job-1	2	der Prototyp	-	prototype	نمونه اولیه	Wir bauen zuerst einen Prototyp.		
+job-1	2	die Serienreife	-	production readiness	آمادگی تولید انبوه	Das Produkt erreicht bald die Serienreife.		
+job-1	2	die Entwicklungsergebnisse (Pl.)	-	development results	نتایج توسعه	Dokumentieren Sie Ihre Entwicklungsergebnisse.		
+job-1	2	die Testautomatisierung	-	test automation	خودکارسازی تست	Wir bauen die Testautomatisierung aus.		
+job-1	2	die Versionsverwaltung	-	version control	کنترل نسخه	Git ist unsere Versionsverwaltung.		
+job-1	2	agile Methoden (Pl.)	-	agile methods	روش‌های چابک	Wir arbeiten mit agilen Methoden.		
+job-1	2	das Code-Review	-	code review	بازبینی کد	Jedes Code-Review dauert etwa eine Stunde.		
+job-1	2	der Unit-Test	-	unit test	تست واحد	Für jede Funktion schreibe ich einen Unit-Test.		
+job-1	2	die Qualitätssicherung	-	quality assurance	تضمین کیفیت	Die Qualitätssicherung prüft jede Version.		
+job-1	2	die Fehlersuche	-	troubleshooting	عیب‌یابی	Die Fehlersuche hat zwei Tage gedauert.		
+job-1	2	die Fehlerbehebung	-	bug fixing	رفع خطا	Die Fehlerbehebung ist abgeschlossen.		
+job-1	2	der Quellcode	-	source code	کد منبع	Der Quellcode liegt in einem Git-Repository.		
+job-1	2	das Pflichtenheft	-	requirements specification (supplier side)	مشخصات نیازمندی‌ها (سمت تأمین‌کننده)	Wir erstellen das Pflichtenheft gemeinsam mit dem Kunden.		
+job-1	2	das Lastenheft	-	customer requirements document	سند نیازمندی‌های مشتری	Das Lastenheft beschreibt, was der Kunde braucht.		
+job-1	2	die Funktionsbeschreibung	-	functional description	شرح عملکرد	Ich schreibe die Funktionsbeschreibung für die Steuerung.		
+job-1	2	die Anforderungsanalyse	-	requirements analysis	تحلیل نیازمندی‌ها	Die Anforderungsanalyse ist der erste Schritt im Projekt.		
+job-1	2	die Konzepterarbeitung	-	concept development	تدوین مفهوم/طرح	Zu meinen Aufgaben gehört die Konzepterarbeitung.		
+job-1	2	die Aufwandsschätzung	-	effort estimation	برآورد هزینه/زمان کار	Ich mache eine realistische Aufwandsschätzung.		
+job-1	2	das Versions- und Konfigurationsmanagement	-	version and configuration management	مدیریت نسخه و پیکربندی	Sie verantworten das Versions- und Konfigurationsmanagement.		
+job-1	2	die technische Softwaredokumentation	-	technical software documentation	مستندات فنی نرم‌افزار	Ich erstelle die technische Softwaredokumentation.		
+job-1	2	die Prüfspezifikation	-	test specification	مشخصات آزمون	Die Prüfspezifikation legt die Testfälle fest.		
+job-1	2	der Freigabetest	-	release test	آزمون تأیید انتشار	Vor dem Release läuft der Freigabetest.		
+job-1	2	die Fehleranalyse	-	fault analysis	تحلیل خطا	Nach dem Ausfall folgt die Fehleranalyse.		
+job-1	2	das Hardware-Debugging	-	hardware debugging	اشکال‌زدایی سخت‌افزاری	Beim Hardware-Debugging nutze ich einen Logic Analyzer.		
+job-1	2	die Hardware- und Softwareintegration	-	hardware and software integration	یکپارچه‌سازی سخت‌افزار و نرم‌افزار	Die Hardware- und Softwareintegration dauert zwei Wochen.		
+job-1	2	die Softwareaktualisierung	-	software update	به‌روزرسانی نرم‌افزار	Wir bereiten die Softwareaktualisierung für den Kunden vor.		
+job-1	2	die Anbindung von Bussystemen	-	bus system integration	اتصال سیستم‌های باس	Die Anbindung von Bussystemen gehört zu meinen Aufgaben.		
+job-1	2	die Konzipierung von Architekturen	-	designing architectures	طراحی معماری‌ها	Ich bin für die Konzipierung von Architekturen zuständig.		
+job-1	2	das Tailoring	-	tailoring (adapting a product to a project)	سفارشی‌سازی	Das Tailoring der Software passen wir pro Kunde an.		
+job-1	2	die Beratung von Kunden	-	customer consulting	مشاوره به مشتریان	Die Beratung von Kunden macht mir Spaß.		
+job-1	2	die technische Abstimmung	-	technical coordination	هماهنگی فنی	Die technische Abstimmung mit dem Zulieferer läuft gut.		
+job-1	2	die Zusammenarbeit mit internationalen Projektteams	-	working with international project teams	همکاری با تیم‌های پروژه بین‌المللی	Die Zusammenarbeit mit internationalen Projektteams ist spannend.		
+job-1	2	die Inbetriebnahme beim Kunden	-	commissioning at the customer's site	راه‌اندازی در محل مشتری	Die Inbetriebnahme beim Kunden dauert eine Woche.		
+job-1	2	die Abnahme	-	acceptance (of a system)	پذیرش/تحویل (سیستم)	Nach der Abnahme übergeben wir die Anlage.		
+job-1	2	die Einweisung	-	briefing, instruction (on a system)	آموزش/توجیه کاربر	Wir machen die Einweisung der Kunden vor Ort.		
+job-1	2	die Wartung und Instandsetzung	-	maintenance and repair	نگهداری و تعمیر	Wartung und Instandsetzung gehören zum Service.		
+job-1	2	die Optimierung bestehender Anlagen	-	optimizing existing plants/machines	بهینه‌سازی تجهیزات موجود	Die Optimierung bestehender Anlagen spart Energie.		
+job-1	2	die Digitalisierung von Produktionsanlagen	-	digitalization of production plants	دیجیتالی‌سازی خطوط تولید	Die Digitalisierung von Produktionsanlagen ist ein großes Thema.		
+job-1	3	der Softwareentwickler / die Softwareentwicklerin	-	software developer	توسعه‌دهنده نرم‌افزار	Als Softwareentwickler arbeite ich viel mit C++.		
+job-1	3	der Embedded-Software-Entwickler	-	embedded software developer	توسعه‌دهنده نرم‌افزار نهفته	Der Embedded-Software-Entwickler programmiert Mikrocontroller.		
+job-1	3	der Firmware-Entwickler	-	firmware developer	توسعه‌دهنده فریمور	Unser Firmware-Entwickler testet den neuen Treiber.		
+job-1	3	der Entwicklungsingenieur / die Entwicklungsingenieurin	-	development engineer	مهندس توسعه	Die Entwicklungsingenieurin leitet das Projekt.		
+job-1	3	der Ingenieur / die Ingenieurin	-	engineer	مهندس	Ich bin Ingenieur für Elektrotechnik.		
+job-1	3	der Systemingenieur	-	systems engineer	مهندس سیستم	Der Systemingenieur plant die Gesamtarchitektur.		
+job-1	3	der Hardwareentwickler	-	hardware developer	توسعه‌دهنده سخت‌افزار	Der Hardwareentwickler zeichnet den Schaltplan.		
+job-1	3	der Testingenieur	-	test engineer	مهندس تست	Der Testingenieur prüft die Firmware.		
+job-1	3	die Teamleitung	-	team lead	سرپرست تیم	Die Teamleitung plant die nächsten Sprints.		
+job-1	3	der Gruppenleiter	-	group leader	سرپرست گروه	Der Gruppenleiter Softwareentwicklung hat zehn Mitarbeiter.		
+job-1	3	der Werkstudent / die Werkstudentin	-	working student	دانشجوی شاغل پاره‌وقت	Als Werkstudent arbeite ich zwanzig Stunden pro Woche.		
+job-1	3	das Praktikum	-	internship	کارآموزی	Ich suche ein Praktikum im Bereich Robotik.		
+job-1	3	die Abschlussarbeit	-	thesis	پایان‌نامه	Meine Abschlussarbeit schreibe ich bei einer Firma.		
+job-1	3	die Fachabteilung	-	specialist department	بخش تخصصی	Wir stimmen uns eng mit der Fachabteilung ab.		
+job-1	3	der Ansprechpartner / die Ansprechpartnerin	-	contact person	فرد مسئول تماس	Ihre Ansprechpartnerin ist Frau Weber.		
+job-1	3	der Arbeitgeber	-	employer	کارفرما	Mein Arbeitgeber sitzt in München.		
+job-1	3	der Bewerber / die Bewerberin	-	applicant	متقاضی	Es gibt viele Bewerber für diese Stelle.		
+job-1	3	der Berufseinsteiger / die Berufseinsteigerin	-	career starter	تازه‌وارد بازار کار	Wir suchen auch Berufseinsteiger.		
+job-1	3	der Quereinsteiger / die Quereinsteigerin	-	career changer	تغییردهنده مسیر شغلی	Quereinsteiger sind bei uns willkommen.		
+job-1	3	(m/w/d)	-	(male/female/diverse) – gender-neutral job notation	(مرد/زن/دیگر) – نشانه‌گذاری بی‌طرف جنسیتی	Softwareentwickler (m/w/d) gesucht.		
+job-1	3	die Personalreferentin	-	HR officer (female)	کارشناس منابع انسانی (زن)	Die Personalreferentin ruft mich morgen an.		
+job-1	3	der Praktikant (m/w/d)	-	intern	کارآموز	Als Praktikant unterstütze ich das Team.		
+job-1	3	der Softwareentwickler Robotik-Systeme	-	robotics systems software developer	توسعه‌دهنده نرم‌افزار سیستم‌های رباتیک	Er bewirbt sich als Softwareentwickler Robotik-Systeme.		
+job-1	3	der Embedded Software System Architect	-	embedded software system architect	معمار سیستم نرم‌افزار امبدد	Der Embedded Software System Architect plant die Architektur.		
+job-1	3	der Automatisierungsingenieur	-	automation engineer	مهندس اتوماسیون	Der Automatisierungsingenieur programmiert die Anlage.		
+job-1	3	der Automatisierungstechniker	-	automation technician	تکنسین اتوماسیون	Der Automatisierungstechniker nimmt die Maschine in Betrieb.		
+job-1	3	der Regelungstechniker	-	control engineer	مهندس کنترل	Als Regelungstechniker arbeite ich an der Motorregelung.		
+job-1	3	der Inbetriebnahmetechniker	-	commissioning technician	تکنسین راه‌اندازی	Der Inbetriebnahmetechniker reist oft zu Kunden.		
+job-1	3	der Werkstudent	-	working student	دانشجوی کارمند پاره‌وقت	Als Werkstudent arbeite ich 20 Stunden pro Woche.		
+job-1	4	die Teamfähigkeit	-	ability to work in a team	توانایی کار تیمی	Teamfähigkeit ist uns wichtig.		
+job-1	4	die Eigeninitiative	-	own initiative	ابتکار شخصی	Sie zeigen Eigeninitiative.		
+job-1	4	selbstständig arbeiten	-	to work independently	مستقل کار کردن	Sie arbeiten selbstständig und zuverlässig.		
+job-1	4	die Problemlösungsfähigkeit	-	problem-solving ability	توانایی حل مسئله	Problemlösungsfähigkeit zeichnet Sie aus.		
+job-1	4	das technische Verständnis	-	technical understanding	درک فنی	Sie bringen technisches Verständnis mit.		
+job-1	4	die Kommunikationsstärke	-	communication skills	قدرت ارتباطی	Kommunikationsstärke ist im Team wichtig.		
+job-1	4	die Genauigkeit	-	accuracy, precision	دقت	Genauigkeit ist bei Messsystemen entscheidend.		
+job-1	4	der Ideenreichtum	-	inventiveness	خلاقیت و ایده‌پردازی	Wir schätzen Ihren Ideenreichtum.		
+job-1	4	analytisch und strukturiert	-	analytical and structured	تحلیلی و ساختارمند	Sie arbeiten analytisch und strukturiert.		
+job-1	4	die Begeisterung	-	enthusiasm	شور و اشتیاق	Wir suchen Menschen mit Begeisterung für Technik.		
+job-1	4	das Interesse an	-	interest in	علاقه به	Ich habe großes Interesse an dieser Stelle.		
+job-1	4	die Zuverlässigkeit	-	reliability	قابل اعتماد بودن	Zuverlässigkeit ist im Job sehr wichtig.		
+job-1	4	die Lernbereitschaft	-	willingness to learn	آمادگی برای یادگیری	Ich zeige hohe Lernbereitschaft.		
+job-1	4	die Hands-on-Mentalität	-	hands-on mentality	روحیه عملی و دست‌به‌کار	Wir suchen jemanden mit Hands-on-Mentalität.		
+job-1	4	die selbstständige und strukturierte Arbeitsweise	-	independent and structured way of working	شیوه کار مستقل و ساختارمند	Eine selbstständige und strukturierte Arbeitsweise wird erwartet.		
+job-1	4	das Qualitätsbewusstsein	-	quality awareness	توجه به کیفیت	Qualitätsbewusstsein ist uns wichtig.		
+job-1	4	die Lösungsorientierung	-	solution orientation	راه‌حل‌محوری	Lösungsorientierung hilft bei Problemen.		
+job-1	4	die Kommunikationsfähigkeit	-	communication skills	مهارت ارتباطی	Hohe Kommunikationsfähigkeit ist Voraussetzung.		
+job-1	4	die Begeisterung für neue Technologien	-	enthusiasm for new technologies	اشتیاق به فناوری‌های جدید	Meine Begeisterung für neue Technologien motiviert mich.		
+job-1	4	verhandlungssichere Deutsch- und Englischkenntnisse	-	fluent business German and English	تسلط کامل بر آلمانی و انگلیسی تجاری	Verhandlungssichere Deutsch- und Englischkenntnisse sind erforderlich.		
+job-1	5	das abgeschlossene Studium	-	completed degree	تحصیلات دانشگاهی تکمیل‌شده	Sie haben ein abgeschlossenes Studium der Informatik.		
+job-1	5	die Informatik	-	computer science	علوم کامپیوتر	Er hat Informatik an der TU München studiert.		
+job-1	5	die Elektrotechnik	-	electrical engineering	مهندسی برق	Elektrotechnik ist ein breites Fachgebiet.		
+job-1	5	die Mechatronik	-	mechatronics	مکاترونیک	Mechatronik verbindet Mechanik und Elektronik.		
+job-1	5	die Robotik	-	robotics	رباتیک	Ich interessiere mich für Robotik und Automatisierung.		
+job-1	5	die Regelungstechnik	-	control engineering	مهندسی کنترل	In der Regelungstechnik entwerfe ich Regler.		
+job-1	5	die Automatisierungstechnik	-	automation engineering	مهندسی اتوماسیون	Er arbeitet in der Automatisierungstechnik.		
+job-1	5	vergleichbare Qualifikation	-	comparable qualification	مدرک یا صلاحیت معادل	Ein Master oder eine vergleichbare Qualifikation ist erforderlich.		
+job-1	5	die Berufserfahrung	-	professional experience	تجربه کاری	Ich habe fünf Jahre Berufserfahrung.		
+job-1	5	mehrjährige Erfahrung	-	several years of experience	چندین سال تجربه	Wir erwarten mehrjährige Erfahrung mit C++.		
+job-1	5	die Kenntnisse (Pl.)	-	knowledge, skills	دانش و مهارت‌ها	Gute Kenntnisse in Python sind hilfreich.		
+job-1	5	sehr gute Kenntnisse in	-	very good knowledge of	تسلط بسیار خوب بر	Sie haben sehr gute Kenntnisse in C und C++.		
+job-1	5	fundierte Kenntnisse	-	solid knowledge	دانش مستحکم	Fundierte Kenntnisse in Embedded Linux sind von Vorteil.		
+job-1	5	die Erfahrung im Umgang mit	-	experience working with	تجربه کار با	Erfahrung im Umgang mit Debuggern ist wichtig.		
+job-1	5	idealerweise	-	ideally	در حالت ایده‌آل	Idealerweise kennen Sie FreeRTOS.		
+job-1	5	wünschenswert	-	desirable	مطلوب	Erfahrung mit ROS ist wünschenswert.		
+job-1	5	von Vorteil	-	an advantage	مزیت	Deutschkenntnisse sind von Vorteil.		
+job-1	5	vorausgesetzt (werden)	-	required, presupposed	لازم، پیش‌شرط	Ein Studium wird vorausgesetzt.		
+job-1	5	die Deutschkenntnisse (Pl.)	-	German language skills	مهارت زبان آلمانی	Gute Deutschkenntnisse sind erforderlich.		
+job-1	5	die Englischkenntnisse (Pl.)	-	English language skills	مهارت زبان انگلیسی	Sehr gute Englischkenntnisse in Wort und Schrift.		
+job-1	5	verhandlungssicher	-	fluent at negotiation level	در سطح مذاکره (تسلط کامل)	Sie sprechen verhandlungssicher Englisch.		
+job-1	5	der Führerschein Klasse B	-	driving licence class B	گواهینامه رانندگی کلاس B	Der Führerschein Klasse B ist erforderlich.		
+job-1	5	die Reisebereitschaft	-	willingness to travel	آمادگی برای سفر کاری	Reisebereitschaft wird erwartet.		
+job-1	5	die Dienstreise	-	business trip	سفر کاری	Gelegentlich gibt es Dienstreisen zu Kunden.		
+job-1	5	das Aufgabengebiet	-	area of responsibility	حوزه وظایف	Ihr Aufgabengebiet ist abwechslungsreich.		
+job-1	5	die Berufserfahrung in der Softwareentwicklung	-	professional experience in software development	تجربه کاری در توسعه نرم‌افزار	Ich habe Berufserfahrung in der Softwareentwicklung.		
+job-1	5	die vergleichbare Qualifikation	-	comparable qualification	مدرک/صلاحیت معادل	Eine vergleichbare Qualifikation ist auch möglich.		
+job-1	5	der MINT-Studiengang	-	STEM degree program	رشته‌های STEM (ریاضی، انفورماتیک، علوم طبیعی، فنی)	Er hat einen MINT-Studiengang abgeschlossen.		
+job-1	5	die Fachrichtung	-	field of study	رشته تحصیلی	Meine Fachrichtung ist Elektrotechnik.		
+job-1	5	die Technikerausbildung	-	technician training	آموزش تکنیسین	Eine technische Ausbildung ist von Vorteil.		
+job-1	5	die Praxiserfahrung	-	practical experience	تجربه عملی	Praxiserfahrung ist wichtig für diese Stelle.		
+job-1	6	die Bewerbung	-	application	درخواست استخدام	Ich schicke Ihnen meine Bewerbung.		
+job-1	6	sich bewerben (auf/bei)	-	to apply (for/at)	درخواست دادن	Ich bewerbe mich auf die Stelle als Embedded-Entwickler.		
+job-1	6	die Bewerbungsunterlagen (Pl.)	-	application documents	مدارک درخواست	Bitte senden Sie Ihre Bewerbungsunterlagen per E-Mail.		
+job-1	6	das Anschreiben	-	cover letter	نامه همراه	Ein Anschreiben ist nicht erforderlich.		
+job-1	6	der Lebenslauf	-	CV, résumé	رزومه	Mein Lebenslauf ist im Anhang.		
+job-1	6	das Zeugnis	-	certificate, reference	گواهی، ارزیابی کاری	Bitte senden Sie auch Ihre Zeugnisse mit.		
+job-1	6	die schnelle Bewerbung	-	quick apply	درخواست سریع	Mit der schnellen Bewerbung geht es in zwei Minuten.		
+job-1	6	die Stellenanzeige	-	job ad	آگهی شغلی	Ich habe Ihre Stellenanzeige gelesen.		
+job-1	6	die Stellenbeschreibung	-	job description	شرح شغل	Die Stellenbeschreibung ist sehr detailliert.		
+job-1	6	die Ausschreibung	-	job posting, tender	آگهی، فراخوان	Die Ausschreibung läuft bis Ende des Monats.		
+job-1	6	Haben wir Ihr Interesse geweckt?	-	Have we sparked your interest?	آیا توجه شما را جلب کردیم؟	Haben wir Ihr Interesse geweckt? Dann bewerben Sie sich!		
+job-1	6	wir freuen uns auf Ihre Bewerbung	-	we look forward to your application	منتظر درخواست شما هستیم	Wir freuen uns auf Ihre Bewerbung.		
+job-1	6	die Eingangsbestätigung	-	confirmation of receipt	تأییدیه دریافت	Sie erhalten eine Eingangsbestätigung per E-Mail.		
+job-1	6	die Absage	-	rejection	پاسخ منفی	Leider habe ich eine Absage bekommen.		
+job-1	6	die Zusage	-	acceptance, offer	پاسخ مثبت	Ich habe heute die Zusage erhalten.		
+job-1	6	leider müssen wir Ihnen mitteilen	-	unfortunately we must inform you	متأسفانه باید به شما اطلاع دهیم	Leider müssen wir Ihnen mitteilen, dass die Stelle besetzt ist.		
+job-1	6	wir haben uns für andere Kandidaten entschieden	-	we have decided on other candidates	ما نامزدهای دیگری را انتخاب کرده‌ایم	Wir haben uns für andere Kandidaten entschieden.		
+job-1	6	die Einladung zum Vorstellungsgespräch	-	invitation to a job interview	دعوت به مصاحبه شغلی	Ich habe eine Einladung zum Vorstellungsgespräch bekommen.		
+job-1	6	das Vorstellungsgespräch	-	job interview	مصاحبه شغلی	Das Vorstellungsgespräch findet online statt.		
+job-1	6	der Terminvorschlag	-	proposed appointment	پیشنهاد زمان	Haben Sie einen Terminvorschlag für nächste Woche?		
+job-1	6	die Rückmeldung	-	feedback, reply	بازخورد، پاسخ	Wir geben Ihnen bald eine Rückmeldung.		
+job-1	6	die Gehaltsvorstellung	-	salary expectation	انتظار حقوق	Bitte nennen Sie Ihre Gehaltsvorstellung.		
+job-1	6	der frühestmögliche Eintrittstermin	-	earliest possible start date	نزدیک‌ترین تاریخ شروع کار	Mein frühestmöglicher Eintrittstermin ist der 1. März.		
+job-1	6	die Kündigungsfrist	-	notice period	مهلت اخطار (استعفا)	Meine Kündigungsfrist beträgt drei Monate.		
+job-1	6	die Probezeit	-	probation period	دوره آزمایشی	Die Probezeit dauert sechs Monate.		
+job-1	6	der Arbeitsvertrag	-	employment contract	قرارداد کار	Ich unterschreibe den Arbeitsvertrag morgen.		
+job-1	6	die Personalabteilung	-	HR department	واحد منابع انسانی	Die Personalabteilung meldet sich bei Ihnen.		
+job-1	6	die Verfügbarkeit	-	availability	در دسترس بودن	Wie ist Ihre Verfügbarkeit?		
+job-1	6	Sehr geehrte Damen und Herren	-	Dear Sir or Madam	خانم‌ها و آقایان محترم	Sehr geehrte Damen und Herren, hiermit bewerbe ich mich…		
+job-1	6	mit freundlichen Grüßen	-	kind regards	با احترام	Mit freundlichen Grüßen, Morteza Pourmehdi		
+job-1	6	die Karrierestufe Berufseinstieg	-	career level: entry level	سطح شغلی: ورود به بازار کار	Die Karrierestufe ist Berufseinstieg.		
+job-1	6	das Beschäftigungsverhältnis	-	type of employment	نوع قرارداد استخدام	Das Beschäftigungsverhältnis ist Vollzeit.		
+job-1	6	der Tätigkeitsbereich	-	field of activity	حوزه فعالیت	Der Tätigkeitsbereich ist Ingenieurwesen und IT.		
+job-1	6	die Branche	-	industry (sector)	صنعت/حوزه کاری	Die Branche ist Maschinenbau.		
+job-1	6	die Personaldienstleistung	-	staffing services	خدمات تأمین نیروی انسانی	Die Firma bietet Personaldienstleistung für Ingenieure an.		
+job-1	6	die Direktvermittlung	-	direct placement	جذب مستقیم (بدون واسطه موقت)	Das ist eine Direktvermittlung, kein Zeitarbeitsvertrag.		
+job-1	6	die Kontaktperson	-	contact person	فرد تماس	Die Kontaktperson ist die Personalreferentin.		
+job-1	6	der Ansprechpartner	-	contact person (for a topic)	مسئول پاسخگو	Wer ist mein Ansprechpartner?		
+job-1	7	Ich möchte mich vorstellen.	-	I would like to introduce myself.	می‌خواهم خودم را معرفی کنم.	Ich möchte mich kurz vorstellen: Ich bin Ingenieur.		
+job-1	7	Ich habe Erfahrung mit …	-	I have experience with …	من تجربه کار با … را دارم.	Ich habe Erfahrung mit C++ und Qt.		
+job-1	7	Ich arbeite seit … als …	-	I have been working as … since …	من از … به عنوان … کار می‌کنم.	Ich arbeite seit 2022 als Embedded-Entwickler.		
+job-1	7	Meine Stärke ist …	-	My strength is …	نقطه قوت من … است.	Meine Stärke ist die Fehlersuche.		
+job-1	7	Meine Schwäche ist …	-	My weakness is …	نقطه ضعف من … است.	Meine Schwäche ist, dass ich manchmal zu genau bin.		
+job-1	7	Warum möchten Sie bei uns arbeiten?	-	Why do you want to work with us?	چرا می‌خواهید در شرکت ما کار کنید؟	Warum möchten Sie bei uns arbeiten?		
+job-1	7	Wo sehen Sie sich in fünf Jahren?	-	Where do you see yourself in five years?	پنج سال دیگر خود را کجا می‌بینید؟	Wo sehen Sie sich in fünf Jahren?		
+job-1	7	Haben Sie noch Fragen an uns?	-	Do you have any questions for us?	آیا سؤالی از ما دارید؟	Haben Sie noch Fragen an uns?		
+job-1	7	Wie sieht ein typischer Arbeitstag aus?	-	What does a typical working day look like?	یک روز کاری معمول چگونه است؟	Wie sieht ein typischer Arbeitstag bei Ihnen aus?		
+job-1	7	Wie geht es nach dem Gespräch weiter?	-	What are the next steps after the interview?	بعد از مصاحبه چه مراحلی هست؟	Wie geht es nach dem Gespräch weiter?		
+job-1	7	Ich würde mich über eine Einladung freuen.	-	I would be glad about an invitation.	از دعوت شما خوشحال می‌شوم.	Ich würde mich über eine Einladung freuen.		
+job-1	7	Ich stehe Ihnen jederzeit zur Verfügung.	-	I am available to you at any time.	هر زمان در خدمت شما هستم.	Ich stehe Ihnen jederzeit für Fragen zur Verfügung.		
+job-1	7	Vielen Dank für Ihre Rückmeldung.	-	Thank you for your reply.	از پاسخ شما سپاسگزارم.	Vielen Dank für Ihre schnelle Rückmeldung.		
+job-1	7	Bitte entschuldigen Sie die Verspätung.	-	Please excuse the delay.	لطفاً بابت تأخیر عذر مرا بپذیرید.	Bitte entschuldigen Sie die späte Antwort.		
+job-1	7	im Anhang finden Sie …	-	attached you will find …	در پیوست … را می‌یابید.	Im Anhang finden Sie meinen Lebenslauf.		
+job-1	7	hiermit bewerbe ich mich	-	I hereby apply	بدین‌وسیله درخواست می‌دهم	Hiermit bewerbe ich mich auf die ausgeschriebene Stelle.		
+job-1	7	mit großem Interesse habe ich … gelesen	-	I read … with great interest	با علاقه زیاد … را خواندم	Mit großem Interesse habe ich Ihre Anzeige gelesen.		
+job-1	7	Ich bin hochmotiviert.	-	I am highly motivated.	من بسیار با انگیزه هستم.	Ich bin hochmotiviert und lernbereit.		
+job-1	7	Ich verfüge über …	-	I have (possess) …	من … را دارم.	Ich verfüge über fundierte Kenntnisse in Robotik.		
+job-1	7	Zu meinen Aufgaben gehörten …	-	My tasks included …	وظایف من شامل … بود.	Zu meinen Aufgaben gehörten Entwicklung und Test.		
+job-1	7	Ich habe erfolgreich … abgeschlossen.	-	I successfully completed …	من با موفقیت … را به پایان رساندم.	Ich habe mein Studium erfolgreich abgeschlossen.		
+job-1	7	Ich bin umzugsbereit.	-	I am willing to relocate.	آماده جابه‌جایی هستم.	Ich bin umzugsbereit und kann sofort anfangen.		
+job-1	7	Ich ziehe nach Deutschland.	-	I am moving to Germany.	من به آلمان می‌روم.	Ich ziehe im Frühjahr nach Deutschland.		
+job-1	7	Ich lerne Deutsch.	-	I am learning German.	من آلمانی یاد می‌گیرم.	Ich lerne Deutsch und besuche einen Sprachkurs.		
+job-1	7	Könnten Sie das bitte wiederholen?	-	Could you please repeat that?	می‌توانید لطفاً تکرار کنید؟	Könnten Sie das bitte langsamer wiederholen?		
+job-1	7	Wie lange dauert das Auswahlverfahren?	-	How long does the selection process take?	روند انتخاب چقدر طول می‌کشد؟	Wie lange dauert das Auswahlverfahren?		
+job-1	7	das Auswahlverfahren	-	selection process	فرایند گزینش	Das Auswahlverfahren hat drei Stufen.		
+job-1	7	das Telefoninterview	-	phone interview	مصاحبه تلفنی	Das Telefoninterview dauert dreißig Minuten.		
+job-1	7	das Assessment-Center	-	assessment center	مرکز ارزیابی	Zum Assessment-Center werden fünf Bewerber eingeladen.		
+job-1	7	die Aufgabenstellung	-	task assignment (e.g. coding task)	صورت مسئله / تکلیف	Die Aufgabenstellung kommt per E-Mail.		
+job-1	7	das Probearbeiten	-	trial working day	روز کاری آزمایشی	Wir bieten einen Tag Probearbeiten an.		
+job-1	7	die Bewerbungsfrist	-	application deadline	مهلت درخواست	Die Bewerbungsfrist endet am 30. November.		
+job-1	7	die Initiativbewerbung	-	unsolicited application	درخواست بدون آگهی (ابتکاری)	Ich sende eine Initiativbewerbung an die Firma.		
+job-1	7	die Online-Bewerbung	-	online application	درخواست آنلاین	Bitte nutzen Sie unser Online-Bewerbungsportal.		
+job-1	7	das Karriereportal	-	career portal	پورتال شغلی	Im Karriereportal sehe ich meinen Status.		
+job-1	7	der Bewerbungsstatus	-	application status	وضعیت درخواست	Mein Bewerbungsstatus ist „in Prüfung“.		
+job-1	7	in Prüfung	-	under review	در حال بررسی	Ihre Bewerbung ist derzeit in Prüfung.		
+job-1	7	die Stelle ist bereits besetzt	-	the position has already been filled	این موقعیت پر شده است	Die Stelle ist leider bereits besetzt.		
+job-1	7	wir behalten Ihre Unterlagen in Evidenz	-	we will keep your documents on file	مدارک شما را نگه می‌داریم	Wir behalten Ihre Unterlagen gern in Evidenz.		
+job-1	7	wir wünschen Ihnen für die Zukunft alles Gute	-	we wish you all the best for the future	برای آینده آرزوی موفقیت داریم	Wir wünschen Ihnen für Ihre berufliche Zukunft alles Gute.		
+job-1	7	nach sorgfältiger Prüfung	-	after careful review	پس از بررسی دقیق	Nach sorgfältiger Prüfung haben wir entschieden…		
+job-1	7	leider können wir Ihnen keine Zusage geben	-	unfortunately we cannot offer you the job	متأسفانه نمی‌توانیم پاسخ مثبت بدهیم	Leider können wir Ihnen keine Zusage geben.		
+job-1	7	Ihre Bewerbung hat uns überzeugt	-	your application convinced us	درخواست شما ما را قانع کرد	Ihre Bewerbung hat uns überzeugt.		
+job-1	7	wir möchten Sie gern kennenlernen	-	we would like to get to know you	دوست داریم شما را بشناسیم	Wir möchten Sie gern persönlich kennenlernen.		
+job-1	7	das Angebot	-	offer	پیشنهاد	Ich habe ein Angebot von einer Firma in Berlin.		
+job-1	7	das Vertragsangebot	-	contract offer	پیشنهاد قرارداد	Das Vertragsangebot kommt nächste Woche.		
+job-1	7	verhandeln / die Verhandlung	-	to negotiate / negotiation	مذاکره	Ich verhandle über mein Gehalt.		
+job-1	7	das Jahresgehalt	-	annual salary	حقوق سالانه	Das Jahresgehalt liegt bei 65.000 Euro.		
+job-1	7	das Zielgehalt	-	target salary	حقوق مورد نظر	Mein Zielgehalt liegt bei 70.000 Euro.		
+job-1	7	die Gehaltsspanne	-	salary range	بازه حقوق	Die Gehaltsspanne steht in der Anzeige.		
+job-1	7	die Gehaltserhöhung	-	pay raise	افزایش حقوق	Ich bitte um eine Gehaltserhöhung.		
+job-1	7	die Befristung	-	fixed term (limitation)	محدودیت زمانی قرارداد	Die Befristung beträgt zwei Jahre.		
+job-1	7	die Verlängerung	-	extension	تمدید	Eine Verlängerung ist möglich.		
+job-1	7	die Kündigung	-	termination, notice	استعفا / فسخ قرارداد	Die Kündigung muss schriftlich erfolgen.		
+job-1	7	der Aufhebungsvertrag	-	termination agreement	توافق‌نامه پایان همکاری	Wir unterschreiben einen Aufhebungsvertrag.		
+job-1	7	das Arbeitszeugnis	-	employment reference	گواهی سابقه کار	Ich bitte um ein Arbeitszeugnis.		
+job-1	8	die Besprechung	-	meeting	جلسه	Die Besprechung beginnt um zehn Uhr.		
+job-1	8	das Meeting	-	meeting (also used in German)	جلسه	Wir haben jeden Morgen ein kurzes Meeting.		
+job-1	8	der Termin	-	appointment, deadline	وقت ملاقات، موعد	Ich habe heute einen Termin beim Chef.		
+job-1	8	die Frist	-	deadline	مهلت	Die Frist endet am Freitag.		
+job-1	8	der Zeitplan	-	schedule	برنامه زمانی	Der Zeitplan ist sehr eng.		
+job-1	8	das Projektteam	-	project team	تیم پروژه	Das Projektteam trifft sich wöchentlich.		
+job-1	8	der Kunde / die Kundin	-	customer	مشتری	Wir beraten unsere Kunden vor Ort.		
+job-1	8	der Vertrieb	-	sales	فروش	Der Vertrieb meldet neue Anforderungen.		
+job-1	8	das Produktmanagement	-	product management	مدیریت محصول	Das Produktmanagement plant die nächste Version.		
+job-1	8	die Anwendungsberatung	-	application consulting	مشاوره کاربردی	Die Anwendungsberatung unterstützt die Kunden.		
+job-1	8	der Vorgesetzte / die Vorgesetzte	-	supervisor, boss	سرپرست، مافوق	Mein Vorgesetzter lobt meine Arbeit.		
+job-1	8	der Kollege / die Kollegin	-	colleague	همکار	Meine Kollegin hilft mir beim Debuggen.		
+job-1	8	die Aufgabe	-	task	وظیفه	Diese Aufgabe ist sehr anspruchsvoll.		
+job-1	8	anspruchsvoll	-	challenging, demanding	چالش‌برانگیز	Wir arbeiten an anspruchsvollen Projekten.		
+job-1	8	abwechslungsreich	-	varied	متنوع	Die Arbeit ist abwechslungsreich.		
+job-1	8	verantwortungsvoll	-	responsible, with responsibility	مسئولیت‌پذیر، پرمسئولیت	Wir bieten eine verantwortungsvolle Position.		
+job-1	8	spannend	-	exciting	هیجان‌انگیز	Das Projekt ist sehr spannend.		
+job-1	8	innovativ	-	innovative	نوآورانه	Wir sind ein innovatives Unternehmen.		
+job-1	8	die Unternehmenskultur	-	company culture	فرهنگ سازمانی	Die Unternehmenskultur ist offen.		
+job-1	8	das Startup	-	startup	استارتاپ	Ich arbeite gern in einem Startup.		
+job-1	8	der Konzern	-	corporation, group	گروه صنعتی بزرگ	Der Konzern hat weltweit Standorte.		
+job-1	8	der Mittelstand	-	medium-sized businesses	شرکت‌های متوسط	Der Mittelstand ist das Rückgrat der Wirtschaft.		
+job-1	8	der Standort	-	location, site	محل، شعبه	Unser Standort ist in Ulm.		
+job-1	8	vor Ort	-	on site	در محل	Die Stelle ist vor Ort in Stuttgart.		
+job-1	8	remote / ortsunabhängig	-	remote / location-independent	دورکار / مستقل از مکان	Die Arbeit ist komplett remote möglich.		
+job-1	8	hybrid	-	hybrid	ترکیبی	Wir arbeiten hybrid, drei Tage im Büro.		
+job-1	8	die Überstunden (Pl.)	-	overtime	اضافه‌کاری	Überstunden werden ausgeglichen.		
+job-1	8	die Schichtarbeit	-	shift work	کار شیفتی	In der Fertigung gibt es Schichtarbeit.		
+job-1	8	die Arbeitszeit	-	working hours	ساعت کاری	Die Arbeitszeit beträgt 38 Stunden pro Woche.		
+job-1	8	die Vierzigstundenwoche	-	40-hour week	هفته چهل‌ساعته	Wir arbeiten in einer Vierzigstundenwoche.		
+job-1	8	der Tarifvertrag	-	collective agreement	توافق‌نامه جمعی کار	Es gilt der Tarifvertrag der Metallindustrie.		
+job-1	8	der Betriebsrat	-	works council	شورای کارگری شرکت	Der Betriebsrat vertritt die Mitarbeiter.		
+job-1	8	das Weihnachtsgeld	-	Christmas bonus	عیدی کریسمس	Es gibt Weihnachtsgeld im November.		
+job-1	8	das Urlaubsgeld	-	holiday bonus	کمک‌هزینه تعطیلات	Wir zahlen zusätzlich Urlaubsgeld.		
+job-1	8	das Jobticket	-	subsidized transit pass	بلیت حمل‌ونقل عمومی شرکتی	Die Firma bezahlt das Jobticket.		
+job-1	8	die Kantine	-	canteen	کافه‌تریا شرکت	In der Kantine gibt es günstiges Essen.		
+job-1	8	die Betriebsvereinbarung	-	works agreement	توافق‌نامه داخلی شرکت	Das steht in der Betriebsvereinbarung.		
+job-1	8	die Krankmeldung	-	sick note	اطلاع‌رسانی بیماری	Ich schicke die Krankmeldung heute.		
+job-1	8	die Lohnabrechnung	-	payslip	فیش حقوقی	Die Lohnabrechnung kommt per E-Mail.		
+job-1	8	die Lohnsteuer	-	income tax (payroll)	مالیات بر حقوق	Die Lohnsteuer wird automatisch abgezogen.		
+job-1	8	die Sozialversicherung	-	social insurance	بیمه اجتماعی	Die Sozialversicherung zahlt der Arbeitgeber mit.		
+job-1	8	die Krankenversicherung	-	health insurance	بیمه درمانی	Ich brauche eine Krankenversicherung in Deutschland.		
+job-1	8	die Rentenversicherung	-	pension insurance	بیمه بازنشستگی	Die Rentenversicherung wird vom Gehalt abgezogen.		
+job-1	8	die Steuer-ID	-	tax ID	شناسه مالیاتی	Bitte senden Sie uns Ihre Steuer-ID.		
+job-1	8	die Anmeldung (beim Einwohnermeldeamt)	-	registration of residence	ثبت اقامت (در اداره ثبت ساکنان)	Die Anmeldung muss innerhalb von zwei Wochen erfolgen.		
+job-1	8	der Wohnsitz	-	place of residence	محل سکونت	Mein Wohnsitz ist in Schweden.		
+job-1	8	die Wohnungssuche	-	apartment search	جست‌وجوی خانه	Die Wohnungssuche in München ist schwierig.		
+job-1	8	die Kaution	-	rental deposit	ودیعه (کوشن)	Die Kaution beträgt drei Monatsmieten.		
+job-1	8	die Anerkennung (ausländischer Abschlüsse)	-	recognition of foreign qualifications	شناسایی مدارک خارجی	Ich beantrage die Anerkennung meines Abschlusses.		
+job-1	8	die Beglaubigung	-	certification (of documents)	تأیید رسمی مدارک	Dafür brauche ich eine Beglaubigung.		
+job-1	8	die Übersetzung	-	translation	ترجمه	Die Übersetzung muss beglaubigt sein.		
+job-1	8	der Sprachkurs	-	language course	دوره زبان	Ich besuche einen Sprachkurs.		
+job-1	8	das Sprachniveau	-	language level	سطح زبان	Mein Sprachniveau ist B1.		
+job-1	8	das Zertifikat	-	certificate	گواهی	Ich habe ein Zertifikat von Goethe.		
+job-1	8	die Fachkraft	-	skilled worker	نیروی متخصص	Deutschland sucht Fachkräfte aus dem Ausland.		
+job-1	8	der Fachkräftemangel	-	skilled-labour shortage	کمبود نیروی متخصص	Der Fachkräftemangel betrifft die IT-Branche.		
+job-1	8	die Einwanderung	-	immigration	مهاجرت (ورود)	Die Einwanderung wird durch ein Gesetz geregelt.		
+job-1	9	Wir bieten (Ihnen)	-	we offer (you)	ما به شما ارائه می‌دهیم	Wir bieten Ihnen einen sicheren Arbeitsplatz.		
+job-1	9	Ihre Aufgaben	-	your tasks	وظایف شما	Ihre Aufgaben: Entwicklung und Test von Software.		
+job-1	9	Ihr Profil	-	your profile	مشخصات مورد انتظار از شما	Ihr Profil: abgeschlossenes Studium und C++.		
+job-1	9	zur Verstärkung unseres Teams	-	to strengthen our team	برای تقویت تیم ما	Zur Verstärkung unseres Teams suchen wir Sie.		
+job-1	9	zum nächstmöglichen Zeitpunkt	-	at the earliest possible date	در نزدیک‌ترین زمان ممکن	Wir suchen Sie zum nächstmöglichen Zeitpunkt.		
+job-1	9	ab sofort	-	immediately, from now on	از همین حالا	Die Stelle ist ab sofort zu besetzen.		
+job-1	9	die Festanstellung	-	permanent employment	استخدام دائم	Wir bieten eine Festanstellung.		
+job-1	9	unbefristet	-	permanent, open-ended	بدون محدودیت زمانی	Der Vertrag ist unbefristet.		
+job-1	9	befristet	-	fixed-term	محدود به مدت معین	Die Stelle ist auf zwei Jahre befristet.		
+job-1	9	die Vollzeit / die Teilzeit	-	full-time / part-time	تمام‌وقت / نیمه‌وقت	Die Stelle ist in Vollzeit oder Teilzeit möglich.		
+job-1	9	das Home-Office (teilweise)	-	home office (partly)	دورکاری (بخشی)	Teilweise Home-Office ist möglich.		
+job-1	9	flexible Arbeitszeiten (Pl.)	-	flexible working hours	ساعات کاری انعطاف‌پذیر	Wir bieten flexible Arbeitszeiten.		
+job-1	9	die Gleitzeit	-	flextime	زمان کاری شناور	Bei uns gibt es Gleitzeit.		
+job-1	9	das Gehalt	-	salary	حقوق	Das Gehalt hängt von der Erfahrung ab.		
+job-1	9	die attraktive Vergütung	-	attractive pay	پرداخت جذاب	Wir bieten eine attraktive Vergütung.		
+job-1	9	brutto / netto	-	gross / net	ناخالص / خالص	Das Gehalt beträgt 60.000 Euro brutto.		
+job-1	9	die Prämie	-	bonus	پاداش	Es gibt eine jährliche Prämie.		
+job-1	9	der Urlaubsanspruch	-	vacation entitlement	حق مرخصی	Der Urlaubsanspruch beträgt 30 Tage.		
+job-1	9	die Weiterbildung	-	further training	آموزش تکمیلی	Wir fördern Ihre Weiterbildung.		
+job-1	9	die Entwicklungsmöglichkeiten (Pl.)	-	development opportunities	فرصت‌های رشد	Wir bieten gute Entwicklungsmöglichkeiten.		
+job-1	9	der Gestaltungsspielraum	-	room for creative freedom	آزادی عمل	Sie haben viel Gestaltungsspielraum.		
+job-1	9	die flache Hierarchie	-	flat hierarchy	ساختار سازمانی تخت	Bei uns gibt es flache Hierarchien.		
+job-1	9	die kurzen Entscheidungswege (Pl.)	-	short decision paths	مسیرهای تصمیم‌گیری کوتاه	Kurze Entscheidungswege beschleunigen Projekte.		
+job-1	9	die Wertschätzung	-	appreciation	قدردانی	Wir pflegen eine Kultur der Wertschätzung.		
+job-1	9	die betriebliche Altersvorsorge	-	company pension scheme	بازنشستگی شرکتی	Wir bieten eine betriebliche Altersvorsorge.		
+job-1	9	die Umzugshilfe	-	relocation assistance	کمک‌هزینه جابه‌جایی	Die Firma bietet Umzugshilfe an.		
+job-1	9	die Arbeitserlaubnis	-	work permit	مجوز کار	Ich brauche eine Arbeitserlaubnis.		
+job-1	9	die Blaue Karte EU	-	EU Blue Card	کارت آبی اتحادیه اروپا	Mit der Blauen Karte EU kann ich in Deutschland arbeiten.		
+job-1	9	die Aufenthaltserlaubnis	-	residence permit	اجازه اقامت	Meine Aufenthaltserlaubnis läuft bald ab.		
+job-1	9	das Einarbeitungsprogramm	-	onboarding program	برنامه آشنایی/ورود به کار	Wir bieten ein persönliches Einarbeitungsprogramm.		
+job-1	9	die professionelle Einarbeitung	-	professional onboarding	آموزش حرفه‌ای ورود	Wir legen Wert auf eine professionelle Einarbeitung.		
+job-1	9	das Patenschaftsmodell	-	buddy/mentor program	برنامه مربی/همراه	Das Patenschaftsmodell hilft neuen Kollegen.		
+job-1	9	die flachen Hierarchien	-	flat hierarchies	سلسله‌مراتب کم/مسطح	Bei uns gibt es flache Hierarchien.		
+job-1	9	die kurzen Entscheidungswege	-	short decision paths	مسیرهای تصمیم‌گیری کوتاه	Kurze Entscheidungswege beschleunigen Projekte.		
+job-1	9	die Kommunikation auf Augenhöhe	-	communication on equal footing	ارتباط همسطح و محترمانه	Wir pflegen eine Kommunikation auf Augenhöhe.		
+job-1	9	das Arbeitszeitkonto	-	working-time account	حساب ساعات کاری	Überstunden gehen auf das Arbeitszeitkonto.		
+job-1	9	die Leistungsprämie	-	performance bonus	پاداش عملکرد	Es gibt eine jährliche Leistungsprämie.		
+job-1	9	die Sonderzahlung	-	special payment, bonus	پرداخت ویژه	Sonderzahlungen gibt es im Dezember.		
+job-1	9	das Urlaubs- und Weihnachtsgeld	-	holiday and Christmas bonus	پاداش تعطیلات و کریسمس	Wir zahlen Urlaubs- und Weihnachtsgeld.		
+job-1	9	die betriebliche Altersversorgung	-	company pension scheme	بازنشستگی شرکتی	Die betriebliche Altersversorgung wird gefördert.		
+job-1	9	der Betriebsarzt	-	company doctor	پزشک شرکت	Der Betriebsarzt bietet Impfaktionen an.		
+job-1	9	die Gesundheitsförderung	-	health promotion	ارتقای سلامت	Gesundheitsförderung gehört zu unseren Benefits.		
+job-1	9	die Mitarbeiterrabatte	-	employee discounts	تخفیف‌های کارکنان	Es gibt Mitarbeiterrabatte für Produkte.		
+job-1	9	die Weiterbildungsmöglichkeiten	-	training opportunities	امکانات آموزش و ارتقا	Wir bieten individuelle Weiterbildungsmöglichkeiten.		
+job-1	9	der sichere Arbeitsplatz	-	secure job	شغل امن	Wir bieten einen sicheren Arbeitsplatz.		
+job-1	9	das Home-Office nach Bedarf	-	home office as needed	دورکاری در صورت نیاز	Home-Office nach Bedarf ist möglich.		
+job-1	9	30 Tage Urlaub	-	30 days of vacation	۳۰ روز مرخصی	Wir bieten 30 Tage Urlaub pro Jahr.		
+job-1	9	die Reisezeit als Arbeitszeit	-	travel time counts as working time	زمان سفر به‌عنوان زمان کار	Bei uns gilt Reisezeit als Arbeitszeit.		
+job-1	10	Leider müssen wir Ihnen mitteilen, dass …	-	Unfortunately, we have to inform you that …	متأسفانه باید به شما اطلاع دهیم که …	Leider müssen wir Ihnen mitteilen, dass die Stelle besetzt ist.		
+job-1	10	sich für einen anderen Kandidaten entscheiden	-	to decide on another candidate	تصمیم به انتخاب نامزد دیگر گرفتن	Wir haben uns für einen anderen Kandidaten entschieden.		
+job-1	10	der Auswahlprozess	-	selection process	فرایند گزینش	Im Auswahlprozess hat ein anderer Bewerber überzeugt.		
+job-1	10	nicht in die engere Wahl kommen	-	not to make the shortlist	به فهرست کوتاه راه پیدا نکردن	Ihre Bewerbung kam leider nicht in die engere Wahl.		
+job-1	10	die engere Wahl	-	shortlist	فهرست کوتاه	Sie sind in der engeren Wahl.		
+job-1	10	nicht berücksichtigen können	-	to be unable to consider (an application)	نتوانستن در نظر گرفتن (درخواست)	Wir können Ihre Bewerbung nicht berücksichtigen.		
+job-1	10	Ihr Profil passt noch besser zu den Anforderungen	-	another profile fits the requirements even better	پروفایل دیگری با الزامات بهتر می‌خواند	Ein anderes Profil passt noch besser zu den Anforderungen.		
+job-1	10	keine passende Position anbieten können	-	to be unable to offer a suitable position	نتوانستن پیشنهاد جایگاه مناسب	Wir können Ihnen aktuell keine passende Position anbieten.		
+job-1	10	die Stelle vorerst nicht besetzen	-	not to fill the position for now	فعلاً جایگاه را پر نکردن	Die Stelle wird vorerst nicht besetzt.		
+job-1	10	die Vielzahl an Bewerbungen	-	the large number of applications	تعداد زیاد درخواست‌ها	Wegen der Vielzahl an Bewerbungen dauert es länger.		
+job-1	10	Die Entscheidung ist uns nicht leicht gefallen.	-	The decision was not easy for us.	تصمیم‌گیری برای ما آسان نبود.	Die Entscheidung ist uns nicht leicht gefallen.		
+job-1	10	Dies ist keine Kritik an Ihrer Person.	-	This is not a criticism of you personally.	این انتقادی از شخص شما نیست.	Bitte sehen Sie dies nicht als Kritik an Ihrer Person.		
+job-1	10	eine Zusammenarbeit in der Zukunft vorstellen können	-	to be able to imagine working together in future	همکاری در آینده را ممکن دانستن	Wir können uns eine Zusammenarbeit in der Zukunft vorstellen.		
+job-1	10	Ihre Unterlagen mit Dank zurücksenden	-	to return your documents with thanks	بازگرداندن مدارک شما همراه با تشکر	Wir senden Ihnen Ihre Unterlagen mit Dank zurück.		
+job-1	10	in den Talentpool aufnehmen	-	to add to the talent pool	افزودن به بانک استعدادها	Wir nehmen Sie gerne in unseren Talentpool auf.		
+job-1	10	das Verfahren nicht fortsetzen	-	not to continue the process	ادامه ندادن فرایند	Wir haben entschieden, das Verfahren nicht fortzusetzen.		
+job-1	10	Wir wünschen Ihnen alles Gute für Ihre berufliche Zukunft.	-	We wish you all the best for your professional future.	برای آینده شغلی‌تان آرزوی بهترین‌ها داریم.	Wir wünschen Ihnen alles Gute für Ihre berufliche Zukunft.		
+job-1	10	für Ihr Interesse an unserem Unternehmen danken	-	to thank you for your interest in our company	تشکر از علاقه شما به شرکت ما	Wir danken Ihnen für Ihr Interesse an unserem Unternehmen.		
+job-1	10	die Mühe, die Sie in Ihre Bewerbung investiert haben	-	the effort you put into your application	زحمتی که برای درخواست خود کشیدید	Wir danken für die Mühe, die Sie in Ihre Bewerbung investiert haben.		
+job-1	10	das Qualifikationsprofil	-	qualification profile	پروفایل صلاحیت‌ها	Das Qualifikationsprofil muss zur Stelle passen.		
+job-1	10	das Feedback nach der Absage erfragen	-	to ask for feedback after a rejection	درخواست بازخورد پس از رد شدن	Ich möchte nach der Absage um Feedback bitten.		
+job-1	10	sich für das Angebot bedanken	-	to thank for the offer	تشکر برای پیشنهاد	Ich bedanke mich für das Angebot, muss aber absagen.		
+job-1	10	die Bewerbung zurückziehen	-	to withdraw an application	پس گرفتن درخواست	Ich ziehe meine Bewerbung hiermit zurück.		
+job-1	10	sich für ein anderes Stellenangebot entscheiden	-	to choose another job offer	انتخاب پیشنهاد شغلی دیگر	Ich habe mich für ein anderes Stellenangebot entschieden.		
+job-1	10	das Angebot zurückziehen	-	to withdraw the offer	پس گرفتن پیشنهاد	Das Unternehmen musste das Angebot zurückziehen.		
+job-1	11	Wir haben Ihre Bewerbung erhalten.	-	We have received your application.	درخواست شما را دریافت کردیم.	Wir haben Ihre Bewerbung erhalten und prüfen sie sorgfältig.		
+job-1	11	Wir melden uns zeitnah bei Ihnen.	-	We will get back to you promptly.	به‌زودی با شما تماس می‌گیریم.	Wir melden uns zeitnah mit weiteren Informationen.		
+job-1	11	Ihre Bewerbung hat uns überzeugt.	-	Your application convinced us.	درخواست شما ما را قانع کرد.	Ihre Bewerbung hat uns überzeugt.		
+job-1	11	das Vorstellungsgespräch bestätigen	-	to confirm the interview	تأیید مصاحبه	Ich bestätige das Vorstellungsgespräch am Montag.		
+job-1	11	den Termin bestätigen	-	to confirm the appointment	تأیید قرار	Ich möchte den Termin gern bestätigen.		
+job-1	11	um einen Alternativtermin bitten	-	to ask for an alternative date	درخواست زمان جایگزین	Darf ich um einen Alternativtermin bitten?		
+job-1	11	den Termin verschieben	-	to reschedule the appointment	جابه‌جا کردن قرار	Können wir den Termin verschieben?		
+job-1	11	das Video- oder Telefoninterview	-	video or phone interview	مصاحبه ویدئویی یا تلفنی	Das Telefoninterview dauert etwa 30 Minuten.		
+job-1	11	das Dankschreiben nach dem Gespräch	-	thank-you note after the interview	نامه تشکر پس از مصاحبه	Ich schicke ein Dankschreiben nach dem Gespräch.		
+job-1	11	Vielen Dank für das angenehme Gespräch.	-	Thank you for the pleasant conversation.	از گفتگوی دلنشین سپاسگزارم.	Vielen Dank für das angenehme Gespräch gestern.		
+job-1	11	die Zusage erteilen	-	to give an acceptance/offer	ارائه پاسخ مثبت/پیشنهاد	Wir möchten Ihnen heute die Zusage erteilen.		
+job-1	11	Wir freuen uns, Ihnen die Stelle anbieten zu können.	-	We are pleased to offer you the position.	خوشحالیم که این جایگاه را به شما پیشنهاد دهیم.	Wir freuen uns, Ihnen die Stelle anbieten zu können.		
+job-1	11	Sie haben sich gegen viele Mitbewerber durchgesetzt.	-	You prevailed over many other applicants.	شما بر رقبای زیادی پیروز شدید.	Sie haben sich gegen viele Mitbewerber durchgesetzt.		
+job-1	11	der Mitbewerber	-	competing applicant	رقیب/متقاضی دیگر	Es gab viele Mitbewerber auf diese Stelle.		
+job-1	11	Herzlich willkommen im Team!	-	Welcome to the team!	به تیم خوش آمدید!	Herzlich willkommen im Team!		
+job-1	11	den Arbeitsvertrag zusenden	-	to send the employment contract	ارسال قرارداد کار	Wir senden Ihnen den Arbeitsvertrag zu.		
+job-1	11	der Vertragsentwurf	-	draft contract	پیش‌نویس قرارداد	Den Vertragsentwurf erhalten Sie per E-Mail.		
+job-1	11	den Vertrag unterschrieben zurücksenden	-	to return the signed contract	بازگرداندن قرارداد امضاشده	Bitte senden Sie den Vertrag unterschrieben zurück.		
+job-1	11	die Vertragsunterzeichnung	-	contract signing	امضای قرارداد	Die Vertragsunterzeichnung ist am Freitag.		
+job-1	11	der Arbeitsbeginn	-	start of work	شروع کار	Der Arbeitsbeginn ist am 1. März.		
+job-1	11	das Eintrittsdatum	-	start date, joining date	تاریخ شروع به کار	Das Eintrittsdatum ist der 15. April.		
+job-1	11	befristet / unbefristet	-	fixed-term / permanent	مدت‌دار / دائمی	Der Vertrag ist unbefristet.		
+job-1	11	der Personalfragebogen	-	HR questionnaire	پرسشنامه کارگزینی	Bitte füllen Sie den Personalfragebogen aus.		
+job-1	11	die Zusage annehmen	-	to accept the offer	پذیرفتن پیشنهاد	Ich nehme die Zusage gerne an.		
+job-1	11	Vielen Dank für Ihr Angebot, ich nehme es gerne an.	-	Thank you for your offer, I gladly accept.	از پیشنهادتان سپاسگزارم، با کمال میل می‌پذیرم.	Vielen Dank für Ihr Angebot, ich nehme es gerne an.		
+job-1	11	Ich freue mich auf die Zusammenarbeit.	-	I look forward to working together.	مشتاق همکاری هستم.	Ich freue mich auf die Zusammenarbeit mit Ihnen.		
+job-1	11	am ersten Arbeitstag mitbringen	-	to bring on the first working day	آوردن در روز اول کاری	Bitte bringen Sie am ersten Arbeitstag Ihren Ausweis mit.		
+job-1	11	rechtlich bindend	-	legally binding	الزام‌آور از نظر قانونی	Eine Jobzusage ist rechtlich bindend.		

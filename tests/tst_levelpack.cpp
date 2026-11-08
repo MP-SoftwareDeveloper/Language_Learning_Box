@@ -253,6 +253,32 @@ private slots:
             }
         }
     }
+    void shippedJobDataIsComplete()
+    {
+        QFile f(QStringLiteral(LB_LEVELPACK_JOB_FILE));
+        QVERIFY(f.open(QIODevice::ReadOnly));
+        QList<LevelPack> packs;
+        QString err;
+        QVERIFY2(parseLevelPacks(QString::fromUtf8(f.readAll()), &packs, &err), qPrintable(err));
+        QCOMPARE(packs.size(), 1);
+        const LevelPack &p = packs.first();
+        QCOMPARE(p.id, QStringLiteral("job-1"));
+        QCOMPARE(p.title, QStringLiteral("Job-Wortschatz"));
+        QCOMPARE(p.language, QStringLiteral("de"));
+        QCOMPARE(p.chapters.size(), 11);
+        QVERIFY(p.totalWords() >= 500);
+        QSet<QString> seen;
+        for (const LevelChapter &c : p.chapters) {
+            QVERIFY2(!c.words.isEmpty(), qPrintable(c.title));
+            for (const LevelWord &w : c.words) {
+                QVERIFY(!w.german.isEmpty() && !w.english.isEmpty() && !w.persian.isEmpty());
+                QVERIFY(!w.exampleDe.isEmpty());
+                // cards are unique per box by case-folded front
+                QVERIFY2(!seen.contains(w.german.toCaseFolded()), qPrintable(w.german));
+                seen.insert(w.german.toCaseFolded());
+            }
+        }
+    }
 };
 
 QTEST_GUILESS_MAIN(TstLevelPack)
