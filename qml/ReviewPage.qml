@@ -7,9 +7,28 @@ import LearningBox
 Page {
     id: page
 
-    // A tap anywhere takes the focus away from a selected example sentence, so its highlight disappears
-    // (a passive handler: buttons and scrolling work as before).
-    TapHandler { onTapped: page.forceActiveFocus() }
+    // A press anywhere except on selectable text removes the highlight of a selected word. A PointHandler only
+    // watches (never takes the touch), so buttons and scrolling work as before.
+    property int selectionClear: 0
+    function hitsSelectableText(sx, sy) {
+        let it = page
+        for (let i = 0; i < 40; ++i) {
+            const p = it.mapFromItem(null, sx, sy)
+            const c = it.childAt(p.x, p.y)
+            if (!c)
+                break
+            it = c
+        }
+        return it.selectedText !== undefined // TextEdit / TextInput
+    }
+    PointHandler {
+        onActiveChanged: {
+            if (active && !page.hitsSelectableText(point.scenePosition.x, point.scenePosition.y)) {
+                page.selectionClear++
+                page.forceActiveFocus()
+            }
+        }
+    }
     title: session.finished ? qsTr("Done")
                             : qsTr("Review · %1 left").arg(session.remaining)
 
@@ -475,6 +494,7 @@ Page {
                         text: session.example
                         pixelSize: 17
                         selectable: true
+                        clearToken: page.selectionClear
                     }
                 }
             }

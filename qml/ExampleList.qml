@@ -12,6 +12,7 @@ ColumnLayout {
     property bool showGerman: true      // translated: also show the sentence itself
     property bool speak: true           // 🔊 for each sentence
     property bool selectable: false     // words can be selected and copied (see ExampleText)
+    property int clearToken: 0          // changes: remove the highlight of selected text
     property int pixelSize: 16
     property bool onlineLookup: true    // see ExampleText
     readonly property var sentences: text.split("\n").map(s => s.trim()).filter(s => s !== "")
@@ -33,6 +34,7 @@ ColumnLayout {
                 pixelSize: root.pixelSize
                 onlineLookup: root.onlineLookup
                 selectable: root.selectable
+                clearToken: root.clearToken
             }
             Label {
                 Layout.fillWidth: true

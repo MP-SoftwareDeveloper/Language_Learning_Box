@@ -17,6 +17,8 @@ ColumnLayout {
     property bool onlineLookup: true // false in long lists (one request per row would be too many)
     property real germanOpacity: 0.85
     property bool speakTranslation: true // 🔊 on English / German translations
+    property int clearToken: 0 // changes: remove the highlight of a selected word (the page saw a tap elsewhere)
+    onClearTokenChanged: { germanEdit.deselect(); translationEdit.deselect() }
     property bool selectable: false // press and hold selects a word to copy (review card); off in lists, where a press must scroll / open
     spacing: 2
 
@@ -79,6 +81,7 @@ ColumnLayout {
     }
     // Same look, but the text can be selected and copied (press and hold a word)
     TextEdit {
+        id: germanEdit
         Layout.fillWidth: true
         visible: root.selectable && root.showGerman && root.example !== ""
         text: root.example
@@ -109,6 +112,7 @@ ColumnLayout {
             opacity: 0.75
         }
         TextEdit {
+            id: translationEdit
             Layout.fillWidth: true
             visible: root.selectable
             text: root.translation
