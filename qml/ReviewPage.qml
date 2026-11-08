@@ -7,23 +7,44 @@ import LearningBox
 Page {
     id: page
 
-    // A press anywhere except on selectable text removes the highlight of a selected word. A PointHandler only
-    // watches (never takes the touch), so buttons and scrolling work as before.
+    // A press anywhere except on selectable text removes the highlight of a selected word.
     property int selectionClear: 0
+    // Is there selectable text (TextEdit) under this scene position? Walks down the topmost visible item at the
+    // point, skipping the press watcher below.
     function hitsSelectableText(sx, sy) {
         let it = page
-        for (let i = 0; i < 40; ++i) {
-            const p = it.mapFromItem(null, sx, sy)
-            const c = it.childAt(p.x, p.y)
-            if (!c)
-                break
-            it = c
+        for (let depth = 0; depth < 40; ++depth) {
+            if (it.selectedText !== undefined) // TextEdit / TextInput
+                return true
+            let best = null
+            const kids = it.children
+            for (let i = 0; i < kids.length; ++i) {
+                const c = kids[i]
+                if (c === pressWatcher || !c.visible)
+                    continue
+                const lp = c.mapFromItem(null, sx, sy)
+                if (lp.x < 0 || lp.y < 0 || lp.x > c.width || lp.y > c.height)
+                    continue
+                if (best === null || c.z >= best.z)
+                    best = c
+            }
+            if (!best)
+                return false
+            it = best
         }
-        return it.selectedText !== undefined // TextEdit / TextInput
+        return false
     }
-    PointHandler {
-        onActiveChanged: {
-            if (active && !page.hitsSelectableText(point.scenePosition.x, point.scenePosition.y)) {
+    // Lies over the whole page, sees every press first and passes it on (accepted = false), so nothing else changes.
+    MouseArea {
+        id: pressWatcher
+        anchors.fill: parent
+        z: 1000
+        onPressed: mouse => {
+            mouse.accepted = false
+            const s = mapToItem(null, mouse.x, mouse.y)
+            const onText = page.hitsSelectableText(s.x, s.y)
+            console.log("review press: selectable text hit =", onText)
+            if (!onText) {
                 page.selectionClear++
                 page.forceActiveFocus()
             }
