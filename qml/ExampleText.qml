@@ -17,6 +17,7 @@ ColumnLayout {
     property bool onlineLookup: true // false in long lists (one request per row would be too many)
     property real germanOpacity: 0.85
     property bool speakTranslation: true // 🔊 on English / German translations
+    property bool selectable: false // press and hold selects a word to copy (review card); off in lists, where a press must scroll / open
     spacing: 2
 
     property string target: ""    // translation language; "" = the learning box's meaning language
@@ -67,10 +68,28 @@ ColumnLayout {
     }
 
     Label {
+        id: germanLabel
         Layout.fillWidth: true
-        visible: root.showGerman && root.example !== ""
+        visible: !root.selectable && root.showGerman && root.example !== ""
         text: root.example
         wrapMode: Text.WordWrap
+        font.italic: true
+        font.pixelSize: root.pixelSize
+        opacity: root.germanOpacity
+    }
+    // Same look, but the text can be selected and copied (press and hold a word)
+    TextEdit {
+        Layout.fillWidth: true
+        visible: root.selectable && root.showGerman && root.example !== ""
+        text: root.example
+        readOnly: true
+        selectByMouse: true
+        persistentSelection: true
+        textFormat: TextEdit.PlainText
+        wrapMode: TextEdit.Wrap
+        color: germanLabel.color
+        selectionColor: germanLabel.palette.highlight
+        selectedTextColor: germanLabel.palette.highlightedText
         font.italic: true
         font.pixelSize: root.pixelSize
         opacity: root.germanOpacity
@@ -80,10 +99,28 @@ ColumnLayout {
         visible: root.translation !== ""
         spacing: 0
         Label {
+            id: translationLabel
             Layout.fillWidth: true
+            visible: !root.selectable
             text: root.translation
             wrapMode: Text.WordWrap
             horizontalAlignment: root.persian ? Text.AlignRight : Text.AlignLeft
+            font.pixelSize: root.pixelSize - 1
+            opacity: 0.75
+        }
+        TextEdit {
+            Layout.fillWidth: true
+            visible: root.selectable
+            text: root.translation
+            readOnly: true
+            selectByMouse: true
+            persistentSelection: true
+            textFormat: TextEdit.PlainText
+            wrapMode: TextEdit.Wrap
+            color: translationLabel.color
+            selectionColor: translationLabel.palette.highlight
+            selectedTextColor: translationLabel.palette.highlightedText
+            horizontalAlignment: root.persian ? TextEdit.AlignRight : TextEdit.AlignLeft
             font.pixelSize: root.pixelSize - 1
             opacity: 0.75
         }

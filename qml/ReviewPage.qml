@@ -470,6 +470,7 @@ Page {
                         visible: page.revealed && session.example.length > 0
                         text: session.example
                         pixelSize: 17
+                        selectable: true
                     }
                 }
             }
