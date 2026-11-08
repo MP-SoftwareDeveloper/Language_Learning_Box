@@ -43,7 +43,6 @@ Page {
             mouse.accepted = false
             const s = mapToItem(null, mouse.x, mouse.y)
             const onText = page.hitsSelectableText(s.x, s.y)
-            console.log("review press: selectable text hit =", onText)
             if (!onText) {
                 page.selectionClear++
                 page.forceActiveFocus()
