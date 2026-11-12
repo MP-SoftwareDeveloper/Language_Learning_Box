@@ -24,9 +24,12 @@ bool fits(const QString &text);
 // GET url: .../get?q=<text>&langpair=de|en
 QUrl requestUrl(const QString &text, const QString &source, const QString &target);
 
+// Does `text` contain tags like <g id="1"> (inline markup of translation tools)? Such text is never shown as a meaning.
+bool hasMarkup(const QString &text);
+
 // Is `text` written in a script that fits the target language? MyMemory's translation memory sometimes answers
 // in a wrong language ("Bildern" -> "图像"): English / German must not contain Chinese, Cyrillic, Arabic ...,
-// Persian must contain Arabic-script letters and no Chinese or Cyrillic.
+// Persian must contain Arabic-script letters and no Chinese or Cyrillic. Text with markup tags is not plausible.
 bool plausibleFor(const QString &text, const QString &target);
 
 // Reads the JSON answer. `sourceText` is what was asked: an answer that only repeats it (MyMemory's way of

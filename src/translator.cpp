@@ -789,9 +789,9 @@ bool Translator::lookup(const QString &source, const QString &target, const QStr
     if (!q.exec() || !q.next())
         return false;
     *translation = q.value(0).toString();
-    // An answer saved earlier in a wrong script (Chinese for an English meaning, from the fallback translator) is
-    // not used; looking the word up again online replaces it.
-    if ((target == QLatin1String("en") || target == QLatin1String("de"))
+    // An answer saved earlier in a wrong script (Chinese for an English meaning, from the fallback translator) or with
+    // markup tags (<g id="1">...</g>) is not used; looking the word up again online replaces it.
+    if ((target == QLatin1String("en") || target == QLatin1String("de") || target == QLatin1String("fa"))
             && !MyMemory::plausibleFor(*translation, target))
         return false;
     const QString alts = q.value(1).toString();

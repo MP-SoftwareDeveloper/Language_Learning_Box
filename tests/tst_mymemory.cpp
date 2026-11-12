@@ -73,6 +73,27 @@ private slots:
         const QByteArray onlyChinese = "{\"responseData\":{\"translatedText\":\"\xe5\x9b\xbe\xe5\x83\x8f\",\"match\":0.85},\"responseStatus\":200,\"matches\":[]}";
         QVERIFY(!MyMemory::parse(onlyChinese, QStringLiteral("Bildern"), QStringLiteral("en")).error.isEmpty());
     }
+    void markupIsCleaned()
+    {
+        // MyMemory memory entry with inline tags: "<g id="1">1</g><g id="2">accessible</g>"
+        const QByteArray json = R"json({"responseData":{"translatedText":"<g id=\"1\">1</g><g id=\"2\">accessible</g>","match":0.99},
+            "responseStatus":200,"matches":[
+            {"segment":"zug\u00e4nglich","translation":"&lt;g id=&quot;1&quot;&gt;1&lt;/g&gt;&lt;g id=&quot;2&quot;&gt;accessible&lt;/g&gt;","match":0.99},
+            {"segment":"zug\u00e4nglich","translation":"open (to the public)","match":0.8}]})json";
+        const auto r = MyMemory::parse(json, QStringLiteral("zug\u00e4nglich"), QStringLiteral("en"));
+        QVERIFY(r.error.isEmpty());
+        QCOMPARE(r.text, QStringLiteral("accessible"));
+        QCOMPARE(r.alternatives, QStringList({"open (to the public)"}));
+        QVERIFY(MyMemory::hasMarkup(QStringLiteral("<g id=\"1\">1</g>")));
+        QVERIFY(!MyMemory::hasMarkup(QStringLiteral("a < b and c > d")));
+        QVERIFY(!MyMemory::plausibleFor(QStringLiteral("<g id=\"2\">accessible</g>"), QStringLiteral("en")));
+        // only tags and a number: nothing usable
+        const QByteArray only = R"json({"responseData":{"translatedText":"<g id=\"1\">1</g>","match":0.9},"responseStatus":200,"matches":[]})json";
+        QVERIFY(!MyMemory::parse(only, QStringLiteral("eins"), QStringLiteral("en")).error.isEmpty());
+        // a digit in the asked text is kept
+        const QByteArray num = R"json({"responseData":{"translatedText":"<g id=\"1\">2 apples</g>","match":0.9},"responseStatus":200,"matches":[]})json";
+        QCOMPARE(MyMemory::parse(num, QStringLiteral("2 \u00c4pfel"), QStringLiteral("en")).text, QStringLiteral("2 apples"));
+    }
     void quotaAndErrors()
     {
         const QByteArray warn = R"({"responseData":{"translatedText":"MYMEMORY WARNING: YOU USED ALL AVAILABLE FREE TRANSLATIONS FOR TODAY."},

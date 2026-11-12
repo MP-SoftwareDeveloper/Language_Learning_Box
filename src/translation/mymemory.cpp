@@ -4,6 +4,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonParseError>
+#include <QRegularExpression>
 #include <QUrlQuery>
 
 namespace MyMemory {
@@ -19,7 +20,33 @@ QString decodeEntities(QString s)
     s.replace(QStringLiteral("&amp;"), QStringLiteral("&"));
     return s.trimmed();
 }
+
+// Translation-memory entries can carry the inline tags of translation tools (<g id="1">1</g><g id="2">accessible</g>),
+// as real tags or as entities. Tags become spaces and a list number in front ("1 accessible") is dropped, unless the
+// asked text starts with a digit too. Text without tags is returned unchanged.
+QString cleanMarkup(const QString &text, const QString &asked)
+{
+    static const QRegularExpression tag(QStringLiteral("</?[A-Za-z][^>]*>"));
+    if (!text.contains(tag))
+        return text;
+    QString s = text;
+    s.replace(tag, QStringLiteral(" "));
+    s = s.simplified();
+    static const QRegularExpression leadingNumber(QStringLiteral("^\\d+[.)]?\\s+"));
+    if (asked.isEmpty() || !asked.at(0).isDigit())
+        s.remove(leadingNumber);
+    static const QRegularExpression onlyNumber(QStringLiteral("^\\d+[.)]?$"));
+    if ((asked.isEmpty() || !asked.at(0).isDigit()) && onlyNumber.match(s).hasMatch())
+        return QString();
+    return s; // empty when only tags / a number were there
+}
 } // namespace
+
+bool hasMarkup(const QString &text)
+{
+    static const QRegularExpression tag(QStringLiteral("</?[A-Za-z][^>]*>"));
+    return text.contains(tag);
+}
 
 bool fits(const QString &text)
 {
@@ -38,6 +65,8 @@ QUrl requestUrl(const QString &text, const QString &source, const QString &targe
 
 bool plausibleFor(const QString &text, const QString &target)
 {
+    if (hasMarkup(text))
+        return false;
     bool arabic = false;
     for (const QChar ch : text) {
         const char32_t u = ch.unicode();
@@ -80,13 +109,13 @@ Result parse(const QByteArray &json, const QString &sourceText, const QString &t
     }
 
     const QJsonObject data = root.value(QStringLiteral("responseData")).toObject();
-    const QString first = decodeEntities(data.value(QStringLiteral("translatedText")).toString());
+    const QString asked = sourceText.simplified().toCaseFolded();
+    const QString first = cleanMarkup(decodeEntities(data.value(QStringLiteral("translatedText")).toString()), asked);
     if (first.isEmpty() || first.startsWith(QLatin1String("MYMEMORY WARNING"), Qt::CaseInsensitive)
         || first.startsWith(QLatin1String("PLEASE SELECT"), Qt::CaseInsensitive)) {
         r.error = first.isEmpty() ? QStringLiteral("empty translation") : QStringLiteral("MyMemory daily limit reached");
         return r;
     }
-    const QString asked = sourceText.simplified().toCaseFolded();
 
     // Candidates, best first: the main answer, then the translation memory entries for exactly this text.
     struct Candidate { QString text; double match; };
@@ -97,7 +126,7 @@ Result parse(const QByteArray &json, const QString &sourceText, const QString &t
         if (m.value(QStringLiteral("segment")).toString().simplified().toCaseFolded() != asked)
             continue;
         const double match = m.value(QStringLiteral("match")).toVariant().toDouble();
-        const QString t = decodeEntities(m.value(QStringLiteral("translation")).toString());
+        const QString t = cleanMarkup(decodeEntities(m.value(QStringLiteral("translation")).toString()), asked);
         if (!t.isEmpty() && match >= 0.5)
             candidates.append({t, match});
     }
