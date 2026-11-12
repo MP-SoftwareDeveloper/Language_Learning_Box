@@ -7,10 +7,10 @@ import LearningBox
 Page {
     id: page
 
-    // A press anywhere except on selectable text removes the highlight of a selected word.
+    // A tap anywhere except on selectable text removes the highlight of a selected word.
     property int selectionClear: 0
     // Is there selectable text (TextEdit) under this scene position? Walks down the topmost visible item at the
-    // point, skipping the press watcher below.
+    // point. Only called for a tap (below), never while the finger presses, scrolls or swipes.
     function hitsSelectableText(sx, sy) {
         let it = page
         for (let depth = 0; depth < 40; ++depth) {
@@ -20,7 +20,7 @@ Page {
             const kids = it.children
             for (let i = 0; i < kids.length; ++i) {
                 const c = kids[i]
-                if (c === pressWatcher || !c.visible)
+                if (!c.visible)
                     continue
                 const lp = c.mapFromItem(null, sx, sy)
                 if (lp.x < 0 || lp.y < 0 || lp.x > c.width || lp.y > c.height)
@@ -34,16 +34,12 @@ Page {
         }
         return false
     }
-    // Lies over the whole page, sees every press first and passes it on (accepted = false), so nothing else changes.
-    MouseArea {
-        id: pressWatcher
-        anchors.fill: parent
-        z: 1000
-        onPressed: mouse => {
-            mouse.accepted = false
-            const s = mapToItem(null, mouse.x, mouse.y)
-            const onText = page.hitsSelectableText(s.x, s.y)
-            if (!onText) {
+    // A TapHandler only reacts to a finished tap (not to a press, scroll or swipe) and does not take the touch
+    // from buttons, the text or the Flickable, so touch response stays as without it.
+    TapHandler {
+        onTapped: eventPoint => {
+            const s = eventPoint.scenePosition
+            if (!page.hitsSelectableText(s.x, s.y)) {
                 page.selectionClear++
                 page.forceActiveFocus()
             }
