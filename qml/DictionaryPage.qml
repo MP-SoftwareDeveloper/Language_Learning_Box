@@ -398,7 +398,7 @@ Page {
                     Layout.fillWidth: true
                     Layout.preferredWidth: 1
                     spacing: 0
-                    Label { text: qsTr("From"); font.pixelSize: 12; opacity: 0.6 }
+                    Label { textFormat: Text.PlainText; text: qsTr("From"); font.pixelSize: 12; opacity: 0.6 }
                     ComboBox {
                         objectName: "fromLanguage"
                         Layout.fillWidth: true
@@ -439,7 +439,7 @@ Page {
                     Layout.fillWidth: true
                     Layout.preferredWidth: 1
                     spacing: 0
-                    Label { text: qsTr("To"); font.pixelSize: 12; opacity: 0.6 }
+                    Label { textFormat: Text.PlainText; text: qsTr("To"); font.pixelSize: 12; opacity: 0.6 }
                     ComboBox {
                         objectName: "toLanguage"
                         Layout.fillWidth: true
@@ -527,6 +527,7 @@ Page {
                     RowLayout {
                         Layout.fillWidth: true
                         Label {
+                            textFormat: Text.PlainText
                             Layout.fillWidth: true
                             text: page.reverse ? (page.headword || page.query) : page.cardFront || page.query
                             wrapMode: Text.WordWrap
@@ -564,12 +565,14 @@ Page {
                     }
 
                     Label {
+                        textFormat: Text.PlainText
                         Layout.fillWidth: true
                         visible: page.requestId >= 0 && page.result === ""
                         opacity: 0.6
                         text: qsTr("Looking up…")
                     }
                     Label {
+                        textFormat: Text.PlainText
                         Layout.fillWidth: true
                         visible: page.requestId < 0 && page.result === ""
                         wrapMode: Text.WordWrap
@@ -598,6 +601,7 @@ Page {
                         }
                     }
                     Label {
+                        textFormat: Text.PlainText
                         Layout.fillWidth: true
                         visible: page.alternatives.length > 0
                         wrapMode: Text.WordWrap
@@ -670,6 +674,7 @@ Page {
                     }
 
                     Label {
+                        textFormat: Text.PlainText
                         Layout.fillWidth: true
                         visible: page.canAdd && page.cardBoxesOff
                         wrapMode: Text.WordWrap
@@ -703,6 +708,7 @@ Page {
             anchors.fill: parent
             spacing: 8
             Label {
+                textFormat: Text.PlainText
                 Layout.fillWidth: true
                 wrapMode: Text.WordWrap
                 font.bold: true
@@ -714,6 +720,7 @@ Page {
                 visible: text !== ""
             }
             Label {
+                textFormat: Text.PlainText
                 Layout.fillWidth: true
                 wrapMode: Text.WordWrap
                 opacity: 0.7
@@ -722,6 +729,7 @@ Page {
                       : qsTr("%1 · reviewed %2×").arg(BoxNames.name(existsDialog.existing.box ?? 1)).arg(existsDialog.existing.reviews ?? 0)
             }
             Label {
+                textFormat: Text.PlainText
                 Layout.fillWidth: true
                 Layout.topMargin: 4
                 wrapMode: Text.WordWrap

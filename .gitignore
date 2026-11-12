@@ -94,3 +94,7 @@ install_log.txt
 *.sqlite-journal
 .env
 _to_delete/
+
+# OpenSSL build scratch
+3rdparty/openssl-build/
+3rdparty/openssl-out/

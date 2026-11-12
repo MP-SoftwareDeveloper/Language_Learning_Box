@@ -14,6 +14,7 @@ Row {
     spacing: 5
 
     Label {
+        textFormat: Text.PlainText
         anchors.verticalCenter: parent.verticalCenter
         text: root.from
         font.pixelSize: root.pixelSize
@@ -49,6 +50,7 @@ Row {
         }
     }
     Label {
+        textFormat: Text.PlainText
         anchors.verticalCenter: parent.verticalCenter
         text: root.to
         font.pixelSize: root.pixelSize

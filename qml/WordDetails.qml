@@ -34,6 +34,7 @@ ColumnLayout {
         visible: root.info !== null && root.info.ambiguous
         spacing: 4
         Label {
+            textFormat: Text.PlainText
             Layout.fillWidth: true
             wrapMode: Text.WordWrap
             font.pixelSize: 12
@@ -70,12 +71,14 @@ ColumnLayout {
                 Layout.fillWidth: true
                 spacing: 6
                 Label {
+                    textFormat: Text.PlainText
                     Layout.preferredWidth: labelWidth.advanceWidth // "Singular:" + 8 spaces
                     text: root.labelFor(modelData.kind) + ":"
                     font.pixelSize: 13
                     opacity: 0.6
                 }
                 Label {
+                    textFormat: Text.PlainText
                     Layout.fillWidth: true
                     text: modelData.text
                     wrapMode: Text.WordWrap
@@ -95,6 +98,7 @@ ColumnLayout {
 
     // ---- example sentences ----
     Label {
+        textFormat: Text.PlainText
         Layout.topMargin: 4
         visible: root.info !== null && (root.info.examples.length > 0 || root.info.examplesRequest >= 0)
         font.pixelSize: 12

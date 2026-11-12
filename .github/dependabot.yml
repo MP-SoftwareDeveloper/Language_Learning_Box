@@ -1,0 +1,10 @@
+# Weekly pull requests for out-of-date build tooling. (Tesseract, Leptonica, OpenSSL and Qt are not package-manager
+# dependencies: check them by hand, see docs/SECURITY.md section 5.)
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule: {interval: weekly}
+  - package-ecosystem: gradle
+    directory: /android
+    schedule: {interval: weekly}

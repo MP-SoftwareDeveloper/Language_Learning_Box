@@ -37,6 +37,7 @@ ColumnLayout {
                 clearToken: root.clearToken
             }
             Label {
+                textFormat: Text.PlainText
                 Layout.fillWidth: true
                 visible: !root.translated
                 text: modelData

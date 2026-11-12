@@ -146,6 +146,11 @@ void CardStore::fail(const QString &where, const QString &what)
     emit errorOccurred(m_lastError);
 }
 
+int CardStore::schemaVersion()
+{
+    return kSchemaVersion;
+}
+
 bool CardStore::backupTo(const QString &file)
 {
     if (!m_ready)

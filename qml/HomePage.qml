@@ -110,6 +110,7 @@ Page {
                         spacing: 2
                         // Selected learning box
                         Label {
+                            textFormat: Text.PlainText
                             width: Math.min(implicitWidth, boxCombo.availableWidth - 8)
                             visible: page.currentShown // no box selected (or hidden): nothing in the box chooser
                             text: page.flag(CardStore.learningLanguage) + "  " + CardStore.currentCollectionName
@@ -142,6 +143,7 @@ Page {
                             spacing: 0
                             // Full name (wraps instead of being cut off)
                             Label {
+                                textFormat: Text.PlainText
                                 Layout.fillWidth: true
                                 text: page.flag(modelData.language) + "  " + modelData.name
                                 wrapMode: Text.WordWrap
@@ -151,6 +153,7 @@ Page {
                                 rightPadding: 6
                             }
                             Label {
+                                textFormat: Text.PlainText
                                 Layout.fillWidth: true
                                 text: qsTr("%1 cards").arg(modelData.total) + "  \u00B7  " + qsTr("%n due", "", modelData.due)
                                 opacity: 0.7
@@ -201,6 +204,7 @@ Page {
             }
 
             Label {
+                textFormat: Text.PlainText
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
                 Layout.fillWidth: true
@@ -272,6 +276,7 @@ Page {
                     }
 
                     contentItem: Label {
+                        textFormat: Text.PlainText
                         text: "Start"
                         font.pixelSize: 42
                         font.bold: true
@@ -335,6 +340,7 @@ Page {
                             anchors.fill: parent
                             spacing: 2
                             Label {
+                                textFormat: Text.PlainText
                                 text: BoxNames.title(index + 1)
                                 color: "white"
                                 Layout.fillWidth: true
@@ -347,6 +353,7 @@ Page {
                             RowLayout {
                                 Layout.fillWidth: true
                                 Label {
+                                    textFormat: Text.PlainText
                                     text: index < 5 ? (CardStore.boxCounts[index] ?? 0) : CardStore.learnedCount
                                     color: "white"
                                     font.pixelSize: 26
@@ -354,6 +361,7 @@ Page {
                                     Layout.fillWidth: true
                                 }
                                 Label {
+                                    textFormat: Text.PlainText
                                     text: BoxNames.code(index + 1)
                                     color: "white"
                                     opacity: 0.75
@@ -393,6 +401,7 @@ Page {
                             mipmap: true
                         }
                         Label {
+                            textFormat: Text.PlainText
                             anchors.verticalCenter: parent.verticalCenter
                             text: lensBtn.text
                             font: lensBtn.font
@@ -430,6 +439,7 @@ Page {
                             opacity: CardStore.favoriteCount > 0 ? 1 : 0.7
                         }
                         Label {
+                            textFormat: Text.PlainText
                             anchors.verticalCenter: parent.verticalCenter
                             text: favButton.text
                             font: favButton.font
@@ -465,6 +475,7 @@ Page {
                             mipmap: true
                         }
                         Label {
+                            textFormat: Text.PlainText
                             anchors.verticalCenter: parent.verticalCenter
                             text: dictButton.text
                             font: dictButton.font
@@ -509,6 +520,7 @@ Page {
                                 opacity: exportButton.enabled ? 1 : 0.4
                             }
                             Label {
+                                textFormat: Text.PlainText
                                 anchors.verticalCenter: parent.verticalCenter
                                 text: exportButton.text
                                 font: exportButton.font
@@ -542,6 +554,7 @@ Page {
                                 mipmap: true
                             }
                             Label {
+                                textFormat: Text.PlainText
                                 anchors.verticalCenter: parent.verticalCenter
                                 text: importButton.text
                                 font: importButton.font
@@ -571,12 +584,14 @@ Page {
                 ColumnLayout {
                     anchors.fill: parent
                     Label {
+                        textFormat: Text.PlainText
                         Layout.fillWidth: true
                         wrapMode: Text.WordWrap
                         font.bold: true
                         text: qsTr("More features")
                     }
                     Label {
+                        textFormat: Text.PlainText
                         Layout.fillWidth: true
                         wrapMode: Text.WordWrap
                         text: qsTr("Lens (words from photos), meanings and example sentences filled in for you, word packs, pictures on cards …")
@@ -591,6 +606,7 @@ Page {
 
             // Only when the voice for this learning box is missing
             Label {
+                textFormat: Text.PlainText
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
                 Layout.topMargin: 8
@@ -624,6 +640,7 @@ Page {
             }
 
             Label {
+                textFormat: Text.PlainText
                 Layout.leftMargin: 16
                 visible: CardStore.lastError.length > 0
                 color: Material.color(Material.Red)
@@ -715,6 +732,7 @@ Page {
         }
 
         header: Label {
+            textFormat: Text.PlainText
             text: (nothingDueDialog.tx[nothingDueDialog.lang] ?? nothingDueDialog.tx.en).title
             font.pixelSize: 20
             font.bold: true
@@ -786,6 +804,7 @@ Page {
         LayoutMirroring.enabled: lang === "fa"
         LayoutMirroring.childrenInherit: true
         contentItem: Label {
+            textFormat: Text.PlainText
             wrapMode: Text.WordWrap
             text: lensTexts.t("offBody", lensOffDialog.lang)
         }
@@ -838,7 +857,7 @@ Page {
                 placeholderText: learnEnglish.checked ? qsTr("e.g. English A2")
                                  : learnSwedish.checked ? qsTr("e.g. Svenska A1") : qsTr("e.g. Netzwerk neu A2")
             }
-            Label { text: qsTr("I want to learn") }
+            Label { textFormat: Text.PlainText; text: qsTr("I want to learn") }
             Flow {
                 Layout.fillWidth: true   // three languages: wraps to a second line on a narrow dialog
                 ButtonGroup { id: learnGroup }
@@ -869,7 +888,7 @@ Page {
                 visible: learnSwedish.checked
                 text: qsTr("Read aloud with a Swedish voice.")
             }
-            Label { text: qsTr("Meanings in") }
+            Label { textFormat: Text.PlainText; text: qsTr("Meanings in") }
             RowLayout {
                 Repeater {
                     // Every language except the one being learned
@@ -884,7 +903,7 @@ Page {
                     }
                 }
             }
-            Label { text: qsTr("Start with"); visible: learnGerman.checked }
+            Label { textFormat: Text.PlainText; text: qsTr("Start with"); visible: learnGerman.checked }
             ComboBox {
                 id: startWith
                 Layout.fillWidth: true
@@ -936,6 +955,7 @@ Page {
         y: Math.max(8, (page.height - height) / 3)
         standardButtons: Dialog.Yes | Dialog.No
         Label {
+            textFormat: Text.PlainText
             anchors.left: parent.left
             anchors.right: parent.right
             wrapMode: Text.WordWrap

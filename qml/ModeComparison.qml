@@ -28,13 +28,14 @@ GridLayout {
         { text: qsTr("Anki decks, cards from a link"), simple: false }
     ]
 
-    Label { text: ""; Layout.fillWidth: true }
-    Label { text: qsTr("Simple"); font.bold: true; Layout.alignment: Qt.AlignHCenter }
-    Label { text: qsTr("Full"); font.bold: true; Layout.alignment: Qt.AlignHCenter }
+    Label { textFormat: Text.PlainText; text: ""; Layout.fillWidth: true }
+    Label { textFormat: Text.PlainText; text: qsTr("Simple"); font.bold: true; Layout.alignment: Qt.AlignHCenter }
+    Label { textFormat: Text.PlainText; text: qsTr("Full"); font.bold: true; Layout.alignment: Qt.AlignHCenter }
 
     Repeater {
         model: grid.features.length * 3
         delegate: Label {
+            textFormat: Text.PlainText
             required property int index
             readonly property var f: grid.features[Math.floor(index / 3)]
             readonly property int column: index % 3

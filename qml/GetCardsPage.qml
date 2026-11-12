@@ -83,6 +83,7 @@ Page {
                 }
 
                 Label {
+                    textFormat: Text.PlainText
                     Layout.topMargin: 16
                     visible: AppMode.full
                     text: page.tl("… or paste a link", "… یا یک لینک بچسبانید", "… oder einen Link einfügen", "… eller klistra in en länk")
@@ -130,6 +131,7 @@ Page {
                     spacing: 4
 
                     Label {
+                        textFormat: Text.PlainText
                         Layout.fillWidth: true
                         visible: (page.preview.error ?? "") !== ""
                         wrapMode: Text.WordWrap
@@ -143,6 +145,7 @@ Page {
                         spacing: 4
 
                         Label {
+                            textFormat: Text.PlainText
                             Layout.fillWidth: true
                             wrapMode: Text.WordWrap
                             font.bold: true
@@ -155,6 +158,7 @@ Page {
                         Repeater {
                             model: page.preview.sample ?? []
                             delegate: Label {
+                                textFormat: Text.PlainText
                                 required property var modelData
                                 Layout.fillWidth: true
                                 elide: Text.ElideRight
@@ -175,6 +179,7 @@ Page {
                         }
 
                         Label {
+                            textFormat: Text.PlainText
                             Layout.topMargin: 8
                             text: page.tl("Where should the cards go?", "کارت‌ها کجا بروند؟", "Wohin sollen die Karten?", "Vart ska korten ta vägen?")
                             font.bold: true
@@ -212,6 +217,7 @@ Page {
                         }
 
                         Label {
+                            textFormat: Text.PlainText
                             Layout.topMargin: 8
                             visible: intoCurrent.checked && (page.preview.existingCount ?? 0) > 0
                             text: page.tl("Words you already have", "واژه‌هایی که از قبل دارید", "Wörter, die du schon hast", "Ord du redan har")
@@ -251,7 +257,7 @@ Page {
                         RowLayout {
                             Layout.topMargin: 4
                             visible: !(keepProgress.visible && keepProgress.checked)
-                            Label { text: page.tl("Start in", "شروع از", "Beginnen in", "Börja i") }
+                            Label { textFormat: Text.PlainText; text: page.tl("Start in", "شروع از", "Beginnen in", "Börja i") }
                             ComboBox {
                                 id: importBox
                                 Layout.preferredWidth: 160
@@ -299,6 +305,7 @@ Page {
             }
 
             Label {
+                textFormat: Text.PlainText
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
                 Layout.topMargin: 8

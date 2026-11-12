@@ -16,6 +16,7 @@ Item {
         border.width: 2
     }
     Text {
+        textFormat: Text.PlainText
         anchors.centerIn: parent
         text: "?"
         color: icon.color

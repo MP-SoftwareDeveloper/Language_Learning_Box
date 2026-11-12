@@ -19,6 +19,7 @@ Button {
     text: qsTr("Sort") + ": " + (order === "az" ? "A → Z" : order === "za" ? "Z → A" : qsTr("Default"))
     // Bold and in the accent colour so it is easy to see
     contentItem: Label {
+        textFormat: Text.PlainText
         text: root.text
         font.bold: true
         font.pixelSize: 15

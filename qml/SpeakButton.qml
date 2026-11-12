@@ -26,6 +26,7 @@ ToolButton {
         implicitHeight: symbol.implicitHeight
         opacity: root.enabled ? 1 : 0.3
         Label {
+            textFormat: Text.PlainText
             id: symbol
             anchors.fill: parent
             text: root.active ? "\u23F9" : "\uD83D\uDD0A" // emoji stop / speaker: always in the emoji font

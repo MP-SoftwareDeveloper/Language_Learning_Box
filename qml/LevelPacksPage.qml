@@ -34,6 +34,7 @@ Page {
         spacing: 0
 
         Label {
+            textFormat: Text.PlainText
             Layout.fillWidth: true
             Layout.margins: 16
             Layout.bottomMargin: 8
@@ -46,6 +47,7 @@ Page {
                   : qsTr("Learning boxes of German words from A1 to C1. A1 and A2 follow the lesson themes of “Starten wir!”; B1, B2 and C1 are grouped by everyday and academic topics; the “complete” boxes hold the whole word list of a level, A to Z; the “Alltag” box holds core words for real everyday conversation. Each one has its own Boxes 1–5, so you can track every level separately. Choose one in the list on the home page, or tap “Open box”.")
         }
         Label {
+            textFormat: Text.PlainText
             Layout.leftMargin: 16
             Layout.rightMargin: 16
             visible: LevelPacks.error.length > 0
@@ -69,6 +71,7 @@ Page {
                 spacing: 0
 
                 Label {
+                    textFormat: Text.PlainText
                     Layout.fillWidth: true
                     Layout.leftMargin: 16
                     Layout.topMargin: 12
@@ -87,6 +90,7 @@ Page {
                             Layout.fillWidth: true
                             spacing: 2
                             Label {
+                                textFormat: Text.PlainText
                                 Layout.fillWidth: true
                                 text: item.modelData.title
                                 font.pixelSize: 17
@@ -95,12 +99,14 @@ Page {
                                 elide: Text.ElideRight
                             }
                             Label {
+                                textFormat: Text.PlainText
                                 Layout.fillWidth: true
                                 wrapMode: Text.WordWrap
                                 opacity: 0.8
                                 text: item.modelData.subtitle
                             }
                             Label {
+                                textFormat: Text.PlainText
                                 Layout.fillWidth: true
                                 opacity: 0.7
                                 text: item.modelData.boxId < 0

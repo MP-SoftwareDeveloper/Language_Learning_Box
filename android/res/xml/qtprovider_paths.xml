@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <paths xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- For getFilesDirectory() -->
-    <files-path name="files_path" path="/"/>
-    <!-- For getExternalStorageDirectory() -->
-    <external-path name="external_path" path="/"/>
-    <!-- For getExternalFilesDir() -->
-    <external-files-path name="external_files_path" path="/"/>
-    <!-- For getExternalCacheDir() -->
-    <external-cache-path name="external_cache_path" path="/"/>
+    <!-- Only the folder DeckExchange::shareCards() writes the file to (AppDataLocation/shared, i.e. getFilesDir()/shared).
+         Do not widen this to "/": the database and the settings file with the Azure keys live next to it. -->
+    <files-path name="shared" path="shared/"/>
 </paths>

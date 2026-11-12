@@ -4,6 +4,7 @@ import QtQuick.Layouts
 
 // Grey explanation under a button or an option, in plain words.
 Label {
+    textFormat: Text.PlainText
     Layout.fillWidth: true
     wrapMode: Text.WordWrap
     opacity: 0.65

@@ -55,6 +55,7 @@ Item {
             spacing: 4
 
             Label {
+                textFormat: Text.PlainText
                 Layout.fillWidth: true
                 wrapMode: Text.WordWrap
                 text: root.count === 0
@@ -75,6 +76,7 @@ Item {
             }
 
             Label {
+                textFormat: Text.PlainText
                 Layout.topMargin: 8
                 text: qsTr("When should they be asked?")
                 font.bold: true
@@ -105,7 +107,7 @@ Item {
                     Layout.preferredWidth: 120
                     onValueModified: spread.checked = true
                 }
-                Label { text: qsTr("days") }
+                Label { textFormat: Text.PlainText; text: qsTr("days") }
             }
             HintLabel {
                 leftPadding: 8
@@ -147,6 +149,7 @@ Item {
         background: Rectangle { color: "#323232"; radius: 6 }
         contentItem: RowLayout {
             Label {
+                textFormat: Text.PlainText
                 Layout.fillWidth: true
                 color: "white"
                 elide: Text.ElideRight

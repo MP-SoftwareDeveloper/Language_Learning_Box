@@ -281,6 +281,7 @@ Page {
         visible: !engine.available
 
         Label {
+            textFormat: Text.PlainText
             Layout.fillWidth: true
             wrapMode: Text.WordWrap
             font.pixelSize: 17
@@ -288,6 +289,7 @@ Page {
             text: qsTr("Text recognition is not available")
         }
         Label {
+            textFormat: Text.PlainText
             Layout.fillWidth: true
             wrapMode: Text.WordWrap
             text: engine.unavailableReason
@@ -358,6 +360,7 @@ Page {
         }
 
         Label {
+            textFormat: Text.PlainText
             anchors.centerIn: parent
             width: parent.width - 48
             visible: cameraPermission.status !== Qt.PermissionStatus.Granted
@@ -367,6 +370,7 @@ Page {
         }
 
         Label {
+            textFormat: Text.PlainText
             id: status
             anchors { top: parent.top; horizontalCenter: parent.horizontalCenter; topMargin: 12 }
             padding: 8
@@ -376,6 +380,7 @@ Page {
         }
         // Landscape shots are turned upright automatically; say so, readable the way the phone is held.
         Label {
+            textFormat: Text.PlainText
             anchors.centerIn: parent
             visible: tilt.available && tilt.rotation !== 0
             rotation: (360 - tilt.rotation) % 360
@@ -552,6 +557,7 @@ Page {
 
         // Which reader was used (only worth saying when online recognition is switched on)
         Label {
+            textFormat: Text.PlainText
             Layout.fillWidth: true
             Layout.leftMargin: 12
             Layout.rightMargin: 12
@@ -566,6 +572,7 @@ Page {
         }
 
         Label {
+            textFormat: Text.PlainText
             Layout.fillWidth: true
             Layout.margins: 8
             visible: engine.words.length === 0
@@ -589,6 +596,7 @@ Page {
                 RowLayout {
                     Layout.fillWidth: true
                     Label {
+                        textFormat: Text.PlainText
                         Layout.fillWidth: true
                         text: page.selected.length === 0
                               ? qsTr("Tap words to select · hold for a whole sentence")
@@ -605,6 +613,7 @@ Page {
 
                 // Several words / a sentence: its translation as a whole
                 Label {
+                    textFormat: Text.PlainText
                     Layout.fillWidth: true
                     visible: page.selected.length > 1
                     wrapMode: Text.WordWrap
@@ -634,12 +643,14 @@ Page {
                             Layout.fillWidth: true
                             spacing: 8
                             Label {
+                                textFormat: Text.PlainText
                                 text: page.frontFor(modelData)
                                 font.bold: true
                                 font.pixelSize: 15
                             }
                             GenderMark { word: page.frontFor(modelData) }
                             Label {
+                                textFormat: Text.PlainText
                                 Layout.fillWidth: true
                                 horizontalAlignment: Text.AlignRight
                                 elide: Text.ElideRight
@@ -656,6 +667,7 @@ Page {
                     Layout.fillWidth: true
                     visible: page.writingExample
                     Label {
+                        textFormat: Text.PlainText
                         Layout.fillWidth: true
                         font.pixelSize: 12
                         opacity: 0.7
@@ -753,7 +765,7 @@ Page {
         ColumnLayout {
             anchors.centerIn: parent
             BusyIndicator { Layout.alignment: Qt.AlignHCenter; running: engine.busy }
-            Label { color: "white"; text: qsTr("Reading the text…") }
+            Label { textFormat: Text.PlainText; color: "white"; text: qsTr("Reading the text…") }
         }
         TapHandler {} // swallow taps
     }

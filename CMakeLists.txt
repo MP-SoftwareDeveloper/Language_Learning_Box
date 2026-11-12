@@ -272,6 +272,14 @@ if (LEARNINGBOX_BUILD_TESTS AND NOT ANDROID AND NOT IOS)
         set_target_properties(tst_deckformats PROPERTIES WIN32_EXECUTABLE FALSE)
         add_test(NAME tst_deckformats COMMAND tst_deckformats)
 
+        # Hostile / malformed import files (make them first: python tests/security/make_hostile_files.py)
+        qt_add_executable(tst_hostile tests/tst_hostile.cpp src/exchange/deckformats.cpp)
+        target_include_directories(tst_hostile PRIVATE src)
+        target_compile_definitions(tst_hostile PRIVATE LB_HOSTILE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/tests/security/hostile")
+        target_link_libraries(tst_hostile PRIVATE Qt6::Test Qt6::Gui Qt6::Sql Qt6::CorePrivate Qt6::GuiPrivate)
+        set_target_properties(tst_hostile PROPERTIES WIN32_EXECUTABLE FALSE)
+        add_test(NAME tst_hostile COMMAND tst_hostile)
+
         qt_add_executable(tst_deckexchange tests/tst_deckexchange.cpp src/deckexchange.cpp src/deckexchange.h
             src/exchange/deckformats.cpp src/cardstore.cpp src/cardstore.h src/cardimages.cpp)
         target_include_directories(tst_deckexchange PRIVATE src)
@@ -348,6 +356,14 @@ if (LEARNINGBOX_BUILD_TESTS AND NOT ANDROID AND NOT IOS)
         target_link_libraries(tst_cardstore PRIVATE Qt6::Test Qt6::Gui Qt6::Sql Qt6::Qml)
         set_target_properties(tst_cardstore PROPERTIES WIN32_EXECUTABLE FALSE)
         add_test(NAME tst_cardstore COMMAND tst_cardstore)
+
+        # Restore from the shared backup folder only accepts an intact database of this app (SECURITY.md F-1)
+        qt_add_executable(tst_backup tests/tst_backup.cpp src/backup.cpp src/backup.h
+            src/cardstore.cpp src/cardstore.h src/cardimages.cpp)
+        target_include_directories(tst_backup PRIVATE src)
+        target_link_libraries(tst_backup PRIVATE Qt6::Test Qt6::Gui Qt6::Sql Qt6::Qml)
+        set_target_properties(tst_backup PROPERTIES WIN32_EXECUTABLE FALSE)
+        add_test(NAME tst_backup COMMAND tst_backup)
 
         qt_add_executable(tst_starterdeck tests/tst_starterdeck.cpp src/starterdeck.cpp)
         target_include_directories(tst_starterdeck PRIVATE src)

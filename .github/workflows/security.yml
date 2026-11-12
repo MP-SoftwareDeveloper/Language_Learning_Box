@@ -1,0 +1,95 @@
+# Automatic security checks on every push / pull request and once a week (new CVE rules, new tool versions).
+# Not run yet: push to GitHub, open the Actions tab, fix the Qt version / package names if a step fails.
+name: security
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  schedule:
+    - cron: "17 4 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  QT_VERSION: "6.8.*"   # the app is built with 6.11 on the PC; CI uses an LTS that install-qt-action can fetch
+
+jobs:
+  secrets:
+    name: Secret scan (whole git history)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  cppcheck:
+    name: cppcheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update && sudo apt-get install -y cppcheck
+      - name: Errors fail the build
+        run: cppcheck --inline-suppr --error-exitcode=1 --suppress=missingIncludeSystem -I src src main.cpp
+      - name: Warnings (report only)
+        run: cppcheck --enable=warning,portability --inline-suppr --suppress=missingIncludeSystem -I src src main.cpp 2> cppcheck-warnings.txt || true
+      - uses: actions/upload-artifact@v4
+        with: {name: cppcheck-warnings, path: cppcheck-warnings.txt}
+
+  sanitizers:
+    name: Unit tests with AddressSanitizer + UBSan
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: jurplel/install-qt-action@v4
+        with:
+          version: ${{ env.QT_VERSION }}
+          host: linux
+          target: desktop
+          arch: linux_gcc_64
+          modules: qtmultimedia qtspeech qtsensors
+          cache: true
+      - run: sudo apt-get update && sudo apt-get install -y ninja-build libgl1-mesa-dev libxkbcommon-dev libtesseract-dev tesseract-ocr-deu
+      - run: python3 tests/security/make_hostile_files.py
+      - name: Configure + build
+        run: |
+          cmake -S . -B build-san -G Ninja -DCMAKE_BUILD_TYPE=Debug \
+            -DCMAKE_CXX_FLAGS="-fsanitize=address,undefined -fno-omit-frame-pointer" \
+            -DCMAKE_EXE_LINKER_FLAGS="-fsanitize=address,undefined"
+          cmake --build build-san
+      - name: Run tests
+        env:
+          QT_QPA_PLATFORM: offscreen
+          ASAN_OPTIONS: detect_leaks=0
+          UBSAN_OPTIONS: print_stacktrace=1:halt_on_error=1
+        run: ctest --test-dir build-san --output-on-failure
+
+  codeql:
+    name: CodeQL (C/C++)
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: jurplel/install-qt-action@v4
+        with:
+          version: ${{ env.QT_VERSION }}
+          host: linux
+          target: desktop
+          arch: linux_gcc_64
+          modules: qtmultimedia qtspeech qtsensors
+          cache: true
+      - run: sudo apt-get update && sudo apt-get install -y ninja-build libgl1-mesa-dev libxkbcommon-dev
+      - uses: github/codeql-action/init@v3
+        with:
+          languages: c-cpp
+          queries: security-extended
+      - run: |
+          cmake -S . -B build-ql -G Ninja -DCMAKE_BUILD_TYPE=Release
+          cmake --build build-ql
+      - uses: github/codeql-action/analyze@v3

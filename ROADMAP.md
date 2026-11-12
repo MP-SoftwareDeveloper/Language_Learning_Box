@@ -223,6 +223,7 @@ Goal: this roadmap and the app version are visible online after each push.
 ## Changelog
 | Date | Change |
 |---|---|
+| 2026-11-09 | Security audit ([docs/SECURITY.md](docs/SECURITY.md)) and fixes: shared decks are plain text (`.lbox` import + `textFormat: Text.PlainText` on every Label/Text), Anki `notes` must be a real table and the file is opened read-only, card limit for CSV, max 5 redirects for links, Azure endpoint https only, FileProvider only `shared/`, backup restore checks the database and picture names first; new tests `tst_hostile`, `tst_backup`; scripts for hostile files, fuzzing, CI; OpenSSL rebuild script (3.5 LTS) prepared |
 | 2026-11-08 | New built-in box "Job-Wortschatz" (569 terms: job ads, applications, interviews, rejection / acceptance letters; Persian + English), installed once like "Alltag" (`data/levelpacks/deutsch_job.tsv`, group 4) 🧪 |
 | 2026-10-09 | Translation: optional Azure Translator (Settings → *Azure Translator*: own free key + region, *Test* button). With a key Azure is asked first (word translations also get alternatives from its dictionary), without a key or when Azure refuses (wrong key, monthly quota) the app uses Google and MyMemory as before; Azure is skipped for 10 minutes after a refusal |
 | 2026-10-09 | Translation: when Google answers 429 (too many requests) the app falls back to MyMemory (free, no key) and skips Google for 10 minutes; readable error texts; Lens says *translation failed* instead of *no connection* |

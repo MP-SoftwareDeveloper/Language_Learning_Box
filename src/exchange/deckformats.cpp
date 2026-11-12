@@ -34,6 +34,7 @@ constexpr qint64 kMaxImageBytes = 8 * 1024 * 1024;        // one picture
 constexpr qint64 kMaxUnpackedBytes = 1024LL * 1024 * 1024; // all entries together, as the zip states them
 constexpr int kMaxZipEntries = 100000;
 constexpr int kMaxCards = 100000;
+constexpr int kMaxTextChars = 20000;                    // one card field; longer text is cut (and keeps the regexes fast)
 
 // The sizes a zip states for its entries, checked before anything is unpacked.
 struct ZipSizes
@@ -275,25 +276,43 @@ QByteArray writeCsv(const QList<Item> &items)
 
 QString plainText(const QString &html)
 {
-    QString s = html;
-    s.replace(QRegularExpression(QStringLiteral("\\[sound:[^\\]]*\\]")), QString());
-    s.replace(QRegularExpression(QStringLiteral("<br\\s*/?>|</div>|</p>|</li>"), QRegularExpression::CaseInsensitiveOption),
-              QStringLiteral("\n"));
-    s.remove(QRegularExpression(QStringLiteral("<[^>]*>")));
-    static const QList<std::pair<QString, QString>> entities = {
-        {QStringLiteral("&nbsp;"), QStringLiteral(" ")}, {QStringLiteral("&lt;"), QStringLiteral("<")},
-        {QStringLiteral("&gt;"), QStringLiteral(">")},   {QStringLiteral("&quot;"), QStringLiteral("\"")},
-        {QStringLiteral("&#39;"), QStringLiteral("'")},  {QStringLiteral("&apos;"), QStringLiteral("'")},
-        {QStringLiteral("&amp;"), QStringLiteral("&")}};
-    for (const auto &[e, r] : entities)
-        s.replace(e, r, Qt::CaseInsensitive);
-    // Numeric entities (&#228; / &#xE4;)
-    static const QRegularExpression num(QStringLiteral("&#(x?)([0-9a-fA-F]+);"));
-    QRegularExpressionMatch m;
-    while ((m = num.match(s)).hasMatch()) {
-        bool ok = false;
-        const uint code = m.captured(1).isEmpty() ? m.captured(2).toUInt(&ok) : m.captured(2).toUInt(&ok, 16);
-        s.replace(m.capturedStart(), m.capturedLength(), ok ? QString::fromUcs4(reinterpret_cast<const char32_t *>(&code), 1) : QString());
+    QString s = html.left(kMaxTextChars);
+    // Most text has no markup at all: skip the regular expressions then (a 100 000-card deck calls this 300 000 times).
+    const bool markup = s.contains(u'<') || s.contains(u'&') || s.contains(QLatin1String("[sound:"));
+    if (markup) {
+        static const QRegularExpression sound(QStringLiteral("\\[sound:[^\\]]*\\]"));
+        static const QRegularExpression lineBreak(QStringLiteral("<br\\s*/?>|</div>|</p>|</li>"),
+                                                  QRegularExpression::CaseInsensitiveOption);
+        static const QRegularExpression tag(QStringLiteral("<[^>]*>"));
+        s.replace(sound, QString());
+        s.replace(lineBreak, QStringLiteral("\n"));
+        s.remove(tag);
+    }
+    if (markup) {
+        static const QList<std::pair<QString, QString>> entities = {
+            {QStringLiteral("&nbsp;"), QStringLiteral(" ")}, {QStringLiteral("&lt;"), QStringLiteral("<")},
+            {QStringLiteral("&gt;"), QStringLiteral(">")},   {QStringLiteral("&quot;"), QStringLiteral("\"")},
+            {QStringLiteral("&#39;"), QStringLiteral("'")},  {QStringLiteral("&apos;"), QStringLiteral("'")},
+            {QStringLiteral("&amp;"), QStringLiteral("&")}};
+        for (const auto &[e, r] : entities)
+            s.replace(e, r, Qt::CaseInsensitive);
+        // Numeric entities (&#228; / &#xE4;), decoded in one pass (a field full of them must not take quadratic time)
+        static const QRegularExpression num(QStringLiteral("&#(x?)([0-9a-fA-F]+);"));
+        QString out;
+        out.reserve(s.size());
+        qsizetype last = 0;
+        QRegularExpressionMatchIterator it = num.globalMatch(s);
+        while (it.hasNext()) {
+            const QRegularExpressionMatch m = it.next();
+            out += QStringView(s).mid(last, m.capturedStart() - last);
+            bool ok = false;
+            const uint code = m.captured(1).isEmpty() ? m.captured(2).toUInt(&ok) : m.captured(2).toUInt(&ok, 16);
+            if (ok && code > 0 && code <= 0x10FFFF && !(code >= 0xD800 && code <= 0xDFFF))
+                out += QString::fromUcs4(reinterpret_cast<const char32_t *>(&code), 1);
+            last = m.capturedEnd();
+        }
+        out += QStringView(s).mid(last);
+        s = out;
     }
     // Tidy lines
     QStringList lines;
@@ -320,6 +339,8 @@ Package readCsv(const QByteArray &bytes)
     const QChar sep = detectSeparator(text);
     bool first = true;
     for (QStringList row : parseDelimited(text, sep)) {
+        if (p.items.size() >= kMaxCards)
+            break;
         if (row.isEmpty() || (row.size() == 1 && row.first().trimmed().isEmpty()))
             continue;
         if (row.first().startsWith(u'#') && row.size() == 1)
@@ -371,7 +392,7 @@ Package readLbox(const QByteArray &data)
         p.error = QStringLiteral("This file was made by a newer LearningBox. Please update the app.");
         return p;
     }
-    p.title = root.value(QStringLiteral("title")).toString();
+    p.title = plainText(root.value(QStringLiteral("title")).toString()).replace(u'\n', u' ').trimmed();
     p.hasProgress = root.value(QStringLiteral("withProgress")).toBool();
     p.language = root.value(QStringLiteral("language")).toString(QStringLiteral("de")); // version 1 files: German
     for (const QJsonValue &v : root.value(QStringLiteral("cards")).toArray()) {
@@ -379,10 +400,11 @@ Package readLbox(const QByteArray &data)
             break;
         const QJsonObject c = v.toObject();
         Item it;
-        it.front = c.value(QStringLiteral("front")).toString().trimmed();
-        it.back = c.value(QStringLiteral("back")).toString();
-        it.example = c.value(QStringLiteral("example")).toString();
-        it.deck = c.value(QStringLiteral("deck")).toString();
+        // Card text is plain text: HTML in a shared deck must not be shown as formatting or load pictures / links.
+        it.front = plainText(c.value(QStringLiteral("front")).toString()).replace(u'\n', u' ').trimmed();
+        it.back = plainText(c.value(QStringLiteral("back")).toString()).trimmed();
+        it.example = plainText(c.value(QStringLiteral("example")).toString()).replace(u'\n', u' ').trimmed();
+        it.deck = plainText(c.value(QStringLiteral("deck")).toString()).replace(u'\n', u' ').trimmed();
         const QString img = c.value(QStringLiteral("image")).toString();
         if (!img.isEmpty() && !p.images.contains(img)) {
             const QByteArray bytes = sizes.data(zip, img, kMaxImageBytes);
@@ -404,6 +426,15 @@ Package readLbox(const QByteArray &data)
     if (p.items.isEmpty())
         p.error = QStringLiteral("This LearningBox file has no cards.");
     return p;
+}
+
+// `notes` must be a real table. A view (for example over a recursive query with millions of rows) would make the
+// import run for minutes: SQLite builds the whole result before any LIMIT applies.
+static bool hasNotesTable(const QSqlDatabase &db)
+{
+    QSqlQuery q(db);
+    return q.exec(QStringLiteral("SELECT type FROM sqlite_master WHERE name = 'notes'")) && q.next()
+           && q.value(0).toString() == QLatin1String("table");
 }
 
 Package readApkg(const QByteArray &data, const QString &tempDir)
@@ -459,8 +490,12 @@ Package readApkg(const QByteArray &data, const QString &tempDir)
     {
         QSqlDatabase db = QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"), conn);
         db.setDatabaseName(dbPath);
+        db.setConnectOptions(QStringLiteral("QSQLITE_OPEN_READONLY")); // a file from outside is never written to
         if (!db.open()) {
             p.error = QStringLiteral("Could not open the Anki deck.");
+        } else if (!hasNotesTable(db)) {
+            p.error = QStringLiteral("Not an Anki package.");
+            db.close();
         } else {
             QSqlQuery q(db);
             static const QRegularExpression imgRe(QStringLiteral("<img[^>]*src=[\"']?([^\"' >]+)"),

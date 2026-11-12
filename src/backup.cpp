@@ -9,6 +9,7 @@
 #include <QFile>
 #include <QGuiApplication>
 #include <QLocale>
+#include <QRegularExpression>
 #include <QSaveFile>
 #include <QSettings>
 #include <QSqlDatabase>
@@ -26,21 +27,58 @@ constexpr auto kDbName = "learningbox.sqlite";
 
 QString appDir() { return QStandardPaths::writableLocation(QStandardPaths::AppDataLocation); }
 
+constexpr qint64 kMaxPictureBytes = 8 * 1024 * 1024;
+
 // Copies the files of `from` that `to` does not have yet (card pictures never change once saved).
-void copyMissingFiles(const QString &from, const QString &to)
+// `fromSharedFolder`: the source can be changed by other apps, so only files that look like this app's own pictures
+// (<uuid>.jpg, at most 8 MB) are taken.
+void copyMissingFiles(const QString &from, const QString &to, bool fromSharedFolder = false)
 {
+    static const QRegularExpression ownName(QStringLiteral("^[0-9a-fA-F-]{36}\\.jpg$"));
     const QDir src(from);
     if (!src.exists() || !QDir().mkpath(to))
         return;
-    for (const QFileInfo &f : src.entryInfoList(QDir::Files))
+    for (const QFileInfo &f : src.entryInfoList(QDir::Files)) {
+        if (fromSharedFolder && (!ownName.match(f.fileName()).hasMatch() || f.size() > kMaxPictureBytes || f.isSymLink()))
+            continue;
         if (!QFile::exists(to + u'/' + f.fileName()))
             QFile::copy(f.absoluteFilePath(), to + u'/' + f.fileName());
+    }
+}
+
+// A database that comes from shared storage (any app with storage access can change it) is only used when it is an
+// intact SQLite file with this app's cards table and a schema version this app knows. Opened read-only.
+bool isUsableDatabase(const QString &file)
+{
+    bool ok = false;
+    {
+        auto d = QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"), QStringLiteral("backup-validate"));
+        d.setDatabaseName(file);
+        d.setConnectOptions(QStringLiteral("QSQLITE_OPEN_READONLY"));
+        if (d.open()) {
+            QSqlQuery q(d);
+            const bool intact = q.exec(QStringLiteral("PRAGMA quick_check")) && q.next()
+                                && q.value(0).toString() == QLatin1String("ok");
+            int version = -1;
+            if (intact && q.exec(QStringLiteral("PRAGMA user_version")) && q.next())
+                version = q.value(0).toInt();
+            int tables = 0;
+            if (intact && q.exec(QStringLiteral("SELECT COUNT(*) FROM sqlite_master WHERE type = 'table' AND name = 'cards'"))
+                && q.next())
+                tables = q.value(0).toInt();
+            ok = intact && version >= 1 && version <= CardStore::schemaVersion() && tables == 1;
+        }
+    }
+    QSqlDatabase::removeDatabase(QStringLiteral("backup-validate"));
+    return ok;
 }
 
 // Number of cards in a copy of the database (-1 = cannot be read)
 int cardsIn(const QString &file)
 {
     int n = -1;
+    if (!isUsableDatabase(file))
+        return n;
     {
         auto d = QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"), QStringLiteral("backup-check"));
         d.setDatabaseName(file);
@@ -79,11 +117,19 @@ bool Backup::restoreIfFresh()
     const QString copy = folder() + u'/' + QLatin1String(kDbName);
     if (!QFile::exists(copy) || !QDir().mkpath(appDir()))
         return false;
-    if (!QFile::copy(copy, local)) {
-        qWarning() << "Backup: cannot restore" << copy;
+    // Into the app's private folder first and check that copy: the shared file can change at any moment.
+    const QString staging = local + QStringLiteral(".restoring");
+    QFile::remove(staging);
+    if (!QFile::copy(copy, staging) || !isUsableDatabase(staging)) {
+        qWarning() << "Backup: the copy in" << copy << "is not a usable database, not restored";
+        QFile::remove(staging);
         return false;
     }
-    copyMissingFiles(folder() + QStringLiteral("/images"), appDir() + QStringLiteral("/images"));
+    if (!QFile::rename(staging, local)) {
+        QFile::remove(staging);
+        return false;
+    }
+    copyMissingFiles(folder() + QStringLiteral("/images"), appDir() + QStringLiteral("/images"), true);
     qInfo() << "Backup: cards restored from" << copy;
     QSettings().setValue(QStringLiteral("backup/pending"), false);
     s_restored = true;
@@ -159,17 +205,25 @@ bool Backup::restoreNow()
         return false;
     const QString local = appDir() + u'/' + QLatin1String(kDbName);
     const QString safe = appDir() + QStringLiteral("/before-restore.sqlite");
+    // Check a private copy before touching the cards of this phone (the shared file can change at any moment).
+    const QString staging = local + QStringLiteral(".restoring");
+    QFile::remove(staging);
+    if (!QFile::copy(copy, staging) || !isUsableDatabase(staging)) {
+        QFile::remove(staging);
+        return false;
+    }
     CardStore::instance()->closeDatabase();
     QFile::remove(safe);
     QFile::rename(local, safe); // the cards of this phone stay available until the restored file is in place
     QFile::remove(local + QStringLiteral("-wal"));
     QFile::remove(local + QStringLiteral("-shm"));
-    if (!QFile::copy(copy, local)) {
+    if (!QFile::rename(staging, local)) {
+        QFile::remove(staging);
         QFile::rename(safe, local);
         return false;
     }
     QFile::remove(safe);
-    copyMissingFiles(folder() + QStringLiteral("/images"), appDir() + QStringLiteral("/images"));
+    copyMissingFiles(folder() + QStringLiteral("/images"), appDir() + QStringLiteral("/images"), true);
     QSettings().setValue(QStringLiteral("backup/pending"), false);
     m_restoreAvailable = false;
     emit restoreAvailableChanged();

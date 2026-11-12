@@ -32,6 +32,13 @@ private slots:
                  QStringLiteral("westeurope.api.cognitive.microsoft.com"));
         QVERIFY(azureread::analyzeUrl(QString()).isEmpty());
     }
+    void onlyEncryptedEndpoints()
+    {
+        // The key and the photo must never travel in clear text (SECURITY.md F-4).
+        QVERIFY(azureread::analyzeUrl(QStringLiteral("http://my-vision.cognitiveservices.azure.com")).isEmpty());
+        QVERIFY(azureread::analyzeUrl(QStringLiteral("ftp://x.example")).isEmpty());
+        QVERIFY(!azureread::analyzeUrl(QStringLiteral("https://my-vision.cognitiveservices.azure.com")).isEmpty());
+    }
     void blocksLinesWords()
     {
         const QByteArray json = QStringLiteral(

@@ -236,6 +236,7 @@ Page {
                         color: Material.foreground
                     }
                     Label {
+                        textFormat: Text.PlainText
                         anchors.verticalCenter: parent.verticalCenter
                         text: qsTr("Edit")
                         font.bold: true
@@ -304,6 +305,7 @@ Page {
             }
         }
         Label {
+            textFormat: Text.PlainText
             Layout.fillWidth: true
             Layout.topMargin: -6
             horizontalAlignment: Text.AlignHCenter
@@ -334,6 +336,7 @@ Page {
 
                     // The box (reg) this card is in
                     Label {
+                        textFormat: Text.PlainText
                         objectName: "cardBox"
                         Layout.fillWidth: true
                         visible: session.hasCard
@@ -360,6 +363,7 @@ Page {
                         contentItem: Row {
                             spacing: 6
                             Label {
+                                textFormat: Text.PlainText
                                 anchors.verticalCenter: parent.verticalCenter
                                 text: "\uD83D\uDD00"
                                 font.pixelSize: 12
@@ -394,6 +398,7 @@ Page {
                         }
                     }
                     Label {
+                        textFormat: Text.PlainText
                         Layout.fillWidth: true
                         visible: !page.germanFirst && !page.revealed
                         horizontalAlignment: Text.AlignHCenter
@@ -411,6 +416,7 @@ Page {
                         Layout.fillWidth: true
                         visible: page.germanFirst || page.revealed
                         Label {
+                            textFormat: Text.PlainText
                             id: frontLabel
                             Layout.fillWidth: true
                             Layout.minimumWidth: 0
@@ -501,6 +507,7 @@ Page {
                         pixelSize: 17
                     }
                     Label {
+                        textFormat: Text.PlainText
                         Layout.fillWidth: true
                         visible: (page.revealed || !page.germanFirst) && page.frontRequest >= 0
                         horizontalAlignment: Text.AlignHCenter
@@ -582,6 +589,7 @@ Page {
     }
 
     Label {
+        textFormat: Text.PlainText
         id: movedHint
         visible: false
         anchors { bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; bottomMargin: 88 }
@@ -601,6 +609,7 @@ Page {
         visible: session.finished
 
         Label {
+            textFormat: Text.PlainText
             Layout.fillWidth: true
             horizontalAlignment: Text.AlignHCenter
             font.pixelSize: 22
@@ -609,6 +618,7 @@ Page {
             text: session.total === 0 ? qsTr("Nothing due right now.") : qsTr("Session complete")
         }
         Label {
+            textFormat: Text.PlainText
             Layout.fillWidth: true
             horizontalAlignment: Text.AlignHCenter
             visible: session.total > 0

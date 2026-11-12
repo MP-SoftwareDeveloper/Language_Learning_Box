@@ -118,6 +118,7 @@ Page {
         }
 
         Label {
+            textFormat: Text.PlainText
             Layout.fillWidth: true
             Layout.minimumWidth: 0
             Layout.maximumWidth: page.width - 24 // never wider than the page (wraps instead)
@@ -182,6 +183,7 @@ Page {
                     onClicked: page.selectAll(page.checkedCount < page.cards.length)
                 }
                 Label {
+                    textFormat: Text.PlainText
                     Layout.fillWidth: true
                     text: qsTr("%n selected", "", page.checkedCount)
                     elide: Text.ElideRight
@@ -345,6 +347,7 @@ Page {
             }
 
             Label {
+                textFormat: Text.PlainText
                 anchors.centerIn: parent
                 visible: list.count === 0
                 text: qsTr("This box is empty")
@@ -365,6 +368,7 @@ Page {
         title: qsTr("Delete %n card(s)?", "", page.checkedCount)
         standardButtons: Dialog.Yes | Dialog.No
         Label {
+            textFormat: Text.PlainText
             width: confirmDelete.availableWidth
             wrapMode: Text.WordWrap
             text: page.cards.filter(c => page.isChecked(c.id)).slice(0, 5).map(c => c.front).join(", ")
@@ -405,6 +409,7 @@ Page {
         background: Rectangle { color: "#323232"; radius: 6 }
         contentItem: RowLayout {
             Label {
+                textFormat: Text.PlainText
                 Layout.fillWidth: true
                 color: "white"
                 elide: Text.ElideRight

@@ -94,6 +94,7 @@ Page {
     }
 
     Label {
+        textFormat: Text.PlainText
         anchors.centerIn: parent
         width: parent.width - 48
         visible: cameraPermission.status !== Qt.PermissionStatus.Granted
@@ -104,6 +105,7 @@ Page {
     }
 
     Label {
+        textFormat: Text.PlainText
         id: status
         anchors { top: parent.top; horizontalCenter: parent.horizontalCenter; topMargin: 12 }
         visible: text.length > 0

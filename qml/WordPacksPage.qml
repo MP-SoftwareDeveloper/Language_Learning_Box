@@ -37,6 +37,7 @@ Page {
                     Layout.fillWidth: true
                     spacing: 2
                     Label {
+                        textFormat: Text.PlainText
                         Layout.fillWidth: true
                         wrapMode: Text.WordWrap
                         font.bold: true
@@ -67,6 +68,7 @@ Page {
                     Layout.fillWidth: true
                     spacing: 2
                     Label {
+                        textFormat: Text.PlainText
                         Layout.fillWidth: true
                         wrapMode: Text.WordWrap
                         font.bold: true
@@ -89,6 +91,7 @@ Page {
         }
 
         Label {
+            textFormat: Text.PlainText
             visible: !page.levelsOnly
             Layout.fillWidth: true
             Layout.margins: 16
@@ -98,6 +101,7 @@ Page {
             font.bold: true
         }
         Label {
+            textFormat: Text.PlainText
             visible: !page.levelsOnly
             Layout.fillWidth: true
             Layout.leftMargin: 16
@@ -110,6 +114,7 @@ Page {
                        + "new words start in %3.").arg(WordPacks.wordsInBox).arg(WordPacks.totalWords).arg(BoxNames.name(1))
         }
         Label {
+            textFormat: Text.PlainText
             Layout.leftMargin: 16
             visible: WordPacks.error.length > 0
             color: Material.color(Material.Red)
@@ -134,6 +139,7 @@ Page {
                 contentItem: RowLayout {
                     spacing: 12
                     Label {
+                        textFormat: Text.PlainText
                         text: row.modelData.number
                         font.pixelSize: 18
                         font.bold: true
@@ -145,6 +151,7 @@ Page {
                         Layout.fillWidth: true
                         spacing: 2
                         Label {
+                            textFormat: Text.PlainText
                             Layout.fillWidth: true
                             text: row.modelData.title
                             font.pixelSize: 16
@@ -152,6 +159,7 @@ Page {
                             elide: Text.ElideRight
                         }
                         Label {
+                            textFormat: Text.PlainText
                             Layout.fillWidth: true
                             opacity: 0.7
                             text: qsTr("%1 words · %2 in your box").arg(row.modelData.total).arg(row.modelData.inBox)

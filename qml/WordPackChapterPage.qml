@@ -75,6 +75,7 @@ Page {
                         Layout.fillWidth: true
                         spacing: 2
                         Label {
+                            textFormat: Text.PlainText
                             Layout.fillWidth: true
                             text: row.modelData.front
                             font.pixelSize: 17
@@ -97,6 +98,7 @@ Page {
                         }
                     }
                     Label {
+                        textFormat: Text.PlainText
                         visible: row.modelData.inBox
                         text: "✅"
                         ToolTip.text: qsTr("In your box")

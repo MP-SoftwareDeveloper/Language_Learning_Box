@@ -81,6 +81,7 @@ public:
     // Consistent copy of the whole database to `file` (SQLite VACUUM INTO) and the number of cards in all
     // learning boxes: used by the automatic backup (Backup).
     bool backupTo(const QString &file);
+    static int schemaVersion(); // newest database version this app writes (a restored file may not be newer)
     // Closes the database (before its file is replaced by a restored copy; the app restarts after that).
     void closeDatabase();
     int totalAllCards() const;

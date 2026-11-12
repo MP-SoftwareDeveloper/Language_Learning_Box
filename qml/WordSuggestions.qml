@@ -80,17 +80,20 @@ Pane {
                 contentItem: RowLayout {
                     spacing: 8
                     Label {
+                        textFormat: Text.PlainText
                         text: "🔍"
                         opacity: 0.5
                         font.pixelSize: 13
                     }
                     Label {
+                        textFormat: Text.PlainText
                         text: root.plain(modelData.front)
                         font.pixelSize: 17
                         elide: Text.ElideRight
                         Layout.maximumWidth: root.width * 0.6
                     }
                     Label {
+                        textFormat: Text.PlainText
                         Layout.fillWidth: true
                         text: (modelData.back ?? "").split("\n")[0].replace(/\s*·\s*Pl\..*$/, "")
                         elide: Text.ElideRight

@@ -92,6 +92,7 @@ RowLayout {
     readonly property var t: texts[lang][exporting ? "exp" : "imp"]
 
     Label {
+        textFormat: Text.PlainText
         Layout.fillWidth: true
         wrapMode: Text.WordWrap
         opacity: 0.7
@@ -135,6 +136,7 @@ RowLayout {
                     Layout.alignment: Qt.AlignHCenter
                 }
                 Label {
+                    textFormat: Text.PlainText
                     Layout.fillWidth: true
                     wrapMode: Text.WordWrap
                     font.pixelSize: 18
@@ -144,12 +146,14 @@ RowLayout {
                     text: root.t.title
                 }
                 Label {
+                    textFormat: Text.PlainText
                     Layout.fillWidth: true
                     wrapMode: Text.WordWrap
                     horizontalAlignment: root.rtl ? Text.AlignRight : Text.AlignLeft
                     text: root.t.intro
                 }
                 Label {
+                    textFormat: Text.PlainText
                     Layout.fillWidth: true
                     wrapMode: Text.WordWrap
                     lineHeight: 1.2
@@ -168,6 +172,7 @@ RowLayout {
                     spacing: 8
                     visible: (root.t.fileTitle ?? "") !== ""
                     Label {
+                        textFormat: Text.PlainText
                         Layout.fillWidth: true
                         wrapMode: Text.WordWrap
                         font.pixelSize: 16
@@ -177,6 +182,7 @@ RowLayout {
                         text: root.t.fileTitle ?? ""
                     }
                     Label {
+                        textFormat: Text.PlainText
                         Layout.fillWidth: true
                         wrapMode: Text.WordWrap
                         horizontalAlignment: root.rtl ? Text.AlignRight : Text.AlignLeft
@@ -190,6 +196,7 @@ RowLayout {
                             color: Qt.rgba(0.5, 0.5, 0.5, 0.15)
                         }
                         Label {
+                            textFormat: Text.PlainText
                             width: parent.width
                             wrapMode: Text.WordWrap
                             font.family: "monospace"

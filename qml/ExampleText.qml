@@ -70,6 +70,7 @@ ColumnLayout {
     }
 
     Label {
+        textFormat: Text.PlainText
         id: germanLabel
         Layout.fillWidth: true
         visible: !root.selectable && root.showGerman && root.example !== ""
@@ -102,6 +103,7 @@ ColumnLayout {
         visible: root.translation !== ""
         spacing: 0
         Label {
+            textFormat: Text.PlainText
             id: translationLabel
             Layout.fillWidth: true
             visible: !root.selectable

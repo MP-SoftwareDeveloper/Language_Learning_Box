@@ -69,6 +69,7 @@ Page {
     header: ColumnLayout {
         spacing: 0
         Label {
+            textFormat: Text.PlainText
             Layout.fillWidth: true
             Layout.topMargin: 16
             horizontalAlignment: Text.AlignHCenter
@@ -99,12 +100,14 @@ Page {
                 width: parent.width - 32
                 spacing: 12
                 Label {
+                    textFormat: Text.PlainText
                     Layout.fillWidth: true
                     wrapMode: Text.WordWrap
                     font.pixelSize: 16
                     text: qsTr("Learn German or English words with a Leitner box: cards you know move up and come back later, cards you don't know come back soon.")
                 }
                 Label {
+                    textFormat: Text.PlainText
                     Layout.fillWidth: true
                     wrapMode: Text.WordWrap
                     font.pixelSize: 16
@@ -112,6 +115,7 @@ Page {
                     text: "واژه‌های آلمانی یا انگلیسی را با جعبهٔ لایتنر یاد بگیرید."
                 }
                 Label {
+                    textFormat: Text.PlainText
                     Layout.topMargin: 8
                     font.bold: true
                     text: qsTr("I want to learn") + " / " + "می‌خواهم یاد بگیرم"
@@ -146,6 +150,7 @@ Page {
                     text: qsTr("Swedish is read aloud with a Swedish voice.")
                 }
                 Label {
+                    textFormat: Text.PlainText
                     Layout.topMargin: 8
                     font.bold: true
                     text: qsTr("Meanings in") + " / " + "معنی به"
@@ -208,9 +213,10 @@ Page {
                                     checked: chosen
                                     onClicked: page.chosenMode = modelData.mode
                                 }
-                                Label { text: modelData.title; font.pixelSize: 18; font.bold: true }
+                                Label { textFormat: Text.PlainText; text: modelData.title; font.pixelSize: 18; font.bold: true }
                             }
                             Label {
+                                textFormat: Text.PlainText
                                 Layout.fillWidth: true
                                 wrapMode: Text.WordWrap
                                 text: modelData.text
@@ -237,6 +243,7 @@ Page {
                         anchors.fill: parent
                         spacing: 6
                         Label {
+                            textFormat: Text.PlainText
                             Layout.fillWidth: true
                             wrapMode: Text.WordWrap
                             font.pixelSize: 18
@@ -244,6 +251,7 @@ Page {
                             text: lensTexts.t("askTitle", page.meaning)
                         }
                         Label {
+                            textFormat: Text.PlainText
                             Layout.fillWidth: true
                             wrapMode: Text.WordWrap
                             text: lensTexts.t("askBody", page.meaning)
@@ -259,7 +267,7 @@ Page {
                     }
                 }
                 HintLabel { text: qsTr("You can switch any time in Settings. Your cards and progress are kept.") }
-                Label { Layout.topMargin: 8; text: qsTr("What's included"); font.bold: true }
+                Label { textFormat: Text.PlainText; Layout.topMargin: 8; text: qsTr("What's included"); font.bold: true }
                 ModeComparison { Layout.fillWidth: true }
             }
         }
@@ -274,6 +282,7 @@ Page {
                 width: parent.width - 32
                 spacing: 8
                 Label {
+                    textFormat: Text.PlainText
                     Layout.fillWidth: true
                     visible: !page.german
                     wrapMode: Text.WordWrap
@@ -291,10 +300,11 @@ Page {
                     visible: page.german
                     text: qsTr("Common everyday words — greetings, numbers, family, food, home, time, verbs, city — with English and Persian meanings and an example sentence. They go into their own learning box “Starter – 100 words”.")
                 }
-                Label { Layout.topMargin: 8; visible: page.german; text: qsTr("For example"); font.bold: true }
+                Label { textFormat: Text.PlainText; Layout.topMargin: 8; visible: page.german; text: qsTr("For example"); font.bold: true }
                 Repeater {
                     model: !page.german ? [] : [ ["das Brot", "bread", "نان"], ["der Bahnhof", "train station", "ایستگاه قطار"], ["sprechen", "to speak", "صحبت کردن"] ]
                     delegate: Label {
+                        textFormat: Text.PlainText
                         required property var modelData
                         Layout.fillWidth: true
                         text: "• " + modelData[0] + "  →  " + (page.fa ? modelData[2] : modelData[1])
@@ -317,6 +327,7 @@ Page {
                 width: parent.width - 32
                 spacing: 8
                 Label {
+                    textFormat: Text.PlainText
                     Layout.fillWidth: true
                     wrapMode: Text.WordWrap
                     font.pixelSize: 16
@@ -333,6 +344,7 @@ Page {
                     text: qsTr("Fills in meanings and example sentences for new words. Offline, saved translations are used.")
                 }
                 Label {
+                    textFormat: Text.PlainText
                     Layout.topMargin: 8
                     Layout.fillWidth: true
                     wrapMode: Text.WordWrap

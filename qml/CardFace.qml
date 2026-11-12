@@ -63,6 +63,7 @@ ColumnLayout {
             clip: true
         }
         Label {
+            textFormat: Text.PlainText
             Layout.fillWidth: true
             text: root.front
             font.pixelSize: 17
@@ -88,6 +89,7 @@ ColumnLayout {
             Repeater {
                 model: root.back.replace(/\s*·\s*Pl\./, "\nPlural").split("\n").filter(l => !/^\s*(Pl\.|Plural|Sg\.|Singular|Mask\.|Fem\.)/.test(l))
                 delegate: Label {
+                    textFormat: Text.PlainText
                     required property string modelData
                     required property int index
                     Layout.fillWidth: true
@@ -130,6 +132,7 @@ ColumnLayout {
         pixelSize: 14
     }
     Label {
+        textFormat: Text.PlainText
         visible: text !== ""
         text: root.note
         font.pixelSize: 12

@@ -228,6 +228,7 @@ void DeckExchange::openLink(const QString &link)
     setBusy(true);
     QNetworkRequest req(url);
     req.setAttribute(QNetworkRequest::RedirectPolicyAttribute, QNetworkRequest::NoLessSafeRedirectPolicy);
+    req.setMaximumRedirectsAllowed(5); // Qt's default is 50
     req.setHeader(QNetworkRequest::UserAgentHeader, QStringLiteral("LearningBox (Qt)"));
     QNetworkReply *reply = m_nam->get(req);
     connect(reply, &QNetworkReply::downloadProgress, this, [reply](qint64 received, qint64) {

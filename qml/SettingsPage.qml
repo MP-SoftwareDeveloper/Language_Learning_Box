@@ -238,6 +238,7 @@ Page {
             }
 
             Label {
+                textFormat: Text.PlainText
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
                 Layout.fillWidth: true
@@ -252,6 +253,7 @@ Page {
 
             // ---------- app mode ----------
             Label {
+                textFormat: Text.PlainText
                 Layout.leftMargin: 16
                 text: page.tr2("app")
                 font.pixelSize: 16
@@ -300,6 +302,7 @@ Page {
 
             // ---------- translation ----------
             Label {
+                textFormat: Text.PlainText
                 Layout.leftMargin: 16
                 text: page.tr2("translation")
                 font.pixelSize: 16
@@ -341,6 +344,7 @@ Page {
                 onToggled: Translator.onlineEnabled = checked
             }
             Label {
+                textFormat: Text.PlainText
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
                 Layout.fillWidth: true
@@ -362,6 +366,7 @@ Page {
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
                 Label {
+                    textFormat: Text.PlainText
                     Layout.fillWidth: true
                     text: page.tr2("saved").arg(Translator.savedCount)
                 }
@@ -375,6 +380,7 @@ Page {
 
             // ---------- Azure Translator (optional key) ----------
             Label {
+                textFormat: Text.PlainText
                 Layout.leftMargin: 16
                 Layout.topMargin: 12
                 visible: AppMode.full
@@ -383,6 +389,7 @@ Page {
                 font.bold: true
             }
             Label {
+                textFormat: Text.PlainText
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
                 Layout.fillWidth: true
@@ -448,6 +455,7 @@ Page {
                 }
             }
             Label {
+                textFormat: Text.PlainText
                 id: azureResult
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
@@ -467,6 +475,7 @@ Page {
 
             // ---------- text recognition (Lens) ----------
             Label {
+                textFormat: Text.PlainText
                 Layout.leftMargin: 16
                 Layout.topMargin: 12
                 visible: AppMode.full
@@ -482,6 +491,7 @@ Page {
                 onToggled: AppMode.lensEnabled = checked
             }
             Label {
+                textFormat: Text.PlainText
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
                 Layout.fillWidth: true
@@ -499,6 +509,7 @@ Page {
                 onToggled: CloudOcr.enabled = checked
             }
             Label {
+                textFormat: Text.PlainText
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
                 Layout.fillWidth: true
@@ -564,6 +575,7 @@ Page {
                 }
             }
             Label {
+                textFormat: Text.PlainText
                 id: keyResult
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
@@ -583,6 +595,7 @@ Page {
 
             // ---------- keyboard ----------
             Label {
+                textFormat: Text.PlainText
                 Layout.leftMargin: 16
                 Layout.topMargin: 12
                 text: page.tr2("keyboard")

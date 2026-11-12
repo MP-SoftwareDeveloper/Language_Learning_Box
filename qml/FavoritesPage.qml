@@ -119,6 +119,7 @@ Page {
                 // Own label: the Material style colors the text of a checked button itself (accent), whatever
                 // Material.foreground says
                 contentItem: Label {
+                    textFormat: Text.PlainText
                     text: parent.text
                     font: parent.font
                     color: "black"
@@ -202,6 +203,7 @@ Page {
                 opacity: 0.4
             }
             Label {
+                textFormat: Text.PlainText
                 Layout.fillWidth: true
                 horizontalAlignment: Text.AlignHCenter
                 wrapMode: Text.WordWrap
@@ -211,6 +213,7 @@ Page {
         }
         // Favorites exist, but none in the switched-on languages
         Label {
+            textFormat: Text.PlainText
             anchors.centerIn: parent
             width: Math.min(parent.width - 48, 320)
             visible: list.count === 0 && page.all.length > 0

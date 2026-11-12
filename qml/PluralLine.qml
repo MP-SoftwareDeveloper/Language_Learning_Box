@@ -38,6 +38,7 @@ RowLayout {
     // Same look as the rows of the Dictionary (WordDetails): small dim label, then the word in bold
     readonly property bool hasLabel: /^(Plural|Singular)\s/.test(shown)
     Label {
+        textFormat: Text.PlainText
         visible: root.hasLabel
         // "Singular:" + 8 spaces wide, so the words of all lines start at the same place
         Layout.preferredWidth: labelWidth.advanceWidth
@@ -46,6 +47,7 @@ RowLayout {
         opacity: 0.6
     }
     Label {
+        textFormat: Text.PlainText
         Layout.fillWidth: true
         text: root.hasLabel ? root.shown.replace(/^\S+\s+/, "") : root.shown
         wrapMode: Text.WordWrap

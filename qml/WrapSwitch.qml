@@ -9,6 +9,7 @@ SwitchDelegate {
     Layout.minimumWidth: 0 // the label wraps, so it never needs more than the page width
     Layout.preferredWidth: 100 // not the unwrapped text width: it must not make the page wider
     contentItem: Label {
+        textFormat: Text.PlainText
         text: control.text
         font: control.font
         wrapMode: Text.WordWrap

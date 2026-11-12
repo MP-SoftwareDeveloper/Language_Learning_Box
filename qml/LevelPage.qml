@@ -23,6 +23,7 @@ Page {
         spacing: 0
 
         Label {
+            textFormat: Text.PlainText
             Layout.fillWidth: true
             Layout.margins: 16
             Layout.bottomMargin: 8
@@ -55,6 +56,7 @@ Page {
                 contentItem: RowLayout {
                     spacing: 12
                     Label {
+                        textFormat: Text.PlainText
                         text: row.modelData.number
                         font.pixelSize: 18
                         font.bold: true
@@ -66,6 +68,7 @@ Page {
                         Layout.fillWidth: true
                         spacing: 2
                         Label {
+                            textFormat: Text.PlainText
                             Layout.fillWidth: true
                             text: row.modelData.title
                             font.pixelSize: 16
@@ -73,6 +76,7 @@ Page {
                             wrapMode: Text.WordWrap
                         }
                         Label {
+                            textFormat: Text.PlainText
                             Layout.fillWidth: true
                             opacity: 0.7
                             text: qsTr("%1 words").arg(row.modelData.total)

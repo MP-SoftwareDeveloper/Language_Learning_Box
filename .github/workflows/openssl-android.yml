@@ -1,0 +1,31 @@
+# Builds the Android OpenSSL libraries (libssl_3.so / libcrypto_3.so) from the pinned, checksum-verified OpenSSL release.
+# Run by hand: Actions -> openssl-android -> Run workflow, then download the artifact "ssl_3" and copy its
+# arm64-v8a / x86_64 folders into 3rdparty/android_openssl/ssl_3/. Not run yet (SECURITY.md F-2).
+name: openssl-android
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install NDK r27c
+        run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "ndk;27.2.12479018" > /dev/null
+      - name: Build
+        env:
+          ANDROID_NDK_ROOT: /usr/local/lib/android/sdk/ndk/27.2.12479018
+        run: 3rdparty/build_openssl_android.sh
+      - name: Check the result
+        run: |
+          for f in 3rdparty/openssl-out/ssl_3/*/libcrypto_3.so; do
+            echo "$f"; strings "$f" | grep -m1 "OpenSSL 3\." ; readelf -lW "$f" | grep LOAD | head -2
+          done
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ssl_3
+          path: 3rdparty/openssl-out/ssl_3

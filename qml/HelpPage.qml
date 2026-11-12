@@ -191,6 +191,7 @@ Page {
                         Layout.fillWidth: true
                         spacing: 4
                         Label {
+                            textFormat: Text.PlainText
                             Layout.fillWidth: true
                             Layout.topMargin: index === 0 ? 4 : 14
                             text: modelData.title
@@ -201,6 +202,7 @@ Page {
                             horizontalAlignment: page.rtl ? Text.AlignRight : Text.AlignLeft
                         }
                         Label {
+                            textFormat: Text.PlainText
                             Layout.fillWidth: true
                             text: modelData.body
                             font.pixelSize: 15

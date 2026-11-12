@@ -12,8 +12,10 @@ QUrl analyzeUrl(const QString &endpoint)
     QString base = endpoint.trimmed();
     if (base.isEmpty())
         return {};
-    if (!base.startsWith(QLatin1String("https://")) && !base.startsWith(QLatin1String("http://")))
+    if (!base.contains(QLatin1String("://")))
         base.prepend(QLatin1String("https://"));
+    if (!base.startsWith(QLatin1String("https://")))
+        return {}; // the key and the photo are only sent over an encrypted connection
     while (base.endsWith(u'/'))
         base.chop(1);
     QUrl url(base + QStringLiteral("/computervision/imageanalysis:analyze"));

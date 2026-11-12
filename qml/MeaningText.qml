@@ -15,6 +15,7 @@ Column {
     Repeater {
         model: root.text.length > 0 ? root.text.replace(/\s*·\s*Pl\./, "\nPlural").split("\n") : []
         delegate: Label {
+            textFormat: Text.PlainText
             required property string modelData
             required property int index
             width: root.width

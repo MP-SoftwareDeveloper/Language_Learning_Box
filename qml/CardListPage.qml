@@ -59,6 +59,7 @@ Page {
                         Layout.fillWidth: true
                         spacing: 2
                         Label {
+                            textFormat: Text.PlainText
                             Layout.fillWidth: true
                             text: row.front
                             font.pixelSize: 17
@@ -66,6 +67,7 @@ Page {
                             elide: Text.ElideRight
                         }
                         Label {
+                            textFormat: Text.PlainText
                             Layout.fillWidth: true
                             text: row.back.split("\n")[0] // first line = meaning
                             visible: row.back.length > 0
@@ -75,6 +77,7 @@ Page {
                         }
                     }
                     Label {
+                        textFormat: Text.PlainText
                         text: row.box > 5 ? "\u2B50" : row.box
                         font.bold: true
                         opacity: 0.6
@@ -89,6 +92,7 @@ Page {
             }
 
             Label {
+                textFormat: Text.PlainText
                 anchors.centerIn: parent
                 visible: list.count === 0
                 text: search.text.length > 0 ? qsTr("No matches") : qsTr("No cards yet")
@@ -121,6 +125,7 @@ Page {
         title: qsTr("Delete this card?")
         standardButtons: Dialog.Yes | Dialog.No
         Label {
+            textFormat: Text.PlainText
             width: confirmDelete.availableWidth
             wrapMode: Text.WordWrap
             text: (page.menuCard ? page.menuCard.front : "") + "\n\n"

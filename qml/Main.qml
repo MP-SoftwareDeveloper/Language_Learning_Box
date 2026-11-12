@@ -44,6 +44,7 @@ ApplicationWindow {
                 onClicked: stack.pop()
             }
             Label {
+                textFormat: Text.PlainText
                 Layout.fillWidth: true
                 text: stack.currentItem?.title ?? window.title
                 font.pixelSize: 22
@@ -165,6 +166,7 @@ ApplicationWindow {
             anchors.fill: parent
             spacing: 12
             Label {
+                textFormat: Text.PlainText
                 Layout.fillWidth: true
                 wrapMode: Text.WordWrap
                 text: restoreDialog.done
@@ -207,12 +209,14 @@ ApplicationWindow {
             anchors.fill: parent
             spacing: 12
             Label {
+                textFormat: Text.PlainText
                 Layout.fillWidth: true
                 wrapMode: Text.WordWrap
                 text: qsTr("Allow Learning Box to keep a copy of your cards in your phone's Documents folder. "
                            + "Then an update or a new installation of the app never loses your cards: they come back by themselves.")
             }
             Label {
+                textFormat: Text.PlainText
                 Layout.fillWidth: true
                 wrapMode: Text.WordWrap
                 opacity: 0.7

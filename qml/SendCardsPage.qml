@@ -57,6 +57,7 @@ Page {
                 ColumnLayout {
                     anchors.fill: parent
                     Label {
+                        textFormat: Text.PlainText
                         Layout.fillWidth: true
                         wrapMode: Text.WordWrap
                         text: page.tl("Tip: to give your cards to a friend, tap “Share” and choose WhatsApp, Telegram or e-mail. Your friend opens the file in LearningBox → Get cards.", "نکته: برای دادن کارت‌ها به دوستتان روی «اشتراک‌گذاری» بزنید و واتس‌اپ، تلگرام یا ایمیل را انتخاب کنید. دوستتان فایل را در LearningBox ← دریافت کارت‌ها باز می‌کند.", "Tipp: Um deine Karten einem Freund zu geben, tippe auf „Teilen“ und wähle WhatsApp, Telegram oder E-Mail. Dein Freund öffnet die Datei in LearningBox → Karten holen.", "Tips: för att ge dina kort till en vän trycker du på ”Share” och väljer WhatsApp, Telegram eller e-post. Din vän öppnar filen i LearningBox → Hämta kort.")
@@ -77,6 +78,7 @@ Page {
 
             // ---- 1. Who is it for? ----
             Label {
+                textFormat: Text.PlainText
                 Layout.leftMargin: 16
                 Layout.topMargin: 8
                 text: page.tl("1. Who is it for?", "۱. برای چه کسی است؟", "1. Für wen ist es?", "1. Vem är det till?")
@@ -110,6 +112,7 @@ Page {
 
             // ---- 2. Which cards? ----
             Label {
+                textFormat: Text.PlainText
                 Layout.leftMargin: 16
                 Layout.topMargin: 12
                 text: page.tl("2. Which cards?", "۲. کدام کارت‌ها؟", "2. Welche Karten?", "2. Vilka kort?")
@@ -133,6 +136,7 @@ Page {
 
             // ---- 3. Keep my progress? ----
             Label {
+                textFormat: Text.PlainText
                 Layout.leftMargin: 16
                 Layout.topMargin: 12
                 visible: page.forLearningBox
@@ -187,6 +191,7 @@ Page {
             }
 
             Label {
+                textFormat: Text.PlainText
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
                 Layout.topMargin: 8

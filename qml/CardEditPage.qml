@@ -345,12 +345,14 @@ Page {
                 target: frontField
             }
             Label {
+                textFormat: Text.PlainText
                 Layout.leftMargin: 16
                 visible: page.live && page.cardFront.trim() !== frontField.text.trim()
                 opacity: 0.7
                 text: qsTr("Saved as: %1").arg(page.cardFront.trim())
             }
             Label {
+                textFormat: Text.PlainText
                 Layout.leftMargin: 16
                 visible: page.duplicateId >= 0
                 color: Material.color(Material.Orange)
@@ -422,6 +424,7 @@ Page {
                 letterSet: "de"
             }
             Label {
+                textFormat: Text.PlainText
                 Layout.leftMargin: 20
                 Layout.topMargin: -8
                 visible: page.live && (page.meaningRequest >= 0 || (page.backAuto && backField.text !== ""))
@@ -489,6 +492,7 @@ Page {
                 }
             }
             Label {
+                textFormat: Text.PlainText
                 id: imageError
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
@@ -502,7 +506,7 @@ Page {
             RowLayout {
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
-                Label { text: qsTr("Box") }
+                Label { textFormat: Text.PlainText; text: qsTr("Box") }
                 ComboBox {
                     id: boxChoice
                     Layout.preferredWidth: 160
@@ -536,6 +540,7 @@ Page {
                 Layout.rightMargin: 16
                 visible: !page.isNew
                 Label {
+                    textFormat: Text.PlainText
                     Layout.fillWidth: true
                     opacity: 0.7
                     text: page.original.box > 5 ? BoxNames.name(6)
@@ -588,6 +593,7 @@ Page {
             anchors.fill: parent
             spacing: 8
             Label {
+                textFormat: Text.PlainText
                 Layout.fillWidth: true
                 wrapMode: Text.WordWrap
                 font.bold: true
@@ -599,6 +605,7 @@ Page {
                 visible: text !== ""
             }
             Label {
+                textFormat: Text.PlainText
                 Layout.fillWidth: true
                 wrapMode: Text.WordWrap
                 opacity: 0.7
@@ -607,6 +614,7 @@ Page {
                       : qsTr("%1 · reviewed %2×").arg(BoxNames.name(duplicateDialog.existing.box ?? 1)).arg(duplicateDialog.existing.reviews ?? 0)
             }
             Label {
+                textFormat: Text.PlainText
                 Layout.fillWidth: true
                 Layout.topMargin: 4
                 wrapMode: Text.WordWrap
