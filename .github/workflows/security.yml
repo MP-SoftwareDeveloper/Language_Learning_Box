@@ -21,7 +21,7 @@ jobs:
     name: Secret scan (whole git history)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with: {fetch-depth: 0}
       - uses: gitleaks/gitleaks-action@v2
         env:
@@ -31,7 +31,7 @@ jobs:
     name: cppcheck
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - run: sudo apt-get update && sudo apt-get install -y cppcheck
       - name: Errors fail the build
         run: cppcheck --library=qt --inline-suppr --error-exitcode=1 --suppress=missingIncludeSystem -I src src main.cpp
@@ -44,7 +44,7 @@ jobs:
     name: Unit tests with AddressSanitizer + UBSan
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: jurplel/install-qt-action@v4
         with:
           version: ${{ env.QT_VERSION }}
@@ -75,7 +75,7 @@ jobs:
       contents: read
       security-events: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: jurplel/install-qt-action@v4
         with:
           version: ${{ env.QT_VERSION }}
