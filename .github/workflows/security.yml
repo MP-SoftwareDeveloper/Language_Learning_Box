@@ -85,11 +85,11 @@ jobs:
           modules: qtmultimedia qtspeech qtsensors
           cache: true
       - run: sudo apt-get update && sudo apt-get install -y ninja-build libgl1-mesa-dev libxkbcommon-dev
-      - uses: github/codeql-action/init@v3
+      - uses: github/codeql-action/init@v4
         with:
           languages: c-cpp
           queries: security-extended
       - run: |
           cmake -S . -B build-ql -G Ninja -DCMAKE_BUILD_TYPE=Release
           cmake --build build-ql
-      - uses: github/codeql-action/analyze@v3
+      - uses: github/codeql-action/analyze@v4
