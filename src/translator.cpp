@@ -221,10 +221,12 @@ void Translator::requestAzure(int id, const QString &text, const QString &source
         } else {
             const auto r = AzureTranslate::parseTranslation(body);
             if (r.error.isEmpty()) {
-                if (AzureTranslate::isSingleWord(text)
-                    && !m_azureNoDictionary.contains(source + u'>' + target))
-                    azureAlternatives(id, text, source, target, r.text);
-                else {
+                if (AzureTranslate::isSingleWord(text)) {
+                    if (m_azureNoDictionary.contains(source + u'>' + target))
+                        azurePivot(id, text, source, target, r.text);
+                    else
+                        azureAlternatives(id, text, source, target, r.text);
+                } else {
                     store(source, target, text, r.text, {});
                     emit translated(id, r.text, {}, QStringLiteral("online"), {});
                 }
@@ -237,24 +239,79 @@ void Translator::requestAzure(int id, const QString &text, const QString &source
     });
 }
 
-void Translator::azureAlternatives(int id, const QString &text, const QString &source, const QString &target,
-                                   const QString &main)
+void Translator::azureLookup(const QString &text, const QString &source, const QString &target,
+                             std::function<void(const QStringList &, bool)> done)
 {
     QNetworkReply *reply = m_nam->post(azureRequest(AzureTranslate::lookupUrl(source, target)),
                                        AzureTranslate::requestBody(text));
     connect(reply, &QNetworkReply::finished, this, [=, this] {
         reply->deleteLater();
         QStringList entries;
+        bool noDictionary = false;
         if (reply->error() == QNetworkReply::NoError) {
             entries = AzureTranslate::parseLookupAll(reply->readAll());
         } else if (reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt() == 400) {
             m_azureNoDictionary.insert(source + u'>' + target); // no dictionary for this pair: don't ask again
+            noDictionary = true;
         }
-        // /translate has no context for a lone word and can pick a wrong one ("vorlesen" -> "Listen"): the
-        // dictionary's best entry wins unless it agrees with the translation (see AzureTranslate::choose).
-        const auto c = AzureTranslate::choose(main, entries);
-        store(source, target, text, c.main, c.alternatives);
-        emit translated(id, c.main, c.alternatives, QStringLiteral("online"), {});
+        done(entries, noDictionary);
+    });
+}
+
+void Translator::azureFinish(int id, const QString &text, const QString &source, const QString &target,
+                             const QStringList &entries, const QString &main)
+{
+    // /translate has no context for a lone word and can pick a wrong one ("vorlesen" -> "Listen"): the
+    // dictionary's best entry wins unless it agrees with the translation (see AzureTranslate::choose).
+    const auto c = AzureTranslate::choose(main, entries);
+    store(source, target, text, c.main, c.alternatives);
+    emit translated(id, c.main, c.alternatives, QStringLiteral("online"), {});
+}
+
+void Translator::azureAlternatives(int id, const QString &text, const QString &source, const QString &target,
+                                   const QString &main)
+{
+    azureLookup(text, source, target, [=, this](const QStringList &entries, bool noDictionary) {
+        if (noDictionary)
+            azurePivot(id, text, source, target, main);
+        else
+            azureFinish(id, text, source, target, entries, main);
+    });
+}
+
+// The Azure dictionary only pairs English with other languages (no de>fa). Without it /translate guesses a lone
+// word without context ("bedienen" -> "to use"). So: de>en lists the real meanings ("serve", "operate"), and
+// en>fa gives the Persian entries of the best two of them.
+void Translator::azurePivot(int id, const QString &text, const QString &source, const QString &target,
+                            const QString &main)
+{
+    const QString en = QStringLiteral("en");
+    if (source == en || target == en || m_azureNoDictionary.contains(source + u'>' + en)
+        || m_azureNoDictionary.contains(en + u'>' + target)) {
+        azureFinish(id, text, source, target, {}, main);
+        return;
+    }
+    azureLookup(text, source, en, [=, this](const QStringList &english, bool) {
+        const QStringList words = english.mid(0, 2);
+        if (words.isEmpty()) {
+            azureFinish(id, text, source, target, {}, main);
+            return;
+        }
+        auto results = QSharedPointer<QList<QStringList>>::create(words.size());
+        auto pending = QSharedPointer<int>::create(words.size());
+        for (int i = 0; i < words.size(); ++i) {
+            azureLookup(words.at(i), en, target, [=, this](const QStringList &entries, bool) {
+                (*results)[i] = entries;
+                if (--(*pending) > 0)
+                    return;
+                QStringList merged; // best English meaning first, two entries each, no duplicates
+                for (const QStringList &list : std::as_const(*results))
+                    for (const QString &e : list.mid(0, 2))
+                        if (!merged.contains(e, Qt::CaseInsensitive))
+                            merged.append(e);
+                azureFinish(id, text, source, target, merged, main);
+            });
+        }
     });
 }
 

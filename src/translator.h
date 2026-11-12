@@ -142,6 +142,12 @@ private:
     // Other translations of a single word (Azure dictionary) before the answer goes out.
     void azureAlternatives(int id, const QString &text, const QString &source, const QString &target,
                            const QString &main);
+    // Same for pairs without an Azure dictionary (de>fa): through English (de>en, then en>fa).
+    void azurePivot(int id, const QString &text, const QString &source, const QString &target, const QString &main);
+    void azureLookup(const QString &text, const QString &source, const QString &target,
+                     std::function<void(const QStringList &entries, bool noDictionary)> done);
+    void azureFinish(int id, const QString &text, const QString &source, const QString &target,
+                     const QStringList &entries, const QString &main);
     QNetworkRequest azureRequest(const QUrl &url) const;
     void requestGoogle(int id, const QString &text, const QString &source, const QString &target);
     void onReply(QNetworkReply *reply, int id, const QString &text, const QString &source, const QString &target);
