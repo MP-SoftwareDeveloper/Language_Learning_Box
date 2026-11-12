@@ -18,8 +18,30 @@ ColumnLayout {
     property real germanOpacity: 0.85
     property bool speakTranslation: true // 🔊 on English / German translations
     property int clearToken: 0 // changes: remove the highlight of a selected word (the page saw a tap elsewhere)
-    onClearTokenChanged: { germanEdit.deselect(); translationEdit.deselect() }
+    onClearTokenChanged: { germanEdit.deselect(); translationEdit.deselect(); root.selecting = false }
     property bool selectable: false // press and hold selects a word to copy (review card); off in lists, where a press must scroll / open
+    // Selectable text is a plain Label until the finger rests on it (long press): only then the sentence becomes a
+    // TextEdit with the word selected. A TextEdit under the finger takes the touch for itself and makes scrolling the
+    // card (Flickable) hard, so it must not be there all the time.
+    property bool selecting: false
+    property point pressPoint: Qt.point(0, 0)  // where the long press was (inside the label)
+    property bool pressInTranslation: false
+    function startSelecting(inTranslation, p) {
+        pressPoint = p
+        pressInTranslation = inTranslation
+        selecting = true       // the TextEdit appears in the place of the Label ...
+        selectTimer.restart()  // ... and the word is selected once the layout has put it there
+    }
+    Timer {
+        id: selectTimer
+        interval: 60
+        onTriggered: {
+            const edit = root.pressInTranslation ? translationEdit : germanEdit
+            edit.forceActiveFocus()
+            edit.cursorPosition = edit.positionAt(root.pressPoint.x, root.pressPoint.y)
+            edit.selectWord()
+        }
+    }
     spacing: 2
 
     property string target: ""    // translation language; "" = the learning box's meaning language
@@ -73,18 +95,23 @@ ColumnLayout {
         textFormat: Text.PlainText
         id: germanLabel
         Layout.fillWidth: true
-        visible: !root.selectable && root.showGerman && root.example !== ""
+        visible: !(root.selectable && root.selecting) && root.showGerman && root.example !== ""
         text: root.example
         wrapMode: Text.WordWrap
         font.italic: true
         font.pixelSize: root.pixelSize
         opacity: root.germanOpacity
+        // Passive: watches for the long press, never takes the touch (scrolling works as on any other text)
+        TapHandler {
+            enabled: root.selectable
+            onLongPressed: root.startSelecting(false, point.position)
+        }
     }
     // Same look, but the text can be selected and copied (press and hold a word)
     TextEdit {
         id: germanEdit
         Layout.fillWidth: true
-        visible: root.selectable && root.showGerman && root.example !== ""
+        visible: root.selectable && root.selecting && root.showGerman && root.example !== ""
         text: root.example
         readOnly: true
         selectByMouse: true
@@ -93,7 +120,7 @@ ColumnLayout {
         color: germanLabel.color
         selectionColor: germanLabel.palette.highlight
         selectedTextColor: germanLabel.palette.highlightedText
-        onActiveFocusChanged: if (!activeFocus) deselect() // tapping elsewhere removes the highlight
+        onActiveFocusChanged: if (!activeFocus) { deselect(); root.selecting = false } // tapping elsewhere removes the highlight
         font.italic: true
         font.pixelSize: root.pixelSize
         opacity: root.germanOpacity
@@ -106,26 +133,30 @@ ColumnLayout {
             textFormat: Text.PlainText
             id: translationLabel
             Layout.fillWidth: true
-            visible: !root.selectable
+            visible: !(root.selectable && root.selecting)
             text: root.translation
             wrapMode: Text.WordWrap
             horizontalAlignment: root.persian ? Text.AlignRight : Text.AlignLeft
             font.pixelSize: root.pixelSize - 1
             opacity: 0.75
+            TapHandler {
+                enabled: root.selectable
+                onLongPressed: root.startSelecting(true, point.position)
+            }
         }
         TextEdit {
             id: translationEdit
             Layout.fillWidth: true
-            visible: root.selectable
+            visible: root.selectable && root.selecting
             text: root.translation
             readOnly: true
             selectByMouse: true
-                textFormat: TextEdit.PlainText
+            textFormat: TextEdit.PlainText
             wrapMode: TextEdit.Wrap
             color: translationLabel.color
             selectionColor: translationLabel.palette.highlight
             selectedTextColor: translationLabel.palette.highlightedText
-            onActiveFocusChanged: if (!activeFocus) deselect()
+            onActiveFocusChanged: if (!activeFocus) { deselect(); root.selecting = false }
             horizontalAlignment: root.persian ? TextEdit.AlignRight : TextEdit.AlignLeft
             font.pixelSize: root.pixelSize - 1
             opacity: 0.75
