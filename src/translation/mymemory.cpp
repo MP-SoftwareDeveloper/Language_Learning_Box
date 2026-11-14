@@ -1,5 +1,6 @@
 #include "mymemory.h"
 
+#include <algorithm>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -131,17 +132,35 @@ Result parse(const QByteArray &json, const QString &sourceText, const QString &t
 
     // Candidates, best first: the main answer, then the translation memory entries for exactly this text.
     struct Candidate { QString text; double match; };
-    QList<Candidate> candidates;
-    candidates.append({first, data.value(QStringLiteral("match")).toVariant().toDouble()});
-    for (const QJsonValue &v : root.value(QStringLiteral("matches")).toArray()) {
+    const double mainMatch = data.value(QStringLiteral("match")).toVariant().toDouble();
+    const QJsonArray memory = root.value(QStringLiteral("matches")).toArray();
+    const bool singleWord = !asked.contains(u' ');
+    const double minMatch = singleWord ? 0.7 : 0.5; // a lone word has no context: only a good match is a meaning
+    QList<Candidate> exact;
+    for (const QJsonValue &v : memory) {
         const QJsonObject m = v.toObject();
         if (m.value(QStringLiteral("segment")).toString().simplified().toCaseFolded() != asked)
             continue;
         const double match = m.value(QStringLiteral("match")).toVariant().toDouble();
         const QString t = cleanMarkup(decodeEntities(m.value(QStringLiteral("translation")).toString()), asked);
-        if (!t.isEmpty() && match >= 0.5)
-            candidates.append({t, match});
+        if (!t.isEmpty() && match >= minMatch)
+            exact.append({t, match});
     }
+    // The main answer of a lone word can come from a similar phrase ("anziehen" -> "hand", from "Hand anziehen"):
+    // it counts only when the memory has the same answer for exactly this word (or has nothing but a sure answer).
+    bool mainOk = true;
+    if (singleWord) {
+        if (memory.isEmpty()) {
+            mainOk = mainMatch >= 0.9;
+        } else {
+            mainOk = std::any_of(exact.cbegin(), exact.cend(),
+                                 [&](const Candidate &c) { return c.text.toCaseFolded() == first.toCaseFolded(); });
+        }
+    }
+    QList<Candidate> candidates;
+    if (mainOk)
+        candidates.append({first, mainMatch});
+    candidates += exact;
 
     QStringList good; // plausible, not just the source repeated, each once
     for (const Candidate &cand : std::as_const(candidates)) {

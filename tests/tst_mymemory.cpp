@@ -132,6 +132,23 @@ private slots:
         QCOMPARE(MyMemory::parse(memoryAnswer(QStringLiteral("Note:"), 0.99), QStringLiteral("Hinweis:"), QStringLiteral("en")).text,
                  QStringLiteral("Note:"));
     }
+    void lookalikePhraseIsNotTheWord()
+    {
+        // "anziehen" -> "hand": the answer of a similar phrase ("Hand anziehen"), not of the word itself
+        const QString word = QStringLiteral("anziehen");
+        QVERIFY(!MyMemory::parse(memoryAnswer(QStringLiteral("hand"), 0.99, QStringLiteral("Hand anziehen"),
+                                              {{QStringLiteral("hand"), 0.99}}),
+                                 word, QStringLiteral("en")).error.isEmpty());
+        // the memory has the word itself too: that entry is the meaning
+        const auto r = MyMemory::parse(memoryAnswer(QStringLiteral("hand"), 0.99, word,
+                                                    {{QStringLiteral("to put on"), 0.85}}),
+                                       word, QStringLiteral("en"));
+        QVERIFY(r.error.isEmpty());
+        QCOMPARE(r.text, QStringLiteral("to put on"));
+        // a weak entry for the word is no meaning either
+        QVERIFY(!MyMemory::parse(memoryAnswer(QStringLiteral("dress"), 0.6, word, {{QStringLiteral("dress"), 0.6}}),
+                                 word, QStringLiteral("en")).error.isEmpty());
+    }
     void quotaAndErrors()
     {
         const QByteArray warn = R"({"responseData":{"translatedText":"MYMEMORY WARNING: YOU USED ALL AVAILABLE FREE TRANSLATIONS FOR TODAY."},
