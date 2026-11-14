@@ -40,6 +40,18 @@ QString cleanMarkup(const QString &text, const QString &asked)
         return QString();
     return s; // empty when only tags / a number were there
 }
+
+// MyMemory's memory holds UI strings and sentence fragments ("streichen" -> "Continuing:"). A meaning that ends in
+// a colon, semicolon or comma although the asked text does not is such a fragment, not a translation.
+bool endsLikeSource(const QString &text, const QString &source)
+{
+    const QString t = text.trimmed();
+    const QString s = source.trimmed();
+    if (t.isEmpty() || s.isEmpty())
+        return true;
+    static const QString fragmentMarks = QStringLiteral(":;,");
+    return !fragmentMarks.contains(t.back()) || s.back() == t.back();
+}
 } // namespace
 
 bool hasMarkup(const QString &text)
@@ -134,7 +146,7 @@ Result parse(const QByteArray &json, const QString &sourceText, const QString &t
     QStringList good; // plausible, not just the source repeated, each once
     for (const Candidate &cand : std::as_const(candidates)) {
         const QString folded = cand.text.toCaseFolded();
-        if (!plausibleFor(cand.text, target))
+        if (!plausibleFor(cand.text, target) || !endsLikeSource(cand.text, sourceText))
             continue;
         if (folded == asked && cand.match < 0.9) // "don't know": the source comes back unchanged
             continue;

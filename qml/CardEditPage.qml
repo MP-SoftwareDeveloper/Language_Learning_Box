@@ -170,6 +170,10 @@ Page {
     title: isNew ? qsTr("Add card") : qsTr("Edit card")
 
     readonly property int duplicateId: {
+        // An existing card whose word was not changed is never "a duplicate" of itself, even when another card with
+        // the same word exists already (two boxes, a word pack and an own card): it must stay editable.
+        if (!isNew && cardFront.trim().toLowerCase() === (original.front ?? "").trim().toLowerCase())
+            return -1
         const id = CardStore.findByFront(cardFront)
         return id === cardId ? -1 : id
     }

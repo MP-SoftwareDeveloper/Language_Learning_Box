@@ -117,6 +117,21 @@ private slots:
                                          QStringLiteral("2 \u00c4pfel"), QStringLiteral("en"));
         QCOMPARE(num.text, QStringLiteral("2 apples"));
     }
+    void fragmentIsNotAMeaning()
+    {
+        // "streichen" -> "Continuing:" is a memory fragment (colon at the end, none in the asked word)
+        const QString word = QStringLiteral("streichen");
+        QVERIFY(!MyMemory::parse(memoryAnswer(QStringLiteral("Continuing:"), 0.99), word, QStringLiteral("en")).error.isEmpty());
+        // the next fitting memory entry is used instead
+        const auto r = MyMemory::parse(memoryAnswer(QStringLiteral("Continuing:"), 0.99, word,
+                                                    {{QStringLiteral("Continuing:"), 0.99}, {QStringLiteral("to paint"), 0.8}}),
+                                       word, QStringLiteral("en"));
+        QVERIFY(r.error.isEmpty());
+        QCOMPARE(r.text, QStringLiteral("to paint"));
+        // a colon in the asked text is fine
+        QCOMPARE(MyMemory::parse(memoryAnswer(QStringLiteral("Note:"), 0.99), QStringLiteral("Hinweis:"), QStringLiteral("en")).text,
+                 QStringLiteral("Note:"));
+    }
     void quotaAndErrors()
     {
         const QByteArray warn = R"({"responseData":{"translatedText":"MYMEMORY WARNING: YOU USED ALL AVAILABLE FREE TRANSLATIONS FOR TODAY."},
