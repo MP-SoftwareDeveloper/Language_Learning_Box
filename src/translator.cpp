@@ -7,6 +7,7 @@
 #include "translation/googletranslate.h"
 #include "translation/mymemory.h"
 #include "translation/tatoeba.h"
+#include "translation/enwiktionary.h"
 #include "translation/wiktionary.h"
 
 #include <QCoreApplication>
@@ -156,11 +157,42 @@ int Translator::translateBetween(const QString &text, const QString &source, con
         return id;
     }
 
-    if (azureConfigured() && QDateTime::currentMSecsSinceEpoch() >= m_azureBlockedUntil)
-        requestAzure(id, t, source, target);
+    // The meanings of a single German word come from a dictionary (English Wiktionary), not from a machine
+    // translation of a lone word; every other case, and a word the dictionary does not know, goes the usual way.
+    if (source == QLatin1String("de") && target == QLatin1String("en") && EnWiktionary::isSingleWord(t))
+        requestEnWiktionary(id, t, source, target);
     else
-        requestFree(id, t, source, target);
+        requestOnline(id, t, source, target);
     return id;
+}
+
+void Translator::requestOnline(int id, const QString &text, const QString &source, const QString &target)
+{
+    if (azureConfigured() && QDateTime::currentMSecsSinceEpoch() >= m_azureBlockedUntil)
+        requestAzure(id, text, source, target);
+    else
+        requestFree(id, text, source, target);
+}
+
+void Translator::requestEnWiktionary(int id, const QString &text, const QString &source, const QString &target)
+{
+    QNetworkRequest req(EnWiktionary::requestUrl(text));
+    req.setHeader(QNetworkRequest::UserAgentHeader, QStringLiteral("LearningBox/1.0 (Qt; German vocabulary app)"));
+    QNetworkReply *reply = m_nam->get(req);
+    connect(reply, &QNetworkReply::finished, this, [=, this] {
+        reply->deleteLater();
+        EnWiktionary::Result r;
+        if (reply->error() == QNetworkReply::NoError)
+            r = EnWiktionary::parse(reply->readAll(), text);
+        else
+            r.error = errorText(reply);
+        if (!r.error.isEmpty()) {
+            requestOnline(id, text, source, target); // no page, no meaning, or no connection to Wiktionary
+            return;
+        }
+        store(source, target, text, r.text, r.alternatives);
+        emit translated(id, r.text, r.alternatives, QStringLiteral("online"), {});
+    });
 }
 
 void Translator::requestFree(int id, const QString &text, const QString &source, const QString &target)

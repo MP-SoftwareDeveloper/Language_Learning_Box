@@ -1,0 +1,49 @@
+{{also|hund|hund-}}
+==Alemannic German==
+
+===Noun===
+{{gsw-noun|m|Hünd|dim=Hündli,Hündeli,Hundeli|f=Hündin}}
+
+# [[dog]]
+
+===Further reading===
+* {{R:gsw:Berndeutsch|53241}}
+
+==Bavarian==
+
+===Noun===
+{{bar-noun|g=m|pl=Hund|pl2=Hunt|dim=Hunderl}}
+
+# {{lb|bar|zoology}} [[dog]], [[hound]]
+# {{lb|bar|pejorative}} [[scoundrel]]; [[dog]] (mean or morally reprehensible person)
+
+==German==
+[[Image:YellowLabradorLooking.jpg|thumb|Ein '''Hund'''.]]
+
+===Etymology===
+{{ety|de|:inh|gmh:hunt<id:dog>|text=++|tree=1}}
+
+===Noun===
+{{de-noun|m,es:s,e:^e[regionally]|dim=^chen,^lein,chen,erl,i,ilein|m=Rüde[for the animal]|f=Hündin[for the animal]}}
+
+# [[dog]], [[hound]]
+#* {{quote-book|de|year=1929|author=w:Kurt Tucholsky|title=s:de:Das Lächeln der Mona Lisa (Sammelband)|publisher=[[w:Rowohlt|Ernst Rowohlt Verlag]]|page=138
+|passage=Ein '''Hund''' bellt, wenn er mit den Sinnen etwas wahrgenommen hat.
+|t=A '''dog''' barks when he has perceived something with the senses.}}
+#* '''1995''', Hans Räber, ''Enzyklopädie der Rassehunde. Band 2'', Kosmos, pp. 426 and 805:
+#*: {{quote|de|Die Schnauze ist namentlich bei dem '''Hunde''' (Rüde) oft stark schwarz verbrämt.
+|t=The muzzle, especially in the male '''dog''', is often heavily trimmed in black.}}
+# {{lb|de|pejorative}} [[scoundrel]]; [[dog]] (mean or morally reprehensible person)
+#: {{ux|de|ein gemeiner '''Hund'''|a mean '''dog'''|inline=1}}
+# A board with [[caster]]s used to transport heavy objects.
+
+====Usage notes====
+* The normal plural is {{m|de|Hunde}}.
+
+====Declension====
+{{de-ndecl|m,(e)s,e:^e[nonstandard]}}
+
+==Luxembourgish==
+
+===Noun===
+# [[dog]]

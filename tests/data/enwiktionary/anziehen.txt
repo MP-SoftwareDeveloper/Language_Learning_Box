@@ -1,0 +1,51 @@
+==German==
+
+===Etymology===
+Compound of {{af|de|an-|ziehen|t1=on, at|t2=pull}}.
+
+To the western German idiom ''sich etwas anziehen von'' compare {{cog|nl|-}} ''zich iets ''{{m|nl|aantrekken}} ''van''.
+
+===Pronunciation===
+* {{IPA|de|/ˈantsiːən/}}
+* {{audio|de|De-anziehen.ogg}}
+
+===Verb===
+{{de-verb|an.ziehen<zog,gezogen,zöge.haben,sein>}}
+
+# {{ng|senses related to [[dressing]]}}
+## {{lb|de|reflexive}} to [[get dressed]] {{+aux|de|haben}}
+##: {{uxi|de|Ich '''ziehe''' mich '''an.'''|I’m '''getting dressed.'''}}
+##* {{RQ:Kafka Verwandlung|page=1180|passage=Zunächst wollte er ruhig und ungestört aufstehen, '''sich anziehen''' und vor allem frühstücken.|t=To begin with, he wanted to get up calmly and undisturbed, '''get dressed''' and, above all, have breakfast.}}
+## {{lb|de|reflexive}} to [[dress]] (in a specific manner) {{+aux|de|haben}}
+##: {{ux|de|Sie '''zieht''' sich sehr elegant '''an'''.|She '''dresses''' very elegantly.}}
+## {{lb|de|transitive|often|with|reflexive dative}} to [[put on]]; to [[dress]] oneself in {{+aux|de|haben}}
+##: {{syn|de|anlegen<q:Switzerland>}}
+##: {{uxi|de|Ich '''ziehe''' (mir) meinen Pulli '''an'''.|I '''put on''' my pullover.}}
+## {{lb|de|transitive}} to [[dress]] (someone) {{+aux|de|haben}}
+##: {{uxi|de|Ich '''ziehe''' ihn '''an.'''|I’m '''dressing''' him.}}
+# {{lb|de|transitive}} to [[attract]] {{+aux|de|haben}}
+#: {{ux|de|Die Stille alter Kirchen hat mich immer '''angezogen.'''|The quietness of old churches has always '''attracted''' me.}}
+# {{lb|de|reflexive}} to [[attract]] one another {{+aux|de|haben}}
+#: {{uxi|de|Gegensätze '''ziehen''' sich '''an.'''|Opposites '''attract''' one another.}}
+# {{lb|de|transitive}} to [[absorb]] (moisture) {{+aux|de|haben}}
+# {{lb|de|transitive}} to [[fasten]], [[tighten]] (a [[screw]]) {{+aux|de|haben}}
+#: {{uxi|de|Die Schraube muss fest '''angezogen''' werden.|The screw must be '''fastened''' tight.}}
+# {{lb|de|intransitive|of train, carriage}} to [[pull away]]
+# {{lb|de|reflexive|colloquial|regional|western Germany|with an indefinite pronoun and ''[[von]]''}} to be [[touch]]ed by; to [[care]] much about; to have oneself be [[impressed]] by; to [[feel]] responsible for {{+aux|de|haben}}
+#: {{syn|de|annehmen<q:same construction>}}
+<!--This is the syntax one will commonly hear in speech.-->
+# {{lb|de|transitive|dated}} to [[cite]]
+
+====Conjugation====
+{{de-conj|an.ziehen<zog,gezogen,zöge.haben,sein>}}
+
+====Antonyms====
+* {{l|de|ausziehen}}
+
+===Further reading===
+* {{R:de:DWDS}}
+
+==Dutch==
+
+===Verb===
+# {{lb|nl|transitive}} to [[wear]]

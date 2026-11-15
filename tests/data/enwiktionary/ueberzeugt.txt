@@ -1,0 +1,32 @@
+==German==
+
+===Pronunciation===
+* {{audio|de|De-überzeugt.ogg|a=<<Germany>> (<<Berlin>>)}}
+
+===Participle===
+{{head|de|past participle}}
+
+# {{past participle of|de|überzeugen}}
+
+===Adjective===
+{{de-adj|comp}}
+
+# {{lb|de|predicative}} [[convinced]] {{gl|having conviction in a fact being true, especially in the face of disagreement}} {{+obj|de|:von(dat)/clause}}
+#: {{ux|de|Er war '''überzeugt''' von seiner eigenen Überlegenheit.|He was '''convinced''' of his own superiority.}}
+# {{lb|de|attributive}} [[staunch]], [[committed]] {{gl|having conviction in one's positions}}
+#: {{ux|de|Sie ist '''überzeugte''' Pazifistin.|She is a '''staunch''' pacifist.}}
+
+====Declension====
+{{de-adecl|comp}}
+
+====Derived terms====
+* {{l|de|Überzeugtheit}}, {{l|de|Überzeugtsein}}
+
+===Verb===
+{{head|de|verb form}}
+
+# {{verb form of|de|überzeugen||3|s|pres|;|2|p|pres|;|p|imp}}
+
+===Further reading===
+* {{R:de:Duden}}
+* {{R:de:DWDS}}

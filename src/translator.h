@@ -137,6 +137,9 @@ private:
                        std::function<void(const wiktionary::Grammar &, const QString &)> finished);
     explicit Translator(QObject *parent = nullptr);
     // Google, then MyMemory (the way it always was); Azure comes first when a key is set.
+    // Single German word -> English: the English Wiktionary first, requestOnline when it has no meaning.
+    void requestEnWiktionary(int id, const QString &text, const QString &source, const QString &target);
+    void requestOnline(int id, const QString &text, const QString &source, const QString &target);
     void requestFree(int id, const QString &text, const QString &source, const QString &target);
     void requestAzure(int id, const QString &text, const QString &source, const QString &target);
     // Other translations of a single word (Azure dictionary) before the answer goes out.

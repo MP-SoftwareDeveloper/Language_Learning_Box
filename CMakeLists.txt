@@ -47,6 +47,7 @@ qt_add_qml_module(appLearningBox
         src/translation/azuretranslate.h  src/translation/azuretranslate.cpp
         src/translation/tatoeba.h         src/translation/tatoeba.cpp
         src/translation/wiktionary.h      src/translation/wiktionary.cpp
+        src/translation/enwiktionary.h    src/translation/enwiktionary.cpp
         src/deckexchange.h     src/deckexchange.cpp
         src/exchange/deckformats.h src/exchange/deckformats.cpp
     QML_FILES
@@ -335,6 +336,13 @@ if (LEARNINGBOX_BUILD_TESTS AND NOT ANDROID AND NOT IOS)
         target_link_libraries(tst_googletranslate PRIVATE Qt6::Test)
         set_target_properties(tst_googletranslate PROPERTIES WIN32_EXECUTABLE FALSE)
         add_test(NAME tst_googletranslate COMMAND tst_googletranslate)
+
+        qt_add_executable(tst_enwiktionary tests/tst_enwiktionary.cpp src/translation/enwiktionary.cpp)
+        target_include_directories(tst_enwiktionary PRIVATE src)
+        target_link_libraries(tst_enwiktionary PRIVATE Qt6::Test)
+        target_compile_definitions(tst_enwiktionary PRIVATE LB_ENWIKT_DIR="${CMAKE_CURRENT_SOURCE_DIR}/tests/data/enwiktionary")
+        set_target_properties(tst_enwiktionary PROPERTIES WIN32_EXECUTABLE FALSE)
+        add_test(NAME tst_enwiktionary COMMAND tst_enwiktionary)
 
         qt_add_executable(tst_mymemory tests/tst_mymemory.cpp
             src/translation/mymemory.cpp)
