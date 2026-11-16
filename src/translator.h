@@ -106,6 +106,12 @@ public:
     // ("gehen") answers with its Partizip II: participle "ist gegangen", participleExample "Ich bin gegangen.",
     // and the line "Partizip II ist gegangen · Ich bin gegangen." in `forms`.
     Q_INVOKABLE int lookupGrammar(const QString &word);
+    // A separable verb typed as a phrase ("füge hinzu", "Ich mache auf"): the text as separablePhrase() reads it,
+    // "" when it is anything else. lookupSeparable() finds the infinitive ("hinzufügen") on Wiktionary and answers
+    // like lookupGrammar() with its Partizip II; `infinitive` is in the map and as the third part of the forms line
+    // ("Partizip II hat hinzugefügt · Ich habe hinzugefügt. · hinzufügen"). Saved for offline use.
+    Q_INVOKABLE QString separablePhrase(const QString &text) const;
+    Q_INVOKABLE int lookupSeparable(const QString &phrase);
     // Does the German Wiktionary have a page with exactly this title (case-sensitive)? For one spelling that is two
     // words: "Berichten" (plural of the noun Bericht) and "berichten" (a verb). Answers through
     // pageChecked(id, exists, error); saved for offline use.
@@ -135,6 +141,8 @@ private:
     // The Wiktionary page of a lowercase word read as a verb: Partizip II and auxiliary (invalid Grammar when it
     // is no verb).
     void fetchVerb(const QString &word, std::function<void(const wiktionary::Grammar &, const QString &)> finished);
+    // lookupSeparable(): the candidates one after the other, from index `i`
+    void trySeparable(int id, const QString &key, const QStringList &candidates, int i);
     // Wiktionary has no usable entry for a plural noun ("Nudeln"): try the likely singulars one after the other
     // (wiktionary::singularCandidates) and take the first noun whose plural is the word. `original` is the answer
     // when none fits.

@@ -27,6 +27,8 @@ struct Grammar
     // joined by " / " ("gesendet / gesandt"). Empty = not a verb.
     QString participle;
     QStringList auxiliaries; // "haben" and / or "sein", in the order Wiktionary lists them; empty = not given
+    // A separable verb typed as a phrase ("füge hinzu"): the verb it is a form of ("hinzufügen"); empty otherwise
+    QString infinitive;
 
     bool isVerb() const { return !participle.isEmpty(); }
     // False when the word is neither a noun (no entry, or an entry without a noun table) nor a verb.
@@ -78,6 +80,12 @@ Grammar parseVerb(const QByteArray &json, QString *error = nullptr);
 
 // "ist gegangen" / "hat gemacht" / "ist gefahren / hat gefahren" (the third person, as dictionaries show it);
 // just the participle when the page names no auxiliary verb; "" for a word that is not a verb.
+// "Ich füge hinzu!" -> "füge hinzu": a separable-verb phrase (verb form + separable prefix, optional pronoun and
+// end punctuation, lowercase), "" for any other text.
+QString separablePhrase(const QString &text);
+// The infinitives a phrase from separablePhrase() may be a form of, most likely first, to be checked against
+// Wiktionary: "füge hinzu" -> "hinzufügen"; "fährt ab" -> "abfahren"; "mache auf" -> "aufmachen".
+QStringList separableCandidates(const QString &phrase);
 QString participleText(const Grammar &g);
 // A simple sentence with it: "Ich bin gegangen." / "Ich habe gemacht." / "Es hat geregnet." (weather verbs);
 // "" for a word that is not a verb or has no auxiliary verb.

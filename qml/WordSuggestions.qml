@@ -18,7 +18,7 @@ Pane {
 
     // After a tap the list stays hidden until the text changes again
     property string dismissedFor: ""
-    function dismiss(t) { dismissedFor = (t ?? text).trim() }
+    function dismiss(t) { dismissedFor = bare((t ?? text).trim()) }
 
     // Suggestions are words without their article ("Brot", not "das Brot")
     function bare(w) { return (w ?? "").replace(/^(der|die|das)\s+/i, "") }
@@ -26,11 +26,13 @@ Pane {
     property var entries: []
     property int requestId: -1
     readonly property string typed: bare(text.trim())
+    // The picked word is capitalised by the lookup afterwards ("rufen an" -> "Rufen an"): that is the same text
+    readonly property bool dismissed: typed.toLowerCase() === dismissedFor.toLowerCase()
 
     function refresh() {
         requestId = -1
         const t = typed
-        if (t.length < 2 || t === dismissedFor) {
+        if (t.length < 2 || dismissed) {
             entries = []
             return
         }
@@ -45,7 +47,7 @@ Pane {
     Timer {
         id: online
         interval: 250 // wait for a short pause in typing
-        onTriggered: if (root.typed.length >= 2 && root.typed !== root.dismissedFor)
+        onTriggered: if (root.typed.length >= 2 && !root.dismissed)
                          root.requestId = Translator.suggestWords(root.typed, root.language)
     }
     Connections {
@@ -63,7 +65,7 @@ Pane {
         }
     }
 
-    visible: entries.length > 0 && typed !== dismissedFor
+    visible: entries.length > 0 && !dismissed
     padding: 0
     Material.elevation: 2
     Material.background: Qt.alpha(Material.foreground, 0.06)

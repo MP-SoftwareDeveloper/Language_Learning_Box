@@ -388,6 +388,97 @@ Grammar parseVerb(const QByteArray &json, QString *error)
     return g;
 }
 
+namespace {
+const QStringList &separablePrefixes()
+{
+    static const QStringList list = {
+        QStringLiteral("ab"), QStringLiteral("an"), QStringLiteral("auf"), QStringLiteral("aus"), QStringLiteral("bei"),
+        QStringLiteral("dabei"), QStringLiteral("dazu"), QStringLiteral("ein"), QStringLiteral("empor"),
+        QStringLiteral("fest"), QStringLiteral("fort"), QStringLiteral("her"), QStringLiteral("heraus"),
+        QStringLiteral("herein"), QStringLiteral("herunter"), QStringLiteral("hin"), QStringLiteral("hinaus"),
+        QStringLiteral("hinein"), QStringLiteral("hinzu"), QStringLiteral("los"), QStringLiteral("mit"),
+        QStringLiteral("nach"), QStringLiteral("statt"), QStringLiteral("teil"), QStringLiteral("vor"),
+        QStringLiteral("voran"), QStringLiteral("voraus"), QStringLiteral("vorbei"), QStringLiteral("weg"),
+        QStringLiteral("weiter"), QStringLiteral("zu"), QStringLiteral("zurück"), QStringLiteral("zusammen")};
+    return list;
+}
+QString deUmlaut(QString s)
+{
+    s.replace(QChar(0x00E4), QLatin1Char('a')).replace(QChar(0x00F6), QLatin1Char('o')).replace(QChar(0x00FC), QLatin1Char('u'));
+    return s;
+}
+} // namespace
+
+QString separablePhrase(const QString &text)
+{
+    QString t = text.simplified().toLower();
+    while (!t.isEmpty() && (t.back() == u'.' || t.back() == u'!' || t.back() == u'?' || t.back() == u',' || t.back() == u';'))
+        t.chop(1);
+    QStringList words = t.split(u' ', Qt::SkipEmptyParts);
+    static const QStringList pronouns = {QStringLiteral("ich"), QStringLiteral("du"), QStringLiteral("er"), QStringLiteral("sie"),
+                                         QStringLiteral("es"), QStringLiteral("wir"), QStringLiteral("ihr")};
+    if (words.size() == 3 && pronouns.contains(words.first()))
+        words.removeFirst();
+    if (words.size() != 2 || words.first().size() < 2 || isArticle(words.first()) || pronouns.contains(words.first()))
+        return QString();
+    // "füge hinzu" (form + prefix) or "an rufen" (prefix + infinitive, written apart)
+    const bool formThenPrefix = separablePrefixes().contains(words.last());
+    const bool prefixThenInfinitive = separablePrefixes().contains(words.first()) && words.last().size() >= 5
+                                      && (words.last().endsWith(u"en") || words.last().endsWith(u"ln") || words.last().endsWith(u"rn"))
+                                      && !isArticle(words.last());
+    if (!formThenPrefix && !prefixThenInfinitive)
+        return QString();
+    for (const QString &w : std::as_const(words))
+        for (const QChar c : w)
+            if (!c.isLetter())
+                return QString();
+    return words.join(u' ');
+}
+
+QStringList separableCandidates(const QString &phrase)
+{
+    const QStringList t = phrase.split(u' ');
+    if (t.size() != 2)
+        return {};
+    const QString &f = t.first();
+    const QString &prefix = t.last();
+    if (!separablePrefixes().contains(prefix)) // "an rufen": the prefix first, then the infinitive
+        return {f + prefix};
+    QStringList stems;
+    const auto add = [&](const QString &s) {
+        if (s.size() >= 3 && !stems.contains(s))
+            stems << s;
+    };
+    if (f.endsWith(u"en"))                       // wir / sie machen auf
+        add(f);
+    if (f.endsWith(u"le"))                       // sammle ein -> sammeln
+        add(f.chopped(2) + QStringLiteral("eln"));
+    if (f.endsWith(u"re"))                       // wandre aus -> wandern
+        add(f.chopped(2) + QStringLiteral("ern"));
+    if (f.endsWith(u'e'))                        // füge hinzu -> fügen
+        add(f + u'n');
+    if (f.endsWith(u"st")) {                     // machst auf, fährst ab
+        const QString b = f.chopped(2);
+        add(b + QStringLiteral("en"));
+        add(deUmlaut(b) + QStringLiteral("en"));
+        add(b + u'n');
+    }
+    if (f.endsWith(u't')) {                      // macht auf, fährt ab, arbeitet mit
+        const QString b = f.chopped(1);
+        add(b + QStringLiteral("en"));
+        add(deUmlaut(b) + QStringLiteral("en"));
+        add(b + u'n');
+    }
+    if (!f.endsWith(u'e'))                       // mach auf, komm mit
+        add(f + QStringLiteral("en"));
+    QStringList out;
+    for (const QString &s : std::as_const(stems))
+        out << prefix + s;
+    while (out.size() > 5)
+        out.removeLast();
+    return out;
+}
+
 QString participleText(const Grammar &g)
 {
     if (!g.isVerb())
@@ -565,8 +656,11 @@ QStringList formLines(const Grammar &g)
     if (g.isVerb()) {
         QString line = QStringLiteral("Partizip II ") + participleText(g);
         const QString example = participleExample(g);
-        if (!example.isEmpty())
+        if (!example.isEmpty()) {
             line += QStringLiteral(" \u00b7 ") + example;
+            if (!g.infinitive.isEmpty()) // typed as "füge hinzu": the verb is "hinzufügen"
+                line += QStringLiteral(" \u00b7 ") + g.infinitive;
+        }
         lines << line;
         return lines;
     }
@@ -595,7 +689,7 @@ QString encode(const Grammar &g)
         return QString();
     return QStringList{g.genders.join(u'/'), g.plurals.join(u'|'), g.singularOf, g.masculine.join(u'|'),
                        g.feminine.join(u'|'), g.lemma, g.masculinePlural, g.femininePlural,
-                       g.participle, g.auxiliaries.join(u'/')}.join(u'\n');
+                       g.participle, g.auxiliaries.join(u'/'), g.infinitive}.join(u'\n');
 }
 
 Grammar decode(const QString &text, const QString &lemma)
@@ -617,6 +711,7 @@ Grammar decode(const QString &text, const QString &lemma)
     g.femininePlural = f.value(7);
     g.participle = f.value(8);
     g.auxiliaries = list(9, u'/');
+    g.infinitive = f.value(10);
     return g;
 }
 

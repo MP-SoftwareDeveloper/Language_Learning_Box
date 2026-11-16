@@ -527,6 +527,7 @@ QVariantMap grammarMap(const wiktionary::Grammar &g)
             // verbs: "ist gegangen" and its simple sentence "Ich bin gegangen." (both also inside `forms`)
             {QStringLiteral("participle"), wiktionary::participleText(g)},
             {QStringLiteral("participleExample"), wiktionary::participleExample(g)},
+            {QStringLiteral("infinitive"), g.infinitive},
             // "Plural Hunde" / "Singular der Hund", "Singular die Lehrerin" + "Plural Lehrerinnen": one line each
             {QStringLiteral("forms"), wiktionary::formLines(g).join(QLatin1Char('\n'))}};
 }
@@ -577,6 +578,62 @@ void Translator::fetchVerb(const QString &word,
         qInfo().noquote() << "LB-verb" << word << "participle:" << g.participle << "aux:" << g.auxiliaries.join(u',')
                           << "error:" << error << "bytes:" << body.size();
         finished(g, error);
+    });
+}
+
+QString Translator::separablePhrase(const QString &text) const
+{
+    return wiktionary::separablePhrase(text);
+}
+
+int Translator::lookupSeparable(const QString &phrase)
+{
+    const int id = m_nextId++;
+    const QString key = wiktionary::separablePhrase(phrase);
+    const auto answer = [=, this](const QVariantMap &map, const QString &error) {
+        QTimer::singleShot(0, this, [=, this] { emit grammarFound(id, map, error); });
+    };
+    if (key.isEmpty()) {
+        answer({}, QString());
+        return id;
+    }
+    QString saved;
+    QStringList extra;
+    if (lookup(QStringLiteral("de"), QStringLiteral("grammar9"), QStringLiteral("sep|") + key, &saved, &extra)) {
+        answer(saved == QLatin1String("-") ? QVariantMap() : grammarMap(wiktionary::decode(saved, extra.value(0, key))),
+               QString());
+        return id;
+    }
+    if (!useOnline()) {
+        answer({}, QStringLiteral("offline"));
+        return id;
+    }
+    trySeparable(id, key, wiktionary::separableCandidates(key), 0);
+    return id;
+}
+
+void Translator::trySeparable(int id, const QString &key, const QStringList &candidates, int i)
+{
+    if (i >= candidates.size()) { // no verb of that name: not a separable verb (saved so it is not asked again)
+        store(QStringLiteral("de"), QStringLiteral("grammar9"), QStringLiteral("sep|") + key, QStringLiteral("-"), QStringList());
+        emit grammarFound(id, {}, QString());
+        return;
+    }
+    fetchVerb(candidates.at(i), [=, this](const wiktionary::Grammar &g, const QString &error) {
+        if (!error.isEmpty()) {
+            qWarning().noquote() << "Wiktionary:" << error;
+            emit grammarFound(id, {}, error);
+            return;
+        }
+        if (!g.isVerb()) {
+            trySeparable(id, key, candidates, i + 1);
+            return;
+        }
+        wiktionary::Grammar v = g;
+        v.infinitive = v.lemma.isEmpty() ? candidates.at(i) : v.lemma;
+        store(QStringLiteral("de"), QStringLiteral("grammar9"), QStringLiteral("sep|") + key, wiktionary::encode(v),
+              QStringList{v.infinitive});
+        emit grammarFound(id, grammarMap(v), QString());
     });
 }
 

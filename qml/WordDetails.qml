@@ -99,6 +99,27 @@ ColumnLayout {
                         iconSize: 19
                     }
                 }
+                // Separable verb typed as "füge hinzu": the verb it is a form of
+                RowLayout {
+                    Layout.fillWidth: true
+                    Layout.leftMargin: labelWidth.advanceWidth + 6
+                    visible: (modelData.infinitive ?? "") !== ""
+                    spacing: 6
+                    Label {
+                        textFormat: Text.PlainText
+                        Layout.fillWidth: true
+                        text: qsTr("Infinitive: %1").arg(modelData.infinitive ?? "")
+                        wrapMode: Text.WordWrap
+                        font.pixelSize: root.pixelSize
+                        opacity: 0.85
+                    }
+                    SpeakButton {
+                        Layout.alignment: Qt.AlignVCenter
+                        speakText: modelData.infinitive ?? ""
+                        languageTag: "de-DE"
+                        iconSize: 17
+                    }
+                }
                 // Verb: the simple example sentence under the participle, with its own 🔊
                 RowLayout {
                     Layout.fillWidth: true

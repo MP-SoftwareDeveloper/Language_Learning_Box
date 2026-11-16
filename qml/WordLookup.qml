@@ -32,6 +32,8 @@ Item {
     // ---- the word ----
     readonly property var parts: /^(?:(der|die|das)\s+)?(\S+)$/i.exec(word.trim()) // one word, maybe with article
     readonly property string bare: parts ? parts[2] : ""
+    // A separable verb typed as a phrase ("füge hinzu"): looked up under its infinitive ("hinzufügen"), see Translator
+    readonly property string separableKey: lang === "de" && !parts ? Translator.separablePhrase(word) : ""
 
     // ---- article and forms (word pack offline, Wiktionary online, saved for offline use) ----
     property string grammarFor: ""
@@ -130,7 +132,8 @@ Item {
             const pm = /^Partizip II\s+(.+)$/.exec(l)
             if (pm) { // "Partizip II ist gegangen · Ich bin gegangen."
                 const parts = pm[1].split(/\s+\u00b7\s+/)
-                verbRow = { kind: "participle", text: parts[0].trim(), mark: "", example: (parts[1] ?? "").trim() }
+                verbRow = { kind: "participle", text: parts[0].trim(), mark: "", example: (parts[1] ?? "").trim(),
+                            infinitive: (parts[2] ?? "").trim() }
                 continue
             }
             const m = /^(Singular|Plural)\s+(.+)$/.exec(l)
@@ -161,7 +164,8 @@ Item {
     }
 
     function requestGrammar() {
-        const w = bare
+        const sep = separableKey
+        const w = sep !== "" ? sep : bare
         const k = w.toLowerCase()
         if (k !== senseKey)
             senseKey = ""
@@ -174,6 +178,10 @@ Item {
         wikiFront = ""; wikiForms = ""; packFront = ""; packForms = ""
         if (w === "" || lang !== "de")
             return
+        if (sep !== "") {
+            grammarRequest = Translator.lookupSeparable(sep)
+            return
+        }
         const known = WordPacks.lookup(w)
         if (known.front && /^(der|die|das)\s/i.test(known.front))
             packFront = known.front

@@ -303,6 +303,48 @@ private slots:
             verbPage(QStringLiteral("gesessen"), QStringLiteral("haben (landschaftlich: sein)")));
         QCOMPARE(r.auxiliaries, QStringList{QStringLiteral("haben")});
     }
+    void separablePhrases()
+    {
+        QCOMPARE(wiktionary::separablePhrase(QStringLiteral("füge hinzu")), QStringLiteral("füge hinzu"));
+        QCOMPARE(wiktionary::separablePhrase(QStringLiteral("Ich füge hinzu!")), QStringLiteral("füge hinzu"));
+        QCOMPARE(wiktionary::separablePhrase(QStringLiteral("  Mache  auf. ")), QStringLiteral("mache auf"));
+        // the prefix written apart from the infinitive
+        QCOMPARE(wiktionary::separablePhrase(QStringLiteral("An rufen")), QStringLiteral("an rufen"));
+        QCOMPARE(wiktionary::separableCandidates(QStringLiteral("an rufen")), QStringList{QStringLiteral("anrufen")});
+        // not a separable verb: no prefix, an article, a sentence, one word
+        for (const QString &t : {QStringLiteral("guten Tag"), QStringLiteral("das auf"), QStringLiteral("ich gehe nach Hause"),
+                                 QStringLiteral("hinzufügen"), QStringLiteral("er auf"), QString()})
+            QCOMPARE(wiktionary::separablePhrase(t), QString());
+    }
+    void separableCandidates()
+    {
+        const auto has = [](const QString &phrase, const QString &inf) {
+            const QStringList c = wiktionary::separableCandidates(phrase);
+            return c.contains(inf) && c.size() <= 5;
+        };
+        QVERIFY(has(QStringLiteral("füge hinzu"), QStringLiteral("hinzufügen")));
+        QVERIFY(has(QStringLiteral("mache auf"), QStringLiteral("aufmachen")));
+        QVERIFY(has(QStringLiteral("machst auf"), QStringLiteral("aufmachen")));
+        QVERIFY(has(QStringLiteral("macht auf"), QStringLiteral("aufmachen")));
+        QVERIFY(has(QStringLiteral("machen auf"), QStringLiteral("aufmachen")));
+        QVERIFY(has(QStringLiteral("mach auf"), QStringLiteral("aufmachen")));
+        QVERIFY(has(QStringLiteral("fährt ab"), QStringLiteral("abfahren")));
+        QVERIFY(has(QStringLiteral("fährst ab"), QStringLiteral("abfahren")));
+        QVERIFY(has(QStringLiteral("kaufe ein"), QStringLiteral("einkaufen")));
+        QVERIFY(has(QStringLiteral("sammle ein"), QStringLiteral("einsammeln")));
+        QVERIFY(has(QStringLiteral("arbeitet mit"), QStringLiteral("mitarbeiten")));
+        QCOMPARE(wiktionary::separableCandidates(QStringLiteral("füge hinzu")).first(), QStringLiteral("hinzufügen"));
+    }
+    void infinitiveRoundTrip()
+    {
+        wiktionary::Grammar g = wiktionary::parseVerbWikitext(verbPage(QStringLiteral("hinzugefügt"), QStringLiteral("haben")));
+        g.lemma = g.infinitive = QStringLiteral("hinzufügen");
+        QCOMPARE(wiktionary::formLines(g),
+                 QStringList{QStringLiteral("Partizip II hat hinzugefügt \u00b7 Ich habe hinzugefügt. \u00b7 hinzufügen")});
+        const wiktionary::Grammar d = wiktionary::decode(wiktionary::encode(g), QString());
+        QCOMPARE(d.infinitive, QStringLiteral("hinzufügen"));
+        QCOMPARE(wiktionary::formLines(d), wiktionary::formLines(g));
+    }
     void verbTwoTables()
     {
         // passieren: one table for "pass through" (haben), one for "happen" (sein): both, sein first
