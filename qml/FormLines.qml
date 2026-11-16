@@ -2,15 +2,15 @@ import QtQuick
 import QtQuick.Layouts
 import LearningBox
 
-// The grammar lines of a noun (one per line: "Plural Hunde", "Singular die Lehrerin", ...),
-// each with its own 🔊. `text` may hold other lines too: only the grammar lines are shown.
+// The grammar lines of a noun (one per line: "Plural Hunde", "Singular die Lehrerin", ...) or of a verb
+// ("Partizip II ist gegangen · Ich bin gegangen."), each with its own 🔊. `text` may hold other lines too: only the grammar lines are shown.
 ColumnLayout {
     id: root
     property string text: ""
     property int pixelSize: 16
     property string word: ""   // the noun itself ("der Hund"): its colour goes with its own "Pl." / "Sg." line
 
-    readonly property var lines: text.split("\n").filter(l => /^\s*(Pl\.|Plural|Sg\.|Singular|Mask\.|Fem\.)/.test(l))
+    readonly property var lines: text.split("\n").filter(l => /^\s*(Pl\.|Plural|Sg\.|Singular|Mask\.|Fem\.|Partizip II)/.test(l))
     // Colour of each line (the gender is never written): a "Singular der/die/das ..." line and the "Plural ..." line
     // after it take that article; the noun's own lines (before any other singular) take its own article.
     // Old cards: "Mask. ..." blue, "Fem. ..." red.
@@ -18,6 +18,10 @@ ColumnLayout {
         const out = []
         let cur = ""
         for (const l of lines) {
+            if (/^\s*Partizip II/.test(l)) { // a verb form has no gender colour
+                out.push("")
+                continue
+            }
             const m = /^\s*(?:Sg\.|Singular)\s*(der|die|das)\s/i.exec(l)
             if (/^\s*Mask\./.test(l)) cur = "der "
             else if (/^\s*Fem\./.test(l)) cur = "die "

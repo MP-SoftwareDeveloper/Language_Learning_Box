@@ -48,7 +48,7 @@ Page {
         { title: "Settings (gear icon)",
           body: "Translation: Persian or English as the meaning language, and whether to translate online when connected. Offline, saved translations and the word pack are used.\n\nText recognition: optional Azure AI Vision key for handwriting (free tier). If no German voice is installed, install it in Android Settings → Text-to-speech." },
         { title: "Tips",
-          body: "• Review a little every day – the boxes do the planning.\n• Learn nouns with their article (der / die / das) and plural.\n• Say the example sentence aloud after the speaker.\n• Keep one learning box per book or course." }
+          body: "• Review a little every day – the boxes do the planning.\n• Learn nouns with their article (der / die / das) and plural.\n• Learn verbs with their Partizip II (ist gegangen / hat gemacht): the app shows it with a simple example sentence.\n• Say the example sentence aloud after the speaker.\n• Keep one learning box per book or course." }
     ]
 
     readonly property var faSections: [
@@ -83,7 +83,7 @@ Page {
         { title: "تنظیمات (آیکون چرخ‌دنده)",
           body: "ترجمه: فارسی یا انگلیسی به‌عنوان زبان معنی، و اینکه هنگام اتصال به اینترنت ترجمهٔ آنلاین استفاده شود یا نه. بدون اینترنت، ترجمه‌های ذخیره‌شده و بستهٔ واژه استفاده می‌شوند.\n\nتشخیص متن: کلید اختیاری Azure AI Vision برای دست‌خط (نسخهٔ رایگان). اگر صدای آلمانی نصب نیست، آن را در تنظیمات اندروید ← Text-to-speech نصب کنید." },
         { title: "نکته‌ها",
-          body: "• هر روز کمی مرور کنید؛ برنامه‌ریزی را خانه‌ها انجام می‌دهند.\n• اسم‌ها را همراه حرف تعریف (der / die / das) و جمع یاد بگیرید.\n• جملهٔ نمونه را بعد از بلندگو با صدای بلند تکرار کنید.\n• برای هر کتاب یا دوره یک جعبهٔ یادگیری جدا داشته باشید." }
+          body: "• هر روز کمی مرور کنید؛ برنامه‌ریزی را خانه‌ها انجام می‌دهند.\n• اسم‌ها را همراه حرف تعریف (der / die / das) و جمع یاد بگیرید.\n• فعل‌ها را همراه Partizip II (ist gegangen / hat gemacht) یاد بگیرید؛ برنامه آن را با یک جملهٔ نمونهٔ ساده نشان می‌دهد.\n• جملهٔ نمونه را بعد از بلندگو با صدای بلند تکرار کنید.\n• برای هر کتاب یا دوره یک جعبهٔ یادگیری جدا داشته باشید." }
     ]
 
     readonly property var deSections: [
@@ -118,7 +118,7 @@ Page {
         { title: "Settings (Zahnrad-Symbol)",
           body: "Translation: Persisch oder Englisch als Bedeutungssprache und ob online übersetzt werden soll, wenn du verbunden bist. Offline werden gespeicherte Übersetzungen und das Wortpaket verwendet.\n\nText recognition: optionaler Azure-AI-Vision-Schlüssel für Handschrift (kostenlose Stufe). Ist keine deutsche Stimme installiert, installiere sie in den Android-Einstellungen → Text-to-speech." },
         { title: "Tipps",
-          body: "• Wiederhole jeden Tag ein wenig – die Boxen übernehmen die Planung.\n• Lerne Nomen mit Artikel (der / die / das) und Plural.\n• Sprich den Beispielsatz nach dem Lautsprecher laut nach.\n• Führe eine Lernbox pro Buch oder Kurs." }
+          body: "• Wiederhole jeden Tag ein wenig – die Boxen übernehmen die Planung.\n• Lerne Nomen mit Artikel (der / die / das) und Plural.\n• Lerne Verben mit Partizip II (ist gegangen / hat gemacht): Die App zeigt es mit einem einfachen Beispielsatz.\n• Sprich den Beispielsatz nach dem Lautsprecher laut nach.\n• Führe eine Lernbox pro Buch oder Kurs." }
     ]
 
     readonly property var svSections: [
@@ -153,7 +153,7 @@ Page {
         { title: "Settings (kugghjulsikonen)",
           body: "Translation: persiska eller engelska som betydelsespråk, och om det ska översättas online när du är ansluten. Offline används sparade översättningar och ordpaketet.\n\nText recognition: valfri Azure AI Vision-nyckel för handskrift (gratis nivå). Om ingen tysk röst är installerad installerar du den i Androids Settings → Text-to-speech." },
         { title: "Tips",
-          body: "• Repetera lite varje dag – lådorna sköter planeringen.\n• Lär dig substantiv med artikel (der / die / das) och plural.\n• Säg exempelmeningen högt efter högtalaren.\n• Ha en inlärningslåda per bok eller kurs." }
+          body: "• Repetera lite varje dag – lådorna sköter planeringen.\n• Lär dig substantiv med artikel (der / die / das) och plural.\n• Lär dig verb med Partizip II (ist gegangen / hat gemacht): appen visar det med en enkel exempelmening.\n• Säg exempelmeningen högt efter högtalaren.\n• Ha en inlärningslåda per bok eller kurs." }
     ]
 
     ColumnLayout {

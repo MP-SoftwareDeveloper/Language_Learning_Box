@@ -101,8 +101,10 @@ public:
     Q_INVOKABLE int suggestExamplesFor(const QString &word, const QString &source, const QString &target);
     // Gender (der / die / das) and plural of a German noun from the German Wiktionary (online only; every
     // answer is saved, so the word is found offline later). Answers through
-    // grammarFound(id, {front, lemma, plural, pluralLine, forms}, error); the map is empty when the
-    // word is not a (single-word) noun or nothing is known.
+    // grammarFound(id, {front, lemma, plural, pluralLine, forms, participle, participleExample}, error); the map is
+    // empty when the word is neither a (single-word) noun nor a verb or nothing is known. A lowercase verb
+    // ("gehen") answers with its Partizip II: participle "ist gegangen", participleExample "Ich bin gegangen.",
+    // and the line "Partizip II ist gegangen · Ich bin gegangen." in `forms`.
     Q_INVOKABLE int lookupGrammar(const QString &word);
     // Does the German Wiktionary have a page with exactly this title (case-sensitive)? For one spelling that is two
     // words: "Berichten" (plural of the noun Bericht) and "berichten" (a verb). Answers through
@@ -130,6 +132,9 @@ signals:
 private:
     void fetchGrammar(const QString &word, bool followSingular, const QString &article,
                       std::function<void(const wiktionary::Grammar &, const QString &)> finished);
+    // The Wiktionary page of a lowercase word read as a verb: Partizip II and auxiliary (invalid Grammar when it
+    // is no verb).
+    void fetchVerb(const QString &word, std::function<void(const wiktionary::Grammar &, const QString &)> finished);
     // Wiktionary has no usable entry for a plural noun ("Nudeln"): try the likely singulars one after the other
     // (wiktionary::singularCandidates) and take the first noun whose plural is the word. `original` is the answer
     // when none fits.

@@ -55,21 +55,21 @@ Page {
     // The meaning's lines: plain lines (translation, notes) and grammar lines ("Pl. ...", "Fem. ...", with 🔊)
     readonly property var meaningAll: primaryMeaning.replace(/\s*\u00b7\s*Pl\./, "\nPlural").split("\n")
     readonly property string meaningBodyText: (germanFirst ? meaningAll : meaningAll.slice(1))
-                                              .filter(l => !/^\s*(Pl\.|Plural|Sg\.|Singular|Mask\.|Fem\.)/.test(l)).join("\n")
+                                              .filter(l => !/^\s*(Pl\.|Plural|Sg\.|Singular|Mask\.|Fem\.|Partizip II)/.test(l)).join("\n")
     // Plural, masculine and feminine forms: the ones stored in the card; a card without any gets them looked up in
     // Wiktionary (saved on the phone after the first time, so it works offline later).
     property var grammar: ({})
     property int grammarRequest: -1
     // The forms saved on the card come first, so a line you deleted in Edit stays deleted ("Singular die Herrin"
     // on "der Herr" = Mr.); only a card without any gets the looked-up forms.
-    readonly property string storedFormsText: meaningAll.filter(l => /^\s*(Pl\.|Plural|Sg\.|Singular|Mask\.|Fem\.)/.test(l)).join("\n")
+    readonly property string storedFormsText: meaningAll.filter(l => /^\s*(Pl\.|Plural|Sg\.|Singular|Mask\.|Fem\.|Partizip II)/.test(l)).join("\n")
     readonly property string meaningFormsText: storedFormsText !== "" ? storedFormsText : (grammar.forms ?? "")
     readonly property string markWord: /^(der|die|das)\s/i.test(session.front) ? session.front : (grammar.front ?? "")
     function lookupForms() {
         grammar = ({})
         grammarRequest = -1
         const w = (session.front ?? "").trim()
-        if (!session.hasCard || CardStore.learningLanguage !== "de" || !/^((der|die|das)\s+)?[A-Z\u00C4\u00D6\u00DC]\S*$/.test(w))
+        if (!session.hasCard || CardStore.learningLanguage !== "de" || !/^((der|die|das)\s+)?[A-Z\u00C4\u00D6\u00DC]\S*$|^[a-z\u00E4\u00F6\u00FC\u00DF]+$/.test(w))
             return
         grammarRequest = Translator.lookupGrammar(w)
     }

@@ -2,7 +2,8 @@ import QtQuick
 import LearningBox
 
 // Everything the app can tell about the word (or sentence) that stands in a text box: its article, the
-// singular forms of each gender, the plural(s) and example sentences to choose from.
+// singular forms of each gender, the plural(s) and example sentences to choose from - and for a verb its
+// Partizip II (with haben / sein) and a simple example sentence with it.
 // ONE implementation for all three ways a word gets into the app: typed in the Dictionary, typed in Add card,
 // or picked in Lens (Lens opens Add card with the word). Show the result with WordDetails.
 //
@@ -39,9 +40,14 @@ Item {
     property string wikiForms: ""
     property string packFront: ""
     property string packForms: ""
-    readonly property string front: packFront !== "" ? packFront : wikiFront          // "der Kellner"
-    readonly property string forms: wikiForms !== "" ? wikiForms : packForms          // "Plural ...", "Singular die ..."
-    readonly property bool isNoun: front !== "" || wikiForms !== ""
+    // Two words with one spelling (Fahren / fahren) and the verb chosen (lowercase): the word pack's noun entry
+    // ("das Fahren") is not this word, so no article, no noun forms and no capital letter
+    readonly property bool verbChosen: ambiguous && !asNoun
+    readonly property string front: verbChosen ? "" : (packFront !== "" ? packFront : wikiFront)   // "der Kellner"
+    readonly property string forms: wikiForms !== "" ? wikiForms : (verbChosen ? "" : packForms)    // "Plural ...", "Singular die ..."
+    // A verb has "forms" too (the "Partizip II ..." line) but is no noun: it keeps its lowercase letter
+    readonly property bool isNoun: front !== "" || wikiForms.split("\n").some(l => l.trim() !== "" && !/^\s*Partizip II(\s|$)/.test(l))
+    readonly property bool isVerb: wikiForms.split("\n").some(l => /^\s*Partizip II(\s|$)/.test(l))
 
     // ---- one spelling, two words ----
     // "Berichten" is the plural of the noun "Bericht" (reports) and also the verb "berichten" (to report).
@@ -105,7 +111,8 @@ Item {
         return fit.length > 0 ? fit : list
     }
 
-    // Rows of the unified layout: [{kind, text, mark}] - singular of each gender, plural, plural of each gender.
+    // Rows of the unified layout: [{kind, text, mark, example}] - singular of each gender, plural, plural of each gender;
+    // for a verb the one row {kind: "participle", text: "ist gegangen", example: "Ich bin gegangen."}.
     // `mark` is the article that gives the colour mark (der blue, die red, das green): the gender is never written.
     // The lines come in the card's order: own plural, then per other gender "Singular der ..." and its "Plural ...".
     // Old cards: "Pl. ...", "Sg. ...", "Mask. der ...", "Mask. Pl. ...", "Fem. ...".
@@ -118,7 +125,14 @@ Item {
              .replace(/^Pl\.\s+/, "Plural ").replace(/^Sg\.\s+/, "Singular "))
         let ownSg = front, ownPl = "", cur = ""
         const sg = ({}), pl = ({})
+        let verbRow = null
         for (const l of canon) {
+            const pm = /^Partizip II\s+(.+)$/.exec(l)
+            if (pm) { // "Partizip II ist gegangen · Ich bin gegangen."
+                const parts = pm[1].split(/\s+\u00b7\s+/)
+                verbRow = { kind: "participle", text: parts[0].trim(), mark: "", example: (parts[1] ?? "").trim() }
+                continue
+            }
             const m = /^(Singular|Plural)\s+(.+)$/.exec(l)
             if (!m)
                 continue
@@ -141,6 +155,8 @@ Item {
         add("plural", noDie(ownPl), g !== "" ? g + " " : "")
         add("plural", noDie(pl["der"] ?? ""), "der ")
         add("plural", noDie(pl["die"] ?? ""), "die ")
+        if (verbRow && verbRow.text !== "")
+            out.push(verbRow)
         return out
     }
 
@@ -168,8 +184,11 @@ Item {
         applyCapital()
         if (w.length >= 2) {
             // The article typed (or the pack's) picks the right entry on a page with several: der Reis / die Reise
+            // (not the pack's article when the verb of an ambiguous spelling is meant: "das Fahren" would make
+            // this a noun lookup and "fahren" would never be read as the verb with its Partizip II)
             const art = parts && parts[1] ? parts[1].toLowerCase()
-                      : (packFront !== "" ? packFront.split(" ")[0].toLowerCase() : "")
+                      : (packFront !== "" && !verbChosen ? packFront.split(" ")[0].toLowerCase() : "")
+            console.log("LB-qml grammar request:", art !== "" ? art + " " + w : w, "verbChosen:", verbChosen, "ambiguous:", ambiguous)
             grammarRequest = Translator.lookupGrammar(art !== "" ? art + " " + w : w) // lowercase words: only nouns get an article
         }
     }
@@ -182,7 +201,7 @@ Item {
         const t = word
         if (parts) {
             const w = parts[2]
-            if (!/^[a-zäöü]/.test(w) || !isNoun || grammarFor !== w)
+            if (!/^[a-zäöü]/.test(w) || !isNoun || grammarFor !== w || verbChosen)
                 return ""
             const i = t.lastIndexOf(w)
             return t.slice(0, i) + w[0].toUpperCase() + w.slice(1) + t.slice(i + w.length)
@@ -288,6 +307,7 @@ Item {
             if (requestId !== root.grammarRequest)
                 return
             root.grammarRequest = -1
+            console.log("LB-qml grammar answer:", root.bare, "front:", grammar.front, "forms:", String(grammar.forms ?? "").replace(/\n/g, "|"))
             // Wiktionary says the word is the plural form of another noun ("Reis" = plural of "Real"), but the
             // word pack knows it as a singular noun, or it was typed with "der" / "das": it is the singular noun
             // (rice), not that plural. The pack's forms are used then.

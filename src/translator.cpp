@@ -524,6 +524,9 @@ QVariantMap grammarMap(const wiktionary::Grammar &g)
             {QStringLiteral("lemma"), g.lemma},
             {QStringLiteral("plural"), wiktionary::pluralText(g)},
             {QStringLiteral("pluralLine"), wiktionary::pluralLine(g)},
+            // verbs: "ist gegangen" and its simple sentence "Ich bin gegangen." (both also inside `forms`)
+            {QStringLiteral("participle"), wiktionary::participleText(g)},
+            {QStringLiteral("participleExample"), wiktionary::participleExample(g)},
             // "Plural Hunde" / "Singular der Hund", "Singular die Lehrerin" + "Plural Lehrerinnen": one line each
             {QStringLiteral("forms"), wiktionary::formLines(g).join(QLatin1Char('\n'))}};
 }
@@ -553,6 +556,27 @@ void Translator::fetchGrammar(const QString &word, bool followSingular, const QS
         fetchGrammar(g.singularOf, false, QString(), [=](const wiktionary::Grammar &noun, const QString &err) {
             finished(noun.valid() ? wiktionary::withSingular(g, noun) : wiktionary::Grammar{}, err);
         });
+    });
+}
+
+void Translator::fetchVerb(const QString &word,
+                           std::function<void(const wiktionary::Grammar &, const QString &)> finished)
+{
+    QNetworkRequest req(wiktionary::requestUrl(word, true)); // lowercase title: the verb, not "Gehen"
+    req.setHeader(QNetworkRequest::UserAgentHeader, QStringLiteral("LearningBox/1.0 (Qt; German vocabulary app)"));
+    QNetworkReply *reply = m_nam->get(req);
+    connect(reply, &QNetworkReply::finished, this, [=, this] {
+        reply->deleteLater();
+        QString error;
+        wiktionary::Grammar g;
+        const QByteArray body = reply->readAll();
+        if (reply->error() != QNetworkReply::NoError && !body.trimmed().startsWith('{'))
+            error = reply->errorString();
+        else
+            g = wiktionary::parseVerb(body, &error);
+        qInfo().noquote() << "LB-verb" << word << "participle:" << g.participle << "aux:" << g.auxiliaries.join(u',')
+                          << "error:" << error << "bytes:" << body.size();
+        finished(g, error);
     });
 }
 
@@ -606,19 +630,24 @@ int Translator::lookupGrammar(const QString &word)
                             && (first == QLatin1String("der") || first == QLatin1String("die") || first == QLatin1String("das"));
     // The article picks the right entry on a page with several ("der Reis" / "die Reise"), see wiktionary::parse
     const QString hint = hasArticle ? first : QString();
-    const QString cacheKey = hasArticle ? first + QLatin1Char(' ') + w : w;
+    // The cache folds case ("Gehen" = "gehen"): a lowercase word (the verb, or a noun typed small) gets its own key,
+    // or the saved noun "das Gehen" would be the answer for the verb "gehen" and its Partizip II never be read
+    const bool lowerBare = !w.isEmpty() && !word.simplified().contains(QLatin1Char(' ')) && w.at(0).isLower();
+    const QString cacheKey = hasArticle ? first + QLatin1Char(' ') + w : (lowerBare ? QString(QLatin1Char('~')) + w : w);
     const bool singularTyped = hasArticle && first != QLatin1String("die");
     const auto view = [=](const wiktionary::Grammar &g) {
         return singularTyped && !g.singularOf.isEmpty() ? QVariantMap() : grammarMap(g);
     };
+    qInfo().noquote() << "LB-grammar lookup" << word << "key:" << cacheKey << "online:" << useOnline();
     if (w.isEmpty()) {
         answer({}, QString());
         return id;
     }
-    // Saved answer first (row in the translation cache, language "grammar7"; "-" = looked up, not a noun)
+    // Saved answer first (row in the translation cache, language "grammar9"; "-" = looked up, neither noun nor verb)
     QString saved;
     QStringList extra;
-    if (lookup(QStringLiteral("de"), QStringLiteral("grammar7"), cacheKey, &saved, &extra)) {
+    if (lookup(QStringLiteral("de"), QStringLiteral("grammar9"), cacheKey, &saved, &extra)) {
+        qInfo().noquote() << "LB-grammar saved answer for" << cacheKey << ":" << saved.left(60).replace(u'\n', u'|');
         answer(saved == QLatin1String("-") ? QVariantMap()
                                            : view(wiktionary::decode(saved, extra.value(0, w))),
                QString());
@@ -630,7 +659,7 @@ int Translator::lookupGrammar(const QString &word)
     }
     const auto done = [=, this](const wiktionary::Grammar &g, const QString &error) {
         if (error.isEmpty())
-            store(QStringLiteral("de"), QStringLiteral("grammar7"), cacheKey,
+            store(QStringLiteral("de"), QStringLiteral("grammar9"), cacheKey,
                   g.valid() ? wiktionary::encode(g) : QStringLiteral("-"),
                   g.valid() ? QStringList{g.lemma.isEmpty() ? w : g.lemma} : QStringList());
         else
@@ -697,7 +726,7 @@ int Translator::lookupGrammar(const QString &word)
             if (!error.isEmpty())
                 done({}, error);
             else if (exists)
-                done({}, QString()); // saved as "not a noun"
+                fetchVerb(w, done); // not a noun: a verb gets its Partizip II, anything else is saved as "-"
             else
                 proceed();
         });

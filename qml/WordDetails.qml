@@ -6,6 +6,7 @@ import LearningBox
 
 // The same block under the text box in the Dictionary and in Add card (and so for words picked in Lens):
 //   - the singular forms of each gender and the plural forms, each with 🔊 and the gender colour
+//   - for a verb: the Partizip II ("ist gegangen") with a simple example sentence ("Ich bin gegangen."), both with 🔊
 //   - example sentences with a check box: the ticked ones go on the card (one or several, or none)
 // It only shows what the WordLookup `info` found. Set Layout margins where it is used.
 ColumnLayout {
@@ -15,9 +16,11 @@ ColumnLayout {
     spacing: 4
 
     // Only "Singular" / "Plural": the gender is shown by the colour mark, never as text
-    function labelFor(kind) { return kind === "plural" ? qsTr("Plural") : qsTr("Singular") }
+    function labelFor(kind) { return kind === "plural" ? qsTr("Plural") : kind === "participle" ? qsTr("Partizip II") : qsTr("Singular") }
     // Plurals are read without "die", several forms with a pause
     function spokenOf(row) {
+        if (row.kind === "participle")
+            return row.text.replace(/\s*\/\s*/g, ", ").trim() // "ist gefahren, hat gefahren"
         return row.kind === "plural"
                 ? row.text.replace(/(^|\/\s*)die\s+/gi, "$1").replace(/\s*\/\s*/g, ", ").trim() : row.text
     }
@@ -66,31 +69,56 @@ ColumnLayout {
         visible: root.info !== null && root.info.rows.length > 0
         Repeater {
             model: root.info ? root.info.rows : []
-            delegate: RowLayout {
+            delegate: ColumnLayout {
                 required property var modelData
                 Layout.fillWidth: true
-                spacing: 6
-                Label {
-                    textFormat: Text.PlainText
-                    Layout.preferredWidth: labelWidth.advanceWidth // "Singular:" + 8 spaces
-                    text: root.labelFor(modelData.kind) + ":"
-                    font.pixelSize: 13
-                    opacity: 0.6
-                }
-                Label {
-                    textFormat: Text.PlainText
+                spacing: 0
+                RowLayout {
                     Layout.fillWidth: true
-                    text: modelData.text
-                    wrapMode: Text.WordWrap
-                    font.pixelSize: root.pixelSize + 1
-                    font.bold: true
+                    spacing: 6
+                    Label {
+                        textFormat: Text.PlainText
+                        Layout.preferredWidth: labelWidth.advanceWidth // "Singular:" + 8 spaces
+                        text: root.labelFor(modelData.kind) + ":"
+                        font.pixelSize: 13
+                        opacity: 0.6
+                    }
+                    Label {
+                        textFormat: Text.PlainText
+                        Layout.fillWidth: true
+                        text: modelData.text
+                        wrapMode: Text.WordWrap
+                        font.pixelSize: root.pixelSize + 1
+                        font.bold: true
+                    }
+                    GenderMark { word: modelData.mark }
+                    SpeakButton {
+                        Layout.alignment: Qt.AlignVCenter
+                        speakText: root.spokenOf(modelData)
+                        languageTag: "de-DE"
+                        iconSize: 19
+                    }
                 }
-                GenderMark { word: modelData.mark }
-                SpeakButton {
-                    Layout.alignment: Qt.AlignVCenter
-                    speakText: root.spokenOf(modelData)
-                    languageTag: "de-DE"
-                    iconSize: 19
+                // Verb: the simple example sentence under the participle, with its own 🔊
+                RowLayout {
+                    Layout.fillWidth: true
+                    Layout.leftMargin: labelWidth.advanceWidth + 6
+                    visible: (modelData.example ?? "") !== ""
+                    spacing: 6
+                    Label {
+                        textFormat: Text.PlainText
+                        Layout.fillWidth: true
+                        text: modelData.example ?? ""
+                        wrapMode: Text.WordWrap
+                        font.pixelSize: root.pixelSize
+                        opacity: 0.85
+                    }
+                    SpeakButton {
+                        Layout.alignment: Qt.AlignVCenter
+                        speakText: modelData.example ?? ""
+                        languageTag: "de-DE"
+                        iconSize: 17
+                    }
                 }
             }
         }

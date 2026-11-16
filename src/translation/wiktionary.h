@@ -23,16 +23,23 @@ struct Grammar
     // masculine and feminine then describe that singular noun and `plurals` is empty.
     QString singularOf;
 
-    // False when the word is not a noun (no entry, or an entry without a noun table).
-    bool valid() const { return !genders.isEmpty() || !plurals.isEmpty() || !singularOf.isEmpty(); }
+    // German verbs (only filled by parseVerb): the past participle (Partizip II) "gegangen"; several forms are
+    // joined by " / " ("gesendet / gesandt"). Empty = not a verb.
+    QString participle;
+    QStringList auxiliaries; // "haben" and / or "sein", in the order Wiktionary lists them; empty = not given
+
+    bool isVerb() const { return !participle.isEmpty(); }
+    // False when the word is neither a noun (no entry, or an entry without a noun table) nor a verb.
+    bool valid() const { return !genders.isEmpty() || !plurals.isEmpty() || !singularOf.isEmpty() || isVerb(); }
 };
 
 // The word to look up for a card front: "der Hund" -> "Hund", "Hund" -> "Hund". Empty for text that
 // is not a single word ("guten Morgen", "").
 QString lemmaOf(const QString &front);
 
-// Wiktionary API request for the page of `word` (first letter capitalised: nouns are).
-QUrl requestUrl(const QString &word);
+// Wiktionary API request for the page of `word` (first letter capitalised: nouns are; keepCase for verbs and
+// other lowercase titles: "gehen").
+QUrl requestUrl(const QString &word, bool keepCase = false);
 
 // Does a page with exactly this title exist (case-sensitive, no redirects)? For a word typed in lowercase:
 // "gehen" has a page (a verb), "kellner" has none (a noun typed without its capital letter).
@@ -62,6 +69,20 @@ Grammar parse(const QByteArray &json, QString *error = nullptr, const QString &a
 // The noun table ("{{Deutsch Substantiv Übersicht ...}}") of a page's wikitext (see parse() for `article`).
 Grammar parseWikitext(const QString &wikitext, const QString &article = QString());
 
+// The verb table ("{{Deutsch Verb Übersicht ...}}") of a page's wikitext: the Partizip II and the auxiliary verb(s)
+// ("|Partizip II=gegangen", "|Hilfsverb=sein"). A page without a verb table gives an invalid Grammar.
+Grammar parseVerbWikitext(const QString &wikitext);
+// Same for the answer of requestUrl(word, true); `lemma` is the page title. A body that is not the expected JSON
+// sets *error.
+Grammar parseVerb(const QByteArray &json, QString *error = nullptr);
+
+// "ist gegangen" / "hat gemacht" / "ist gefahren / hat gefahren" (the third person, as dictionaries show it);
+// just the participle when the page names no auxiliary verb; "" for a word that is not a verb.
+QString participleText(const Grammar &g);
+// A simple sentence with it: "Ich bin gegangen." / "Ich habe gemacht." / "Es hat geregnet." (weather verbs);
+// "" for a word that is not a verb or has no auxiliary verb.
+QString participleExample(const Grammar &g);
+
 QString article(const QString &gender);    // "m" -> "der", "f" -> "die", "n" -> "das"
 
 // "der Hund" (first gender's article + lemma); "" when there is no gender (plural-only nouns).
@@ -74,6 +95,7 @@ QString pluralLine(const Grammar &g);
 // The plural-form page "Hunde" names its noun "Hund" (singularOf only): the noun's own Grammar plus that.
 Grammar withSingular(const Grammar &pluralPage, const Grammar &noun);
 
+// For a verb the one line "Partizip II ist gegangen · Ich bin gegangen." (participle, then the example after " · ").
 // Lines for the card's back, each on its own line, label first: "Pl. Hunde" (or "Sg. der Hund" when the word
 // is itself a plural form), then "Singular der Arzt", "Plural Ärzte", "Singular die Ärztin", "Plural Ärztinnen" (no gender word: the card shows the gender by colour)
 // when the noun has such forms.

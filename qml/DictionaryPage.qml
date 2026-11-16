@@ -227,7 +227,7 @@ Page {
         if (reverse || free || meaningLines === "" || wordInfo.forms === "")
             return meaningLines
         // the online forms (Mask./Fem./Pl.) replace the word pack's plural
-        return meaningLines.replace(/(\n?(Pl\.|Plural|Sg\.|Singular|Mask\.|Fem\.)[^\n]*)+$/, "") + "\n" + wordInfo.forms
+        return meaningLines.replace(/(\n?(Pl\.|Plural|Sg\.|Singular|Mask\.|Fem\.|Partizip II)[^\n]*)+$/, "") + "\n" + wordInfo.forms
     }
     // Front of the card: "der Hund" (article from the word pack or from Wiktionary)
     readonly property string cardFront: {
@@ -238,7 +238,7 @@ Page {
 
     // "Pl. Hunde" on its own line (with 🔊) and the rest of the back without it
     readonly property string cardForms: reverse ? "" : cardBack
-    readonly property string cardBody: reverse ? result : cardBack.split("\n").filter(l => !/^\s*(Pl\.|Plural|Sg\.|Singular|Mask\.|Fem\.)/.test(l)).join("\n")
+    readonly property string cardBody: reverse ? result : cardBack.split("\n").filter(l => !/^\s*(Pl\.|Plural|Sg\.|Singular|Mask\.|Fem\.|Partizip II)/.test(l)).join("\n")
 
     // The "Add to learning box" button (and the own-example box) is shown
     readonly property bool canAdd: !free && requestId < 0
@@ -269,7 +269,8 @@ Page {
             return
         }
         // Offline first: the German word pack with its curated Persian meaning
-        if (from === cardLang && cardLang === "de" && to === "fa") {
+        // (not for the verb of a spelling that is also a noun: the pack's "das Fahren" is not "fahren")
+        if (!wordInfo.verbChosen && from === cardLang && cardLang === "de" && to === "fa") {
             const known = WordPacks.lookup(query)
             if (known.back) {
                 headword = known.front
@@ -279,7 +280,7 @@ Page {
         }
         // The German level lists (A1 to C1) have a curated first meaning, better than the translator's guess for a
         // lone word ("Satz" -> "Set", not "sentence"); what the translator finds follows as "Also"
-        if (source === "" && from === cardLang && cardLang === "de" && (to === "en" || to === "fa")) {
+        if (!wordInfo.verbChosen && source === "" && from === cardLang && cardLang === "de" && (to === "en" || to === "fa")) {
             const curated = LevelPacks.germanMeaning(query, to)
             if (curated.back) {
                 headword = curated.front

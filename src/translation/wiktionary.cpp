@@ -38,10 +38,9 @@ QString cleaned(QString v)
     return v;
 }
 
-// The text of every "{{Deutsch ... Übersicht" template (braces balanced), in page order: one per entry.
-QStringList nounTables(const QString &wikitext)
+// The text of every template that starts like `start` (braces balanced), in page order: one per entry.
+QStringList tablesOf(const QString &wikitext, const QRegularExpression &start)
 {
-    static const QRegularExpression start(QStringLiteral(R"(\{\{Deutsch (?:Substantiv|Toponym|Eigenname|Nachname|Vorname) Übersicht)"));
     QStringList out;
     int pos = 0;
     for (;;) {
@@ -71,6 +70,36 @@ QStringList nounTables(const QString &wikitext)
         out << wikitext.mid(from, end - from);
         pos = end;
     }
+}
+
+// The text of every "{{Deutsch ... Übersicht" template of a noun, in page order: one per entry.
+QStringList nounTables(const QString &wikitext)
+{
+    static const QRegularExpression start(QStringLiteral(R"(\{\{Deutsch (?:Substantiv|Toponym|Eigenname|Nachname|Vorname) Übersicht)"));
+    return tablesOf(wikitext, start);
+}
+
+// "{{Deutsch Verb Übersicht" of a verb
+QStringList verbTables(const QString &wikitext)
+{
+    static const QRegularExpression start(QStringLiteral(R"(\{\{Deutsch Verb Übersicht)"));
+    return tablesOf(wikitext, start);
+}
+
+// Weather verbs and the like have no "ich": "Es hat geregnet."
+bool isImpersonal(const QString &infinitive)
+{
+    static const QSet<QString> verbs{
+        QStringLiteral("regnen"),  QStringLiteral("schneien"), QStringLiteral("hageln"),
+        QStringLiteral("donnern"), QStringLiteral("blitzen"),  QStringLiteral("nieseln"),
+        QStringLiteral("gewittern"), QStringLiteral("d\u00e4mmern"), QStringLiteral("geschehen"),
+        QStringLiteral("gelingen"), QStringLiteral("misslingen")};
+    return verbs.contains(infinitive.trimmed().toLower());
+}
+
+QString auxiliaryWord(const QString &auxiliary) // third person: "sein" -> "ist", "haben" -> "hat"
+{
+    return auxiliary == QLatin1String("sein") ? QStringLiteral("ist") : QStringLiteral("hat");
 }
 
 // "m" / "f" / "n" of a noun table ("Genus=m", "Genus 2=f", ...)
@@ -268,7 +297,7 @@ QStringList mergeSuggestions(const QList<QStringList> &lists, const QString &pre
     return out;
 }
 
-QUrl requestUrl(const QString &word)
+QUrl requestUrl(const QString &word, bool keepCase)
 {
     QUrl url(QStringLiteral("https://de.wiktionary.org/w/api.php"));
     QUrlQuery q;
@@ -279,9 +308,111 @@ QUrl requestUrl(const QString &word)
     q.addQueryItem(QStringLiteral("format"), QStringLiteral("json"));
     q.addQueryItem(QStringLiteral("formatversion"), QStringLiteral("2"));
     q.addQueryItem(QStringLiteral("redirects"), QStringLiteral("1"));
-    q.addQueryItem(QStringLiteral("titles"), capitalised(word.trimmed()));
+    q.addQueryItem(QStringLiteral("titles"), keepCase ? word.trimmed() : capitalised(word.trimmed()));
     url.setQuery(q);
     return url;
+}
+
+Grammar parseVerbWikitext(const QString &wikitext)
+{
+    Grammar g;
+    const QStringList tables = verbTables(wikitext);
+    if (tables.isEmpty())
+        return g;
+    const QString table = tables.first(); // a page with several verbs (umfahren): the first entry
+    static const QRegularExpression participle(QStringLiteral(R"(^\s*\|\s*Partizip II(?:\s*\d)?\s*=\s*([^\n|]*))"),
+                                               QRegularExpression::MultilineOption);
+    static const QRegularExpression auxiliary(QStringLiteral(R"(^\s*\|\s*Hilfsverb\*?\s*=\s*([^\n|]*))"),
+                                              QRegularExpression::MultilineOption);
+    static const QRegularExpression separators(QStringLiteral(R"([,;/]|\boder\b)"));
+    static const QRegularExpression parenthesised(QStringLiteral(R"(\([^)]*\))"));
+    static const QRegularExpression auxWord(QStringLiteral(R"(\b(haben|sein)\b)"));
+
+    // "gegangen", "gesendet, gesandt": at most two forms, each a single word
+    const auto participlesOf = [&](const QString &t) {
+        QStringList forms;
+        const QRegularExpressionMatch p = participle.match(t);
+        if (p.hasMatch())
+            for (const QString &part : cleaned(p.captured(1)).split(separators, Qt::SkipEmptyParts)) {
+                const QString form = part.simplified();
+                if (!form.isEmpty() && !form.contains(u' ') && !forms.contains(form) && forms.size() < 2)
+                    forms << form;
+            }
+        return forms;
+    };
+    const QStringList forms = participlesOf(table);
+    if (forms.isEmpty())
+        return g;
+    g.participle = forms.join(QStringLiteral(" / "));
+
+    // "sein", "haben, sein", "sein/haben", "haben (landschaftlich: sein)" -> the words outside brackets, in order
+    // A word with two meanings can have a table for each (passieren: "happen" with sein, "pass through" with haben):
+    // the auxiliaries of every table with the same participle count, sein first (the common one: es ist passiert)
+    for (const QString &t : tables) {
+        if (participlesOf(t) != forms)
+            continue;
+        for (auto m = auxiliary.globalMatch(t); m.hasNext();) {
+            const QString aux = cleaned(m.next().captured(1)).remove(parenthesised).toLower();
+            for (auto it = auxWord.globalMatch(aux); it.hasNext();) {
+                const QString v = it.next().captured(1);
+                if (!g.auxiliaries.contains(v))
+                    g.auxiliaries << v;
+            }
+        }
+    }
+    if (g.auxiliaries.size() > 1 && g.auxiliaries.first() != QLatin1String("sein"))
+        g.auxiliaries = QStringList{QStringLiteral("sein"), QStringLiteral("haben")};
+    return g;
+}
+
+Grammar parseVerb(const QByteArray &json, QString *error)
+{
+    const QJsonDocument doc = QJsonDocument::fromJson(json);
+    if (!doc.isObject()) {
+        if (error)
+            *error = QStringLiteral("Wiktionary: unexpected answer");
+        return {};
+    }
+    const QJsonArray pages = doc.object().value(QStringLiteral("query")).toObject().value(QStringLiteral("pages")).toArray();
+    if (pages.isEmpty())
+        return {};
+    const QJsonObject page = pages.first().toObject();
+    if (page.value(QStringLiteral("missing")).toBool())
+        return {};
+    const QString content = page.value(QStringLiteral("revisions")).toArray().first().toObject()
+                                .value(QStringLiteral("slots")).toObject().value(QStringLiteral("main")).toObject()
+                                .value(QStringLiteral("content")).toString();
+    Grammar g = parseVerbWikitext(content);
+    if (g.isVerb())
+        g.lemma = page.value(QStringLiteral("title")).toString();
+    return g;
+}
+
+QString participleText(const Grammar &g)
+{
+    if (!g.isVerb())
+        return QString();
+    if (g.auxiliaries.isEmpty())
+        return g.participle;
+    // One participle with two auxiliaries ("ist gefahren / hat gefahren"); two participles share the first one
+    if (g.auxiliaries.size() > 1 && !g.participle.contains(QLatin1Char('/'))) {
+        QStringList out;
+        for (const QString &a : g.auxiliaries)
+            out << auxiliaryWord(a) + QLatin1Char(' ') + g.participle;
+        return out.join(QStringLiteral(" / "));
+    }
+    return auxiliaryWord(g.auxiliaries.first()) + QLatin1Char(' ') + g.participle;
+}
+
+QString participleExample(const Grammar &g)
+{
+    if (!g.isVerb() || g.auxiliaries.isEmpty())
+        return QString();
+    const QString part = g.participle.section(QStringLiteral(" / "), 0, 0);
+    const bool sein = g.auxiliaries.first() == QLatin1String("sein");
+    if (isImpersonal(g.lemma))
+        return QStringLiteral("Es ") + (sein ? QStringLiteral("ist ") : QStringLiteral("hat ")) + part + QLatin1Char('.');
+    return QStringLiteral("Ich ") + (sein ? QStringLiteral("bin ") : QStringLiteral("habe ")) + part + QLatin1Char('.');
 }
 
 Grammar parseWikitext(const QString &wikitext, const QString &articleHint)
@@ -431,6 +562,14 @@ Grammar withSingular(const Grammar &pluralPage, const Grammar &noun)
 QStringList formLines(const Grammar &g)
 {
     QStringList lines;
+    if (g.isVerb()) {
+        QString line = QStringLiteral("Partizip II ") + participleText(g);
+        const QString example = participleExample(g);
+        if (!example.isEmpty())
+            line += QStringLiteral(" \u00b7 ") + example;
+        lines << line;
+        return lines;
+    }
     if (!g.singularOf.isEmpty()) {
         const QString art = g.genders.isEmpty() ? QString() : article(g.genders.first()) + QLatin1Char(' ');
         lines << QStringLiteral("Singular ") + art + g.lemma;
@@ -455,7 +594,8 @@ QString encode(const Grammar &g)
     if (!g.valid())
         return QString();
     return QStringList{g.genders.join(u'/'), g.plurals.join(u'|'), g.singularOf, g.masculine.join(u'|'),
-                       g.feminine.join(u'|'), g.lemma, g.masculinePlural, g.femininePlural}.join(u'\n');
+                       g.feminine.join(u'|'), g.lemma, g.masculinePlural, g.femininePlural,
+                       g.participle, g.auxiliaries.join(u'/')}.join(u'\n');
 }
 
 Grammar decode(const QString &text, const QString &lemma)
@@ -475,6 +615,8 @@ Grammar decode(const QString &text, const QString &lemma)
     g.lemma = f.value(5).isEmpty() ? lemma : f.value(5);
     g.masculinePlural = f.value(6);
     g.femininePlural = f.value(7);
+    g.participle = f.value(8);
+    g.auxiliaries = list(9, u'/');
     return g;
 }
 

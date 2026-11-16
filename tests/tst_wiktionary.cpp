@@ -1,4 +1,7 @@
 #include <QtTest>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include <QUrlQuery>
 
 #include "translation/wiktionary.h"
@@ -250,6 +253,154 @@ private slots:
         QCOMPARE(back.plurals, g.plurals);
         QVERIFY(wiktionary::encode(wiktionary::Grammar{}).isEmpty());
         QVERIFY(!wiktionary::decode(QString(), QStringLiteral("x")).valid());
+    }
+
+    // ---- verbs: Partizip II + auxiliary from "{{Deutsch Verb Übersicht" ----
+    static QString verbPage(const QString &partizip, const QString &hilfsverb)
+    {
+        QString t = QStringLiteral("== x ({{Sprache|Deutsch}}) ==\n=== {{Wortart|Verb|Deutsch}} ===\n\n"
+                                   "{{Deutsch Verb Übersicht\n|Präsens_ich=gehe\n|Präsens_du=gehst\n"
+                                   "|Präteritum_ich=ging\n");
+        if (!partizip.isEmpty())
+            t += QStringLiteral("|Partizip II=") + partizip + QLatin1Char('\n');
+        t += QStringLiteral("|Konjunktiv II_ich=ginge\n|Imperativ Singular=geh\n");
+        if (!hilfsverb.isEmpty())
+            t += QStringLiteral("|Hilfsverb=") + hilfsverb + QLatin1Char('\n');
+        t += QStringLiteral("|Weitere_Konjugationen=gehen (Konjugation)\n}}\n\n{{Bedeutungen}}\n");
+        return t;
+    }
+    void verbSein()
+    {
+        wiktionary::Grammar g = wiktionary::parseVerbWikitext(verbPage(QStringLiteral("gegangen"), QStringLiteral("sein")));
+        QVERIFY(g.valid());
+        QVERIFY(g.isVerb());
+        g.lemma = QStringLiteral("gehen");
+        QCOMPARE(g.participle, QStringLiteral("gegangen"));
+        QCOMPARE(g.auxiliaries, QStringList{QStringLiteral("sein")});
+        QCOMPARE(wiktionary::participleText(g), QStringLiteral("ist gegangen"));
+        QCOMPARE(wiktionary::participleExample(g), QStringLiteral("Ich bin gegangen."));
+        QVERIFY(wiktionary::front(g).isEmpty()); // no article: a verb is not a noun
+        QCOMPARE(wiktionary::formLines(g), QStringList{QStringLiteral("Partizip II ist gegangen · Ich bin gegangen.")});
+    }
+    void verbHaben()
+    {
+        wiktionary::Grammar g = wiktionary::parseVerbWikitext(verbPage(QStringLiteral("[[gemacht]]"), QStringLiteral("haben")));
+        g.lemma = QStringLiteral("machen");
+        QCOMPARE(wiktionary::participleText(g), QStringLiteral("hat gemacht"));
+        QCOMPARE(wiktionary::participleExample(g), QStringLiteral("Ich habe gemacht."));
+    }
+    void verbBothAuxiliaries()
+    {
+        for (const QString &aux : {QStringLiteral("sein, haben"), QStringLiteral("sein/haben")}) {
+            wiktionary::Grammar g = wiktionary::parseVerbWikitext(verbPage(QStringLiteral("gefahren"), aux));
+            g.lemma = QStringLiteral("fahren");
+            QCOMPARE(g.auxiliaries, (QStringList{QStringLiteral("sein"), QStringLiteral("haben")}));
+            QCOMPARE(wiktionary::participleText(g), QStringLiteral("ist gefahren / hat gefahren"));
+            QCOMPARE(wiktionary::participleExample(g), QStringLiteral("Ich bin gefahren.")); // the first one
+        }
+        // a regional note in brackets is not a second auxiliary
+        const wiktionary::Grammar r = wiktionary::parseVerbWikitext(
+            verbPage(QStringLiteral("gesessen"), QStringLiteral("haben (landschaftlich: sein)")));
+        QCOMPARE(r.auxiliaries, QStringList{QStringLiteral("haben")});
+    }
+    void verbTwoTables()
+    {
+        // passieren: one table for "pass through" (haben), one for "happen" (sein): both, sein first
+        wiktionary::Grammar g = wiktionary::parseVerbWikitext(
+            verbPage(QStringLiteral("passiert"), QStringLiteral("haben")) + verbPage(QStringLiteral("passiert"), QStringLiteral("sein")));
+        g.lemma = QStringLiteral("passieren");
+        QCOMPARE(g.auxiliaries, (QStringList{QStringLiteral("sein"), QStringLiteral("haben")}));
+        QCOMPARE(wiktionary::participleText(g), QStringLiteral("ist passiert / hat passiert"));
+        QCOMPARE(wiktionary::participleExample(g), QStringLiteral("Ich bin passiert."));
+        // another verb on the page with another participle (umfahren) is not mixed in
+        const wiktionary::Grammar u = wiktionary::parseVerbWikitext(
+            verbPage(QStringLiteral("umgefahren"), QStringLiteral("haben")) + verbPage(QStringLiteral("umfahren"), QStringLiteral("sein")));
+        QCOMPARE(u.auxiliaries, QStringList{QStringLiteral("haben")});
+        // "Hilfsverb*" is read as well
+        const QString star = QStringLiteral("{{Deutsch Verb Übersicht\n|Partizip II=x\n|Hilfsverb=haben\n|Hilfsverb*=sein\n}}");
+        QCOMPARE(wiktionary::parseVerbWikitext(star).auxiliaries, (QStringList{QStringLiteral("sein"), QStringLiteral("haben")}));
+    }
+    void verbTwoParticiples()
+    {
+        wiktionary::Grammar g = wiktionary::parseVerbWikitext(
+            verbPage(QStringLiteral("gesendet, gesandt"), QStringLiteral("haben")));
+        g.lemma = QStringLiteral("senden");
+        QCOMPARE(g.participle, QStringLiteral("gesendet / gesandt"));
+        QCOMPARE(wiktionary::participleText(g), QStringLiteral("hat gesendet / gesandt"));
+        QCOMPARE(wiktionary::participleExample(g), QStringLiteral("Ich habe gesendet."));
+    }
+    void verbImpersonal()
+    {
+        wiktionary::Grammar g = wiktionary::parseVerbWikitext(verbPage(QStringLiteral("geregnet"), QStringLiteral("haben")));
+        g.lemma = QStringLiteral("regnen");
+        QCOMPARE(wiktionary::participleExample(g), QStringLiteral("Es hat geregnet."));
+    }
+    void verbWithoutAuxiliary()
+    {
+        // no "Hilfsverb": the participle is shown, but no sentence is guessed
+        wiktionary::Grammar g = wiktionary::parseVerbWikitext(verbPage(QStringLiteral("gekonnt"), QString()));
+        g.lemma = QStringLiteral("können");
+        QVERIFY(g.isVerb());
+        QCOMPARE(wiktionary::participleText(g), QStringLiteral("gekonnt"));
+        QVERIFY(wiktionary::participleExample(g).isEmpty());
+        QCOMPARE(wiktionary::formLines(g), QStringList{QStringLiteral("Partizip II gekonnt")});
+    }
+    void notAVerb()
+    {
+        // a noun page, a page without tables, a verb table without a Partizip II
+        QVERIFY(!wiktionary::parseVerbWikitext(QStringLiteral(
+            "{{Deutsch Substantiv Übersicht\n|Genus=m\n|Nominativ Singular=Hund\n|Nominativ Plural=Hunde\n}}")).valid());
+        QVERIFY(!wiktionary::parseVerbWikitext(QStringLiteral("== ging ==\n{{Grundformverweis Konj|gehen}}\n")).valid());
+        QVERIFY(!wiktionary::parseVerbWikitext(verbPage(QString(), QStringLiteral("sein"))).valid());
+        QVERIFY(wiktionary::participleText(wiktionary::Grammar{}).isEmpty());
+        QVERIFY(wiktionary::participleExample(wiktionary::Grammar{}).isEmpty());
+        // nouns are unchanged
+        const wiktionary::Grammar n = wiktionary::parseWikitext(QStringLiteral(
+            "{{Deutsch Substantiv Übersicht\n|Genus=m\n|Nominativ Singular=Hund\n|Nominativ Plural=Hunde\n}}"));
+        QVERIFY(!n.isVerb());
+        QCOMPARE(wiktionary::formLines(n), QStringList{QStringLiteral("Plural Hunde")});
+    }
+    void verbFromJson()
+    {
+        const QString wt = verbPage(QStringLiteral("gegangen"), QStringLiteral("sein"));
+        QJsonObject slot{{QStringLiteral("content"), wt}};
+        QJsonObject rev{{QStringLiteral("slots"), QJsonObject{{QStringLiteral("main"), slot}}}};
+        QJsonObject page{{QStringLiteral("title"), QStringLiteral("gehen")}, {QStringLiteral("revisions"), QJsonArray{rev}}};
+        const QByteArray json = QJsonDocument(QJsonObject{{QStringLiteral("query"),
+            QJsonObject{{QStringLiteral("pages"), QJsonArray{page}}}}}).toJson();
+        QString error;
+        const wiktionary::Grammar g = wiktionary::parseVerb(json, &error);
+        QVERIFY(error.isEmpty());
+        QCOMPARE(g.lemma, QStringLiteral("gehen"));
+        QCOMPARE(wiktionary::participleExample(g), QStringLiteral("Ich bin gegangen."));
+
+        // missing page, and an answer that is not JSON
+        const QByteArray missing = R"({"query":{"pages":[{"title":"gehenx","missing":true}]}})";
+        QVERIFY(!wiktionary::parseVerb(missing, &error).valid());
+        QVERIFY(error.isEmpty());
+        QVERIFY(!wiktionary::parseVerb("<html>", &error).valid());
+        QVERIFY(!error.isEmpty());
+    }
+    void verbUrlKeepsCase()
+    {
+        const QUrlQuery q(wiktionary::requestUrl(QStringLiteral("gehen"), true));
+        QCOMPARE(q.queryItemValue(QStringLiteral("titles")), QStringLiteral("gehen"));
+        const QUrlQuery n(wiktionary::requestUrl(QStringLiteral("gehen")));
+        QCOMPARE(n.queryItemValue(QStringLiteral("titles")), QStringLiteral("Gehen")); // unchanged: nouns
+    }
+    void verbCacheRoundTrip()
+    {
+        wiktionary::Grammar g = wiktionary::parseVerbWikitext(verbPage(QStringLiteral("gefahren"), QStringLiteral("sein, haben")));
+        g.lemma = QStringLiteral("fahren");
+        const wiktionary::Grammar back = wiktionary::decode(wiktionary::encode(g), QStringLiteral("fahren"));
+        QVERIFY(back.isVerb());
+        QCOMPARE(back.participle, g.participle);
+        QCOMPARE(back.auxiliaries, g.auxiliaries);
+        QCOMPARE(wiktionary::formLines(back), wiktionary::formLines(g));
+        // an answer saved before verbs were read (8 fields) still decodes as a noun
+        const wiktionary::Grammar old = wiktionary::decode(QStringLiteral("m\nHunde\n\n\n\nHund\n\n"), QStringLiteral("Hund"));
+        QVERIFY(!old.isVerb());
+        QCOMPARE(old.plurals, QStringList{QStringLiteral("Hunde")});
     }
 };
 
