@@ -510,6 +510,7 @@ int Translator::suggestExamplesFor(const QString &word, const QString &source, c
         }
         if (!error.isEmpty())
             qWarning().noquote() << "Tatoeba:" << error;
+        qInfo().noquote() << "LB-examples" << w << "->" << out.size() << "sentences, error:" << error << "bytes:" << body.size();
         emit examplesSuggested(id, out, error);
     });
     return id;
@@ -528,6 +529,7 @@ QVariantMap grammarMap(const wiktionary::Grammar &g)
             {QStringLiteral("participle"), wiktionary::participleText(g)},
             {QStringLiteral("participleExample"), wiktionary::participleExample(g)},
             {QStringLiteral("infinitive"), g.infinitive},
+            {QStringLiteral("examples"), QVariant(g.examples)},
             // "Plural Hunde" / "Singular der Hund", "Singular die Lehrerin" + "Plural Lehrerinnen": one line each
             {QStringLiteral("forms"), wiktionary::formLines(g).join(QLatin1Char('\n'))}};
 }
@@ -599,7 +601,7 @@ int Translator::lookupSeparable(const QString &phrase)
     }
     QString saved;
     QStringList extra;
-    if (lookup(QStringLiteral("de"), QStringLiteral("grammar9"), QStringLiteral("sep|") + key, &saved, &extra)) {
+    if (lookup(QStringLiteral("de"), QStringLiteral("grammar10"), QStringLiteral("sep|") + key, &saved, &extra)) {
         answer(saved == QLatin1String("-") ? QVariantMap() : grammarMap(wiktionary::decode(saved, extra.value(0, key))),
                QString());
         return id;
@@ -615,7 +617,7 @@ int Translator::lookupSeparable(const QString &phrase)
 void Translator::trySeparable(int id, const QString &key, const QStringList &candidates, int i)
 {
     if (i >= candidates.size()) { // no verb of that name: not a separable verb (saved so it is not asked again)
-        store(QStringLiteral("de"), QStringLiteral("grammar9"), QStringLiteral("sep|") + key, QStringLiteral("-"), QStringList());
+        store(QStringLiteral("de"), QStringLiteral("grammar10"), QStringLiteral("sep|") + key, QStringLiteral("-"), QStringList());
         emit grammarFound(id, {}, QString());
         return;
     }
@@ -631,7 +633,7 @@ void Translator::trySeparable(int id, const QString &key, const QStringList &can
         }
         wiktionary::Grammar v = g;
         v.infinitive = v.lemma.isEmpty() ? candidates.at(i) : v.lemma;
-        store(QStringLiteral("de"), QStringLiteral("grammar9"), QStringLiteral("sep|") + key, wiktionary::encode(v),
+        store(QStringLiteral("de"), QStringLiteral("grammar10"), QStringLiteral("sep|") + key, wiktionary::encode(v),
               QStringList{v.infinitive});
         emit grammarFound(id, grammarMap(v), QString());
     });
@@ -700,10 +702,10 @@ int Translator::lookupGrammar(const QString &word)
         answer({}, QString());
         return id;
     }
-    // Saved answer first (row in the translation cache, language "grammar9"; "-" = looked up, neither noun nor verb)
+    // Saved answer first (row in the translation cache, language "grammar10"; "-" = looked up, neither noun nor verb)
     QString saved;
     QStringList extra;
-    if (lookup(QStringLiteral("de"), QStringLiteral("grammar9"), cacheKey, &saved, &extra)) {
+    if (lookup(QStringLiteral("de"), QStringLiteral("grammar10"), cacheKey, &saved, &extra)) {
         qInfo().noquote() << "LB-grammar saved answer for" << cacheKey << ":" << saved.left(60).replace(u'\n', u'|');
         answer(saved == QLatin1String("-") ? QVariantMap()
                                            : view(wiktionary::decode(saved, extra.value(0, w))),
@@ -716,7 +718,7 @@ int Translator::lookupGrammar(const QString &word)
     }
     const auto done = [=, this](const wiktionary::Grammar &g, const QString &error) {
         if (error.isEmpty())
-            store(QStringLiteral("de"), QStringLiteral("grammar9"), cacheKey,
+            store(QStringLiteral("de"), QStringLiteral("grammar10"), cacheKey,
                   g.valid() ? wiktionary::encode(g) : QStringLiteral("-"),
                   g.valid() ? QStringList{g.lemma.isEmpty() ? w : g.lemma} : QStringList());
         else

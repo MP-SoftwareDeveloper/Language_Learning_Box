@@ -345,6 +345,26 @@ private slots:
         QCOMPARE(d.infinitive, QStringLiteral("hinzufügen"));
         QCOMPARE(wiktionary::formLines(d), wiktionary::formLines(g));
     }
+    void verbExamplesFromPage()
+    {
+        const QString page = verbPage(QStringLiteral("angezogen"), QStringLiteral("haben"))
+            + QStringLiteral("{{Beispiele}}\n"
+                             ":[1] ''Ich ziehe mich schnell an.''\n"
+                             ":[1] \u201EZieh dich warm '''an'''!\u201C<ref>Quelle: Buch</ref>\n"
+                             ":[2] [[Sie]] [[ziehen|zog]] die Jacke an, weil es sehr kalt war, aber sie fror trotzdem noch immer sehr.\n"
+                             ":[3] {{Beispiele fehlen}}\n"
+                             ":[4] ''Er hat sich [[die Schuhe|Schuhe]] angezogen.''\n"
+                             ":[5] ''Noch ein Satz hier.''\n"
+                             "\n{{Charakteristische Wortkombinationen}}\n:[1] ''Nicht hier.''\n");
+        const QStringList ex = wiktionary::verbExamples(page);
+        QCOMPARE(ex, (QStringList{QStringLiteral("Ich ziehe mich schnell an."), QStringLiteral("Zieh dich warm an!"),
+                                  QStringLiteral("Er hat sich Schuhe angezogen.")}));
+        // a verb page without examples, and the examples of a later entry are not taken
+        QVERIFY(wiktionary::verbExamples(verbPage(QStringLiteral("x"), QStringLiteral("haben"))).isEmpty());
+        wiktionary::Grammar g = wiktionary::parseVerbWikitext(page);
+        QCOMPARE(g.examples, ex);
+        QCOMPARE(wiktionary::decode(wiktionary::encode(g), QString()).examples, ex);
+    }
     void verbTwoTables()
     {
         // passieren: one table for "pass through" (haben), one for "happen" (sein): both, sein first

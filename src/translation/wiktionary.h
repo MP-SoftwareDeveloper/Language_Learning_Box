@@ -29,6 +29,8 @@ struct Grammar
     QStringList auxiliaries; // "haben" and / or "sein", in the order Wiktionary lists them; empty = not given
     // A separable verb typed as a phrase ("füge hinzu"): the verb it is a form of ("hinzufügen"); empty otherwise
     QString infinitive;
+    // Example sentences of the verb's own page ("Beispiele"), at most three: "Ich ziehe mich an."
+    QStringList examples;
 
     bool isVerb() const { return !participle.isEmpty(); }
     // False when the word is neither a noun (no entry, or an entry without a noun table) nor a verb.
@@ -83,6 +85,9 @@ Grammar parseVerb(const QByteArray &json, QString *error = nullptr);
 // "Ich füge hinzu!" -> "füge hinzu": a separable-verb phrase (verb form + separable prefix, optional pronoun and
 // end punctuation, lowercase), "" for any other text.
 QString separablePhrase(const QString &text);
+// The example sentences ("Beispiele") of the first verb entry on a page, cleaned of wiki markup: short whole
+// sentences only, at most three.
+QStringList verbExamples(const QString &wikitext);
 // The infinitives a phrase from separablePhrase() may be a form of, most likely first, to be checked against
 // Wiktionary: "füge hinzu" -> "hinzufügen"; "fährt ab" -> "abfahren"; "mache auf" -> "aufmachen".
 QStringList separableCandidates(const QString &phrase);

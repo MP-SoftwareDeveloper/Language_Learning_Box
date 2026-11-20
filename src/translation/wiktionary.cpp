@@ -362,6 +362,7 @@ Grammar parseVerbWikitext(const QString &wikitext)
     }
     if (g.auxiliaries.size() > 1 && g.auxiliaries.first() != QLatin1String("sein"))
         g.auxiliaries = QStringList{QStringLiteral("sein"), QStringLiteral("haben")};
+    g.examples = verbExamples(wikitext);
     return g;
 }
 
@@ -408,6 +409,57 @@ QString deUmlaut(QString s)
     return s;
 }
 } // namespace
+
+QStringList verbExamples(const QString &wikitext)
+{
+    static const QString marker = QStringLiteral("{{Deutsch Verb \u00dcbersicht");
+    const int start = int(wikitext.indexOf(marker));
+    if (start < 0)
+        return {};
+    const int b = int(wikitext.indexOf(QStringLiteral("{{Beispiele}}"), start));
+    if (b < 0)
+        return {};
+    const int other = int(wikitext.indexOf(QStringLiteral("=== {{Wortart"), start)); // the next entry's section
+    if (other >= 0 && other < b)
+        return {};
+    static const QRegularExpression blockEnd(QStringLiteral(R"(\n(?=\{\{|=))"));
+    const int from = b + 13;
+    const QRegularExpressionMatch e = blockEnd.match(wikitext, from);
+    const QString block = wikitext.mid(from, e.hasMatch() ? int(e.capturedStart()) - from : -1);
+
+    static const QRegularExpression label(QStringLiteral(R"(^:+\s*(?:\[[^\]]*\]\s*)?)"));
+    static const QRegularExpression refs(QStringLiteral(R"(<ref[^>]*/>|<ref[^>]*>.*?</ref>)"),
+                                         QRegularExpression::DotMatchesEverythingOption);
+    static const QRegularExpression templates(QStringLiteral(R"(\{\{[^{}]*\}\})"));
+    static const QRegularExpression piped(QStringLiteral(R"(\[\[[^\]|]*\|([^\]]*)\]\])"));
+    QStringList out;
+    for (const QString &raw : block.split(u'\n')) {
+        if (!raw.startsWith(u':'))
+            continue;
+        QString t = raw;
+        t.remove(label);
+        t.remove(refs);
+        t.remove(templates);
+        t.replace(piped, QStringLiteral("\\1"));
+        t = cleaned(t); // links, bold, italic, tags
+        while (!t.isEmpty() && QStringLiteral("\u201E\u201C\u201D\u201A\u2018\u2019\u00AB\u00BB\"' ").contains(t.front()))
+            t.remove(0, 1);
+        while (!t.isEmpty() && QStringLiteral("\u201E\u201C\u201D\u201A\u2018\u2019\u00AB\u00BB\"' ").contains(t.back()))
+            t.chop(1);
+        // a whole sentence that stands on its own: several words, not too long, no source line, no markup left
+        t = t.simplified();
+        const int words = int(t.split(u' ', Qt::SkipEmptyParts).size());
+        if (words < 2 || words > 12 || t.size() < 8 || t.contains(QStringLiteral("http")) || t.contains(u'[')
+                || t.contains(u'{') || t.contains(u'|') || t.contains(u'<') || out.contains(t))
+            continue;
+        if (!t.endsWith(u'.') && !t.endsWith(u'!') && !t.endsWith(u'?'))
+            t += u'.';
+        out << t;
+        if (out.size() == 3)
+            break;
+    }
+    return out;
+}
 
 QString separablePhrase(const QString &text)
 {
@@ -689,7 +741,8 @@ QString encode(const Grammar &g)
         return QString();
     return QStringList{g.genders.join(u'/'), g.plurals.join(u'|'), g.singularOf, g.masculine.join(u'|'),
                        g.feminine.join(u'|'), g.lemma, g.masculinePlural, g.femininePlural,
-                       g.participle, g.auxiliaries.join(u'/'), g.infinitive}.join(u'\n');
+                       g.participle, g.auxiliaries.join(u'/'), g.infinitive,
+                       g.examples.join(QChar(0x2016))}.join(u'\n');
 }
 
 Grammar decode(const QString &text, const QString &lemma)
@@ -712,6 +765,7 @@ Grammar decode(const QString &text, const QString &lemma)
     g.participle = f.value(8);
     g.auxiliaries = list(9, u'/');
     g.infinitive = f.value(10);
+    g.examples = list(11, QChar(0x2016));
     return g;
 }
 

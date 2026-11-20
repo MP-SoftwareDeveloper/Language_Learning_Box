@@ -175,7 +175,7 @@ Item {
             return
         grammarFor = w
         grammarRequest = -1
-        wikiFront = ""; wikiForms = ""; packFront = ""; packForms = ""
+        wikiFront = ""; wikiForms = ""; packFront = ""; packForms = ""; wikiExamples = []
         if (w === "" || lang !== "de")
             return
         if (sep !== "") {
@@ -234,6 +234,41 @@ Item {
 
     function isPicked(i) { return picked.indexOf(i) >= 0 }
 
+    // A verb with no sentence for its infinitive (separable verbs are mostly split: "Ich ziehe mich an"): sentences
+    // with its Partizip II instead ("Sie hat sich warm angezogen."), which also shows the Perfekt.
+    property string participleTried: ""
+    // Example sentences of the verb's own Wiktionary page: used when Tatoeba has none (they show the conjugated
+    // forms: "Ich ziehe mich an.")
+    property var wikiExamples: []
+    function useWikiExamples() {
+        if (examples.length > 0 || wikiExamples.length === 0 || examplesRequest >= 0 || examplesFor === "")
+            return false
+        examples = wikiExamples.map(t => ({ text: t, translation: "" }))
+        if (picked.length === 0 && autoPick && !deselected)
+            pickAll([0], false)
+        return true
+    }
+    function fallbackExamples() {
+        if (!useWikiExamples())
+            participleExamples()
+    }
+    readonly property string participleForm: {
+        const r = rows.find(x => x.kind === "participle")
+        if (!r)
+            return ""
+        const w = r.text.split(/\s*\/\s*/)[0].trim().split(/\s+/)
+        return w[w.length - 1] ?? ""
+    }
+    function participleExamples() {
+        const p = participleForm
+        if (p === "" || lang !== "de" || examples.length > 0 || examplesRequest >= 0 || participleTried === p
+                || !Translator.useOnline || examplesFor === "")
+            return
+        participleTried = p
+        console.log("LB-qml examples via participle:", p)
+        examplesRequest = Translator.suggestExamplesFor(p, lang, meaning)
+    }
+
     // Choose these sentences (ascending indices); byUser: ticked by hand, false: chosen automatically
     function pickAll(list, byUser) {
         const fresh = list.filter(i => picked.indexOf(i) < 0)
@@ -258,6 +293,7 @@ Item {
         if (!force && key === examplesFor)
             return
         examplesFor = key
+        participleTried = ""
         examples = []
         examplesRequest = -1
         picked = []
@@ -271,6 +307,7 @@ Item {
                  : senseFilter(WordPacks.examplesContaining(q, 3).map(e => ({ text: e.text, translation: persian ? e.translation : "" })))
         if (examples.length > 0 && autoPick)
             pickAll([0], false) // the first one is ticked to start with; tick more or untick it
+        console.log("LB-qml examples for:", q, "pack:", examples.length, "online:", Translator.useOnline, "active:", active)
         if (Translator.useOnline)
             examplesRequest = Translator.suggestExamplesFor(q, lang, meaning)
     }
@@ -330,8 +367,11 @@ Item {
             }
             root.wikiFront = grammar.front ?? ""
             root.wikiForms = grammar.forms ?? ""
+            root.wikiExamples = grammar.examples ?? []
             root.applyCapital()
             root.probeSense()
+            if (root.active)
+                root.fallbackExamples()
         }
         function onPageChecked(requestId, exists, error) {
             if (requestId !== root.pageRequest)
@@ -357,6 +397,8 @@ Item {
             root.examples = merged
             if (root.picked.length === 0 && root.autoPick && !root.deselected && merged.length > 0)
                 root.pickAll([0], false)
+            if (merged.length === 0 && root.active)
+                root.fallbackExamples()
         }
     }
 }
