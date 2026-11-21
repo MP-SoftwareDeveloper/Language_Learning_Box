@@ -1,0 +1,7 @@
+started Sat 11/21/2026  9:59:19.07 
+emulator already running 
+cmake ok 
+build ok 
+booted 
+installed 
+DONE result.png + log.txt 

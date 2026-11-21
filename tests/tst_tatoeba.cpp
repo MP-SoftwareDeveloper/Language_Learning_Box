@@ -43,6 +43,24 @@ private slots:
         QCOMPARE(tatoeba::searchWord(QStringLiteral("die Stadt"), QStringLiteral("sv")), QStringLiteral("die Stadt"));
     }
 
+    void variants()
+    {
+        const QStringList a = tatoeba::searchVariants(QStringLiteral("selbständig"));
+        QCOMPARE(a.value(0), QStringLiteral("selbständig"));
+        QCOMPARE(a.value(1), QStringLiteral("selbstständig"));          // reform spelling
+        QVERIFY(a.contains(QStringLiteral("selbständige")));            // inflected forms of an adjective
+        QVERIFY(a.contains(QStringLiteral("selbstständigen")));
+        QVERIFY(a.size() <= 10);
+        const QStringList b = tatoeba::searchVariants(QStringLiteral("heiß"));
+        QVERIFY(b.contains(QStringLiteral("heiss")));
+        const QStringList c = tatoeba::searchVariants(QStringLiteral("das Brot"));
+        QCOMPARE(c, QStringList{QStringLiteral("Brot")});               // noun: exact form only
+        QCOMPARE(tatoeba::searchVariants(QStringLiteral("gehen")), QStringList{QStringLiteral("gehen")}); // infinitive
+        QCOMPARE(tatoeba::searchVariants(QStringLiteral("to go"), QStringLiteral("en")), QStringList{QStringLiteral("go")});
+        QCOMPARE(tatoeba::searchVariants(QStringLiteral("Guten Morgen")), QStringList{QStringLiteral("Guten Morgen")});
+        // no duplicates
+        QCOMPARE(QSet<QString>(a.begin(), a.end()).size(), a.size());
+    }
     void parsesAndOrders()
     {
         const QByteArray json = R"({"data":[

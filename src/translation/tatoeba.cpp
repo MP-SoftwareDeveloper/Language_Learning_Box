@@ -35,6 +35,49 @@ QString searchWord(const QString &front, const QString &source)
     return w;
 }
 
+QStringList searchVariants(const QString &front, const QString &source, int max)
+{
+    const QString w = searchWord(front, source);
+    QStringList out;
+    auto add = [&out](const QString &v) {
+        if (!v.isEmpty() && !out.contains(v, Qt::CaseInsensitive))
+            out.append(v);
+    };
+    add(w);
+    if (source != QLatin1String("de") || w.isEmpty() || w.contains(u' '))
+        return out.mid(0, max);
+
+    // Other spelling (old / reform): the same word as Tatoeba's contributors may have typed it.
+    QStringList spellings{w};
+    auto addSpelling = [&](const QString &v) {
+        if (!spellings.contains(v, Qt::CaseInsensitive))
+            spellings.append(v);
+    };
+    if (w.contains(QChar(0x00DF)))
+        addSpelling(QString(w).replace(QChar(0x00DF), QStringLiteral("ss")));
+    else if (w.contains(QStringLiteral("ss"), Qt::CaseInsensitive))
+        addSpelling(QString(w).replace(QStringLiteral("ss"), QString(QChar(0x00DF))));
+    // selbständig <-> selbstständig (also selbständige, Selbständigkeit): the reform spelling keeps both t's
+    for (const QString &sp : QStringList(spellings)) {
+        if (sp.contains(QStringLiteral("selbstständig"), Qt::CaseInsensitive))
+            addSpelling(QString(sp).replace(QStringLiteral("selbstständig"), QStringLiteral("selbständig"), Qt::CaseInsensitive));
+        else if (sp.contains(QStringLiteral("selbständig"), Qt::CaseInsensitive))
+            addSpelling(QString(sp).replace(QStringLiteral("selbständig"), QStringLiteral("selbstständig"), Qt::CaseInsensitive));
+    }
+    for (const QString &sp : spellings)
+        add(sp);
+
+    // Adjective-like (lowercase, not an infinitive): the inflected forms that occur in sentences.
+    if (w.at(0).isLower() && !w.endsWith(QLatin1Char('n'))) {
+        static const QStringList endings{QStringLiteral("e"), QStringLiteral("en"), QStringLiteral("er"),
+                                         QStringLiteral("es"), QStringLiteral("em")};
+        for (const QString &e : endings)
+            for (const QString &sp : spellings)
+                add(sp + (sp.endsWith(QLatin1Char('e')) ? e.mid(1) : e));
+    }
+    return out.mid(0, max);
+}
+
 QUrl searchUrl(const QString &word, const QString &target, int limit, const QString &source)
 {
     QUrl url(QStringLiteral("https://api.tatoeba.org/v1/sentences"));

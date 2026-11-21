@@ -155,6 +155,20 @@ ColumnLayout {
         text: root.info && root.info.examplesRequest >= 0 && root.info.examples.length === 0
               ? qsTr("Finding example sentences…") : qsTr("Example sentences – tick one or more for the card")
     }
+    // The search for sentences finished and found none: say so, with the reason when it failed (no connection,
+    // Tatoeba refused or was too slow) - an empty list alone looks the same as "this word has no sentence"
+    Label {
+        textFormat: Text.PlainText
+        Layout.fillWidth: true
+        wrapMode: Text.WordWrap
+        visible: root.info !== null && root.info.examplesAsked && root.info.examples.length === 0
+                 && root.info.examplesRequest < 0
+        font.pixelSize: 12
+        opacity: 0.6
+        text: root.info && root.info.examplesError !== ""
+              ? qsTr("No example sentences – Tatoeba: %1").arg(root.info.examplesError)
+              : qsTr("No example sentences found for this word")
+    }
     Repeater {
         model: root.info ? root.info.examples : []
         delegate: RowLayout {

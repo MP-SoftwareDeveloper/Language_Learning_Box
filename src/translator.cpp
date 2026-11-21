@@ -490,15 +490,42 @@ int Translator::suggestExamplesFor(const QString &word, const QString &source, c
         });
         return id;
     }
+    // Tatoeba matches the exact word form only, so a miss tries the other spelling and the inflected forms in turn.
+    // Only the newest search keeps trying: the word changes while typing, and every old search would queue up
+    // requests nobody waits for (Tatoeba answers about one request every 3 seconds).
+    m_latestExampleId = id;
+    if (m_exampleReply)
+        m_exampleReply->abort(); // the older word is no longer wanted; free Tatoeba's one-request-at-a-time queue
+    tryExampleVariants(id, tatoeba::searchVariants(w, source), 0, source, target, QString());
+    return id;
+}
+
+void Translator::tryExampleVariants(int id, const QStringList &variants, int index, const QString &source,
+                                    const QString &target, const QString &lastError, bool retried)
+{
+    if (index >= variants.size()) {
+        emit examplesSuggested(id, {}, lastError);
+        return;
+    }
+    const QString w = variants.at(index);
     QNetworkRequest req(tatoeba::searchUrl(w, target, 10, source));
     req.setHeader(QNetworkRequest::UserAgentHeader, QStringLiteral("LearningBox (Qt)"));
+    req.setTransferTimeout(25000); // Tatoeba is slow on mobile data (about 3 s per request, queued): 8 s was too short
     QNetworkReply *reply = m_nam->get(req);
+    m_exampleReply = reply;
     connect(reply, &QNetworkReply::finished, this, [=, this] {
         reply->deleteLater();
+        if (reply->error() == QNetworkReply::OperationCanceledError && id != m_latestExampleId)
+            return; // aborted because a newer word was typed
+        if (reply->error() == QNetworkReply::TimeoutError && !retried && id == m_latestExampleId) { // slow: one more try
+            tryExampleVariants(id, variants, index, source, target, lastError, true);
+            return;
+        }
         QString error;
         QVariantList out;
         const QByteArray body = reply->readAll();
-        if (reply->error() != QNetworkReply::NoError && !body.trimmed().startsWith('{')) {
+        const bool networkFailure = reply->error() != QNetworkReply::NoError && !body.trimmed().startsWith('{');
+        if (networkFailure) {
             error = reply->errorString();
         } else {
             for (const tatoeba::Example &e : tatoeba::parse(body, w, target, 3, &error, source)) {
@@ -510,10 +537,13 @@ int Translator::suggestExamplesFor(const QString &word, const QString &source, c
         }
         if (!error.isEmpty())
             qWarning().noquote() << "Tatoeba:" << error;
-        qInfo().noquote() << "LB-examples" << w << "->" << out.size() << "sentences, error:" << error << "bytes:" << body.size();
-        emit examplesSuggested(id, out, error);
+        qInfo().noquote() << "LB-examples" << w << "->" << out.size() << "sentences, error:" << error
+                          << "bytes:" << body.size() << "variant" << index + 1 << "of" << variants.size();
+        if (!out.isEmpty() || networkFailure || id != m_latestExampleId) // found, network down, or a newer search exists
+            emit examplesSuggested(id, out, error);
+        else
+            tryExampleVariants(id, variants, index + 1, source, target, error);
     });
-    return id;
 }
 
 namespace {

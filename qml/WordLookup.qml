@@ -229,6 +229,8 @@ Item {
     property var picked: []             // indices of the sentences that go on the card (several allowed), [] = none
     property bool deselected: false
     property string examplesFor: ""
+    property bool examplesAsked: false  // an online search for sentences was started for this word
+    property string examplesError: ""   // why the last online search failed ("" = it worked or none yet)
     // The chosen sentences, one per line: the card keeps them all in its example field
     readonly property string chosen: picked.filter(i => i < examples.length).map(i => examples[i].text).join("\n")
 
@@ -294,6 +296,8 @@ Item {
             return
         examplesFor = key
         participleTried = ""
+        examplesAsked = false
+        examplesError = ""
         examples = []
         examplesRequest = -1
         picked = []
@@ -308,8 +312,10 @@ Item {
         if (examples.length > 0 && autoPick)
             pickAll([0], false) // the first one is ticked to start with; tick more or untick it
         console.log("LB-qml examples for:", q, "pack:", examples.length, "online:", Translator.useOnline, "active:", active)
-        if (Translator.useOnline)
+        if (Translator.useOnline) {
+            examplesAsked = true
             examplesRequest = Translator.suggestExamplesFor(q, lang, meaning)
+        }
     }
 
     // ---- when ----
@@ -385,10 +391,11 @@ Item {
             if (root.active)
                 root.findExamples(false)
         }
-        function onExamplesSuggested(requestId, list) {
+        function onExamplesSuggested(requestId, list, error) {
             if (requestId !== root.examplesRequest)
                 return
             root.examplesRequest = -1
+            root.examplesError = error ?? ""
             const merged = root.examples.slice()
             const seen = merged.map(e => e.text.toLowerCase())
             for (const e of root.senseFilter(list))

@@ -3,6 +3,7 @@
 #include <QByteArray>
 #include <QList>
 #include <QString>
+#include <QStringList>
 #include <QUrl>
 
 // Example sentences from Tatoeba (tatoeba.org, CC BY 2.0 FR): real German sentences that
@@ -26,6 +27,11 @@ QUrl searchUrl(const QString &word, const QString &target, int limit = 10, const
 
 // The word that is searched for: "das Brot" -> "Brot", English "to go" -> "go", Swedish "ett hus" -> "hus".
 QString searchWord(const QString &front, const QString &source = QStringLiteral("de"));
+
+// Words to try one after another when the exact form has no sentences (Tatoeba matches the exact form only):
+// the word itself first, then (German) the other spelling - ß <-> ss, old "selbständig" <-> reform "selbstständig" -
+// and, for a lowercase word (adjective), its inflected forms "-e / -en / -er / -es / -em". No duplicates, at most `max`.
+QStringList searchVariants(const QString &front, const QString &source = QStringLiteral("de"), int max = 10);
 
 // Parses the answer; keeps sentences that really contain the word (case-insensitive), up to
 // `max`, sentences with a translation first, no duplicates, max 12 words each.

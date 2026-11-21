@@ -4,6 +4,7 @@
 #include <functional>
 #include "translation/wiktionary.h"
 #include <QObject>
+#include <QPointer>
 #include <QSet>
 #include <QStringList>
 #include <QVariantList>
@@ -136,6 +137,10 @@ signals:
                     const QString &source, const QString &error);
 
 private:
+    QPointer<QNetworkReply> m_exampleReply; // the running Tatoeba request: aborted when a newer search starts
+    int m_latestExampleId = -1; // the newest example search: older ones stop trying more spellings
+    void tryExampleVariants(int id, const QStringList &variants, int index, const QString &source,
+                            const QString &target, const QString &lastError, bool retried = false);
     void fetchGrammar(const QString &word, bool followSingular, const QString &article,
                       std::function<void(const wiktionary::Grammar &, const QString &)> finished);
     // The Wiktionary page of a lowercase word read as a verb: Partizip II and auxiliary (invalid Grammar when it
