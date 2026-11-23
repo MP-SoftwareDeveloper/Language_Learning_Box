@@ -308,7 +308,7 @@ Item {
             return
         const persian = meaning === "fa"
         examples = lang !== "de" ? []
-                 : senseFilter(WordPacks.examplesContaining(q, 3).map(e => ({ text: e.text, translation: persian ? e.translation : "" })))
+                 : senseFilter(WordPacks.examplesContaining(q, 10).map(e => ({ text: e.text, translation: persian ? e.translation : "" })))
         if (examples.length > 0 && autoPick)
             pickAll([0], false) // the first one is ticked to start with; tick more or untick it
         console.log("LB-qml examples for:", q, "pack:", examples.length, "online:", Translator.useOnline, "active:", active)
@@ -399,7 +399,7 @@ Item {
             const merged = root.examples.slice()
             const seen = merged.map(e => e.text.toLowerCase())
             for (const e of root.senseFilter(list))
-                if (merged.length < 5 && seen.indexOf(e.text.toLowerCase()) < 0)
+                if (merged.length < 10 && seen.indexOf(e.text.toLowerCase()) < 0)
                     merged.push(e)
             root.examples = merged
             if (root.picked.length === 0 && root.autoPick && !root.deselected && merged.length > 0)

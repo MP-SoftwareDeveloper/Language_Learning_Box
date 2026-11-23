@@ -508,7 +508,7 @@ void Translator::tryExampleVariants(int id, const QStringList &variants, int ind
         return;
     }
     const QString w = variants.at(index);
-    QNetworkRequest req(tatoeba::searchUrl(w, target, 10, source));
+    QNetworkRequest req(tatoeba::searchUrl(w, target, 25, source));
     req.setHeader(QNetworkRequest::UserAgentHeader, QStringLiteral("LearningBox (Qt)"));
     req.setTransferTimeout(25000); // Tatoeba is slow on mobile data (about 3 s per request, queued): 8 s was too short
     QNetworkReply *reply = m_nam->get(req);
@@ -528,7 +528,7 @@ void Translator::tryExampleVariants(int id, const QStringList &variants, int ind
         if (networkFailure) {
             error = reply->errorString();
         } else {
-            for (const tatoeba::Example &e : tatoeba::parse(body, w, target, 3, &error, source)) {
+            for (const tatoeba::Example &e : tatoeba::parse(body, w, target, 10, &error, source)) {
                 if (!e.translation.isEmpty())
                     store(source, target, e.text, e.translation, {}); // offline later, and ExampleText finds it
                 out.append(QVariantMap{{QStringLiteral("text"), e.text},
